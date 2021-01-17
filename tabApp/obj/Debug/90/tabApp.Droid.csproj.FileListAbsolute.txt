@@ -395,3 +395,5 @@ C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\stamp\_ConvertResour
 C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\stamp\_GenerateJavaStubs.stamp
 C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\stamp\_GeneratePackageManagerJava.stamp
 C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\stamp\_ResolveLibraryProjectImports.stamp
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\layout\clientlistitem.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc649ba559e34155f93c\ClientViewHolder.java

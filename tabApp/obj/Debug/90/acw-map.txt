@@ -13,6 +13,9 @@ tabapp.ui.BaseFragment_1;crc642076a8bd1dc4bf73.BaseFragment_1
 tabApp.UI.HomeFragment, tabApp;tabApp.droid.Fragments.HomeFragment
 tabApp.UI.HomeFragment;tabApp.droid.Fragments.HomeFragment
 tabApp.droid.Fragments.HomeFragment;tabApp.droid.Fragments.HomeFragment
+tabApp.UI.ViewHolders.ClientViewHolder, tabApp;crc649ba559e34155f93c.ClientViewHolder
+tabApp.UI.ViewHolders.ClientViewHolder;crc649ba559e34155f93c.ClientViewHolder
+tabapp.ui.viewholders.ClientViewHolder;crc649ba559e34155f93c.ClientViewHolder
 tabApp.UI.Adapters.ClientsListAdapter, tabApp;crc646a4ad767a75a43be.ClientsListAdapter
 tabApp.UI.Adapters.ClientsListAdapter;crc646a4ad767a75a43be.ClientsListAdapter
 tabapp.ui.adapters.ClientsListAdapter;crc646a4ad767a75a43be.ClientsListAdapter

@@ -75,6 +75,7 @@
     <Compile Include="UI\Adapters\ClientsListAdapter.cs" />
     <Compile Include="UI\Bases\BaseFragment.cs" />
     <Compile Include="UI\Fragments\HomeFragment.cs" />
+    <Compile Include="UI\ViewHolders\ClientViewHolder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -155,6 +156,11 @@
       <Project>{e94bd8c0-e8f8-45bc-a4d9-56631bfd37ce}</Project>
       <Name>tabApp.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\ClientListItem.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

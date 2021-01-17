@@ -9,21 +9,23 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using tabApp.UI.ViewHolders;
 
 namespace tabApp.UI.Adapters
 {
     public class ClientsListAdapter : RecyclerView.Adapter
     {
-        public override int ItemCount => throw new NotImplementedException();
+        public override int ItemCount => 3;
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
-            throw new NotImplementedException();
+
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
-            throw new NotImplementedException();
+            View view = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.ClientListItem, parent, false);
+            return new ClientViewHolder(view);
         }
     }
 }

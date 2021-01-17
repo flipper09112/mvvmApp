@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using tabApp.Core;
 using tabApp.Core.ViewModels;
+using tabApp.UI.Adapters;
 
 namespace tabApp.UI
 {
@@ -21,6 +22,7 @@ namespace tabApp.UI
     {
         private RecyclerView _clientsList;
         private RecyclerView _ordersList;
+        private ClientsListAdapter _clientsAdapter;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -29,11 +31,16 @@ namespace tabApp.UI
             _clientsList = view.FindViewById<RecyclerView>(Resource.Id.clientsList);
             _ordersList = view.FindViewById<RecyclerView>(Resource.Id.ordersList);
 
+            _clientsAdapter = new ClientsListAdapter();
+            _clientsList.SetLayoutManager(new LinearLayoutManager(Context));
+            _clientsList.SetAdapter(_clientsAdapter);
+
             return view;
         }
 
         public override void SetUI()
         {
+
         }
     }
 }

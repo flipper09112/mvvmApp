@@ -6,6 +6,6 @@ namespace tabApp.Core.Models
 {
     public class Customer
     {
-        public string name { get; set; }
+        public string Name { get; }
     }
 }

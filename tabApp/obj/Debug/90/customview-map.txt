@@ -25,6 +25,8 @@ item;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\0\jl\res\val
 item;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\0\jl\res\values\mvxbindingattributes.xml
 item;obj\Debug\90\res\menu\menu_main.xml
 item;obj\Debug\90\res\values\styles.xml
+LinearLayout;obj\Debug\90\res\layout\activity_main.xml
+LinearLayout;obj\Debug\90\res\layout\clientlistitem.xml
 menu;obj\Debug\90\res\menu\menu_main.xml
 paths;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\44\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
 RelativeLayout;obj\Debug\90\res\layout\content_main.xml
@@ -41,4 +43,5 @@ resources;obj\Debug\90\res\values\styles.xml
 string;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\3\jl\res\values\strings.xml
 string;obj\Debug\90\res\values\strings.xml
 style;obj\Debug\90\res\values\styles.xml
+TextView;obj\Debug\90\res\layout\clientlistitem.xml
 View;obj\Debug\90\res\layout\homefragment.xml
