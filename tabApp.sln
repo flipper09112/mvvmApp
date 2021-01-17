@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tabApp.Droid", "tabApp\tabApp.Droid.csproj", "{475F71A6-232C-412A-908C-EEEF00C9A743}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tabApp.Core", "tabApp.Core\tabApp.Core.csproj", "{E94BD8C0-E8F8-45BC-A4D9-56631BFD37CE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{475F71A6-232C-412A-908C-EEEF00C9A743}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{475F71A6-232C-412A-908C-EEEF00C9A743}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{475F71A6-232C-412A-908C-EEEF00C9A743}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{475F71A6-232C-412A-908C-EEEF00C9A743}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{475F71A6-232C-412A-908C-EEEF00C9A743}.Release|Any CPU.Build.0 = Release|Any CPU
+		{475F71A6-232C-412A-908C-EEEF00C9A743}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{E94BD8C0-E8F8-45BC-A4D9-56631BFD37CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E94BD8C0-E8F8-45BC-A4D9-56631BFD37CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E94BD8C0-E8F8-45BC-A4D9-56631BFD37CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E94BD8C0-E8F8-45BC-A4D9-56631BFD37CE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CD3544B8-F7D9-4965-BEF8-C2B8FC20B2AF}
+	EndGlobalSection
+EndGlobal
