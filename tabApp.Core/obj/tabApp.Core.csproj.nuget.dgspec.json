@@ -44,6 +44,10 @@
         "netstandard2.0": {
           "targetAlias": "netstandard2.0",
           "dependencies": {
+            "FirebaseStorage.net": {
+              "target": "Package",
+              "version": "[1.0.3, )"
+            },
             "MvvmCross": {
               "target": "Package",
               "version": "[6.2.3, )"

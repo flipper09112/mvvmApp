@@ -10,6 +10,14 @@ namespace tabApp.Core.ViewModels
         protected BaseViewModel()
         {
         }
+
+        public abstract void Appearing();
+
+        public override void ViewAppeared()
+        {
+            base.ViewAppeared();
+            Appearing();
+        }
     }
 
     public abstract class BaseViewModel<TParameter, TResult> : MvxViewModel<TParameter, TResult>

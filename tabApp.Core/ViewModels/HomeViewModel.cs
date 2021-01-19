@@ -9,5 +9,9 @@ namespace tabApp.Core
     public class HomeViewModel : BaseViewModel
     {
         public string x = "ss";
+
+        public override void Appearing()
+        {
+        }
     }
 }
