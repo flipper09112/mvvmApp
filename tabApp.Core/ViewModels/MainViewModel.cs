@@ -5,20 +5,19 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using tabApp.Core.Services.Interfaces;
+using tabApp.Core.Services.Interfaces.DB;
 
 namespace tabApp.Core.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
         private readonly IMvxNavigationService _navigationService;
-        private readonly IGetFileService _getFileService;
-        private readonly IFileService _saveFileService;
+        private readonly IDBService _dbService;
 
-        public MainViewModel(IFileService saveFileService, IGetFileService getFileService, IMvxNavigationService navigationService)
+        public MainViewModel(IDBService dbService, IMvxNavigationService navigationService)
         {
             _navigationService = navigationService;
-            _saveFileService = saveFileService;
-            _getFileService = getFileService;
+            _dbService = dbService;
 
             ShowHomePage = new MvxAsyncCommand(async () => await _navigationService.Navigate<HomeViewModel>());
         }
@@ -27,10 +26,7 @@ namespace tabApp.Core.ViewModels
 
         public override async void AppearingAsync()
         {
-            if(!_saveFileService.HasFile("MeuArquivoXLS.xls"))
-            {
-                _saveFileService.SaveFile("MeuArquivoXLS.xls", await _getFileService.GetUrlDownload("MeuArquivoXLS.xls"));
-            }
+            await _dbService.StartAsync();
         }
     }
 }

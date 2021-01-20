@@ -15,11 +15,17 @@ namespace tabApp.Services
 {
     public class FileService : IFileService
     {
-        private string internalPath = (string) Android.App.Application.Context.FilesDir;
+        private File externalFileParent = Application.Context.GetExternalFilesDir(null);
+
+        public FileService()
+        {
+            if (!externalFileParent.Exists())
+                externalFileParent.Mkdir();
+        }
 
         public bool HasFile(string fileName)
         {
-            File file = new File(internalPath, fileName);
+            File file = new File(externalFileParent, fileName);
             if (file.Exists())
             {
                 return true;
@@ -30,16 +36,18 @@ namespace tabApp.Services
             }
         }
 
-        public File GetFile(string fileName)
+        public byte[] GetFile(string fileName)
         {
-            return new File(internalPath, fileName);
+            File f = new File(externalFileParent, fileName);
+
+            return System.IO.File.ReadAllBytes(f.Path);
         }
 
         public void SaveFile(string fileName, byte[] data)
         {
             try
             {
-                File f = new File(internalPath, fileName);
+                File f = new File(externalFileParent, fileName);
                 if (!f.Exists())
                     f.CreateNewFile();
                 FileOutputStream fos = new FileOutputStream(f);
