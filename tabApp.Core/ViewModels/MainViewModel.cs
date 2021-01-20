@@ -12,9 +12,9 @@ namespace tabApp.Core.ViewModels
     {
         private readonly IMvxNavigationService _navigationService;
         private readonly IGetFileService _getFileService;
-        private readonly ISaveFileService _saveFileService;
+        private readonly IFileService _saveFileService;
 
-        public MainViewModel(ISaveFileService saveFileService, IGetFileService getFileService, IMvxNavigationService navigationService)
+        public MainViewModel(IFileService saveFileService, IGetFileService getFileService, IMvxNavigationService navigationService)
         {
             _navigationService = navigationService;
             _saveFileService = saveFileService;

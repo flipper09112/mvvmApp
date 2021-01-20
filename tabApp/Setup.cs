@@ -44,7 +44,7 @@ namespace tabApp
         {
             base.InitializePlatformServices();
 
-            Mvx.LazyConstructAndRegisterSingleton<ISaveFileService, SaveFileService>();
+            Mvx.LazyConstructAndRegisterSingleton<IFileService, FileService>();
         }
 
         protected override IMvxAndroidViewPresenter CreateViewPresenter()
