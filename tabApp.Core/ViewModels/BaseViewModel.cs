@@ -11,12 +11,12 @@ namespace tabApp.Core.ViewModels
         {
         }
 
-        public abstract void Appearing();
+        public abstract void AppearingAsync();
 
         public override void ViewAppeared()
         {
             base.ViewAppeared();
-            Appearing();
+            AppearingAsync();
         }
     }
 

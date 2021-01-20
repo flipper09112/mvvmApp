@@ -4,6 +4,7 @@ using Android.Support.V4.Widget;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using MvvmCross;
 using MvvmCross.Binding.Bindings.Target.Construction;
 using MvvmCross.Droid.Support.V4;
 using MvvmCross.Droid.Support.V7.AppCompat;
@@ -12,6 +13,8 @@ using MvvmCross.Platforms.Android.Presenters;
 using System.Collections.Generic;
 using System.Reflection;
 using tabApp.Core;
+using tabApp.Core.Services.Interfaces;
+using tabApp.Services;
 
 namespace tabApp
 {
@@ -35,8 +38,13 @@ namespace tabApp
         {
             MvxAppCompatSetupHelper.FillTargetFactories(registry);
             base.FillTargetFactories(registry);
+        }
 
-            //registry.RegisterFactory(new MvxCustomBindingFactory<SwipeRefreshLayout>("IsRefreshing", (swipeRefreshLayout) => new SwipeRefreshLayoutIsRefreshingTargetBinding(swipeRefreshLayout)));
+        protected override void InitializePlatformServices()
+        {
+            base.InitializePlatformServices();
+
+            Mvx.LazyConstructAndRegisterSingleton<ISaveFileService, SaveFileService>();
         }
 
         protected override IMvxAndroidViewPresenter CreateViewPresenter()

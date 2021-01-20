@@ -10,7 +10,7 @@ namespace tabApp.Core
     {
         public string x = "ss";
 
-        public override void Appearing()
+        public override void AppearingAsync()
         {
         }
     }

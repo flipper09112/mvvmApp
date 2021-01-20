@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace tabApp.Core.Services.Interfaces
 {
     public interface IGetFileService
     {
-        void GetUrlDownload(string nameFile);
+        Task<byte[]> GetUrlDownload(string nameFile);
     }
 }

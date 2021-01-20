@@ -12,10 +12,12 @@ namespace tabApp.Core.ViewModels
     {
         private readonly IMvxNavigationService _navigationService;
         private readonly IGetFileService _getFileService;
+        private readonly ISaveFileService _saveFileService;
 
-        public MainViewModel(IGetFileService getFileService, IMvxNavigationService navigationService)
+        public MainViewModel(ISaveFileService saveFileService, IGetFileService getFileService, IMvxNavigationService navigationService)
         {
             _navigationService = navigationService;
+            _saveFileService = saveFileService;
             _getFileService = getFileService;
 
             ShowHomePage = new MvxAsyncCommand(async () => await _navigationService.Navigate<HomeViewModel>());
@@ -23,9 +25,12 @@ namespace tabApp.Core.ViewModels
 
         public MvxAsyncCommand ShowHomePage { get; private set; }
 
-        public override void Appearing()
+        public override async void AppearingAsync()
         {
-            _getFileService.GetUrlDownload("MeuArquivoXLS.xls");
+            if(!_saveFileService.HasFile("MeuArquivoXLS.xls"))
+            {
+                _saveFileService.SaveFile("MeuArquivoXLS.xls", await _getFileService.GetUrlDownload("MeuArquivoXLS.xls"));
+            }
         }
     }
 }

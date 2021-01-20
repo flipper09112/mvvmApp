@@ -71,6 +71,7 @@
     <Compile Include="MainApplication.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Implementations\SaveFileService.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="UI\Adapters\ClientsListAdapter.cs" />
     <Compile Include="UI\Bases\BaseFragment.cs" />
