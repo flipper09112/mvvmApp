@@ -16,8 +16,7 @@ using tabApp.UI.Adapters;
 
 namespace tabApp.UI
 {
-    [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.fragmentContainer, false)]
-    [Register("tabApp.droid.Fragments.HomeFragment")]
+    [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.fragmentContainer, true)]
     public class HomeFragment : BaseFragment<HomeViewModel>
     {
         private RecyclerView _clientsList;
@@ -31,7 +30,7 @@ namespace tabApp.UI
             _clientsList = view.FindViewById<RecyclerView>(Resource.Id.clientsList);
             _ordersList = view.FindViewById<RecyclerView>(Resource.Id.ordersList);
 
-            _clientsAdapter = new ClientsListAdapter();
+            _clientsAdapter = new ClientsListAdapter(ViewModel.ClientsList, ViewModel.ShowClientPage);
             _clientsList.SetLayoutManager(new LinearLayoutManager(Context));
             _clientsList.SetAdapter(_clientsAdapter);
 

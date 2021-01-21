@@ -1,7 +1,9 @@
 adaptive-icon;obj\Debug\90\res\mipmap-anydpi-v26\ic_launcher.xml
 adaptive-icon;obj\Debug\90\res\mipmap-anydpi-v26\ic_launcher_round.xml
+android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\clientlistitem.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\homefragment.xml
 android.support.design.widget.AppBarLayout;obj\Debug\90\res\layout\activity_main.xml
+android.support.v7.widget.CardView;obj\Debug\90\res\layout\clientlistitem.xml
 android.support.v7.widget.RecyclerView;obj\Debug\90\res\layout\homefragment.xml
 android.support.v7.widget.Toolbar;obj\Debug\90\res\layout\activity_main.xml
 attr;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\0\jl\res\values\mvxbindingattributes.xml
@@ -19,6 +21,7 @@ external-path;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\47\
 foreground;obj\Debug\90\res\mipmap-anydpi-v26\ic_launcher.xml
 foreground;obj\Debug\90\res\mipmap-anydpi-v26\ic_launcher_round.xml
 FrameLayout;obj\Debug\90\res\layout\content_main.xml
+ImageView;obj\Debug\90\res\layout\clientlistitem.xml
 include;obj\Debug\90\res\layout\activity_main.xml
 item;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\0\jl\res\values\ids.xml
 item;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\0\jl\res\values\mvxbindingattributes.xml
@@ -43,4 +46,5 @@ string;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\3\jl\res\v
 string;obj\Debug\90\res\values\strings.xml
 style;obj\Debug\90\res\values\styles.xml
 TextView;obj\Debug\90\res\layout\clientlistitem.xml
+View;obj\Debug\90\res\layout\clientlistitem.xml
 View;obj\Debug\90\res\layout\homefragment.xml

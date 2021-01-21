@@ -80,8 +80,6 @@ namespace tabApp.Core.Services.Implementations
                 address = new Address(addressDesc, door, coord);
                 paymentType = GetPaymentType(type);
 
-                System.Diagnostics.Debug.WriteLine(name);
-
                 clientsList.Add(new Client(id, name, subName, address, paymentDate, paymentType, active, extraValueToPay));
             }
 
@@ -94,13 +92,13 @@ namespace tabApp.Core.Services.Implementations
             if (type.Equals("D"))
                 return PaymentTypeEnum.Diario;
             if (type.Equals("S"))
-                return PaymentTypeEnum.Diario;
+                return PaymentTypeEnum.Semanal;
             if (type.Equals("M"))
-                return PaymentTypeEnum.Diario;
+                return PaymentTypeEnum.Mensal;
             if (type.Equals("JD"))
-                return PaymentTypeEnum.Diario;
+                return PaymentTypeEnum.JuntaDias;
             if (type.Equals("LS"))
-                return PaymentTypeEnum.Diario;
+                return PaymentTypeEnum.Loja;
 
             return PaymentTypeEnum.None;
         }

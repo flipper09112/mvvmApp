@@ -75,6 +75,7 @@
     <Compile Include="Setup.cs" />
     <Compile Include="UI\Adapters\ClientsListAdapter.cs" />
     <Compile Include="UI\Bases\BaseFragment.cs" />
+    <Compile Include="UI\Fragments\ClientPageFragment.cs" />
     <Compile Include="UI\Fragments\HomeFragment.cs" />
     <Compile Include="UI\ViewHolders\ClientViewHolder.cs" />
   </ItemGroup>
@@ -114,9 +115,7 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_foreground.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_round.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\drawable\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <PackageReference Include="Xamarin.Android.Support.Constraint.Layout">
       <Version>2.0.1</Version>
@@ -162,6 +161,9 @@
     <AndroidResource Include="Resources\layout\ClientListItem.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\profileIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

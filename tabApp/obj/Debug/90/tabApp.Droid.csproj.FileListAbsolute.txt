@@ -442,3 +442,6 @@ C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\assets\Syste
 C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\assets\System.Security.Principal.Windows.dll
 C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\assets\System.Security.dll
 C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\assets\System.Security.pdb
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\drawable\profileicon.png
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc642d73cef5109f53ec\ClientPageFragment.java
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc642076a8bd1dc4bf73\HomeFragment.java
