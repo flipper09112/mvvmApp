@@ -877,3 +877,4 @@ C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\stamp\_ConvertResourcesCas
 C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\stamp\_GenerateJavaStubs.stamp
 C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\stamp\_GeneratePackageManagerJava.stamp
 C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\stamp\_ResolveLibraryProjectImports.stamp
+C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\res\layout\clientpagefragment.xml

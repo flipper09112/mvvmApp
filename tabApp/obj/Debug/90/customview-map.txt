@@ -1,8 +1,12 @@
 adaptive-icon;obj\Debug\90\res\mipmap-anydpi-v26\ic_launcher.xml
 adaptive-icon;obj\Debug\90\res\mipmap-anydpi-v26\ic_launcher_round.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\clientlistitem.xml
+android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\clientpagefragment.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\homefragment.xml
 android.support.design.widget.AppBarLayout;obj\Debug\90\res\layout\activity_main.xml
+android.support.design.widget.TabItem;obj\Debug\90\res\layout\clientpagefragment.xml
+android.support.design.widget.TabLayout;obj\Debug\90\res\layout\clientpagefragment.xml
+android.support.v4.view.ViewPager;obj\Debug\90\res\layout\clientpagefragment.xml
 android.support.v7.widget.CardView;obj\Debug\90\res\layout\clientlistitem.xml
 android.support.v7.widget.RecyclerView;obj\Debug\90\res\layout\homefragment.xml
 android.support.v7.widget.Toolbar;obj\Debug\90\res\layout\activity_main.xml
@@ -10,6 +14,7 @@ attr;C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\lp\0\jl\res\values\mv
 attr;C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\lp\6\jl\res\values\mvxrecyclerviewbindingattributes.xml
 background;obj\Debug\90\res\mipmap-anydpi-v26\ic_launcher.xml
 background;obj\Debug\90\res\mipmap-anydpi-v26\ic_launcher_round.xml
+Button;obj\Debug\90\res\layout\clientpagefragment.xml
 cache-path;C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\lp\47\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
 color;obj\Debug\90\res\values\colors.xml
 color;obj\Debug\90\res\values\ic_launcher_background.xml
@@ -28,6 +33,7 @@ item;C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\lp\0\jl\res\values\mv
 item;obj\Debug\90\res\menu\menu_main.xml
 item;obj\Debug\90\res\values\styles.xml
 LinearLayout;obj\Debug\90\res\layout\activity_main.xml
+LinearLayout;obj\Debug\90\res\layout\clientpagefragment.xml
 menu;obj\Debug\90\res\menu\menu_main.xml
 paths;C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\lp\47\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
 RelativeLayout;obj\Debug\90\res\layout\content_main.xml
@@ -41,9 +47,14 @@ resources;obj\Debug\90\res\values\dimens.xml
 resources;obj\Debug\90\res\values\ic_launcher_background.xml
 resources;obj\Debug\90\res\values\strings.xml
 resources;obj\Debug\90\res\values\styles.xml
+Spinner;obj\Debug\90\res\layout\clientpagefragment.xml
 string;C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\lp\3\jl\res\values\strings.xml
 string;obj\Debug\90\res\values\strings.xml
 style;obj\Debug\90\res\values\styles.xml
+TableLayout;obj\Debug\90\res\layout\clientpagefragment.xml
+TableRow;obj\Debug\90\res\layout\clientpagefragment.xml
 TextView;obj\Debug\90\res\layout\clientlistitem.xml
+TextView;obj\Debug\90\res\layout\clientpagefragment.xml
 View;obj\Debug\90\res\layout\clientlistitem.xml
+View;obj\Debug\90\res\layout\clientpagefragment.xml
 View;obj\Debug\90\res\layout\homefragment.xml
