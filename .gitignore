@@ -1,7 +1,7 @@
 .vs/
-tabApp/bin/
-tabApp/obj/
-tabApp.Core/bin/
-tabApp.Core/obj/
-tabApp.Droid/bin/
-tabApp.Droid/obj/
+tabApp/bin/*
+tabApp/obj/*
+tabApp.Core/bin/*
+tabApp.Core/obj/*
+tabApp.Droid/bin/*
+tabApp.Droid/obj/*

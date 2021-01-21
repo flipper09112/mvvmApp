@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Utilizador\\source\\repos\\tabApp\\tabApp.Core\\tabApp.Core.csproj": {}
+    "C:\\Users\\Filipe\\Documents\\appmvvm\\tabApp.Core\\tabApp.Core.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Utilizador\\source\\repos\\tabApp\\tabApp.Core\\tabApp.Core.csproj": {
+    "C:\\Users\\Filipe\\Documents\\appmvvm\\tabApp.Core\\tabApp.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Utilizador\\source\\repos\\tabApp\\tabApp.Core\\tabApp.Core.csproj",
+        "projectUniqueName": "C:\\Users\\Filipe\\Documents\\appmvvm\\tabApp.Core\\tabApp.Core.csproj",
         "projectName": "tabApp.Core",
-        "projectPath": "C:\\Users\\Utilizador\\source\\repos\\tabApp\\tabApp.Core\\tabApp.Core.csproj",
-        "packagesPath": "C:\\Users\\Utilizador\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Utilizador\\source\\repos\\tabApp\\tabApp.Core\\obj\\",
+        "projectPath": "C:\\Users\\Filipe\\Documents\\appmvvm\\tabApp.Core\\tabApp.Core.csproj",
+        "packagesPath": "C:\\Users\\Filipe\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Filipe\\Documents\\appmvvm\\tabApp.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\Utilizador\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Filipe\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -30,7 +30,6 @@
         },
         "frameworks": {
           "netstandard2.0": {
-            "targetAlias": "netstandard2.0",
             "projectReferences": {}
           }
         },
@@ -42,7 +41,6 @@
       },
       "frameworks": {
         "netstandard2.0": {
-          "targetAlias": "netstandard2.0",
           "dependencies": {
             "Autofac": {
               "target": "Package",
@@ -85,7 +83,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
         }
       }
     }

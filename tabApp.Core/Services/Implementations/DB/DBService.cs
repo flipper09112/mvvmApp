@@ -1,6 +1,7 @@
 ﻿using Spire.Xls;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -73,7 +74,7 @@ namespace tabApp.Core.Services.Implementations
                 subName = sheet.Range[i, (int)ClientsListItemsPositions.SubName].Text;
                 addressDesc = sheet.Range[i, (int)ClientsListItemsPositions.AddressDesc].Text;
                 coord = sheet.Range[i, (int)ClientsListItemsPositions.Coordinates].Text;
-                paymentDate = DateTime.Parse(sheet.Range[i, (int)ClientsListItemsPositions.Payment].Text);
+                paymentDate = DateTime.ParseExact(sheet.Range[i, (int)ClientsListItemsPositions.Payment].Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                 type = sheet.Range[i, (int)ClientsListItemsPositions.PaymentType].Text;
                 active = sheet.Range[i, (int)ClientsListItemsPositions.Active].Text.Equals("1");
 
