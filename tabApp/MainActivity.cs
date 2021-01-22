@@ -58,5 +58,24 @@ namespace tabApp
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
-	}
+
+        public override void OnBackPressed()
+        {
+            if (SupportFragmentManager.BackStackEntryCount == 1)
+            {
+                //do nothing
+                return;
+            } 
+            base.OnBackPressed();
+        }
+
+        public void HideToolbar()
+        {
+            SupportActionBar.Hide();
+        }
+        public void ShowToolbar()
+        {
+            SupportActionBar.Show();
+        }
+    }
 }

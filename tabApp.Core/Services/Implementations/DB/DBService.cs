@@ -17,6 +17,7 @@ namespace tabApp.Core.Services.Implementations
     public class DBService : IDBService
     {
         private readonly string ClientsListFileName = "MeuArquivoXLS.xls";
+        private readonly string ProductsListFileName = "tabela_precos.xls";
 
         private readonly IGetFileService _getFileService;
         private readonly IFileService _fileService;
@@ -34,11 +35,45 @@ namespace tabApp.Core.Services.Implementations
             if (!_fileService.HasFile(ClientsListFileName))
             {
                 _fileService.SaveFile(ClientsListFileName, await _getFileService.GetUrlDownload(ClientsListFileName));
+                StartAsync();
+                return;
+            } else if(!_fileService.HasFile(ProductsListFileName))
+            {
+                _fileService.SaveFile(ProductsListFileName, await _getFileService.GetUrlDownload(ProductsListFileName));
+                StartAsync();
+                return;
             }
             else
             {
-                byte[] byteArray = _fileService.GetFile(ClientsListFileName);
-                ReadClientsList(byteArray);
+                byte[] byteArrayClients = _fileService.GetFile(ClientsListFileName);
+                ReadClientsList(byteArrayClients);
+                byte[] byteArrayProducts = _fileService.GetFile(ProductsListFileName);
+                ReadProductsList(byteArrayProducts);
+            }
+        }
+
+        private void ReadProductsList(byte[] byteArrayProducts)
+        {
+            MemoryStream ms = new MemoryStream(byteArrayProducts);
+
+            Workbook workbook = new Workbook();
+            workbook.LoadFromStream(ms);
+            Worksheet sheet = workbook.Worksheets[0];
+
+            #region private fields
+            List<Product> productsList = new List<Product>();
+            string name;
+            int id;
+            int imageReference;
+            bool unity;
+            ProductTypeEnum productType;
+            double pvp;
+            List<(int Id, double Value)> reSaleValues = new List<(int Id, double Value)>();
+            #endregion
+
+            for (int i = 2; i < sheet.Rows.Length; i++)
+            {
+                id = int.Parse(sheet.Range[i, (int)ProductsListItemsPositions.ID].Text);
             }
         }
 
@@ -50,6 +85,7 @@ namespace tabApp.Core.Services.Implementations
             workbook.LoadFromStream(ms);
             Worksheet sheet = workbook.Worksheets[0];
 
+            #region params inputs
             int id;
             string name;
             string subName;
@@ -63,8 +99,16 @@ namespace tabApp.Core.Services.Implementations
             bool active;
             double extraValueToPay;
             List<Client> clientsList = new List<Client>();
+            string segDesc;
+            string terDesc;
+            string quaDesc;
+            string quiDesc;
+            string sexDesc;
+            string sabDesc;
+            string domDesc;
+            #endregion
 
-            for(int i = 2; i < sheet.Rows.Length; i++)
+            for (int i = 2; i < sheet.Rows.Length; i++)
             {
                 
                 id = int.Parse(sheet.Range[i, (int)ClientsListItemsPositions.ID].Text);
@@ -77,6 +121,14 @@ namespace tabApp.Core.Services.Implementations
                 paymentDate = DateTime.ParseExact(sheet.Range[i, (int)ClientsListItemsPositions.Payment].Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                 type = sheet.Range[i, (int)ClientsListItemsPositions.PaymentType].Text;
                 active = sheet.Range[i, (int)ClientsListItemsPositions.Active].Text.Equals("1");
+
+                segDesc = sheet.Range[i, (int)ClientsListItemsPositions.SegDes].Text;
+                terDesc = sheet.Range[i, (int)ClientsListItemsPositions.TerDes].Text;
+                quaDesc = sheet.Range[i, (int)ClientsListItemsPositions.QuaDes].Text;
+                quiDesc = sheet.Range[i, (int)ClientsListItemsPositions.QuiDes].Text;
+                sexDesc = sheet.Range[i, (int)ClientsListItemsPositions.SexDes].Text;
+                sabDesc = sheet.Range[i, (int)ClientsListItemsPositions.SabDes].Text;
+                domDesc = sheet.Range[i, (int)ClientsListItemsPositions.DomDes].Text;
 
                 address = new Address(addressDesc, door, coord);
                 paymentType = GetPaymentType(type);

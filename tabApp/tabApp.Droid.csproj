@@ -73,6 +73,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Implementations\FileService.cs" />
     <Compile Include="Setup.cs" />
+    <Compile Include="UI\Adapters\ClientPageSpinnerAdapter.cs" />
+    <Compile Include="UI\Adapters\ViewPager\ClientPageViewPagerAdapter.cs" />
     <Compile Include="UI\Adapters\ClientsListAdapter.cs" />
     <Compile Include="UI\Bases\BaseFragment.cs" />
     <Compile Include="UI\Fragments\ClientPageFragment.cs" />
@@ -168,6 +170,21 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\profileIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\RecyclerViewLayout.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\SpinnerDateItem.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\CalendarLayout.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

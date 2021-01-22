@@ -12,12 +12,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using tabApp.Core.ViewModels;
+using tabApp.UI.Adapters;
 
 namespace tabApp.UI.Fragments
 {
-    [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.fragmentContainer, false)]
+    [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.fragmentContainer, true)]
     public class ClientPageFragment : BaseFragment<ClientPageViewModel>
     {
+        private MainActivity _activity;
+
+        #region Private Labels
         private TextView _clientName;
         private TextView _payDate;
         private Spinner _spinnerDates;
@@ -25,10 +29,31 @@ namespace tabApp.UI.Fragments
         private Button _payButton;
         private ViewPager _viewPager;
         private TabLayout _tabLayout;
+        private ClientPageViewPagerAdapter _viewPagerAdapter;
+        private TextView _segLabel;
+        private TextView _segValue;
+        private TextView _terLabel;
+        private TextView _terValue;
+        private TextView _quaLabel;
+        private TextView _quaValue;
+        private TextView _quiLabel;
+        private TextView _quiValue;
+        private TextView _sexLabel;
+        private TextView _sexValue;
+        private TextView _sabLabel;
+        private TextView _sabValue;
+        private TextView _domLabel;
+        private TextView _domValue;
+        private TextView _extLabel;
+        private TextView _extValue;
+        private ClientPageSpinnerAdapter _spinnerAdapter;
+        #endregion
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             View view = inflater.Inflate(Resource.Layout.ClientPageFragment, container, false);
+
+            _activity = ParentActivity as MainActivity;
 
             _clientName = view.FindViewById<TextView>(Resource.Id.clientName);
             _payDate = view.FindViewById<TextView>(Resource.Id.payDate);
@@ -38,12 +63,72 @@ namespace tabApp.UI.Fragments
             _viewPager = view.FindViewById<ViewPager>(Resource.Id.viewPager);
             _tabLayout = view.FindViewById<TabLayout>(Resource.Id.tabLayout);
 
+            _segLabel = view.FindViewById<TextView>(Resource.Id.segLabel);
+            _segValue = view.FindViewById<TextView>(Resource.Id.segValue);
+            _terLabel = view.FindViewById<TextView>(Resource.Id.terLabel);
+            _terValue = view.FindViewById<TextView>(Resource.Id.terValue);
+            _quaLabel = view.FindViewById<TextView>(Resource.Id.quaLabel);
+            _quaValue = view.FindViewById<TextView>(Resource.Id.quaValue);
+            _quiLabel = view.FindViewById<TextView>(Resource.Id.quiLabel);
+            _quiValue = view.FindViewById<TextView>(Resource.Id.quiValue);
+            _sexLabel = view.FindViewById<TextView>(Resource.Id.sexLabel);
+            _sexValue = view.FindViewById<TextView>(Resource.Id.sexValue);
+            _sabLabel = view.FindViewById<TextView>(Resource.Id.sabLabel);
+            _sabValue = view.FindViewById<TextView>(Resource.Id.sabValue);
+            _domLabel = view.FindViewById<TextView>(Resource.Id.domLabel);
+            _domValue = view.FindViewById<TextView>(Resource.Id.domValue);
+            _extLabel = view.FindViewById<TextView>(Resource.Id.extLabel);
+            _extValue = view.FindViewById<TextView>(Resource.Id.extValue);
+
+            _viewPager = view.FindViewById<ViewPager>(Resource.Id.viewPager);
+            _tabLayout = view.FindViewById<TabLayout>(Resource.Id.tabLayout);
+
+            _viewPagerAdapter = new ClientPageViewPagerAdapter(ViewModel.TabsOptions);
+            _viewPager.Adapter = _viewPagerAdapter;
+            _tabLayout.SetupWithViewPager(_viewPager, true);
+
+            _spinnerAdapter = new ClientPageSpinnerAdapter(ViewModel.SpinnerDates);
+            _spinnerDates.Adapter = _spinnerAdapter;
             return view;
         }
 
         public override void SetUI()
         {
+            _activity.HideToolbar();
+
             _clientName.Text = ViewModel.Client.Name;
+            _payDate.Text = ViewModel.PayDate;
+            _segLabel.Text = ViewModel.SegLabel;
+            _terLabel.Text = ViewModel.TerLabel;
+            _quaLabel.Text = ViewModel.QuaLabel;
+            _quiLabel.Text = ViewModel.QuiLabel;
+            _sexLabel.Text = ViewModel.SexLabel;
+            _sabLabel.Text = ViewModel.SabLabel;
+            _domLabel.Text = ViewModel.DomLabel;
+            _extLabel.Text = ViewModel.ExtLabel;
+            _ammountToPay.Text = ViewModel.AmmountToPay;
+            _payButton.Text = ViewModel.PayButtonText;
+
+            SetupTabLayout();
+        }
+
+        public override void OnPause()
+        {
+            base.OnPause();
+
+            _activity.ShowToolbar();
+        }
+
+        private void SetupTabLayout()
+        {
+            List<string> tabsNames = new List<string>();
+            _tabLayout.RemoveAllTabs();
+            foreach(var tab in ViewModel.TabsOptions)
+            {
+                _tabLayout.AddTab(_tabLayout.NewTab().SetText(tab.ToString()));
+                tabsNames.Add(tab.ToString());
+            }
+            _viewPagerAdapter.Title = tabsNames;
         }
     }
 }

@@ -15,6 +15,13 @@ namespace tabApp.Core.Enums
         PaymentType = 7,
         Extra = 15,
         Coordinates = 16,
-        Active = 17
+        Active = 17,
+        SegDes = 20,
+        TerDes = 21,
+        QuaDes = 22,
+        QuiDes = 23,
+        SexDes = 24,
+        SabDes = 25,
+        DomDes = 26
     }
 }

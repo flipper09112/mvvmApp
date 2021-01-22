@@ -386,7 +386,6 @@ C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\mvvmcros
 C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\mvvmcross\platforms\android\views\MvxSplashScreenActivity.java
 C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\mvvmcross\platforms\android\views\MvxTabsFragmentActivity.java
 C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\mvvmcross\platforms\android\views\MvxTabsFragmentActivity_TabFactory.java
-C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\tabApp\droid\Fragments\HomeFragment.java
 C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\xamarin\essentials\fileProvider.java
 C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\bin\packaged_resources
 C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\com\companyname\tabapp\R.java
@@ -878,3 +877,9 @@ C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\stamp\_GenerateJavaStubs.s
 C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\stamp\_GeneratePackageManagerJava.stamp
 C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\stamp\_ResolveLibraryProjectImports.stamp
 C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\res\layout\clientpagefragment.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\layout\clientpagefragment.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\layout\recyclerviewlayout.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc646a4ad767a75a43be\ClientPageViewPagerAdapter.java
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\layout\spinnerdateitem.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc646a4ad767a75a43be\ClientPageSpinnerAdapter.java
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\layout\calendarlayout.xml

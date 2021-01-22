@@ -3,7 +3,7 @@
   <PropertyGroup>
     <AndroidDesignerPreferredTheme>AppTheme</AndroidDesignerPreferredTheme>
     <AndroidDesignerPreferredDevice>10.1in WXGA %28Tablet%29</AndroidDesignerPreferredDevice>
-    <SelectedDevice>pixel_2_pie_9_0_-_api_28</SelectedDevice>
+    <SelectedDevice>Samsung SM-T510</SelectedDevice>
     <DefaultDevice>pixel_2_pie_9_0_-_api_28</DefaultDevice>
   </PropertyGroup>
 </Project>
