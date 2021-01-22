@@ -40,5 +40,10 @@ namespace tabApp.UI.Adapters
 
             return view;
         }
+
+        public override View GetDropDownView(int position, View convertView, ViewGroup parent)
+        {
+            return GetView(position, convertView, parent);
+        }
     }
 }

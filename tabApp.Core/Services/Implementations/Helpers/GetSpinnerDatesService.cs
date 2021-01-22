@@ -75,7 +75,7 @@ namespace tabApp.Core.Services.Implementations.Helpers
 
         private void DatesWeeklyPayment(List<DateTime> dateTimesList)
         {
-            DateTime dateTemp = DateTime.Today;
+            DateTime dateTemp = _client.PaymentDate;
             dateTemp.AddDays(1);
 
             bool antesQuarta = false;

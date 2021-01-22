@@ -24,7 +24,7 @@ namespace tabApp.Core.ViewModels
 
         public MvxAsyncCommand ShowHomePage { get; private set; }
 
-        public override async void AppearingAsync()
+        public override async void Appearing()
         {
             await _dbService.StartAsync();
         }

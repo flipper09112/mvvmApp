@@ -89,7 +89,24 @@ namespace tabApp.UI.Fragments
 
             _spinnerAdapter = new ClientPageSpinnerAdapter(ViewModel.SpinnerDates);
             _spinnerDates.Adapter = _spinnerAdapter;
+
+            _spinnerDates.ItemSelected -= SinnerDatesItemSelected;
+            _spinnerDates.ItemSelected += SinnerDatesItemSelected;
+
+            ViewModel.PropertyChanged -= ViewModelPropertyChanged;
+            ViewModel.PropertyChanged += ViewModelPropertyChanged;
+
             return view;
+        }
+
+        private void ViewModelPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            SetUI();
+        }
+
+        private void SinnerDatesItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            ViewModel.DateSelected = _spinnerAdapter[e.Position];
         }
 
         public override void SetUI()
@@ -106,6 +123,16 @@ namespace tabApp.UI.Fragments
             _sabLabel.Text = ViewModel.SabLabel;
             _domLabel.Text = ViewModel.DomLabel;
             _extLabel.Text = ViewModel.ExtLabel;
+
+            _segValue.Text = ViewModel.SegValue;
+            _terValue.Text = ViewModel.TerValue;
+            _quaValue.Text = ViewModel.QuaValue;
+            _quiValue.Text = ViewModel.QuiValue;
+            _sexValue.Text = ViewModel.SexValue;
+            _sabValue.Text = ViewModel.SabValue;
+            _domValue.Text = ViewModel.DomValue;
+            _extValue.Text = ViewModel.ExtValue;
+
             _ammountToPay.Text = ViewModel.AmmountToPay;
             _payButton.Text = ViewModel.PayButtonText;
 

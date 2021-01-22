@@ -1,6 +1,7 @@
 ﻿using Spire.Xls;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -11,6 +12,7 @@ using tabApp.Core.Models;
 using tabApp.Core.Services.Interfaces;
 using tabApp.Core.Services.Interfaces.Clients;
 using tabApp.Core.Services.Interfaces.DB;
+using tabApp.Core.Services.Interfaces.Products;
 
 namespace tabApp.Core.Services.Implementations
 {
@@ -24,7 +26,7 @@ namespace tabApp.Core.Services.Implementations
         private readonly IClientsManagerService _clientsManagerService;
         private readonly IProductsManagerService _productsManagerService;
 
-        public DBService(IProductsManagerService _productsManagerService, 
+        public DBService(IProductsManagerService productsManagerService, 
             IClientsManagerService clientsManagerService, 
             IFileService fileService, 
             IGetFileService getFileService)
@@ -32,6 +34,7 @@ namespace tabApp.Core.Services.Implementations
             _fileService = fileService;
             _getFileService = getFileService;
             _clientsManagerService = clientsManagerService;
+            _productsManagerService = productsManagerService;
         }
 
         public async Task StartAsync()
@@ -70,6 +73,7 @@ namespace tabApp.Core.Services.Implementations
             int id;
             string imageReference;
             bool unity;
+            bool idConverted;
             ProductTypeEnum productType;
             double pvp;
             List<(int Id, double Value)> reSaleValues = new List<(int Id, double Value)>();
@@ -77,12 +81,13 @@ namespace tabApp.Core.Services.Implementations
 
             for (int i = 2; i < sheet.Rows.Length; i++)
             {
-                id = int.Parse(sheet.Range[i, (int)ProductsListItemsPositions.ID].Text);
-                name = sheet.Range[i, (int)ProductsListItemsPositions.Name].Text;
-                imageReference = sheet.Range[i, (int)ProductsListItemsPositions.Ref].Text;
-                unity = sheet.Range[i, (int)ProductsListItemsPositions.Ref].Text.Equals("1");
-                productType = GetProductType(sheet.Range[i, (int)ProductsListItemsPositions.Type].Text);
-                pvp = double.Parse(sheet.Range[i, (int)ProductsListItemsPositions.PVP].Text);
+                idConverted = int.TryParse(sheet.Range[i, (int)ProductsListItemsPositions.ID].DisplayedText, out id);
+                if (!idConverted) break;
+                name = sheet.Range[i, (int)ProductsListItemsPositions.Name].DisplayedText;
+                imageReference = sheet.Range[i, (int)ProductsListItemsPositions.Ref].DisplayedText;
+                unity = sheet.Range[i, (int)ProductsListItemsPositions.Ref].DisplayedText.Equals("1");
+                productType = GetProductType(sheet.Range[i, (int)ProductsListItemsPositions.Type].DisplayedText);
+                pvp = double.Parse(sheet.Range[i, (int)ProductsListItemsPositions.PVP].DisplayedText);
 
                 productsList.Add(new Product(
                     name,
@@ -147,13 +152,14 @@ namespace tabApp.Core.Services.Implementations
             bool active;
             double extraValueToPay;
             List<Client> clientsList = new List<Client>();
-            string segDesc;
-            string terDesc;
-            string quaDesc;
-            string quiDesc;
-            string sexDesc;
-            string sabDesc;
-            string domDesc;
+            List<DailyOrder> dailyOrdersList = new List<DailyOrder>();
+            DailyOrder segDesc;
+            DailyOrder terDesc;
+            DailyOrder quaDesc;
+            DailyOrder quiDesc;
+            DailyOrder sexDesc;
+            DailyOrder sabDesc;
+            DailyOrder domDesc;
             #endregion
 
             for (int i = 2; i < sheet.Rows.Length; i++)
@@ -170,22 +176,52 @@ namespace tabApp.Core.Services.Implementations
                 type = sheet.Range[i, (int)ClientsListItemsPositions.PaymentType].Text;
                 active = sheet.Range[i, (int)ClientsListItemsPositions.Active].Text.Equals("1");
 
-                segDesc = sheet.Range[i, (int)ClientsListItemsPositions.SegDes].Text;
-                terDesc = sheet.Range[i, (int)ClientsListItemsPositions.TerDes].Text;
-                quaDesc = sheet.Range[i, (int)ClientsListItemsPositions.QuaDes].Text;
-                quiDesc = sheet.Range[i, (int)ClientsListItemsPositions.QuiDes].Text;
-                sexDesc = sheet.Range[i, (int)ClientsListItemsPositions.SexDes].Text;
-                sabDesc = sheet.Range[i, (int)ClientsListItemsPositions.SabDes].Text;
-                domDesc = sheet.Range[i, (int)ClientsListItemsPositions.DomDes].Text;
+                #region Daily Orders
+                segDesc = GetOrder(sheet.Range[i, (int)ClientsListItemsPositions.SegDes].Text, DayOfWeek.Monday);
+                terDesc = GetOrder(sheet.Range[i, (int)ClientsListItemsPositions.TerDes].Text, DayOfWeek.Tuesday);
+                quaDesc = GetOrder(sheet.Range[i, (int)ClientsListItemsPositions.QuaDes].Text, DayOfWeek.Wednesday);
+                quiDesc = GetOrder(sheet.Range[i, (int)ClientsListItemsPositions.QuiDes].Text, DayOfWeek.Thursday);
+                sexDesc = GetOrder(sheet.Range[i, (int)ClientsListItemsPositions.SexDes].Text, DayOfWeek.Friday);
+                sabDesc = GetOrder(sheet.Range[i, (int)ClientsListItemsPositions.SabDes].Text, DayOfWeek.Saturday);
+                domDesc = GetOrder(sheet.Range[i, (int)ClientsListItemsPositions.DomDes].Text, DayOfWeek.Sunday);
+
+                dailyOrdersList = new List<DailyOrder>();
+                dailyOrdersList.Add(segDesc);
+                dailyOrdersList.Add(terDesc);
+                dailyOrdersList.Add(quaDesc);
+                dailyOrdersList.Add(quiDesc);
+                dailyOrdersList.Add(sexDesc);
+                dailyOrdersList.Add(sabDesc);
+                dailyOrdersList.Add(domDesc);
+                #endregion
 
                 address = new Address(addressDesc, door, coord);
                 paymentType = GetPaymentType(type);
 
-                clientsList.Add(new Client(id, name, subName, address, paymentDate, paymentType, active, extraValueToPay));
+                clientsList.Add(new Client(id, name, subName, address, paymentDate, paymentType, active, extraValueToPay, dailyOrdersList));
+            }
+            _clientsManagerService.SetClients(clientsList);
+        }
+
+        private DailyOrder GetOrder(string orderDesc, DayOfWeek day)
+        {
+            List<(int ProductId, double Ammount)> allItems = new List<(int ProductId, double Ammount)>();
+
+            int produtoId;
+            double quantidade;
+
+            foreach (string array in orderDesc.Split(';'))
+            {
+                if (array.Equals("-") || array.Equals(""))
+                    break;
+
+                produtoId = int.Parse(array.Split('-')[0]);
+                quantidade = double.Parse(array.Split('-')[1]);
+
+                allItems.Add((produtoId, quantidade));
             }
 
-            _clientsManagerService.SetClients(clientsList);
-
+            return new DailyOrder(day, allItems);
         }
 
         private PaymentTypeEnum GetPaymentType(string type)

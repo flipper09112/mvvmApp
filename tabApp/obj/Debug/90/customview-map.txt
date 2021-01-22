@@ -27,7 +27,6 @@ external-cache-path;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\
 external-path;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\47\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
 foreground;obj\Debug\90\res\mipmap-anydpi-v26\ic_launcher.xml
 foreground;obj\Debug\90\res\mipmap-anydpi-v26\ic_launcher_round.xml
-fragment;obj\Debug\90\res\layout\content_main.xml
 FrameLayout;obj\Debug\90\res\layout\calendarlayout.xml
 FrameLayout;obj\Debug\90\res\layout\content_main.xml
 ImageView;obj\Debug\90\res\layout\clientlistitem.xml
@@ -38,8 +37,6 @@ item;obj\Debug\90\res\menu\menu_main.xml
 item;obj\Debug\90\res\values\styles.xml
 LinearLayout;obj\Debug\90\res\layout\activity_main.xml
 LinearLayout;obj\Debug\90\res\layout\calendarlayout.xml
-LinearLayout;obj\Debug\90\res\layout\recyclerviewlayout.xml
-LinearLayout;obj\Debug\90\res\layout\spinnerdateitem.xml
 menu;obj\Debug\90\res\menu\menu_main.xml
 paths;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\47\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
 RelativeLayout;obj\Debug\90\res\layout\content_main.xml

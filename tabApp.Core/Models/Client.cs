@@ -14,8 +14,20 @@ namespace tabApp.Core.Models
         public PaymentTypeEnum PaymentType { get; }
         public bool Active { get; }
         public double ExtraValueToPay { get; }
+        public List<DailyOrder> DailyOrders { get; }
 
-        public Client(int id, string name, string subName, Address address, DateTime paymentDate, PaymentTypeEnum paymentType, bool active, double extraValue)
+        //Indirects Params
+        #region PARAMS
+        public DailyOrder SegDailyOrder => DailyOrders[0];
+        public DailyOrder TerDailyOrder => DailyOrders[1];
+        public DailyOrder QuaDailyOrder => DailyOrders[2];
+        public DailyOrder QuiDailyOrder => DailyOrders[3];
+        public DailyOrder SexDailyOrder => DailyOrders[4];
+        public DailyOrder SabDailyOrder => DailyOrders[5];
+        public DailyOrder DomDailyOrder => DailyOrders[6];
+        #endregion
+
+        public Client(int id, string name, string subName, Address address, DateTime paymentDate, PaymentTypeEnum paymentType, bool active, double extraValue, List<DailyOrder> dailyOrders)
         {
             Id = id;
             Name = name;
@@ -25,6 +37,7 @@ namespace tabApp.Core.Models
             PaymentType = paymentType;
             Active = active;
             ExtraValueToPay = extraValue;
+            DailyOrders = dailyOrders;
         }
     }
 

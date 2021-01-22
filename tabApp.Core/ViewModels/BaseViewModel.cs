@@ -1,7 +1,9 @@
 ﻿using MvvmCross.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace tabApp.Core.ViewModels
 {
@@ -11,12 +13,14 @@ namespace tabApp.Core.ViewModels
         {
         }
 
-        public abstract void AppearingAsync();
+        public abstract void Appearing();
+
+        public EventHandler PropertyChange;
 
         public override void ViewAppeared()
         {
             base.ViewAppeared();
-            AppearingAsync();
+            Appearing();
         }
     }
 

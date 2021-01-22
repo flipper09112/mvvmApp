@@ -45,7 +45,7 @@ namespace tabApp.Core
             }
         }
 
-        public override void AppearingAsync()
+        public override void Appearing()
         {
         }
     }
