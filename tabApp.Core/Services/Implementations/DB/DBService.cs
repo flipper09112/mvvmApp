@@ -22,8 +22,12 @@ namespace tabApp.Core.Services.Implementations
         private readonly IGetFileService _getFileService;
         private readonly IFileService _fileService;
         private readonly IClientsManagerService _clientsManagerService;
+        private readonly IProductsManagerService _productsManagerService;
 
-        public DBService(IClientsManagerService clientsManagerService, IFileService fileService, IGetFileService getFileService)
+        public DBService(IProductsManagerService _productsManagerService, 
+            IClientsManagerService clientsManagerService, 
+            IFileService fileService, 
+            IGetFileService getFileService)
         {
             _fileService = fileService;
             _getFileService = getFileService;
@@ -64,7 +68,7 @@ namespace tabApp.Core.Services.Implementations
             List<Product> productsList = new List<Product>();
             string name;
             int id;
-            int imageReference;
+            string imageReference;
             bool unity;
             ProductTypeEnum productType;
             double pvp;
@@ -74,7 +78,51 @@ namespace tabApp.Core.Services.Implementations
             for (int i = 2; i < sheet.Rows.Length; i++)
             {
                 id = int.Parse(sheet.Range[i, (int)ProductsListItemsPositions.ID].Text);
+                name = sheet.Range[i, (int)ProductsListItemsPositions.Name].Text;
+                imageReference = sheet.Range[i, (int)ProductsListItemsPositions.Ref].Text;
+                unity = sheet.Range[i, (int)ProductsListItemsPositions.Ref].Text.Equals("1");
+                productType = GetProductType(sheet.Range[i, (int)ProductsListItemsPositions.Type].Text);
+                pvp = double.Parse(sheet.Range[i, (int)ProductsListItemsPositions.PVP].Text);
+
+                productsList.Add(new Product(
+                    name,
+                    id,
+                    imageReference,
+                    unity,
+                    productType,
+                    pvp
+                    ));
             }
+
+            _productsManagerService.SetProducts(productsList);
+        }
+
+        private ProductTypeEnum GetProductType(string text)
+        {
+            if (text.Equals("1"))
+                return ProductTypeEnum.Padaria;
+            if (text.Equals("2"))
+                return ProductTypeEnum.PastelariaIndividual;
+            if (text.Equals("3"))
+                return ProductTypeEnum.Outros;
+            if (text.Equals("4"))
+                return ProductTypeEnum.PastelariaIndividualSalgada;
+            if (text.Equals("5"))
+                return ProductTypeEnum.SemiFrioIndividual;
+            if (text.Equals("6"))
+                return ProductTypeEnum.SemiFrioFamiliar;
+            if (text.Equals("7"))
+                return ProductTypeEnum.BolosTradicionais;
+            if (text.Equals("8"))
+                return ProductTypeEnum.Sortido;
+            if (text.Equals("9"))
+                return ProductTypeEnum.Tartes;
+            if (text.Equals("10"))
+                return ProductTypeEnum.Tortas;
+            if (text.Equals("11"))
+                return ProductTypeEnum.BolosFestivos;
+
+            return ProductTypeEnum.None;
         }
 
         public void ReadClientsList(byte[] byteArray)
