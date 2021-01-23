@@ -10,7 +10,7 @@ namespace tabApp.Core.Models
         public string Name { get; }
         public string SubName { get; }
         public Address Address { get; }
-        public DateTime PaymentDate { get; }
+        public DateTime PaymentDate { get; private set; }
         public PaymentTypeEnum PaymentType { get; }
         public bool Active { get; }
         public double ExtraValueToPay { get; }
@@ -19,6 +19,7 @@ namespace tabApp.Core.Models
         //Indirects Params
         #region PARAMS
         public DailyOrder SegDailyOrder => DailyOrders[0];
+
         public DailyOrder TerDailyOrder => DailyOrders[1];
         public DailyOrder QuaDailyOrder => DailyOrders[2];
         public DailyOrder QuiDailyOrder => DailyOrders[3];
@@ -39,6 +40,13 @@ namespace tabApp.Core.Models
             ExtraValueToPay = extraValue;
             DailyOrders = dailyOrders;
         }
+
+        #region sets
+        internal void SetPaymentDate(DateTime dateSelected)
+        {
+            PaymentDate = dateSelected;
+        }
+        #endregion
     }
 
     public enum PaymentTypeEnum

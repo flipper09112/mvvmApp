@@ -27,6 +27,10 @@ namespace tabApp.UI.Fragments
         private Spinner _spinnerDates;
         private TextView _ammountToPay;
         private Button _payButton;
+        private Button _addExtraButton;
+        private Button _addOrderButton;
+        private Button _editButton;
+        private Button _optionsButton;
         private ViewPager _viewPager;
         private TabLayout _tabLayout;
         private ClientPageViewPagerAdapter _viewPagerAdapter;
@@ -60,6 +64,10 @@ namespace tabApp.UI.Fragments
             _spinnerDates = view.FindViewById<Spinner>(Resource.Id.spinnerDates);
             _ammountToPay = view.FindViewById<TextView>(Resource.Id.ammountToPay);
             _payButton = view.FindViewById<Button>(Resource.Id.payButton);
+            _addExtraButton = view.FindViewById<Button>(Resource.Id.addExtraButton);
+            _addOrderButton = view.FindViewById<Button>(Resource.Id.addOrderButton);
+            _editButton = view.FindViewById<Button>(Resource.Id.editButton);
+            _optionsButton = view.FindViewById<Button>(Resource.Id.optionsButton);
             _viewPager = view.FindViewById<ViewPager>(Resource.Id.viewPager);
             _tabLayout = view.FindViewById<TabLayout>(Resource.Id.tabLayout);
 
@@ -135,6 +143,10 @@ namespace tabApp.UI.Fragments
 
             _ammountToPay.Text = ViewModel.AmmountToPay;
             _payButton.Text = ViewModel.PayButtonText;
+            _addExtraButton.Text = ViewModel.AddExtraButtonText;
+            _addOrderButton.Text = ViewModel.AddOrderButtonText;
+            _editButton.Text = ViewModel.EditButtonText;
+            _optionsButton.Text = ViewModel.OptionsButtonText;
 
             SetupTabLayout();
         }

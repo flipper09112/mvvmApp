@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MvvmCross.Commands;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using tabApp.Core.Models;
@@ -16,6 +17,7 @@ namespace tabApp.Core.ViewModels
         private readonly IGetSpinnerDatesService _getSpinnerDatesService;
         private readonly IOrdersManagerService _ordersManagerService;
         private readonly IAmmountToPayService _ammountToPayService;
+        private readonly IClientsManagerService _clientsManagerService;
 
         private DateTime _dateSelected;
 
@@ -28,16 +30,24 @@ namespace tabApp.Core.ViewModels
         public string DomLabel { get; set; }
         public string SegLabel { get; set; }
         public string PayButtonText { get; set; }
+        public string AddExtraButtonText { get; set; }
+        public string AddOrderButtonText { get; set; }
+        public string EditButtonText { get; set; }
+        public string OptionsButtonText { get; set; }
+
+        public MvxCommand PayCommand;
 
         public ClientPageViewModel(IGetSpinnerDatesService getSpinnerDatesService, 
                                    IChooseClientService chooseClientService,
                                    IOrdersManagerService ordersManagerService,
-                                   IAmmountToPayService ammountToPayService)
+                                   IAmmountToPayService ammountToPayService,
+                                   IClientsManagerService clientsManagerService)
         {
             _chooseClientService = chooseClientService;
             _getSpinnerDatesService = getSpinnerDatesService;
             _ordersManagerService = ordersManagerService;
             _ammountToPayService = ammountToPayService;
+            _clientsManagerService = clientsManagerService;
 
             SegLabel = "Segunda";
             TerLabel = "Terça";
@@ -48,6 +58,12 @@ namespace tabApp.Core.ViewModels
             DomLabel = "Domingo";
             ExtLabel = "Extra";
             PayButtonText = "Pagamento";
+            AddExtraButtonText = "Extras";
+            AddOrderButtonText = "Encomendas";
+            EditButtonText = "Editar";
+            OptionsButtonText = "Outras Opções";
+
+            PayCommand = new MvxCommand(SetPayment);
         }
 
         public Client Client => _chooseClientService.ClientSelected;
@@ -85,6 +101,14 @@ namespace tabApp.Core.ViewModels
                 RaisePropertyChanged(nameof(DateSelected));
             }
         }
+
+
+        #region Actions
+        private void SetPayment()
+        {
+            _clientsManagerService.SetPayment(Client, DateSelected);
+        }
+        #endregion
 
         public override void Appearing()
         {
