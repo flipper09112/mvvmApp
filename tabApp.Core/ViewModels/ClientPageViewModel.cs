@@ -42,6 +42,7 @@ namespace tabApp.Core.ViewModels
         public string OptionsButtonText { get; set; }
 
         public MvxCommand PayCommand;
+        public MvxCommand AddExtraCommand;
 
         public ClientPageViewModel(IGetSpinnerDatesService getSpinnerDatesService, 
                                    IChooseClientService chooseClientService,
@@ -81,6 +82,7 @@ namespace tabApp.Core.ViewModels
             #endregion
 
             PayCommand = new MvxCommand(SetPayment, CanSetPayment);
+            AddExtraCommand = new MvxCommand(AddExtra);
         }
 
         public Client Client => _chooseClientService.ClientSelected;
@@ -123,6 +125,22 @@ namespace tabApp.Core.ViewModels
 
 
         #region Actions
+
+        private void AddExtra()
+        {
+            _dialogService.ShowInputDialog("Adicionar Extra", "Sim", AddExtraAction);
+        }
+
+        private void AddExtraAction(double extra)
+        {
+            IsBusy = true;
+            var regist = _clientsManagerService.AddExtra(Client, extra);
+            _dBService.SaveNewClientData(Client);
+            _dBService.SaveNewRegist(regist);
+            IsBusy = false;
+            RaisePropertyChanged(nameof(AddExtraAction));
+        }
+
         private void SetPayment()
         {
             _dialogService.ShowConfirmDialog("Confirmar Pagamento?", "Sim", ConfirmPayment);
@@ -133,10 +151,10 @@ namespace tabApp.Core.ViewModels
             return !(Client.PaymentDate.Date == DateSelected.Date && Client.ExtraValueToPay == 0);
         }
 
-        private void ConfirmPayment()
+        private void ConfirmPayment(bool payExtra)
         {
             IsBusy = true;
-            var regist = _clientsManagerService.SetPayment(Client, DateSelected);
+            var regist = _clientsManagerService.SetPayment(Client, DateSelected, payExtra);
             _dBService.SaveNewClientData(Client);
             _dBService.SaveNewRegist(regist);
             IsBusy = false;

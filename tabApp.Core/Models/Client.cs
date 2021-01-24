@@ -13,7 +13,7 @@ namespace tabApp.Core.Models
         public DateTime PaymentDate { get; private set; }
         public PaymentTypeEnum PaymentType { get; }
         public bool Active { get; }
-        public double ExtraValueToPay { get; }
+        public double ExtraValueToPay { get; private set; }
         public List<DailyOrder> DailyOrders { get; }
 
         //Extra Params
@@ -59,11 +59,18 @@ namespace tabApp.Core.Models
             ExtraOrdersList.Add(extraOrder);
             ExtraOrdersList.Sort((x, y) => DateTime.Compare(x.OrderDay, y.OrderDay));
         }
-        internal void SetPaymentDate(DateTime dateSelected)
+        internal void SetPaymentDate(DateTime dateSelected, bool payExtra)
         {
             PaymentDate = dateSelected;
+            if (payExtra)
+                ExtraValueToPay = 0;
         }
+
         #endregion
+        internal void AddExtra(double extra)
+        {
+            ExtraValueToPay += extra;
+        }
     }
 
     public enum PaymentTypeEnum
