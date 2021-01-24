@@ -161,6 +161,7 @@ namespace tabApp.UI.Fragments
             _payButton.Click -= PayButtonClick;
             ViewModel.PayCommand.CanExecuteChanged -= PayCommandCanExecuteChanged;
             _activity.ShowToolbar();
+            _addExtraButton.Click -= AddExtraButtonClick;
         }
 
         public override void SetupBindings()
@@ -169,9 +170,16 @@ namespace tabApp.UI.Fragments
             ViewModel.PropertyChanged += ViewModelPropertyChanged;
             _payButton.Click += PayButtonClick;
             ViewModel.PayCommand.CanExecuteChanged += PayCommandCanExecuteChanged;
+            _addExtraButton.Click += AddExtraButtonClick;
         }
 
+
         #region Events
+
+        private void AddExtraButtonClick(object sender, EventArgs e)
+        {
+            ViewModel.AddExtraCommand.Execute(null);
+        }
         private void ViewModelPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             SetUI();

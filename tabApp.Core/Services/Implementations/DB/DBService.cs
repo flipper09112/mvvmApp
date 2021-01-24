@@ -326,6 +326,14 @@ namespace tabApp.Core.Services.Implementations
             if (DetailTypeEnum.Payment.ToString().Equals(displayedText))
             {
                 return DetailTypeEnum.Payment;
+
+            } else if (DetailTypeEnum.AddExtra.ToString().Equals(displayedText))
+            {
+                return DetailTypeEnum.AddExtra;
+            }
+            else if (DetailTypeEnum.Order.ToString().Equals(displayedText))
+            {
+                return DetailTypeEnum.Order;
             }
             else
             {
@@ -454,7 +462,6 @@ namespace tabApp.Core.Services.Implementations
                     return "N";
             }
         }
-
         #endregion
     }
 }

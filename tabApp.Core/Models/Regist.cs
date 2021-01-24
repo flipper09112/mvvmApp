@@ -24,6 +24,7 @@ namespace tabApp.Core.Models
     {
         Payment,
         Order,
-        None
+        None,
+        AddExtra
     }
 }

@@ -6,6 +6,8 @@ namespace tabApp.Core.Services.Interfaces.Dialogs
 {
     public interface IDialogService
     {
-        void ShowConfirmDialog(string question, string confirmText, Action confirmAction);
+        void ShowConfirmDialog(string question, string confirmText, Action<bool> confirmAction);
+
+        void ShowInputDialog(string question, string confirmText, Action<double> confirmAction);
     }
 }

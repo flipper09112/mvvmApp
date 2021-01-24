@@ -33,7 +33,7 @@ namespace tabApp.Core.Services.Implementations.Clients
             client.SetNewRegist(detail);
         }
 
-        public Regist SetPayment(Client client, DateTime dateSelected)
+        public Regist SetPayment(Client client, DateTime dateSelected, bool payExtra)
         {
             var regist = new Regist(
                 DateTime.Today,
@@ -41,9 +41,22 @@ namespace tabApp.Core.Services.Implementations.Clients
                 client.Id,
                 DetailTypeEnum.Payment
                 );
-            client.SetPaymentDate(dateSelected);
+            client.SetPaymentDate(dateSelected, payExtra);
             client.SetNewRegist(regist);
 
+            return regist;
+        }
+
+        public Regist AddExtra(Client client, double extra)
+        {
+            var regist = new Regist(
+                   DateTime.Today,
+                   "Adicionado um extra de " + extra.ToString("C"),
+                   client.Id,
+                   DetailTypeEnum.AddExtra
+                   );
+            client.AddExtra(extra);
+            client.SetNewRegist(regist);
             return regist;
         }
     }
