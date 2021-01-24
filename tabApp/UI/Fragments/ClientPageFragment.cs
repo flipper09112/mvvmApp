@@ -59,6 +59,7 @@ namespace tabApp.UI.Fragments
 
             _activity = ParentActivity as MainActivity;
 
+            #region Setup Labels
             _clientName = view.FindViewById<TextView>(Resource.Id.clientName);
             _payDate = view.FindViewById<TextView>(Resource.Id.payDate);
             _spinnerDates = view.FindViewById<Spinner>(Resource.Id.spinnerDates);
@@ -90,6 +91,7 @@ namespace tabApp.UI.Fragments
 
             _viewPager = view.FindViewById<ViewPager>(Resource.Id.viewPager);
             _tabLayout = view.FindViewById<TabLayout>(Resource.Id.tabLayout);
+            #endregion
 
             _viewPagerAdapter = new ClientPageViewPagerAdapter(ViewModel.TabsOptions);
             _viewPager.Adapter = _viewPagerAdapter;
@@ -98,25 +100,10 @@ namespace tabApp.UI.Fragments
             _spinnerAdapter = new ClientPageSpinnerAdapter(ViewModel.SpinnerDates);
             _spinnerDates.Adapter = _spinnerAdapter;
 
-            _spinnerDates.ItemSelected -= SinnerDatesItemSelected;
-            _spinnerDates.ItemSelected += SinnerDatesItemSelected;
-
-            ViewModel.PropertyChanged -= ViewModelPropertyChanged;
-            ViewModel.PropertyChanged += ViewModelPropertyChanged;
-
             return view;
         }
 
-        private void ViewModelPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            SetUI();
-        }
-
-        private void SinnerDatesItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
-        {
-            ViewModel.DateSelected = _spinnerAdapter[e.Position];
-        }
-
+        #region UI
         public override void SetUI()
         {
             _activity.HideToolbar();
@@ -148,15 +135,11 @@ namespace tabApp.UI.Fragments
             _editButton.Text = ViewModel.EditButtonText;
             _optionsButton.Text = ViewModel.OptionsButtonText;
 
+            PayCommandCanExecuteChanged(null, null);
+
             SetupTabLayout();
         }
 
-        public override void OnPause()
-        {
-            base.OnPause();
-
-            _activity.ShowToolbar();
-        }
 
         private void SetupTabLayout()
         {
@@ -169,5 +152,46 @@ namespace tabApp.UI.Fragments
             }
             _viewPagerAdapter.Title = tabsNames;
         }
+        #endregion
+
+        public override void CleanBindings()
+        {
+            _spinnerDates.ItemSelected -= SinnerDatesItemSelected;
+            ViewModel.PropertyChanged -= ViewModelPropertyChanged;
+            _payButton.Click -= PayButtonClick;
+            ViewModel.PayCommand.CanExecuteChanged -= PayCommandCanExecuteChanged;
+            _activity.ShowToolbar();
+        }
+
+        public override void SetupBindings()
+        {
+            _spinnerDates.ItemSelected += SinnerDatesItemSelected;
+            ViewModel.PropertyChanged += ViewModelPropertyChanged;
+            _payButton.Click += PayButtonClick;
+            ViewModel.PayCommand.CanExecuteChanged += PayCommandCanExecuteChanged;
+        }
+
+        #region Events
+        private void ViewModelPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            SetUI();
+        }
+
+        private void SinnerDatesItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            ViewModel.DateSelected = _spinnerAdapter[e.Position];
+        }
+        private void PayButtonClick(object sender, EventArgs e)
+        {
+            ViewModel.PayCommand.Execute(null);
+        }
+        private void PayCommandCanExecuteChanged(object sender, EventArgs e)
+        {
+            if (ViewModel.PayCommand.CanExecute(null))
+                _payButton.Enabled = true;
+            else
+                _payButton.Enabled = false;
+        }
+        #endregion
     }
 }

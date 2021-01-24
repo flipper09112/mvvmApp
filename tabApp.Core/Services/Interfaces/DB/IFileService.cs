@@ -9,6 +9,6 @@ namespace tabApp.Core.Services.Interfaces
     {
         bool HasFile(string fileName);
         byte[] GetFile(string fileName);
-        void SaveFile(string fileName, byte[] data);
+        void SaveFile(string fileName, byte[] data, bool overwrite = false);
     }
 }

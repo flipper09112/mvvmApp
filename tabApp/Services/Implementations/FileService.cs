@@ -43,13 +43,19 @@ namespace tabApp.Services
             return System.IO.File.ReadAllBytes(f.Path);
         }
 
-        public void SaveFile(string fileName, byte[] data)
+        public void SaveFile(string fileName, byte[] data, bool overwrite = false)
         {
             try
             {
                 File f = new File(externalFileParent, fileName);
                 if (!f.Exists())
                     f.CreateNewFile();
+                else if (f.Exists() && overwrite)
+                {
+                    f.Delete();
+                    f.CreateNewFile();
+                }
+
                 FileOutputStream fos = new FileOutputStream(f);
                 fos.Write(data);
                 fos.Flush();

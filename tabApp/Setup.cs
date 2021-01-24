@@ -14,7 +14,9 @@ using System.Collections.Generic;
 using System.Reflection;
 using tabApp.Core;
 using tabApp.Core.Services.Interfaces;
+using tabApp.Core.Services.Interfaces.Dialogs;
 using tabApp.Services;
+using tabApp.Services.Implementations;
 
 namespace tabApp
 {
@@ -45,6 +47,7 @@ namespace tabApp
             base.InitializePlatformServices();
 
             Mvx.LazyConstructAndRegisterSingleton<IFileService, FileService>();
+            Mvx.LazyConstructAndRegisterSingleton<IDialogService, DialogService>();
         }
 
         protected override IMvxAndroidViewPresenter CreateViewPresenter()

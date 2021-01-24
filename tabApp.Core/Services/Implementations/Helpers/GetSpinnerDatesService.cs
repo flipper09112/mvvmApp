@@ -76,9 +76,15 @@ namespace tabApp.Core.Services.Implementations.Helpers
         private void DatesWeeklyPayment(List<DateTime> dateTimesList)
         {
             DateTime dateTemp = _client.PaymentDate;
-            dateTemp.AddDays(1);
 
             bool antesQuarta = false;
+
+            if(dateTemp >= DateTime.Today)
+            {
+                dateTimesList.Add(dateTemp);
+                return;
+            }
+
             if (DateTime.Today.DayOfWeek <= DayOfWeek.Wednesday && !(DateTime.Today.DayOfWeek == DayOfWeek.Sunday))
             {
                 antesQuarta = true;
@@ -92,7 +98,7 @@ namespace tabApp.Core.Services.Implementations.Helpers
                 }
             }
 
-            while ((dateTemp - DateTime.Today).TotalDays != 0)
+            while (dateTemp.Date < DateTime.Today.Date)
             {
                 if (dateTemp.DayOfWeek == DayOfWeek.Sunday)
                 {

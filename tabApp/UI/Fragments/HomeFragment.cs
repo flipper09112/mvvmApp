@@ -23,6 +23,7 @@ namespace tabApp.UI
         private RecyclerView _ordersList;
         private ClientsListAdapter _clientsAdapter;
 
+
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             View view = inflater.Inflate(Resource.Layout.HomeFragment, container, false);
@@ -30,16 +31,22 @@ namespace tabApp.UI
             _clientsList = view.FindViewById<RecyclerView>(Resource.Id.clientsList);
             _ordersList = view.FindViewById<RecyclerView>(Resource.Id.ordersList);
 
-            _clientsAdapter = new ClientsListAdapter(ViewModel.ClientsList, ViewModel.ShowClientPage);
             _clientsList.SetLayoutManager(new LinearLayoutManager(Context));
-            _clientsList.SetAdapter(_clientsAdapter);
 
             return view;
         }
 
         public override void SetUI()
         {
+            _clientsAdapter = new ClientsListAdapter(ViewModel.ClientsList, ViewModel.ShowClientPage); 
+            _clientsList.SetAdapter(_clientsAdapter);
+        }
 
+        public override void SetupBindings()
+        {
+        }
+        public override void CleanBindings()
+        {
         }
     }
 }

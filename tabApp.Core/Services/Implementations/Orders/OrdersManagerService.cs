@@ -24,6 +24,10 @@ namespace tabApp.Core.Services.Implementations.Orders
             foreach(var item in dailyOrder.AllItems)
             {
                 Product product = _productsManagerService.GetProductById(item.ProductId);
+
+                if (product == null)
+                    return -1;
+
                 ammount += item.Ammount * _productsManagerService.GetProductAmmount(clientId, product);
             }
 

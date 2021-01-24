@@ -30,14 +30,21 @@ namespace tabApp.UI.Adapters
         {
             View view;
 
-            if(position == 0)
+            if(tabsOptions[position] == TabsOptionsEnum.Mapa)
             {
                 view = GetMapView(container, position);
-            } else
+            } else if(tabsOptions[position] == TabsOptionsEnum.Registo)
             {
                 view = GetOtherView(container, position);
             }
-            
+            else if (tabsOptions[position] == TabsOptionsEnum.Encomendas)
+            {
+                view = GetOtherView(container, position);
+            }
+            else
+            {
+                view = null;
+            }
 
             container.AddView(view);
             return view;
@@ -66,7 +73,7 @@ namespace tabApp.UI.Adapters
             };*/
 
             var recycler = view.FindViewById<RecyclerView>(Resource.Id.recyclerView);
-            recycler.SetBackgroundResource(position == 0 ? Resource.Color.bg_JuntaDias : Resource.Color.bg_LojaSemana);
+            recycler.SetBackgroundResource(position == 1 ? Resource.Color.bg_JuntaDias : Resource.Color.bg_LojaSemana);
             /*var layoutManager = new LinearLayoutManager(context);
             recycler.SetLayoutManager(layoutManager);
             recycler.HasFixedSize = true;
@@ -77,6 +84,11 @@ namespace tabApp.UI.Adapters
             recycler.SetAdapter(adapter);*/
 
             return view;        
+        }
+        public override void DestroyItem(View container, int position, Java.Lang.Object view)
+        {
+            var viewPager = container.JavaCast<ViewPager>();
+            viewPager.RemoveView(view as View);
         }
 
         public override bool IsViewFromObject(View view, Java.Lang.Object @object)

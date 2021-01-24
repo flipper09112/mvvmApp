@@ -12,6 +12,7 @@ public abstract class BaseFragment
 		__md_methods = 
 			"n_onCreate:(Landroid/os/Bundle;)V:GetOnCreate_Landroid_os_Bundle_Handler\n" +
 			"n_onResume:()V:GetOnResumeHandler\n" +
+			"n_onPause:()V:GetOnPauseHandler\n" +
 			"n_onCreateView:(Landroid/view/LayoutInflater;Landroid/view/ViewGroup;Landroid/os/Bundle;)Landroid/view/View;:GetOnCreateView_Landroid_view_LayoutInflater_Landroid_view_ViewGroup_Landroid_os_Bundle_Handler\n" +
 			"";
 		mono.android.Runtime.register ("tabApp.UI.BaseFragment, tabApp", BaseFragment.class, __md_methods);
@@ -40,6 +41,14 @@ public abstract class BaseFragment
 	}
 
 	private native void n_onResume ();
+
+
+	public void onPause ()
+	{
+		n_onPause ();
+	}
+
+	private native void n_onPause ();
 
 
 	public android.view.View onCreateView (android.view.LayoutInflater p0, android.view.ViewGroup p1, android.os.Bundle p2)

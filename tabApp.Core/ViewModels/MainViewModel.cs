@@ -14,6 +14,8 @@ namespace tabApp.Core.ViewModels
         private readonly IMvxNavigationService _navigationService;
         private readonly IDBService _dbService;
 
+        public EventHandler UpdateUiHomePage;
+
         public MainViewModel(IDBService dbService, IMvxNavigationService navigationService)
         {
             _navigationService = navigationService;
@@ -26,7 +28,10 @@ namespace tabApp.Core.ViewModels
 
         public override async void Appearing()
         {
+            IsBusy = true;
             await _dbService.StartAsync();
+            UpdateUiHomePage?.Invoke(null, null);
+            IsBusy = false;
         }
     }
 }

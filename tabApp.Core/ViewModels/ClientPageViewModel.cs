@@ -1,10 +1,13 @@
 ﻿using MvvmCross.Commands;
+using MvvmCross.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using tabApp.Core.Models;
 using tabApp.Core.Services.Implementations.Clients;
 using tabApp.Core.Services.Interfaces.Clients;
+using tabApp.Core.Services.Interfaces.DB;
+using tabApp.Core.Services.Interfaces.Dialogs;
 using tabApp.Core.Services.Interfaces.Helpers;
 using tabApp.Core.Services.Interfaces.Orders;
 
@@ -18,6 +21,9 @@ namespace tabApp.Core.ViewModels
         private readonly IOrdersManagerService _ordersManagerService;
         private readonly IAmmountToPayService _ammountToPayService;
         private readonly IClientsManagerService _clientsManagerService;
+        private readonly IMvxNavigationService _navigationService;
+        private readonly IDBService _dBService;
+        private readonly IDialogService _dialogService;
 
         private DateTime _dateSelected;
 
@@ -41,14 +47,24 @@ namespace tabApp.Core.ViewModels
                                    IChooseClientService chooseClientService,
                                    IOrdersManagerService ordersManagerService,
                                    IAmmountToPayService ammountToPayService,
-                                   IClientsManagerService clientsManagerService)
+                                   IClientsManagerService clientsManagerService,
+                                   IMvxNavigationService navigationService,
+                                   IDBService dBService,
+                                   IDialogService dialogService)
         {
+
+            #region Services
             _chooseClientService = chooseClientService;
             _getSpinnerDatesService = getSpinnerDatesService;
             _ordersManagerService = ordersManagerService;
             _ammountToPayService = ammountToPayService;
             _clientsManagerService = clientsManagerService;
+            _navigationService = navigationService;
+            _dBService = dBService;
+            _dialogService = dialogService;
+            #endregion
 
+            #region Labels
             SegLabel = "Segunda";
             TerLabel = "Terça";
             QuaLabel = "Quarta";
@@ -62,8 +78,9 @@ namespace tabApp.Core.ViewModels
             AddOrderButtonText = "Encomendas";
             EditButtonText = "Editar";
             OptionsButtonText = "Outras Opções";
+            #endregion
 
-            PayCommand = new MvxCommand(SetPayment);
+            PayCommand = new MvxCommand(SetPayment, CanSetPayment);
         }
 
         public Client Client => _chooseClientService.ClientSelected;
@@ -85,6 +102,7 @@ namespace tabApp.Core.ViewModels
                 List<TabsOptionsEnum> tabs = new List<TabsOptionsEnum>();
                 tabs.Add(TabsOptionsEnum.Mapa);
                 tabs.Add(TabsOptionsEnum.Registo);
+                tabs.Add(TabsOptionsEnum.Encomendas);
                 return tabs;
             }
         }
@@ -98,6 +116,7 @@ namespace tabApp.Core.ViewModels
             set
             {
                 _dateSelected = value;
+                PayCommand.RaiseCanExecuteChanged();
                 RaisePropertyChanged(nameof(DateSelected));
             }
         }
@@ -106,7 +125,22 @@ namespace tabApp.Core.ViewModels
         #region Actions
         private void SetPayment()
         {
-            _clientsManagerService.SetPayment(Client, DateSelected);
+            _dialogService.ShowConfirmDialog("Confirmar Pagamento?", "Sim", ConfirmPayment);
+        }
+
+        private bool CanSetPayment()
+        {
+            return !(Client.PaymentDate.Date == DateSelected.Date && Client.ExtraValueToPay == 0);
+        }
+
+        private void ConfirmPayment()
+        {
+            IsBusy = true;
+            var regist = _clientsManagerService.SetPayment(Client, DateSelected);
+            _dBService.SaveNewClientData(Client);
+            _dBService.SaveNewRegist(regist);
+            IsBusy = false;
+            _navigationService.Close(this);
         }
         #endregion
 
@@ -119,6 +153,7 @@ namespace tabApp.Core.ViewModels
     public enum TabsOptionsEnum
     {
         Mapa,
-        Registo
+        Registo,
+        Encomendas
     }
 }

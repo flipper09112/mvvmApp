@@ -29,10 +29,15 @@ namespace tabApp.Core.Models
 
     public class ExtraOrder : Order
     {
+        public DetailTypeEnum DetailType = DetailTypeEnum.Order;
         public DateTime OrderDay { get; }
+        public int ClientId { get; }
+        public DateTime OrderRegistDay { get; }
 
-        public ExtraOrder(DateTime orderDay, List<(int ProductId, double Ammount)> allItems, bool isTotal) : base(allItems, isTotal)
+        public ExtraOrder(int clientId, DateTime orderRegistDay, DateTime orderDay, List<(int ProductId, double Ammount)> allItems, bool isTotal) : base(allItems, isTotal)
         {
+            ClientId = clientId;
+            OrderRegistDay = orderRegistDay;
             OrderDay = orderDay;
         }
     }

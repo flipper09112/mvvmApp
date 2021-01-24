@@ -15,7 +15,7 @@ namespace tabApp.Core.Models
         public List<(int Id, double Value)> ReSaleValues { get; }
 
         public Product(string name, int id, string imageReference, bool unity, 
-            ProductTypeEnum proguctType, double pVP/*, List<(int Id, double Value)> reSaleValues*/)
+            ProductTypeEnum proguctType, double pVP, List<(int Id, double Value)> reSaleValues)
         {
             Name = name;
             Id = id;
@@ -23,7 +23,7 @@ namespace tabApp.Core.Models
             Unity = unity;
             ProguctType = proguctType;
             PVP = pVP;
-            //ReSaleValues = reSaleValues;
+            ReSaleValues = reSaleValues;
         }
     }
 

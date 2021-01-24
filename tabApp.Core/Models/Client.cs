@@ -16,10 +16,13 @@ namespace tabApp.Core.Models
         public double ExtraValueToPay { get; }
         public List<DailyOrder> DailyOrders { get; }
 
+        //Extra Params
+        public List<Regist> DetailsList { get; private set; }
+        public List<ExtraOrder> ExtraOrdersList { get; private set; }
+
         //Indirects Params
         #region PARAMS
         public DailyOrder SegDailyOrder => DailyOrders[0];
-
         public DailyOrder TerDailyOrder => DailyOrders[1];
         public DailyOrder QuaDailyOrder => DailyOrders[2];
         public DailyOrder QuiDailyOrder => DailyOrders[3];
@@ -39,9 +42,23 @@ namespace tabApp.Core.Models
             Active = active;
             ExtraValueToPay = extraValue;
             DailyOrders = dailyOrders;
+
+            DetailsList = new List<Regist>();
+            ExtraOrdersList = new List<ExtraOrder>();
         }
 
         #region sets
+        internal void SetNewRegist(Regist detail)
+        {
+            DetailsList.Add(detail);
+            DetailsList.Sort((x, y) => DateTime.Compare(x.DetailRegistDay, y.DetailRegistDay));
+            DetailsList.Reverse();
+        }
+        internal void SetNewOrder(ExtraOrder extraOrder)
+        {
+            ExtraOrdersList.Add(extraOrder);
+            ExtraOrdersList.Sort((x, y) => DateTime.Compare(x.OrderDay, y.OrderDay));
+        }
         internal void SetPaymentDate(DateTime dateSelected)
         {
             PaymentDate = dateSelected;

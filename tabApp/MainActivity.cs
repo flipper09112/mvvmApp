@@ -20,6 +20,8 @@ namespace tabApp
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true, ScreenOrientation = Android.Content.PM.ScreenOrientation.Landscape)]
     public class MainActivity : MvxAppCompatActivity<MainViewModel>
     {
+        public ProgressBar _indeterminateBar;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -27,11 +29,44 @@ namespace tabApp
             SetContentView(Resource.Layout.activity_main);
 
             Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+            _indeterminateBar = FindViewById<ProgressBar>(Resource.Id.indeterminateBar);
             SetSupportActionBar(toolbar);
 
             if (savedInstanceState == null)
             {
                 ViewModel.ShowHomePage.Execute(null);
+            }
+
+            _indeterminateBar.Visibility = ViewModel.IsBusy ? ViewStates.Visible : ViewStates.Invisible;
+
+            ViewModel.PropertyChanged -= ViewModelPropertyChanged;
+            ViewModel.PropertyChanged += ViewModelPropertyChanged;
+
+            ViewModel.UpdateUiHomePage -= UpdateUiHomePage;
+            ViewModel.UpdateUiHomePage += UpdateUiHomePage;
+        }
+
+        private void ViewModelPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            ViewModelPropertyChanged(ViewModel.IsBusy, e);
+        }
+
+        private void UpdateUiHomePage(object sender, EventArgs e)
+        {
+            var frag = SupportFragmentManager.FindFragmentById(Resource.Id.fragmentContainer);
+            if (frag is HomeFragment)
+            {
+                ((HomeFragment)frag).SetUI();
+            }
+        }
+
+        public void ViewModelPropertyChanged(bool sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            switch(e.PropertyName)
+            {
+                case nameof(ViewModel.IsBusy):
+                    _indeterminateBar.Visibility = sender ? ViewStates.Visible : ViewStates.Invisible;
+                    break;
             }
         }
 

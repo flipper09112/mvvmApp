@@ -8,6 +8,9 @@ namespace tabApp.Core.Helpers
     {
         public static DateTime NextSunday(this DateTime from)
         {
+            if(from.DayOfWeek == DayOfWeek.Sunday)
+                return from;
+
             DateTime date = from;
             int start = (int)from.DayOfWeek;
             int target = (int)DayOfWeek.Sunday;

@@ -1,5 +1,6 @@
 adaptive-icon;obj\Debug\90\res\mipmap-anydpi-v26\ic_launcher.xml
 adaptive-icon;obj\Debug\90\res\mipmap-anydpi-v26\ic_launcher_round.xml
+android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\activity_main.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\clientlistitem.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\clientpagefragment.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\homefragment.xml
@@ -39,6 +40,7 @@ LinearLayout;obj\Debug\90\res\layout\activity_main.xml
 LinearLayout;obj\Debug\90\res\layout\calendarlayout.xml
 menu;obj\Debug\90\res\menu\menu_main.xml
 paths;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\47\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
+ProgressBar;obj\Debug\90\res\layout\activity_main.xml
 RelativeLayout;obj\Debug\90\res\layout\content_main.xml
 resources;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\0\jl\res\values\ids.xml
 resources;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\0\jl\res\values\mvxbindingattributes.xml

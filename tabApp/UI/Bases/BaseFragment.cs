@@ -12,11 +12,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using tabApp.Core.ViewModels;
 
 namespace tabApp.UI
 {
     public abstract class BaseFragment : MvxFragment
     {
+        private BaseViewModel Vm;
+
         public MvxAppCompatActivity ParentActivity
         {
             get
@@ -28,13 +31,39 @@ namespace tabApp.UI
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+
+            Vm = (BaseViewModel)ViewModel;
+
+            Vm.PropertyChanged -= VmPropertyChanged;
+            Vm.PropertyChanged += VmPropertyChanged;
+        }
+
+        private void VmPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            switch(e.PropertyName)
+            {
+                case "IsBusy":
+                    MainActivity mainActivity = ParentActivity as MainActivity;
+                    mainActivity.ViewModelPropertyChanged(Vm.IsBusy, e);
+                    break;
+            }
         }
 
         public override void OnResume()
         {
             base.OnResume();
             SetUI();
+            SetupBindings();
         }
+
+        public override void OnPause()
+        {
+            base.OnPause();
+            CleanBindings();
+        }
+
+        public abstract void CleanBindings();
+        public abstract void SetupBindings();
 
         public abstract override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
 
@@ -48,5 +77,6 @@ namespace tabApp.UI
             get { return (TViewModel)base.ViewModel; }
             set { base.ViewModel = value; }
         }
+
     }
 }
