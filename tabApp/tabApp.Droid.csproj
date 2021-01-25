@@ -76,12 +76,14 @@
     <Compile Include="Services\Implementations\FileService.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="UI\Adapters\ClientPageSpinnerAdapter.cs" />
+    <Compile Include="UI\Adapters\ViewPager\ClientPageDetailsAdapter.cs" />
     <Compile Include="UI\Adapters\ViewPager\ClientPageViewPagerAdapter.cs" />
     <Compile Include="UI\Adapters\ClientsListAdapter.cs" />
     <Compile Include="UI\Bases\BaseFragment.cs" />
     <Compile Include="UI\Fragments\ClientPageFragment.cs" />
     <Compile Include="UI\Fragments\HomeFragment.cs" />
     <Compile Include="UI\ViewHolders\ClientViewHolder.cs" />
+    <Compile Include="UI\ViewHolders\DetailViewHolder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -187,6 +189,30 @@
     <AndroidResource Include="Resources\layout\CalendarLayout.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\DetailItem.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\GreenCircle.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\EmptyListItems.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_no_results.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_payment.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_other_detail.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

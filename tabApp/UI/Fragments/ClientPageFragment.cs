@@ -93,7 +93,7 @@ namespace tabApp.UI.Fragments
             _tabLayout = view.FindViewById<TabLayout>(Resource.Id.tabLayout);
             #endregion
 
-            _viewPagerAdapter = new ClientPageViewPagerAdapter(ViewModel.TabsOptions);
+            _viewPagerAdapter = new ClientPageViewPagerAdapter(ViewModel.TabsOptions, ViewModel.Client);
             _viewPager.Adapter = _viewPagerAdapter;
             _tabLayout.SetupWithViewPager(_viewPager, true);
 

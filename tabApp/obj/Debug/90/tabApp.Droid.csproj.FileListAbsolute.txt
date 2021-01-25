@@ -884,3 +884,11 @@ C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\layout\spinnerda
 C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc646a4ad767a75a43be\ClientPageSpinnerAdapter.java
 C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\layout\calendarlayout.xml
 C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc6406d7350f96e66ef1\DecimalDigitsInputFilter.java
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\layout\detailitem.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\drawable\greencircle.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc64191e40d90cf9f557\ClientPageDetailsAdapter.java
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc649ba559e34155f93c\DetailViewHolder.java
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\layout\emptylistitems.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\drawable\ic_no_results.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\drawable\ic_payment.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\drawable\ic_other_detail.xml

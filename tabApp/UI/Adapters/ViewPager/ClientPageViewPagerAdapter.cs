@@ -10,43 +10,85 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using tabApp.Core.Models;
 using tabApp.Core.ViewModels;
+using tabApp.UI.Adapters.ViewPager;
 
 namespace tabApp.UI.Adapters
 {
     public class ClientPageViewPagerAdapter : PagerAdapter
     {
         private List<TabsOptionsEnum> tabsOptions;
+        private Client client;
+
         public override int Count => tabsOptions?.Count ?? 0;
 
         public List<string> Title { get; internal set; }
 
-        public ClientPageViewPagerAdapter(List<TabsOptionsEnum> tabsOptions)
+        public ClientPageViewPagerAdapter(List<TabsOptionsEnum> tabsOptions, Core.Models.Client client)
         {
             this.tabsOptions = tabsOptions;
+            this.client = client;
         }
 
         public override Java.Lang.Object InstantiateItem(ViewGroup container, int position)
         {
             View view;
 
-            if(tabsOptions[position] == TabsOptionsEnum.Mapa)
+            if (tabsOptions[position] == TabsOptionsEnum.Mapa)
             {
                 view = GetMapView(container, position);
-            } else if(tabsOptions[position] == TabsOptionsEnum.Registo)
+            }
+            else if (tabsOptions[position] == TabsOptionsEnum.Registo)
             {
-                view = GetOtherView(container, position);
+                view = GetDetailsView(container, position);
             }
             else if (tabsOptions[position] == TabsOptionsEnum.Encomendas)
             {
-                view = GetOtherView(container, position);
+                view = GetOrdersView(container, position);
             }
             else
             {
-                view = null;
+                view = GetOtherView(container, position);
             }
 
             container.AddView(view);
+            return view;
+        }
+
+        private View GetOrdersView(ViewGroup container, int position)
+        {
+            Android.Content.Context context = container.Context;
+            var inflater = LayoutInflater.From(context);
+            var view = inflater.Inflate(Resource.Layout.RecyclerViewLayout, container, false);
+
+            if (client.ExtraOrdersList.Count == 0)
+                return inflater.Inflate(Resource.Layout.EmptyListItems, container, false);
+
+            /*var adapter = new ClientPageDetailsAdapter(client.DetailsList);
+            var recycler = view.FindViewById<RecyclerView>(Resource.Id.recyclerView);
+            var layoutManager = new LinearLayoutManager(context);
+            recycler.SetLayoutManager(layoutManager);
+            recycler.SetAdapter(adapter);*/
+
+            return view;
+        }
+
+        private View GetDetailsView(ViewGroup container, int position)
+        {
+            Android.Content.Context context = container.Context;
+            var inflater = LayoutInflater.From(context);
+            var view = inflater.Inflate(Resource.Layout.RecyclerViewLayout, container, false);
+
+            if(client.DetailsList.Count == 0)
+                return inflater.Inflate(Resource.Layout.EmptyListItems, container, false);
+
+            var adapter = new ClientPageDetailsAdapter(client.DetailsList);
+            var recycler = view.FindViewById<RecyclerView>(Resource.Id.recyclerView);
+            var layoutManager = new LinearLayoutManager(context);
+            recycler.SetLayoutManager(layoutManager);
+            recycler.SetAdapter(adapter);
+
             return view;
         }
 
@@ -83,12 +125,12 @@ namespace tabApp.UI.Adapters
             }
             recycler.SetAdapter(adapter);*/
 
-            return view;        
+            return view;
         }
-        public override void DestroyItem(View container, int position, Java.Lang.Object view)
+        public override void DestroyItem(ViewGroup container, int position, Java.Lang.Object @object)
         {
-            var viewPager = container.JavaCast<ViewPager>();
-            viewPager.RemoveView(view as View);
+            Java.Lang.Object object1 = @object;
+            container.RemoveView((View)object1);
         }
 
         public override bool IsViewFromObject(View view, Java.Lang.Object @object)
