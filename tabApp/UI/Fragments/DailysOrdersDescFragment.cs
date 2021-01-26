@@ -26,6 +26,15 @@ namespace tabApp.UI.Fragments
         private RecyclerView _sexRecyclerView;
         private RecyclerView _sabRecyclerView;
         private RecyclerView _domRecyclerView;
+        private LinearLayout _segLayout;
+        private LinearLayout _terLayout;
+        private LinearLayout _quaLayout;
+        private LinearLayout _quiLayout;
+        private LinearLayout _sexLayout;
+        private LinearLayout _sabLayout;
+        private LinearLayout _domLayout;
+        private LinearLayout _mainLayout;
+        private HorizontalScrollView _horizontalScrollView;
         private DailyOrderDescAdapter _segAdapter;
         private DailyOrderDescAdapter _terAdapter;
         private DailyOrderDescAdapter _quaAdapter;
@@ -47,6 +56,17 @@ namespace tabApp.UI.Fragments
             _sexRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.sexRecyclerView);
             _sabRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.sabRecyclerView);
             _domRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.domRecyclerView);
+
+            _segLayout = view.FindViewById<LinearLayout>(Resource.Id.segLayout);
+            _terLayout = view.FindViewById<LinearLayout>(Resource.Id.terLayout);
+            _quaLayout = view.FindViewById<LinearLayout>(Resource.Id.quaLayout);
+            _quiLayout = view.FindViewById<LinearLayout>(Resource.Id.quiLayout);
+            _sexLayout = view.FindViewById<LinearLayout>(Resource.Id.sexLayout);
+            _sabLayout = view.FindViewById<LinearLayout>(Resource.Id.sabLayout);
+            _domLayout = view.FindViewById<LinearLayout>(Resource.Id.domLayout);
+
+            _mainLayout = view.FindViewById<LinearLayout>(Resource.Id.mainLayout);
+            _horizontalScrollView = view.FindViewById<HorizontalScrollView>(Resource.Id.horizontalScrollView);
 
             _segRecyclerView.SetLayoutManager(new LinearLayoutManager(Context));
             _terRecyclerView.SetLayoutManager(new LinearLayoutManager(Context));
@@ -75,6 +95,20 @@ namespace tabApp.UI.Fragments
             SetupSexList();
             SetupSabList();
             SetupDomList();
+
+            SetContainerLayout();
+            _horizontalScrollView.FullScroll(FocusSearchDirection.Right);
+        }
+
+        private void SetContainerLayout()
+        {
+            _segLayout.SetBackgroundResource(DateTime.Today.DayOfWeek == DayOfWeek.Monday ? Resource.Drawable.ContainerRetangle : Resource.Color.transparent);
+            _terLayout.SetBackgroundResource(DateTime.Today.DayOfWeek == DayOfWeek.Tuesday ? Resource.Drawable.ContainerRetangle : Resource.Color.transparent);
+            _quaLayout.SetBackgroundResource(DateTime.Today.DayOfWeek == DayOfWeek.Wednesday ? Resource.Drawable.ContainerRetangle : Resource.Color.transparent);
+            _quiLayout.SetBackgroundResource(DateTime.Today.DayOfWeek == DayOfWeek.Thursday ? Resource.Drawable.ContainerRetangle : Resource.Color.transparent);
+            _sexLayout.SetBackgroundResource(DateTime.Today.DayOfWeek == DayOfWeek.Friday ? Resource.Drawable.ContainerRetangle : Resource.Color.transparent);
+            _sabLayout.SetBackgroundResource(DateTime.Today.DayOfWeek == DayOfWeek.Saturday ? Resource.Drawable.ContainerRetangle : Resource.Color.transparent);
+            _domLayout.SetBackgroundResource(DateTime.Today.DayOfWeek == DayOfWeek.Sunday ? Resource.Drawable.ContainerRetangle : Resource.Color.transparent);
         }
 
         private void SetupSegList()
