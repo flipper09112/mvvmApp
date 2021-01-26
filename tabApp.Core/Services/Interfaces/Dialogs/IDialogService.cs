@@ -9,5 +9,6 @@ namespace tabApp.Core.Services.Interfaces.Dialogs
         void ShowConfirmDialog(string question, string confirmText, Action<bool> confirmAction);
 
         void ShowInputDialog(string question, string confirmText, Action<double> confirmAction);
+        void ShowDatePickerDialog(Action<DateTime> confirmAction);
     }
 }

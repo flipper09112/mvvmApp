@@ -20,17 +20,21 @@ namespace tabApp.Services.Implementations
 {
     public class DialogService : IDialogService
     {
+        private Action<DateTime> _confirmAction;
+
         public void ShowConfirmDialog(string question, string confirmText, Action<bool> confirmAction)
         {
             var top = Mvx.Resolve<IMvxAndroidCurrentTopActivity>();
             var act = top.Activity;
 
-            CheckBox checkBox = new CheckBox(act);
+            LayoutInflater inflater = act.LayoutInflater;
+            View dialogView = inflater.Inflate(Resource.Layout.PaymentDialog, null);
+            CheckBox checkBox = (CheckBox)dialogView.FindViewById(Resource.Id.extraCheckBox);
 
             Android.App.AlertDialog.Builder alert = new Android.App.AlertDialog.Builder(act);
             alert.SetTitle(question);
             alert.SetMessage("Remover extra?");
-            alert.SetView(checkBox);
+            alert.SetView(dialogView);
             alert.SetPositiveButton(confirmText, (senderAlert, args) =>
             {
                 confirmAction.Invoke(checkBox.Checked);
@@ -38,7 +42,24 @@ namespace tabApp.Services.Implementations
 
             Dialog dialog = alert.Create();
             dialog.Show();
+        }
 
+        public void ShowDatePickerDialog(Action<DateTime> confirmAction)
+        {
+            var top = Mvx.Resolve<IMvxAndroidCurrentTopActivity>();
+            var act = top.Activity;
+
+            _confirmAction = confirmAction;
+
+            DateTime today = DateTime.Today;
+            DatePickerDialog dialog = new DatePickerDialog(act, OnDateSet, today.Year, today.Month - 1, today.Day);
+            dialog.DatePicker.MinDate = today.Millisecond;
+            dialog.Show();
+        }
+
+        private void OnDateSet(object sender, DatePickerDialog.DateSetEventArgs e)
+        {
+            _confirmAction.Invoke(e.Date);
         }
 
         public void ShowInputDialog(string question, string confirmText, Action<double> confirmAction)

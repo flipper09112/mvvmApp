@@ -43,6 +43,8 @@ namespace tabApp.Core.ViewModels
 
         public MvxCommand PayCommand;
         public MvxCommand AddExtraCommand;
+        public MvxCommand AddOrderCommand;
+        public MvxCommand ShowDailyOrdersDetailsCommand;
 
         public ClientPageViewModel(IGetSpinnerDatesService getSpinnerDatesService, 
                                    IChooseClientService chooseClientService,
@@ -83,6 +85,8 @@ namespace tabApp.Core.ViewModels
 
             PayCommand = new MvxCommand(SetPayment, CanSetPayment);
             AddExtraCommand = new MvxCommand(AddExtra);
+            AddOrderCommand = new MvxCommand(AddOrder);
+            ShowDailyOrdersDetailsCommand = new MvxCommand(ShowDailyOrdersDetails);
         }
 
         public Client Client => _chooseClientService.ClientSelected;
@@ -126,6 +130,14 @@ namespace tabApp.Core.ViewModels
 
         #region Actions
 
+        private async void ShowDailyOrdersDetails()
+        {
+            await _navigationService.Navigate<DailysOrdersDescViewModel>();
+        }
+        private async void AddOrder()
+        {
+            await _navigationService.Navigate<ClientOrderViewModel>();
+        }
         private void AddExtra()
         {
             _dialogService.ShowInputDialog("Adicionar Extra", "Sim", AddExtraAction);

@@ -4,6 +4,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
 using Android.Support.V4.View;
+using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
@@ -33,6 +34,7 @@ namespace tabApp.UI.Fragments
         private Button _optionsButton;
         private ViewPager _viewPager;
         private TabLayout _tabLayout;
+        private CardView _cardView;
         private ClientPageViewPagerAdapter _viewPagerAdapter;
         private TextView _segLabel;
         private TextView _segValue;
@@ -91,6 +93,7 @@ namespace tabApp.UI.Fragments
 
             _viewPager = view.FindViewById<ViewPager>(Resource.Id.viewPager);
             _tabLayout = view.FindViewById<TabLayout>(Resource.Id.tabLayout);
+            _cardView = view.FindViewById<CardView>(Resource.Id.cardView);
             #endregion
 
             _viewPagerAdapter = new ClientPageViewPagerAdapter(ViewModel.TabsOptions, ViewModel.Client);
@@ -162,6 +165,8 @@ namespace tabApp.UI.Fragments
             ViewModel.PayCommand.CanExecuteChanged -= PayCommandCanExecuteChanged;
             _activity.ShowToolbar();
             _addExtraButton.Click -= AddExtraButtonClick;
+            _addOrderButton.Click -= AddOrderButtonClick;
+            _cardView.Click -= CardViewClick;
         }
 
         public override void SetupBindings()
@@ -171,11 +176,21 @@ namespace tabApp.UI.Fragments
             _payButton.Click += PayButtonClick;
             ViewModel.PayCommand.CanExecuteChanged += PayCommandCanExecuteChanged;
             _addExtraButton.Click += AddExtraButtonClick;
+            _addOrderButton.Click += AddOrderButtonClick;
+            _cardView.Click += CardViewClick;
         }
 
 
         #region Events
 
+        private void CardViewClick(object sender, EventArgs e)
+        {
+            ViewModel.ShowDailyOrdersDetailsCommand.Execute(null);
+        }
+        private void AddOrderButtonClick(object sender, EventArgs e)
+        {
+            ViewModel.AddOrderCommand.Execute(null);
+        }
         private void AddExtraButtonClick(object sender, EventArgs e)
         {
             ViewModel.AddExtraCommand.Execute(null);

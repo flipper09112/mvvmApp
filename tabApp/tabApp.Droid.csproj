@@ -76,13 +76,18 @@
     <Compile Include="Services\Implementations\FileService.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="UI\Adapters\ClientPageSpinnerAdapter.cs" />
+    <Compile Include="UI\Adapters\DailyOrderDescAdapter.cs" />
     <Compile Include="UI\Adapters\ViewPager\ClientPageDetailsAdapter.cs" />
     <Compile Include="UI\Adapters\ViewPager\ClientPageViewPagerAdapter.cs" />
     <Compile Include="UI\Adapters\ClientsListAdapter.cs" />
     <Compile Include="UI\Bases\BaseFragment.cs" />
+    <Compile Include="UI\Fragments\ClientOrderFragment.cs" />
     <Compile Include="UI\Fragments\ClientPageFragment.cs" />
+    <Compile Include="UI\Fragments\DailysOrdersDescFragment.cs" />
     <Compile Include="UI\Fragments\HomeFragment.cs" />
+    <Compile Include="UI\Fragments\OtherOptionsFragment.cs" />
     <Compile Include="UI\ViewHolders\ClientViewHolder.cs" />
+    <Compile Include="UI\ViewHolders\DailyOrderProductViewHolder.cs" />
     <Compile Include="UI\ViewHolders\DetailViewHolder.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -213,6 +218,44 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_other_detail.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\CardViewBg.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\PaymentDialog.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\ClientOrderFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_delivery.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\DailysOrdersDescFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\DailyOrderProductItem.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\OtherOptionsFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\OtherOptionItem.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

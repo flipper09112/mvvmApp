@@ -155,7 +155,7 @@ namespace tabApp.Core.Services.Implementations
                 if (!idConverted) break;
                 name = sheet.Range[i, (int)ProductsListItemsPositions.Name].DisplayedText;
                 imageReference = sheet.Range[i, (int)ProductsListItemsPositions.Ref].DisplayedText;
-                unity = sheet.Range[i, (int)ProductsListItemsPositions.Ref].DisplayedText.Equals("1");
+                unity = sheet.Range[i, (int)ProductsListItemsPositions.Unity].DisplayedText.Equals("1");
                 productType = GetProductType(sheet.Range[i, (int)ProductsListItemsPositions.Type].DisplayedText);
                 pvp = double.Parse(sheet.Range[i, (int)ProductsListItemsPositions.PVP].DisplayedText);
 

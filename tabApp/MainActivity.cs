@@ -17,7 +17,7 @@ using tabApp.UI;
 namespace tabApp
 {
     [MvxActivityPresentation]
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true, ScreenOrientation = Android.Content.PM.ScreenOrientation.Landscape)]
+    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true, ScreenOrientation = Android.Content.PM.ScreenOrientation.Landscape, TurnScreenOn = true)]
     public class MainActivity : MvxAppCompatActivity<MainViewModel>
     {
         public ProgressBar _indeterminateBar;
