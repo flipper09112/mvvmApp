@@ -167,6 +167,7 @@ namespace tabApp.UI.Fragments
             _addExtraButton.Click -= AddExtraButtonClick;
             _addOrderButton.Click -= AddOrderButtonClick;
             _cardView.Click -= CardViewClick;
+            _optionsButton.Click -= OptionsButtonClick;
         }
 
         public override void SetupBindings()
@@ -178,11 +179,15 @@ namespace tabApp.UI.Fragments
             _addExtraButton.Click += AddExtraButtonClick;
             _addOrderButton.Click += AddOrderButtonClick;
             _cardView.Click += CardViewClick;
+            _optionsButton.Click += OptionsButtonClick;
         }
-
 
         #region Events
 
+        private void OptionsButtonClick(object sender, EventArgs e)
+        {
+            ViewModel.ShowExtraOptionsCommand.Execute(null);
+        }
         private void CardViewClick(object sender, EventArgs e)
         {
             ViewModel.ShowDailyOrdersDetailsCommand.Execute(null);

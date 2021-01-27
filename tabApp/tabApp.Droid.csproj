@@ -66,6 +66,7 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\DecimalDigitsInputFilter.cs" />
     <Compile Include="Helpers\FragmentHelper.cs" />
     <Compile Include="MainActivity.cs" />
@@ -75,8 +76,10 @@
     <Compile Include="Services\Implementations\DialogService.cs" />
     <Compile Include="Services\Implementations\FileService.cs" />
     <Compile Include="Setup.cs" />
+    <Compile Include="UI\Adapters\ClientOrderAdapter.cs" />
     <Compile Include="UI\Adapters\ClientPageSpinnerAdapter.cs" />
     <Compile Include="UI\Adapters\DailyOrderDescAdapter.cs" />
+    <Compile Include="UI\Adapters\OtherOptionsGridAdapter.cs" />
     <Compile Include="UI\Adapters\ViewPager\ClientPageDetailsAdapter.cs" />
     <Compile Include="UI\Adapters\ViewPager\ClientPageViewPagerAdapter.cs" />
     <Compile Include="UI\Adapters\ClientsListAdapter.cs" />
@@ -89,6 +92,7 @@
     <Compile Include="UI\ViewHolders\ClientViewHolder.cs" />
     <Compile Include="UI\ViewHolders\DailyOrderProductViewHolder.cs" />
     <Compile Include="UI\ViewHolders\DetailViewHolder.cs" />
+    <Compile Include="UI\ViewHolders\EmptyListViewHolder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -261,6 +265,33 @@
     <AndroidResource Include="Resources\drawable\ContainerRetangle.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_printer.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_change.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\SideBar.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\menu\activity_main_drawer.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\nav_drawer_header_main.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_hamburger_menu.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

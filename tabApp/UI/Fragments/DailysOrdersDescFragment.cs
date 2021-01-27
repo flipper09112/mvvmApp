@@ -97,6 +97,12 @@ namespace tabApp.UI.Fragments
             SetupDomList();
 
             SetContainerLayout();
+            if(DateTime.Today.DayOfWeek >= DayOfWeek.Friday)
+                _horizontalScrollView.PostDelayed(ScrollHorizontalView, 0);
+        }
+
+        private void ScrollHorizontalView()
+        {
             _horizontalScrollView.FullScroll(FocusSearchDirection.Right);
         }
 

@@ -39,6 +39,7 @@
                 android:id="@+id/segLayout"
                 android:layout_width="300dp"
                 android:layout_height="match_parent"
+                android:layout_margin="10dp"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="300dp"
@@ -56,6 +57,7 @@
             <LinearLayout
                 android:id="@+id/terLayout"
                 android:layout_width="300dp"
+                android:layout_margin="10dp"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
                 <TextView
@@ -74,6 +76,7 @@
             <LinearLayout
                 android:id="@+id/quaLayout"
                 android:layout_width="300dp"
+                android:layout_margin="10dp"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
                 <TextView
@@ -92,6 +95,7 @@
             <LinearLayout
                 android:id="@+id/quiLayout"
                 android:layout_width="300dp"
+                android:layout_margin="10dp"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
                 <TextView
@@ -110,6 +114,7 @@
             <LinearLayout
                 android:id="@+id/sexLayout"
                 android:layout_width="300dp"
+                android:layout_margin="10dp"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
                 <TextView
@@ -128,6 +133,7 @@
             <LinearLayout
                 android:id="@+id/sabLayout"
                 android:layout_width="300dp"
+                android:layout_margin="10dp"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
                 <TextView
@@ -146,6 +152,7 @@
             <LinearLayout
                 android:id="@+id/domLayout"
                 android:layout_width="300dp"
+                android:layout_margin="10dp"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
                 <TextView

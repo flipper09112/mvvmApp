@@ -1,4 +1,5 @@
 ﻿using MvvmCross.Commands;
+using MvvmCross.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,25 +13,31 @@ namespace tabApp.Core.ViewModels
     {
         private readonly IChooseClientService _chooseClientService;
         private readonly IDialogService _dialogService;
+        private readonly IMvxNavigationService _navigationService;
 
         private DateTime _dateTime;
         private bool? _isTotal;
+        private List<Product> _orderProducts = new List<Product>();
         public MvxCommand SelectDateCommand { get; set; }
+        public MvxCommand AddProductCommand { get; set; }
         public MvxCommand SaveNewOrderCommand { get; set; }
 
         public ClientOrderViewModel(IChooseClientService chooseClientService,
-                                    IDialogService dialogService)
+                                    IDialogService dialogService,
+                                    IMvxNavigationService navigationService)
         {
             _chooseClientService = chooseClientService;
             _dialogService = dialogService;
+            _navigationService = navigationService;
 
             SelectDateCommand = new MvxCommand(SelectDate);
             SaveNewOrderCommand = new MvxCommand(SaveNewOrder, CanSaveNewOrder);
+            AddProductCommand = new MvxCommand(AddProduct);
         }
 
         private bool CanSaveNewOrder()
         {
-            return DateSelected.Date > DateTime.Today && _isTotal != null;
+            return DateSelected.Date > DateTime.Today && _isTotal != null && OrderProducts.Count > 0;
         }
 
         private void SaveNewOrder()
@@ -61,6 +68,13 @@ namespace tabApp.Core.ViewModels
                 RaisePropertyChanged(nameof(IsTotal));
             }
         }
+        public List<Product> OrderProducts
+        {
+            get
+            {
+                return _orderProducts;
+            }
+        }
 
         public DateTime DateSelected
         {
@@ -75,7 +89,10 @@ namespace tabApp.Core.ViewModels
                 RaisePropertyChanged(nameof(DateSelected));
             }
         }
-
+        private async void AddProduct()
+        {
+            await _navigationService.Navigate<ChooseProductViewModel>();
+        }
 
         public override void Appearing()
         {

@@ -45,6 +45,7 @@ namespace tabApp.Core.ViewModels
         public MvxCommand AddExtraCommand;
         public MvxCommand AddOrderCommand;
         public MvxCommand ShowDailyOrdersDetailsCommand;
+        public MvxCommand ShowExtraOptionsCommand;
 
         public ClientPageViewModel(IGetSpinnerDatesService getSpinnerDatesService, 
                                    IChooseClientService chooseClientService,
@@ -87,6 +88,7 @@ namespace tabApp.Core.ViewModels
             AddExtraCommand = new MvxCommand(AddExtra);
             AddOrderCommand = new MvxCommand(AddOrder);
             ShowDailyOrdersDetailsCommand = new MvxCommand(ShowDailyOrdersDetails);
+            ShowExtraOptionsCommand = new MvxCommand(ShowExtraOptions);
         }
 
         public Client Client => _chooseClientService.ClientSelected;
@@ -130,6 +132,10 @@ namespace tabApp.Core.ViewModels
 
         #region Actions
 
+        private async void ShowExtraOptions()
+        {
+            await _navigationService.Navigate<OtherOptionsViewModel>();
+        }
         private async void ShowDailyOrdersDetails()
         {
             await _navigationService.Navigate<DailysOrdersDescViewModel>();

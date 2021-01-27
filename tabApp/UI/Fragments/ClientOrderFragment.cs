@@ -2,6 +2,7 @@
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
@@ -10,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using tabApp.Core.ViewModels;
+using tabApp.UI.Adapters;
 
 namespace tabApp.UI.Fragments
 {
@@ -23,6 +25,9 @@ namespace tabApp.UI.Fragments
         private TextView _nome;
         private RadioButton _r_total;
         private RadioButton _r_parcial;
+        private Button _addProduct;
+        private RecyclerView _recyclerView;
+        private ClientOrderAdapter _adapter;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -36,6 +41,10 @@ namespace tabApp.UI.Fragments
             _nome = view.FindViewById<TextView>(Resource.Id.nome);
             _r_total = view.FindViewById<RadioButton>(Resource.Id.r_total);
             _r_parcial = view.FindViewById<RadioButton>(Resource.Id.r_parcial);
+            _addProduct = view.FindViewById<Button>(Resource.Id.addProduct);
+            _recyclerView = view.FindViewById<RecyclerView>(Resource.Id.recyclerView);
+
+            _recyclerView.SetLayoutManager(new LinearLayoutManager(Context));
 
             return view;
         }
@@ -47,6 +56,7 @@ namespace tabApp.UI.Fragments
             ViewModel.SaveNewOrderCommand.CanExecuteChanged -= SaveNewOrderCommandCanExecuteChanged;
             _r_total.Click -= RtotalClick;
             _r_parcial.Click -= RparcialClick;
+            _addProduct.Click -= AddProductClick;
         }
 
         public override void SetUI()
@@ -55,6 +65,13 @@ namespace tabApp.UI.Fragments
             _date.Text = ViewModel.DateSelected.ToString("dd/MM/yyyy");
             _nome.Text = ViewModel.Client.Name;
             SaveNewOrderCommandCanExecuteChanged(null, null);
+            UpdateListOrder();
+        }
+
+        private void UpdateListOrder()
+        {
+            _adapter = new ClientOrderAdapter(ViewModel.OrderProducts);
+            _recyclerView.SetAdapter(_adapter);
         }
 
         public override void SetupBindings()
@@ -64,6 +81,7 @@ namespace tabApp.UI.Fragments
             ViewModel.SaveNewOrderCommand.CanExecuteChanged += SaveNewOrderCommandCanExecuteChanged;
             _r_total.Click += RtotalClick;
             _r_parcial.Click += RparcialClick;
+            _addProduct.Click += AddProductClick;
         }
 
         private void RparcialClick(object sender, EventArgs e)
@@ -92,6 +110,11 @@ namespace tabApp.UI.Fragments
         private void DateClick(object sender, EventArgs e)
         {
             ViewModel.SelectDateCommand.Execute();
+        }
+
+        private void AddProductClick(object sender, EventArgs e)
+        {
+            ViewModel.AddProductCommand.Execute();
         }
     }
 }

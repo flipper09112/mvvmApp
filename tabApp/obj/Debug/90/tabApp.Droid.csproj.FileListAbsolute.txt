@@ -933,3 +933,14 @@ C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\android\src\crc646a4ad767a
 C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\android\src\crc649ba559e34155f93c\DailyOrderProductViewHolder.java
 C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\android\src\crc649ba559e34155f93c\DetailViewHolder.java
 C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\res\drawable\containerretangle.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\drawable\containerretangle.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc646a4ad767a75a43be\OtherOptionsGridAdapter.java
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\drawable\ic_printer.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\drawable\ic_change.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\layout\sidebar.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\menu\activity_main_drawer.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\layout\nav_drawer_header_main.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\drawable\ic_logo.png
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\drawable\ic_hamburger_menu.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc646a4ad767a75a43be\ClientOrderAdapter.java
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc649ba559e34155f93c\EmptyListViewHolder.java

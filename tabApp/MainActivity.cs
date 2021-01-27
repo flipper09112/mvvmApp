@@ -4,6 +4,7 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
+using Android.Support.V4.Widget;
 using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
@@ -21,6 +22,8 @@ namespace tabApp
     public class MainActivity : MvxAppCompatActivity<MainViewModel>
     {
         public ProgressBar _indeterminateBar;
+        private DrawerLayout _drawerLayout;
+        private NavigationView _navigationView;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -29,6 +32,13 @@ namespace tabApp
             SetContentView(Resource.Layout.activity_main);
 
             Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+            SetSupportActionBar(toolbar);
+            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+            SupportActionBar.SetDisplayShowHomeEnabled(true);
+            SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_hamburger_menu);
+
+            _drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
+            _navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
             _indeterminateBar = FindViewById<ProgressBar>(Resource.Id.indeterminateBar);
             SetSupportActionBar(toolbar);
 
@@ -83,6 +93,11 @@ namespace tabApp
             {
                 return true;
             }
+            if(id == Android.Resource.Id.Home)
+            {
+                _drawerLayout.OpenDrawer(Android.Support.V4.View.GravityCompat.Start);
+                return true;
+            } 
 
             return base.OnOptionsItemSelected(item);
         }

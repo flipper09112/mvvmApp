@@ -207,14 +207,24 @@
             android:text="Encomenda Extra" />
     </RadioGroup>
 
-    <View
-        android:id="@+id/view"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/divider29"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider27">
+    </android.support.v7.widget.RecyclerView>
 
-    </View>
+    <Button
+        android:id="@+id/addProduct"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:text="Adicionar Produto"
+        android:layout_marginBottom="40dp"
+        android:layout_marginRight="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/divider29" />
+
 </android.support.constraint.ConstraintLayout>
