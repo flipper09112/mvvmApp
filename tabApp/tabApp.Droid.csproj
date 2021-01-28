@@ -82,6 +82,8 @@
     <Compile Include="UI\Adapters\DailyOrderDescAdapter.cs" />
     <Compile Include="UI\Adapters\OtherOptionsGridAdapter.cs" />
     <Compile Include="UI\Adapters\ProductsItemsListAdapter.cs" />
+    <Compile Include="UI\Adapters\ViewPager\ClientPageOrdersListAdapter.cs" />
+    <Compile Include="UI\ViewHolders\OrderViewHolder.cs" />
     <Compile Include="UI\ViewHolders\ProductsOrderListViewHolder.cs" />
     <Compile Include="UI\Adapters\ViewPager\ClientPageDetailsAdapter.cs" />
     <Compile Include="UI\Adapters\ViewPager\ClientPageViewPagerAdapter.cs" />
@@ -313,6 +315,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\SimpleProductItem.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\OrderItem.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

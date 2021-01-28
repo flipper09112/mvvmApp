@@ -65,11 +65,11 @@ namespace tabApp.UI.Adapters
             if (client.ExtraOrdersList.Count == 0)
                 return inflater.Inflate(Resource.Layout.EmptyListItems, container, false);
 
-            /*var adapter = new ClientPageDetailsAdapter(client.DetailsList);
+            var adapter = new ClientPageOrdersListAdapter(client.ExtraOrdersList);
             var recycler = view.FindViewById<RecyclerView>(Resource.Id.recyclerView);
             var layoutManager = new LinearLayoutManager(context);
             recycler.SetLayoutManager(layoutManager);
-            recycler.SetAdapter(adapter);*/
+            recycler.SetAdapter(adapter);
 
             return view;
         }
