@@ -360,3 +360,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+tabApp.Core/obj/*
+tabApp.Core/bin/*
+tabApp/obj/*
+tabApp/bin/*
