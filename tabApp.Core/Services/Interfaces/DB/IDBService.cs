@@ -11,5 +11,6 @@ namespace tabApp.Core.Services.Interfaces.DB
         Task StartAsync();
         void SaveNewClientData(Client client);
         void SaveNewRegist(Regist regist);
+        void SaveNewRegist(ExtraOrder order);
     }
 }

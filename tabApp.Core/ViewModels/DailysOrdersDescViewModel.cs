@@ -174,5 +174,8 @@ namespace tabApp.Core.ViewModels
         public override void Appearing()
         {
         }
+        public override void DisAppearing()
+        {
+        }
     }
 }

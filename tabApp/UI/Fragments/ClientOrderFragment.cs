@@ -57,6 +57,7 @@ namespace tabApp.UI.Fragments
             _r_total.Click -= RtotalClick;
             _r_parcial.Click -= RparcialClick;
             _addProduct.Click -= AddProductClick;
+            _saveOrderButton.Click -= SaveOrderButtonClick;
         }
 
         public override void SetUI()
@@ -70,7 +71,7 @@ namespace tabApp.UI.Fragments
 
         private void UpdateListOrder()
         {
-            _adapter = new ClientOrderAdapter(ViewModel.OrderProducts);
+            _adapter = new ClientOrderAdapter(ViewModel.OrderProducts, ViewModel.SaveNewOrderCommand);
             _recyclerView.SetAdapter(_adapter);
         }
 
@@ -82,6 +83,12 @@ namespace tabApp.UI.Fragments
             _r_total.Click += RtotalClick;
             _r_parcial.Click += RparcialClick;
             _addProduct.Click += AddProductClick;
+            _saveOrderButton.Click += SaveOrderButtonClick;
+        }
+
+        private void SaveOrderButtonClick(object sender, EventArgs e)
+        {
+            ViewModel.SaveNewOrderCommand.Execute(null);
         }
 
         private void RparcialClick(object sender, EventArgs e)

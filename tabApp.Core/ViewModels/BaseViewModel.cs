@@ -26,12 +26,18 @@ namespace tabApp.Core.ViewModels
         }
 
         public abstract void Appearing();
-
+        public abstract void DisAppearing();
 
         public override void ViewAppeared()
         {
             base.ViewAppeared();
             Appearing();
+        }
+
+        public override void ViewDisappeared()
+        {
+            base.ViewDisappeared();
+            DisAppearing();
         }
     }
 

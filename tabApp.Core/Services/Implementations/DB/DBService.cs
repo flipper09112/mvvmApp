@@ -50,6 +50,12 @@ namespace tabApp.Core.Services.Implementations
             byte[] byteArrayLogsUpdated = NewRegistsDB(regist, byteArrayLogs);
             _fileService.SaveFile(LogsListFileName, byteArrayLogsUpdated, true);
         }
+        public void SaveNewRegist(ExtraOrder order)
+        {
+            byte[] byteArrayLogs = _fileService.GetFile(LogsListFileName);
+            byte[] byteArrayLogsUpdated = NewRegistsDB(order, byteArrayLogs);
+            _fileService.SaveFile(LogsListFileName, byteArrayLogsUpdated, true);
+        }
 
         public async Task StartAsync()
         {
@@ -101,7 +107,7 @@ namespace tabApp.Core.Services.Implementations
             ExtraOrder extraOrder;
             #endregion
 
-            for (int i = 2; i < sheet.Rows.Length; i++)
+            for (int i = 2; i <= sheet.Rows.Length; i++)
             {
                 clientId = int.Parse(sheet.Range[i, (int)LogsListItemsPositions.ID].DisplayedText);
                 detailType = GetLogType(sheet.Range[i, (int)LogsListItemsPositions.Type].DisplayedText);
@@ -109,7 +115,7 @@ namespace tabApp.Core.Services.Implementations
                 detailDate = DateTime.Parse(sheet.Range[i, (int)LogsListItemsPositions.Date].DisplayedText);
                 DateTime.TryParse(sheet.Range[i, (int)LogsListItemsPositions.OrderDay].DisplayedText, out orderDate);
                 extraOrderDesc = sheet.Range[i, (int)LogsListItemsPositions.Order].DisplayedText;
-                total = sheet.Range[i, (int)LogsListItemsPositions.Order].DisplayedText.Equals("1");
+                total = sheet.Range[i, (int)LogsListItemsPositions.IsAll].DisplayedText.Equals("1");
 
                 if (detailType == DetailTypeEnum.Order)
                 {
@@ -149,7 +155,7 @@ namespace tabApp.Core.Services.Implementations
             List<(int Id, double Value)> reSaleValues = new List<(int Id, double Value)>();
             #endregion
 
-            for (int i = 2; i < sheet.Rows.Length; i++)
+            for (int i = 2; i <= sheet.Rows.Length; i++)
             {
                 idConverted = int.TryParse(sheet.Range[i, (int)ProductsListItemsPositions.ID].DisplayedText, out id);
                 if (!idConverted) break;
@@ -214,7 +220,7 @@ namespace tabApp.Core.Services.Implementations
             DailyOrder domDesc;
             #endregion
 
-            for (int i = 2; i < sheet.Rows.Length; i++)
+            for (int i = 2; i <= sheet.Rows.Length; i++)
             {
                 
                 id = int.Parse(sheet.Range[i, (int)ClientsListItemsPositions.ID].Text);
@@ -268,7 +274,7 @@ namespace tabApp.Core.Services.Implementations
 
             int id;
 
-            for (int i = 2; i < sheet.Rows.Length; i++)
+            for (int i = 2; i <= sheet.Rows.Length; i++)
             {
                 id = int.Parse(sheet.Range[i, (int)ClientsListItemsPositions.ID].Text);
 
@@ -318,6 +324,29 @@ namespace tabApp.Core.Services.Implementations
             return output.ToArray();
         }
 
+        private byte[] NewRegistsDB(ExtraOrder regist, byte[] byteArrayRegists)
+        {
+            MemoryStream ms = new MemoryStream(byteArrayRegists);
+            MemoryStream output = new MemoryStream();
+
+            Workbook workbook = new Workbook();
+            workbook.LoadFromStream(ms);
+            Worksheet sheet = workbook.Worksheets[0];
+
+            int newRow = sheet.Rows.Length + 1;
+            sheet.InsertRow(newRow);
+
+            sheet.Range[newRow, (int)LogsListItemsPositions.ID].Text = regist.ClientId.ToString();
+            sheet.Range[newRow, (int)LogsListItemsPositions.Type].Text = regist.DetailType.ToString();
+            sheet.Range[newRow, (int)LogsListItemsPositions.Info].Text = string.Empty;
+            sheet.Range[newRow, (int)LogsListItemsPositions.Date].Text = regist.OrderRegistDay.ToString("dd/MM/yyyy");
+            sheet.Range[newRow, (int)LogsListItemsPositions.OrderDay].Text = regist.OrderDay.ToString("dd/MM/yyyy");
+            sheet.Range[newRow, (int)LogsListItemsPositions.Order].Text = GetOrderStringDb(regist.AllItems);
+            sheet.Range[newRow, (int)LogsListItemsPositions.IsAll].Text = regist.IsTotal ? "1" : "0";
+
+            workbook.SaveToStream(output, FileFormat.Version97to2003);
+            return output.ToArray();
+        }
         #endregion
 
         #region HELPERS
@@ -402,6 +431,29 @@ namespace tabApp.Core.Services.Implementations
             }
             return order;
         }
+        private string GetOrderStringDb(List<(int ProductId, double Ammount)> allItems)
+        {
+            string order = "";
+            bool first = true;
+
+            if (allItems.Count == 0)
+                return "-";
+
+            foreach (var item in allItems)
+            {
+                if (first)
+                {
+                    first = false;
+                    order += item.ProductId + "-" + item.Ammount;
+                }
+                else
+                {
+                    order += ";" + item.ProductId + "-" + item.Ammount;
+                }
+
+            }
+            return order;
+        }
         private ProductTypeEnum GetProductType(string text)
         {
             if (text.Equals("1"))
@@ -462,6 +514,7 @@ namespace tabApp.Core.Services.Implementations
                     return "N";
             }
         }
+
         #endregion
     }
 }

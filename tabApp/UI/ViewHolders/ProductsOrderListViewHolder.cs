@@ -1,0 +1,58 @@
+﻿using Android.App;
+using Android.Content;
+using Android.OS;
+using Android.Runtime;
+using Android.Support.V7.Widget;
+using Android.Text;
+using Android.Views;
+using Android.Widget;
+using MvvmCross.Commands;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using tabApp.Core.Models;
+using tabApp.Helpers;
+
+namespace tabApp.UI.Adapters
+{
+    public class ProductsOrderListViewHolder : RecyclerView.ViewHolder
+    {
+        private TextView _productName;
+        private EditText _productAmmount;
+        private ProductAmmount product;
+
+        public MvxCommand SaveButtonCanChange { get; internal set; }
+
+        public ProductsOrderListViewHolder(View itemView) : base(itemView)
+        {
+            _productName = itemView.FindViewById<TextView>(Resource.Id.productName);
+            _productAmmount = itemView.FindViewById<EditText>(Resource.Id.productAmmount);
+        }
+
+        internal void Bind(ProductAmmount product)
+        {
+            this.product = product;
+            SetupEditText();
+            _productName.Text = product.Product.Name;
+            _productAmmount.Text = product.Product.Unity ? product.Ammount.ToString("N0") : product.Ammount.ToString("N2");
+        }
+
+        private void SetupEditText()
+        {
+            _productAmmount.SetFilters(new IInputFilter[] { new DecimalDigitsInputFilter(2) });
+            _productAmmount.InputType = InputTypes.ClassNumber | InputTypes.NumberFlagDecimal;
+
+            _productAmmount.TextChanged -= ProductAmmountTextChanged;
+            _productAmmount.TextChanged += ProductAmmountTextChanged;
+        }
+
+        private void ProductAmmountTextChanged(object sender, TextChangedEventArgs e)
+        {
+            double ammount = 0;
+            Double.TryParse(e.Text.ToString().Replace(".", ","), out ammount);
+            product.Ammount = ammount;
+            SaveButtonCanChange?.RaiseCanExecuteChanged();
+        }
+    }
+}

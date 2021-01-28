@@ -48,5 +48,8 @@ namespace tabApp.Core
         public override void Appearing()
         {
         }
+        public override void DisAppearing()
+        {
+        }
     }
 }

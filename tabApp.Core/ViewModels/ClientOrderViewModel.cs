@@ -5,30 +5,41 @@ using System.Collections.Generic;
 using System.Text;
 using tabApp.Core.Models;
 using tabApp.Core.Services.Implementations.Clients;
+using tabApp.Core.Services.Interfaces.Clients;
+using tabApp.Core.Services.Interfaces.DB;
 using tabApp.Core.Services.Interfaces.Dialogs;
+using tabApp.Core.Services.Interfaces.Products;
 
 namespace tabApp.Core.ViewModels
 {
     public class ClientOrderViewModel : BaseViewModel
     {
         private readonly IChooseClientService _chooseClientService;
+        private readonly IDBService _dBService;
+        private readonly IClientsManagerService _clientsManagerService;
         private readonly IDialogService _dialogService;
         private readonly IMvxNavigationService _navigationService;
+        private readonly IAddProductToOrderService _addProductToOrderService;
 
         private DateTime _dateTime;
         private bool? _isTotal;
-        private List<Product> _orderProducts = new List<Product>();
         public MvxCommand SelectDateCommand { get; set; }
         public MvxCommand AddProductCommand { get; set; }
         public MvxCommand SaveNewOrderCommand { get; set; }
 
         public ClientOrderViewModel(IChooseClientService chooseClientService,
                                     IDialogService dialogService,
-                                    IMvxNavigationService navigationService)
+                                    IMvxNavigationService navigationService,
+                                    IAddProductToOrderService addProductToOrderService,
+                                    IClientsManagerService clientsManagerService,
+                                    IDBService dBService)
         {
             _chooseClientService = chooseClientService;
             _dialogService = dialogService;
             _navigationService = navigationService;
+            _addProductToOrderService = addProductToOrderService;
+            _clientsManagerService = clientsManagerService;
+            _dBService = dBService;
 
             SelectDateCommand = new MvxCommand(SelectDate);
             SaveNewOrderCommand = new MvxCommand(SaveNewOrder, CanSaveNewOrder);
@@ -37,11 +48,45 @@ namespace tabApp.Core.ViewModels
 
         private bool CanSaveNewOrder()
         {
-            return DateSelected.Date > DateTime.Today && _isTotal != null && OrderProducts.Count > 0;
+            return DateSelected.Date > DateTime.Today && _isTotal != null && HasProducts();
         }
 
-        private void SaveNewOrder()
+        private bool HasProducts()
         {
+            foreach(var item in OrderProducts)
+            {
+                if (item.Ammount > 0)
+                    return true;
+            }
+            return false;
+        }
+
+        private async void SaveNewOrder()
+        {
+            IsBusy = true;
+
+            if (!HasProducts())
+                return;
+
+            List<(int ProductId, double Ammount)> items = new List<(int ProductId, double Ammount)>();
+            OrderProducts.ForEach(product => {
+                if (product.Ammount > 0)
+                    items.Add((product.Product.Id, product.Ammount));
+            });
+
+            var order = new ExtraOrder(_chooseClientService.ClientSelected.Id, 
+                                        DateTime.Today,
+                                        DateSelected,
+                                        items,
+                                        (bool)IsTotal);
+
+            _clientsManagerService.AddNewOrder(_chooseClientService.ClientSelected, order);
+            _dBService.SaveNewClientData(_chooseClientService.ClientSelected);
+            _dBService.SaveNewRegist(order);
+
+            IsBusy = false;
+
+            await _navigationService.Close(this);
         }
 
         private void SelectDate()
@@ -68,13 +113,20 @@ namespace tabApp.Core.ViewModels
                 RaisePropertyChanged(nameof(IsTotal));
             }
         }
-        public List<Product> OrderProducts
-        {
+
+        private List<ProductAmmount> _orderProducts = new List<ProductAmmount>();
+        public List<ProductAmmount> OrderProducts { 
             get
             {
+                _addProductToOrderService.ProductsSelected.ForEach(product => { 
+                    if(_orderProducts.Find(item => item.Product.Id == product.Id) == null)
+                    {
+                        _orderProducts.Add(new ProductAmmount() { Product = product, Ammount = 0});
+                    }
+                });
                 return _orderProducts;
             }
-        }
+        } 
 
         public DateTime DateSelected
         {
@@ -89,6 +141,7 @@ namespace tabApp.Core.ViewModels
                 RaisePropertyChanged(nameof(DateSelected));
             }
         }
+
         private async void AddProduct()
         {
             await _navigationService.Navigate<ChooseProductViewModel>();
@@ -96,7 +149,12 @@ namespace tabApp.Core.ViewModels
 
         public override void Appearing()
         {
-            DateSelected = DateTime.Today;
+            if(DateSelected == DateTime.MinValue)
+                DateSelected = DateTime.Today;
+        }
+        public override void DisAppearing()
+        {
+            _addProductToOrderService.Clear();
         }
     }
 }

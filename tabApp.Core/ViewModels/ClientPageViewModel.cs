@@ -184,6 +184,9 @@ namespace tabApp.Core.ViewModels
         {
             DateSelected = SpinnerDates[0];
         }
+        public override void DisAppearing()
+        {
+        }
     }
 
     public enum TabsOptionsEnum

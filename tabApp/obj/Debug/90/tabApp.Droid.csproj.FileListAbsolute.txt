@@ -944,3 +944,11 @@ C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\drawable\ic_logo
 C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\drawable\ic_hamburger_menu.xml
 C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc646a4ad767a75a43be\ClientOrderAdapter.java
 C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc649ba559e34155f93c\EmptyListViewHolder.java
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\layout\productorderitem.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc646a4ad767a75a43be\ProductsOrderListViewHolder.java
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\layout\chooseproductfragment.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc642d73cef5109f53ec\ChooseProductFragment.java
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\drawable\ic_search.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\layout\simpleproductitem.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc646a4ad767a75a43be\ProductsItemsListAdapter.java
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc649ba559e34155f93c\SimpleProductViewHolder.java

@@ -33,6 +33,7 @@ namespace tabApp.Core.Services.Implementations.Clients
             client.SetNewRegist(detail);
         }
 
+        //USED in APP
         public Regist SetPayment(Client client, DateTime dateSelected, bool payExtra)
         {
             var regist = new Regist(
@@ -58,6 +59,11 @@ namespace tabApp.Core.Services.Implementations.Clients
             client.AddExtra(extra);
             client.SetNewRegist(regist);
             return regist;
+        }
+        public ExtraOrder AddNewOrder(Client client, ExtraOrder extraOrder)
+        {
+            client.SetNewOrder(extraOrder);
+            return extraOrder;
         }
     }
 }

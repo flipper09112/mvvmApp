@@ -44,7 +44,7 @@ namespace tabApp.Helpers
                 }
                 if (len - dotPos > DecimalDigits)
                 {
-                    return source.SubSequenceFormatted(0, source.Length() - 1);
+                    return source.SubSequenceFormatted(0, (source.Length() - 1) == - 1 ? 0 : source.Length() - 1);
                 }
             }
 

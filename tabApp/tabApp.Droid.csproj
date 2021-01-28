@@ -69,6 +69,7 @@
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\DecimalDigitsInputFilter.cs" />
     <Compile Include="Helpers\FragmentHelper.cs" />
+    <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
@@ -80,10 +81,13 @@
     <Compile Include="UI\Adapters\ClientPageSpinnerAdapter.cs" />
     <Compile Include="UI\Adapters\DailyOrderDescAdapter.cs" />
     <Compile Include="UI\Adapters\OtherOptionsGridAdapter.cs" />
+    <Compile Include="UI\Adapters\ProductsItemsListAdapter.cs" />
+    <Compile Include="UI\ViewHolders\ProductsOrderListViewHolder.cs" />
     <Compile Include="UI\Adapters\ViewPager\ClientPageDetailsAdapter.cs" />
     <Compile Include="UI\Adapters\ViewPager\ClientPageViewPagerAdapter.cs" />
     <Compile Include="UI\Adapters\ClientsListAdapter.cs" />
     <Compile Include="UI\Bases\BaseFragment.cs" />
+    <Compile Include="UI\Fragments\ChooseProductFragment.cs" />
     <Compile Include="UI\Fragments\ClientOrderFragment.cs" />
     <Compile Include="UI\Fragments\ClientPageFragment.cs" />
     <Compile Include="UI\Fragments\DailysOrdersDescFragment.cs" />
@@ -93,6 +97,7 @@
     <Compile Include="UI\ViewHolders\DailyOrderProductViewHolder.cs" />
     <Compile Include="UI\ViewHolders\DetailViewHolder.cs" />
     <Compile Include="UI\ViewHolders\EmptyListViewHolder.cs" />
+    <Compile Include="UI\ViewHolders\SimpleProductViewHolder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -292,6 +297,24 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_hamburger_menu.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\ProductOrderItem.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\ChooseProductFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_search.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\SimpleProductItem.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

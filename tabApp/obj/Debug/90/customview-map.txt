@@ -1,6 +1,7 @@
 adaptive-icon;obj\Debug\90\res\mipmap-anydpi-v26\ic_launcher.xml
 adaptive-icon;obj\Debug\90\res\mipmap-anydpi-v26\ic_launcher_round.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\activity_main.xml
+android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\chooseproductfragment.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\clientlistitem.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\clientorderfragment.xml
 android.support.constraint.ConstraintLayout;obj\Debug\90\res\layout\clientpagefragment.xml
@@ -20,11 +21,14 @@ android.support.v7.widget.CardView;obj\Debug\90\res\layout\clientlistitem.xml
 android.support.v7.widget.CardView;obj\Debug\90\res\layout\clientpagefragment.xml
 android.support.v7.widget.CardView;obj\Debug\90\res\layout\detailitem.xml
 android.support.v7.widget.CardView;obj\Debug\90\res\layout\otheroptionitem.xml
+android.support.v7.widget.CardView;obj\Debug\90\res\layout\simpleproductitem.xml
+android.support.v7.widget.RecyclerView;obj\Debug\90\res\layout\chooseproductfragment.xml
 android.support.v7.widget.RecyclerView;obj\Debug\90\res\layout\clientorderfragment.xml
 android.support.v7.widget.RecyclerView;obj\Debug\90\res\layout\dailysordersdescfragment.xml
 android.support.v7.widget.RecyclerView;obj\Debug\90\res\layout\homefragment.xml
 android.support.v7.widget.RecyclerView;obj\Debug\90\res\layout\recyclerviewlayout.xml
 android.support.v7.widget.Toolbar;obj\Debug\90\res\layout\activity_main.xml
+android.support.v7.widget.Toolbar;obj\Debug\90\res\layout\chooseproductfragment.xml
 attr;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\0\jl\res\values\mvxbindingattributes.xml
 attr;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\6\jl\res\values\mvxrecyclerviewbindingattributes.xml
 background;obj\Debug\90\res\mipmap-anydpi-v26\ic_launcher.xml
@@ -40,6 +44,8 @@ corners;obj\Debug\90\res\drawable\containerretangle.xml
 declare-styleable;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\0\jl\res\values\mvxbindingattributes.xml
 declare-styleable;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\6\jl\res\values\mvxrecyclerviewbindingattributes.xml
 dimen;obj\Debug\90\res\values\dimens.xml
+EditText;obj\Debug\90\res\layout\chooseproductfragment.xml
+EditText;obj\Debug\90\res\layout\productorderitem.xml
 external-cache-path;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\47\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
 external-path;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\47\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
 foreground;obj\Debug\90\res\mipmap-anydpi-v26\ic_launcher.xml
@@ -66,13 +72,16 @@ item;obj\Debug\90\res\menu\menu_main.xml
 item;obj\Debug\90\res\values\styles.xml
 LinearLayout;obj\Debug\90\res\layout\activity_main.xml
 LinearLayout;obj\Debug\90\res\layout\calendarlayout.xml
+LinearLayout;obj\Debug\90\res\layout\chooseproductfragment.xml
 LinearLayout;obj\Debug\90\res\layout\dailyorderproductitem.xml
 LinearLayout;obj\Debug\90\res\layout\dailysordersdescfragment.xml
 LinearLayout;obj\Debug\90\res\layout\nav_drawer_header_main.xml
 LinearLayout;obj\Debug\90\res\layout\otheroptionitem.xml
 LinearLayout;obj\Debug\90\res\layout\otheroptionsfragment.xml
 LinearLayout;obj\Debug\90\res\layout\paymentdialog.xml
+LinearLayout;obj\Debug\90\res\layout\productorderitem.xml
 LinearLayout;obj\Debug\90\res\layout\sidebar.xml
+LinearLayout;obj\Debug\90\res\layout\simpleproductitem.xml
 LinearLayout;obj\Debug\90\res\menu\activity_main_drawer.xml
 menu;obj\Debug\90\res\menu\activity_main_drawer.xml
 menu;obj\Debug\90\res\menu\menu_main.xml
@@ -84,6 +93,7 @@ path;obj\Debug\90\res\drawable\ic_no_results.xml
 path;obj\Debug\90\res\drawable\ic_other_detail.xml
 path;obj\Debug\90\res\drawable\ic_payment.xml
 path;obj\Debug\90\res\drawable\ic_printer.xml
+path;obj\Debug\90\res\drawable\ic_search.xml
 paths;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\47\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
 ProgressBar;obj\Debug\90\res\layout\activity_main.xml
 RadioButton;obj\Debug\90\res\layout\clientorderfragment.xml
@@ -114,6 +124,7 @@ stroke;obj\Debug\90\res\drawable\containerretangle.xml
 style;obj\Debug\90\res\values\styles.xml
 TableLayout;obj\Debug\90\res\layout\clientpagefragment.xml
 TableRow;obj\Debug\90\res\layout\clientpagefragment.xml
+TextView;obj\Debug\90\res\layout\chooseproductfragment.xml
 TextView;obj\Debug\90\res\layout\clientlistitem.xml
 TextView;obj\Debug\90\res\layout\clientorderfragment.xml
 TextView;obj\Debug\90\res\layout\clientpagefragment.xml
@@ -123,7 +134,9 @@ TextView;obj\Debug\90\res\layout\detailitem.xml
 TextView;obj\Debug\90\res\layout\emptylistitems.xml
 TextView;obj\Debug\90\res\layout\otheroptionitem.xml
 TextView;obj\Debug\90\res\layout\paymentdialog.xml
+TextView;obj\Debug\90\res\layout\productorderitem.xml
 TextView;obj\Debug\90\res\layout\sidebar.xml
+TextView;obj\Debug\90\res\layout\simpleproductitem.xml
 TextView;obj\Debug\90\res\layout\spinnerdateitem.xml
 vector;obj\Debug\90\res\drawable\ic_change.xml
 vector;obj\Debug\90\res\drawable\ic_delivery.xml
@@ -132,6 +145,7 @@ vector;obj\Debug\90\res\drawable\ic_no_results.xml
 vector;obj\Debug\90\res\drawable\ic_other_detail.xml
 vector;obj\Debug\90\res\drawable\ic_payment.xml
 vector;obj\Debug\90\res\drawable\ic_printer.xml
+vector;obj\Debug\90\res\drawable\ic_search.xml
 View;obj\Debug\90\res\layout\clientlistitem.xml
 View;obj\Debug\90\res\layout\clientorderfragment.xml
 View;obj\Debug\90\res\layout\clientpagefragment.xml

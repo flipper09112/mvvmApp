@@ -33,5 +33,8 @@ namespace tabApp.Core.ViewModels
             UpdateUiHomePage?.Invoke(null, null);
             IsBusy = false;
         }
+        public override void DisAppearing()
+        {
+        }
     }
 }
