@@ -985,3 +985,13 @@ C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\drawable\ic_add_
 C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\drawable\ic_cancel_order.xml
 C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\layout\editclientfragment.xml
 C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc642d73cef5109f53ec\EditClientFragment.java
+C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\res\font\arista_pro_bold.ttf
+C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\res\font\arista_pro_light.ttf
+C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\res\drawable\red_button.xml
+C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\res\drawable\red_button_default.xml
+C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\res\drawable\red_button_pressed.xml
+C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\res\drawable\ic_add_extra.xml
+C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\res\drawable\ic_cancel_order.xml
+C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\res\layout\editclientfragment.xml
+C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\android\src\crc642d73cef5109f53ec\EditClientFragment.java
+C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\android\src\crc64c0b2361584e0fe32\EditClientViewPagerAdapter.java

@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using tabApp.Core.ViewModels;
+using tabApp.UI.Adapters.EditClient;
 
 namespace tabApp.UI.Fragments
 {
@@ -22,6 +23,7 @@ namespace tabApp.UI.Fragments
         private Button _saveChangesButton;
         private ViewPager _editViewPager;
         private TabLayout _tabLayout;
+        private EditClientViewPagerAdapter _viewPagerAdapter;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -33,12 +35,18 @@ namespace tabApp.UI.Fragments
             _editViewPager = view.FindViewById<ViewPager>(Resource.Id.editViewPager);
             _tabLayout = view.FindViewById<TabLayout>(Resource.Id.tabLayout);
 
+            _viewPagerAdapter = new EditClientViewPagerAdapter(ViewModel.TabsOptions, ViewModel.Client, ViewModel);
+            _editViewPager.Adapter = _viewPagerAdapter;
+            _tabLayout.SetupWithViewPager(_editViewPager, true);
+
             return view;
         }
 
         public override void SetUI()
         {
             _activity.HideToolbar();
+
+            _viewPagerAdapter?.NotifyDataSetChanged();
             SetupTabLayout();
         }
         private void SetupTabLayout()
@@ -50,7 +58,7 @@ namespace tabApp.UI.Fragments
                 _tabLayout.AddTab(_tabLayout.NewTab().SetText(tab.ToString()));
                 tabsNames.Add(tab.ToString());
             }
-            //_viewPagerAdapter.Title = tabsNames;
+            _viewPagerAdapter.Title = tabsNames;
         }
 
         public override void CleanBindings()

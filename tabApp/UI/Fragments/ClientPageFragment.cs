@@ -140,6 +140,7 @@ namespace tabApp.UI.Fragments
 
             PayCommandCanExecuteChanged(null, null);
 
+            _viewPagerAdapter?.NotifyDataSetChanged();
             SetupTabLayout();
         }
 
