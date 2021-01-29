@@ -16,6 +16,7 @@
         android:autoSizeTextType="uniform"
         android:maxLines="1"
         android:text="Guardar"
+        android:fontFamily="@font/arista_pro_bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/divider29"
@@ -31,6 +32,7 @@
         android:autoSizeMaxTextSize="50sp"
         android:onClick="chooseDate"
         android:gravity="center"
+        android:fontFamily="@font/arista_pro_light"
         app:layout_constraintBottom_toTopOf="@+id/divider27"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/divider31"
@@ -47,6 +49,7 @@
         android:gravity="center"
         android:text="Encomenda para dia"
         android:maxLines="1"
+        android:fontFamily="@font/arista_pro_light"
         app:layout_constraintBottom_toTopOf="@+id/divider27"
         app:layout_constraintEnd_toStartOf="@+id/divider31"
         app:layout_constraintStart_toEndOf="@+id/divider28"
@@ -63,6 +66,7 @@
         android:autoSizeTextType="uniform"
         android:gravity="center"
         android:text="TextView"
+        android:fontFamily="@font/arista_pro_bold"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/divider30"
         app:layout_constraintEnd_toEndOf="parent"
@@ -169,6 +173,7 @@
         android:gravity="center"
         android:textAlignment="center"
         android:maxLines="1"
+        android:fontFamily="@font/arista_pro_bold"
         app:layout_constraintBottom_toTopOf="@+id/divider36"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/divider29"
@@ -193,6 +198,7 @@
             android:layout_marginLeft="50dp"
             android:scaleX="1.5"
             android:scaleY="1.5"
+            android:fontFamily="@font/arista_pro_light"
             android:text="Encomenda Total" />
 
         <RadioButton
@@ -204,6 +210,7 @@
             android:layout_marginLeft="50dp"
             android:scaleX="1.5"
             android:scaleY="1.5"
+            android:fontFamily="@font/arista_pro_light"
             android:text="Encomenda Extra" />
     </RadioGroup>
 
@@ -224,6 +231,7 @@
         android:text="Adicionar Produto"
         android:layout_marginBottom="40dp"
         android:layout_marginRight="40dp"
+        android:fontFamily="@font/arista_pro_bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/divider29"
         app:layout_constraintStart_toStartOf="parent" />

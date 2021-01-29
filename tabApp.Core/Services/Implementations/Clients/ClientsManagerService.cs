@@ -65,5 +65,19 @@ namespace tabApp.Core.Services.Implementations.Clients
             client.SetNewOrder(extraOrder);
             return extraOrder;
         }
+
+        public Regist RemoveExtraOrder(Client client, ExtraOrder order)
+        {
+            var regist = new Regist(
+                      DateTime.Today,
+                      "Encomenda cancelada do dia " + order.OrderDay.ToString("dd/MM/yyyy"),
+                      client.Id,
+                      DetailTypeEnum.CancelOrder
+                      );
+
+            client.RemoveOrder(order);
+            client.SetNewRegist(regist);
+            return regist;
+        }
     }
 }

@@ -20,15 +20,17 @@ namespace tabApp.UI.Adapters
     {
         private List<TabsOptionsEnum> tabsOptions;
         private Client client;
+        private ClientPageViewModel viewModel;
 
         public override int Count => tabsOptions?.Count ?? 0;
 
         public List<string> Title { get; internal set; }
 
-        public ClientPageViewPagerAdapter(List<TabsOptionsEnum> tabsOptions, Core.Models.Client client)
+        public ClientPageViewPagerAdapter(List<TabsOptionsEnum> tabsOptions, Client client, ClientPageViewModel viewModel)
         {
             this.tabsOptions = tabsOptions;
             this.client = client;
+            this.viewModel = viewModel;
         }
 
         public override Java.Lang.Object InstantiateItem(ViewGroup container, int position)
@@ -65,7 +67,7 @@ namespace tabApp.UI.Adapters
             if (client.ExtraOrdersList.Count == 0)
                 return inflater.Inflate(Resource.Layout.EmptyListItems, container, false);
 
-            var adapter = new ClientPageOrdersListAdapter(client.ExtraOrdersList);
+            var adapter = new ClientPageOrdersListAdapter(client.ExtraOrdersList, viewModel);
             var recycler = view.FindViewById<RecyclerView>(Resource.Id.recyclerView);
             var layoutManager = new LinearLayoutManager(context);
             recycler.SetLayoutManager(layoutManager);

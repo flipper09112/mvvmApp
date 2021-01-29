@@ -14,5 +14,6 @@ namespace tabApp.Core.Services.Interfaces.Clients
         Regist SetPayment(Client client, DateTime dateSelected, bool payExtra);
         Regist AddExtra(Client client, double extra);
         ExtraOrder AddNewOrder(Client client, ExtraOrder extraOrder);
+        Regist RemoveExtraOrder(Client client, ExtraOrder order);
     }
 }

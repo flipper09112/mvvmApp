@@ -28,6 +28,11 @@ namespace tabApp.Core.Services.Implementations.Products
             return _productsList.Find(item => item.Id == productId);
         }
 
+        public string GetProductNameById(int productId)
+        {
+            return _productsList.Find(item => item.Id == productId).Name;
+        }
+
         public void SetProducts(List<Product> productsList)
         {
             _productsList = productsList;

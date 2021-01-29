@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:textSize="25sp"
         android:gravity="center"
+        android:fontFamily="@font/arista_pro_light"
         android:layout_weight="1.4"
         android:text="Pão Paris"/>
 
@@ -21,6 +22,7 @@
         android:layout_height="wrap_content"
         android:textSize="25sp"
         android:gravity="center"
+        android:fontFamily="@font/arista_pro_light"
         android:layout_weight="0.6"
         android:text="1"/>
 

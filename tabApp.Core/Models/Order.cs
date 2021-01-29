@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace tabApp.Core.Models
@@ -39,6 +40,22 @@ namespace tabApp.Core.Models
             ClientId = clientId;
             OrderRegistDay = orderRegistDay;
             OrderDay = orderDay;
+        }
+
+        public override bool Equals(object obj)
+        {
+            ExtraOrder order = obj as ExtraOrder;
+            if(order != null)
+            {
+                bool same = order.AllItems.Count == AllItems.Count && !order.AllItems.Except(AllItems).Any();
+                if (order.ClientId == this.ClientId
+                    && same
+                    && OrderDay == order.OrderDay
+                    && OrderRegistDay == order.OrderRegistDay
+                    && this.IsTotal == order.IsTotal)
+                    return true;
+            }
+            return false;
         }
     }
 }

@@ -973,3 +973,15 @@ C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\android\src\crc649ba559e34
 C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\res\layout\orderitem.xml
 C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\android\src\crc64191e40d90cf9f557\ClientPageOrdersListAdapter.java
 C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\android\src\crc649ba559e34155f93c\OrderViewHolder.java
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\layout\orderitem.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc64191e40d90cf9f557\ClientPageOrdersListAdapter.java
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc649ba559e34155f93c\OrderViewHolder.java
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\font\arista_pro_bold.ttf
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\font\arista_pro_light.ttf
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\drawable\red_button.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\drawable\red_button_default.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\drawable\red_button_pressed.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\drawable\ic_add_extra.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\drawable\ic_cancel_order.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\layout\editclientfragment.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc642d73cef5109f53ec\EditClientFragment.java

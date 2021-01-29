@@ -12,5 +12,6 @@ namespace tabApp.Core.Services.Interfaces.DB
         void SaveNewClientData(Client client);
         void SaveNewRegist(Regist regist);
         void SaveNewRegist(ExtraOrder order);
+        void RemoveRegist(ExtraOrder obj);
     }
 }

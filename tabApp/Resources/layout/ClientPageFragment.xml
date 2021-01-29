@@ -46,6 +46,7 @@
         android:autoSizeTextType="uniform"
         android:gravity="center"
         android:textAllCaps="true"
+        android:fontFamily="@font/arista_pro_bold"
         app:layout_constraintBottom_toTopOf="@+id/divider2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,6 +59,7 @@
         android:layout_height="0dp"
         android:autoSizeTextType="uniform"
         android:gravity="center"
+        android:fontFamily="@font/arista_pro_light"
         app:layout_constraintBottom_toTopOf="@+id/divider3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -78,6 +80,7 @@
         android:layout_height="0dp"
         android:autoSizeTextType="uniform"
         android:gravity="center"
+        android:fontFamily="@font/arista_pro_light"
         app:layout_constraintBottom_toTopOf="@+id/divider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider3" />
@@ -86,6 +89,7 @@
         android:id="@+id/payButton"
         android:layout_width="250dp"
         android:layout_height="100dp"
+        android:fontFamily="@font/arista_pro_bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -93,6 +97,7 @@
         android:id="@+id/addExtraButton"
         android:layout_width="250dp"
         android:layout_height="100dp"
+        android:fontFamily="@font/arista_pro_bold"
         app:layout_constraintBottom_toTopOf="@+id/payButton"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -100,6 +105,7 @@
         android:id="@+id/addOrderButton"
         android:layout_width="250dp"
         android:layout_height="100dp"
+        android:fontFamily="@font/arista_pro_bold"
         app:layout_constraintBottom_toTopOf="@+id/addExtraButton"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -107,6 +113,7 @@
         android:id="@+id/editButton"
         android:layout_width="250dp"
         android:layout_height="100dp"
+        android:fontFamily="@font/arista_pro_bold"
         app:layout_constraintBottom_toTopOf="@+id/addOrderButton"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -114,6 +121,7 @@
         android:id="@+id/optionsButton"
         android:layout_width="250dp"
         android:layout_height="100dp"
+        android:fontFamily="@font/arista_pro_bold"
         app:layout_constraintBottom_toTopOf="@+id/editButton"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -133,6 +141,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/cardviewbg"
+            android:theme="@style/tab_text"
             android:weightSum="8">
 
             <TableRow
@@ -146,6 +155,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+        android:fontFamily="@font/arista_pro_bold"
                     android:gravity="center_vertical"
                     android:textSize="25sp" />
 
@@ -154,6 +164,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+        android:fontFamily="@font/arista_pro_light"
                     android:gravity="center"
                     android:textSize="25sp" />
 
@@ -170,6 +181,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+        android:fontFamily="@font/arista_pro_bold"
                     android:gravity="center_vertical"
                     android:textSize="25sp" />
 
@@ -178,6 +190,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+        android:fontFamily="@font/arista_pro_light"
                     android:gravity="center"
                     android:textSize="25sp" />
 
@@ -194,6 +207,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+        android:fontFamily="@font/arista_pro_bold"
                     android:gravity="center_vertical"
                     android:textSize="25sp" />
 
@@ -202,6 +216,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+        android:fontFamily="@font/arista_pro_light"
                     android:gravity="center"
                     android:textSize="25sp" />
 
@@ -218,6 +233,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+        android:fontFamily="@font/arista_pro_bold"
                     android:gravity="center_vertical"
                     android:textSize="25sp" />
 
@@ -226,6 +242,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+        android:fontFamily="@font/arista_pro_light"
                     android:gravity="center"
                     android:textSize="25sp" />
 
@@ -242,6 +259,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+        android:fontFamily="@font/arista_pro_bold"
                     android:gravity="center_vertical"
                     android:textSize="25sp" />
 
@@ -250,6 +268,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+        android:fontFamily="@font/arista_pro_light"
                     android:gravity="center"
                     android:textSize="25sp" />
 
@@ -266,6 +285,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+        android:fontFamily="@font/arista_pro_bold"
                     android:gravity="center_vertical"
                     android:textSize="25sp" />
 
@@ -274,6 +294,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+        android:fontFamily="@font/arista_pro_light"
                     android:gravity="center"
                     android:textSize="25sp" />
 
@@ -290,6 +311,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+        android:fontFamily="@font/arista_pro_bold"
                     android:gravity="center_vertical"
                     android:textSize="25sp" />
 
@@ -298,6 +320,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+        android:fontFamily="@font/arista_pro_light"
                     android:gravity="center"
                     android:textSize="25sp" />
 
@@ -314,6 +337,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:fontFamily="@font/arista_pro_bold"
                     android:gravity="center_vertical"
                     android:textSize="25sp" />
 
@@ -322,6 +346,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+        android:fontFamily="@font/arista_pro_light"
                     android:gravity="center"
                     android:textSize="25sp" />
 
@@ -345,23 +370,10 @@
         android:id="@+id/tabLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:tabTextAppearance="@style/tab_text"
         app:layout_constraintEnd_toStartOf="@+id/payButton"
         app:layout_constraintStart_toEndOf="@+id/cardView"
         app:layout_constraintTop_toBottomOf="@+id/divider">
 
-        <android.support.design.widget.TabItem
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Monday" />
-
-        <android.support.design.widget.TabItem
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Tuesday" />
-
-        <android.support.design.widget.TabItem
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Wednesday" />
     </android.support.design.widget.TabLayout>
 </android.support.constraint.ConstraintLayout>

@@ -323,7 +323,6 @@ namespace tabApp.Core.Services.Implementations
             workbook.SaveToStream(output, FileFormat.Version97to2003);
             return output.ToArray();
         }
-
         private byte[] NewRegistsDB(ExtraOrder regist, byte[] byteArrayRegists)
         {
             MemoryStream ms = new MemoryStream(byteArrayRegists);
@@ -349,6 +348,60 @@ namespace tabApp.Core.Services.Implementations
         }
         #endregion
 
+        #region Delete
+        public void RemoveRegist(ExtraOrder obj)
+        {
+            byte[] byteArrayLogs = _fileService.GetFile(LogsListFileName);
+            byte[] byteArrayLogsUpdated = DeleteRegistsDB(obj, byteArrayLogs);
+            _fileService.SaveFile(LogsListFileName, byteArrayLogsUpdated, true);
+
+        }
+        private byte[] DeleteRegistsDB(ExtraOrder obj, byte[] byteArrayLogs)
+        {
+            MemoryStream ms = new MemoryStream(byteArrayLogs);
+            MemoryStream output = new MemoryStream();
+
+            Workbook workbook = new Workbook();
+            workbook.LoadFromStream(ms);
+            Worksheet sheet = workbook.Worksheets[0];
+
+            #region private params
+            int clientId;
+            string info;
+            string extraOrderDesc;
+            bool total;
+            DetailTypeEnum detailType;
+            DateTime detailDate;
+            DateTime orderDate;
+            ExtraOrder extraOrder;
+            #endregion
+
+            for (int i = 2; i <= sheet.Rows.Length; i++)
+            {
+                clientId = int.Parse(sheet.Range[i, (int)LogsListItemsPositions.ID].DisplayedText);
+                detailType = GetLogType(sheet.Range[i, (int)LogsListItemsPositions.Type].DisplayedText);
+                info = sheet.Range[i, (int)LogsListItemsPositions.Info].DisplayedText;
+                detailDate = DateTime.Parse(sheet.Range[i, (int)LogsListItemsPositions.Date].DisplayedText);
+                DateTime.TryParse(sheet.Range[i, (int)LogsListItemsPositions.OrderDay].DisplayedText, out orderDate);
+                extraOrderDesc = sheet.Range[i, (int)LogsListItemsPositions.Order].DisplayedText;
+                total = sheet.Range[i, (int)LogsListItemsPositions.IsAll].DisplayedText.Equals("1");
+
+                if (detailType == DetailTypeEnum.Order)
+                {
+
+                    ExtraOrder order = new ExtraOrder(clientId, detailDate, orderDate, GetOrderListItems(extraOrderDesc), total);
+                    if (order.Equals(obj))
+                    {
+                        sheet.DeleteRow(i);
+                        break;
+                    }
+                }
+            }
+            workbook.SaveToStream(output, FileFormat.Version97to2003);
+            return output.ToArray();
+        }
+        #endregion
+
         #region HELPERS
         private DetailTypeEnum GetLogType(string displayedText)
         {
@@ -363,6 +416,10 @@ namespace tabApp.Core.Services.Implementations
             else if (DetailTypeEnum.Order.ToString().Equals(displayedText))
             {
                 return DetailTypeEnum.Order;
+            }
+            else if (DetailTypeEnum.CancelOrder.ToString().Equals(displayedText))
+            {
+                return DetailTypeEnum.CancelOrder;
             }
             else
             {
@@ -514,7 +571,6 @@ namespace tabApp.Core.Services.Implementations
                     return "N";
             }
         }
-
         #endregion
     }
 }

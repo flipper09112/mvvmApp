@@ -40,6 +40,12 @@ namespace tabApp.UI.ViewHolders
                 case DetailTypeEnum.Payment:
                     _imageView.SetImageResource(Resource.Drawable.ic_payment);
                     break;
+                case DetailTypeEnum.AddExtra:
+                    _imageView.SetImageResource(Resource.Drawable.ic_add_extra);
+                    break;
+                case DetailTypeEnum.CancelOrder:
+                    _imageView.SetImageResource(Resource.Drawable.ic_cancel_order);
+                    break;
                 default:
                     _imageView.SetImageResource(Resource.Drawable.ic_other_detail);
                     break;

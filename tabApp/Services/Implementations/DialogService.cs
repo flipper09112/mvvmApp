@@ -38,6 +38,24 @@ namespace tabApp.Services.Implementations
             alert.SetPositiveButton(confirmText, (senderAlert, args) =>
             {
                 confirmAction.Invoke(checkBox.Checked);
+            }); 
+
+            Dialog dialog = alert.Create();
+            dialog.Show();
+        }
+        public void ShowConfirmDialog(string question, string confirmText, Action<object> confirmAction, string cancelText, object obj)
+        {
+            var top = Mvx.Resolve<IMvxAndroidCurrentTopActivity>();
+            var act = top.Activity;
+
+            Android.App.AlertDialog.Builder alert = new Android.App.AlertDialog.Builder(act);
+            alert.SetTitle(question);
+            alert.SetPositiveButton(confirmText, (senderAlert, args) =>
+            {
+                confirmAction.Invoke(obj);
+            }); 
+            alert.SetNeutralButton(cancelText, (senderAlert, args) =>
+            {
             });
 
             Dialog dialog = alert.Create();
@@ -84,5 +102,6 @@ namespace tabApp.Services.Implementations
             Dialog dialog = alert.Create();
             dialog.Show();
         }
+
     }
 }

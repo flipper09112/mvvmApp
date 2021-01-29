@@ -25,6 +25,7 @@ namespace tabApp.Core.Models
         Payment,
         Order,
         None,
-        AddExtra
+        AddExtra,
+        CancelOrder
     }
 }

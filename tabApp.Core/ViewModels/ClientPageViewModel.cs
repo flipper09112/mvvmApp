@@ -10,6 +10,7 @@ using tabApp.Core.Services.Interfaces.DB;
 using tabApp.Core.Services.Interfaces.Dialogs;
 using tabApp.Core.Services.Interfaces.Helpers;
 using tabApp.Core.Services.Interfaces.Orders;
+using tabApp.Core.Services.Interfaces.Products;
 
 namespace tabApp.Core.ViewModels
 {
@@ -24,6 +25,7 @@ namespace tabApp.Core.ViewModels
         private readonly IMvxNavigationService _navigationService;
         private readonly IDBService _dBService;
         private readonly IDialogService _dialogService;
+        private readonly IProductsManagerService _productsManagerService;
 
         private DateTime _dateSelected;
 
@@ -46,6 +48,8 @@ namespace tabApp.Core.ViewModels
         public MvxCommand AddOrderCommand;
         public MvxCommand ShowDailyOrdersDetailsCommand;
         public MvxCommand ShowExtraOptionsCommand;
+        public MvxCommand<ExtraOrder> CancelOrderCommand;
+        public MvxCommand ShoeEditPageCommand;
 
         public ClientPageViewModel(IGetSpinnerDatesService getSpinnerDatesService, 
                                    IChooseClientService chooseClientService,
@@ -54,7 +58,8 @@ namespace tabApp.Core.ViewModels
                                    IClientsManagerService clientsManagerService,
                                    IMvxNavigationService navigationService,
                                    IDBService dBService,
-                                   IDialogService dialogService)
+                                   IDialogService dialogService,
+                                   IProductsManagerService productsManagerService)
         {
 
             #region Services
@@ -66,6 +71,7 @@ namespace tabApp.Core.ViewModels
             _navigationService = navigationService;
             _dBService = dBService;
             _dialogService = dialogService;
+            _productsManagerService = productsManagerService;
             #endregion
 
             #region Labels
@@ -89,6 +95,8 @@ namespace tabApp.Core.ViewModels
             AddOrderCommand = new MvxCommand(AddOrder);
             ShowDailyOrdersDetailsCommand = new MvxCommand(ShowDailyOrdersDetails);
             ShowExtraOptionsCommand = new MvxCommand(ShowExtraOptions);
+            CancelOrderCommand = new MvxCommand<ExtraOrder>(CancelOrder);
+            ShoeEditPageCommand = new MvxCommand(ShoeEditPage);
         }
 
         public Client Client => _chooseClientService.ClientSelected;
@@ -132,6 +140,32 @@ namespace tabApp.Core.ViewModels
 
         #region Actions
 
+        private void CancelOrder(ExtraOrder order)
+        {
+            _dialogService.ShowConfirmDialog("Confirmar o cancelamento da consulta", "Sim", ConfirmCancelOrder, "Não", order);
+        }
+
+        private void ConfirmCancelOrder(object obj)
+        {
+            IsBusy = true;
+            var regist = _clientsManagerService.RemoveExtraOrder(Client, (ExtraOrder)obj); 
+            _dBService.SaveNewClientData(Client);
+            _dBService.RemoveRegist((ExtraOrder)obj);
+            _dBService.SaveNewRegist(regist);
+            IsBusy = false;
+            RaisePropertyChanged(nameof(ConfirmCancelOrder));
+        }
+
+        public string GetOrderDesc(ExtraOrder obj)
+        {
+            string details = "";
+            foreach(var item in obj.AllItems)
+            {
+                Product product = _productsManagerService.GetProductById(item.ProductId);
+                details += product.Name + " - " + (product.Unity ? item.Ammount.ToString("N0") : item.Ammount.ToString("N2")) + "\n";
+            }
+            return details;
+        }
         private async void ShowExtraOptions()
         {
             await _navigationService.Navigate<OtherOptionsViewModel>();
@@ -143,6 +177,11 @@ namespace tabApp.Core.ViewModels
         private async void AddOrder()
         {
             await _navigationService.Navigate<ClientOrderViewModel>();
+        }
+
+        private async void ShoeEditPage()
+        {
+            await _navigationService.Navigate<EditClientViewModel>();
         }
         private void AddExtra()
         {

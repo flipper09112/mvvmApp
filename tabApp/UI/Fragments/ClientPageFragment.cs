@@ -96,7 +96,7 @@ namespace tabApp.UI.Fragments
             _cardView = view.FindViewById<CardView>(Resource.Id.cardView);
             #endregion
 
-            _viewPagerAdapter = new ClientPageViewPagerAdapter(ViewModel.TabsOptions, ViewModel.Client);
+            _viewPagerAdapter = new ClientPageViewPagerAdapter(ViewModel.TabsOptions, ViewModel.Client, ViewModel);
             _viewPager.Adapter = _viewPagerAdapter;
             _tabLayout.SetupWithViewPager(_viewPager, true);
 
@@ -168,6 +168,7 @@ namespace tabApp.UI.Fragments
             _addOrderButton.Click -= AddOrderButtonClick;
             _cardView.Click -= CardViewClick;
             _optionsButton.Click -= OptionsButtonClick;
+            _editButton.Click -= EditButtonClick;
         }
 
         public override void SetupBindings()
@@ -180,10 +181,15 @@ namespace tabApp.UI.Fragments
             _addOrderButton.Click += AddOrderButtonClick;
             _cardView.Click += CardViewClick;
             _optionsButton.Click += OptionsButtonClick;
+            _editButton.Click += EditButtonClick;
         }
 
-        #region Events
 
+        #region Events
+        private void EditButtonClick(object sender, EventArgs e)
+        {
+            ViewModel.ShoeEditPageCommand.Execute(null);
+        }
         private void OptionsButtonClick(object sender, EventArgs e)
         {
             ViewModel.ShowExtraOptionsCommand.Execute(null);

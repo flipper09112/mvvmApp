@@ -29,6 +29,7 @@ namespace tabApp.Core.Models
         public DailyOrder SexDailyOrder => DailyOrders[4];
         public DailyOrder SabDailyOrder => DailyOrders[5];
         public DailyOrder DomDailyOrder => DailyOrders[6];
+
         #endregion
 
         public Client(int id, string name, string subName, Address address, DateTime paymentDate, PaymentTypeEnum paymentType, bool active, double extraValue, List<DailyOrder> dailyOrders)
@@ -57,7 +58,7 @@ namespace tabApp.Core.Models
         internal void SetNewOrder(ExtraOrder extraOrder)
         {
             ExtraOrdersList.Add(extraOrder);
-            ExtraOrdersList.Sort((x, y) => DateTime.Compare(x.OrderDay, y.OrderDay));
+            ExtraOrdersList.Sort((x, y) => DateTime.Compare(y.OrderDay, x.OrderDay));
         }
         internal void SetPaymentDate(DateTime dateSelected, bool payExtra)
         {
@@ -70,6 +71,13 @@ namespace tabApp.Core.Models
         internal void AddExtra(double extra)
         {
             ExtraValueToPay += extra;
+        }
+
+
+
+        internal void RemoveOrder(ExtraOrder order)
+        {
+            ExtraOrdersList.Remove(order);
         }
     }
 
