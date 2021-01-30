@@ -22,6 +22,14 @@ public abstract class BaseFragment_1
 			mono.android.TypeManager.Activate ("tabApp.UI.BaseFragment`1, tabApp", "", this, new java.lang.Object[] {  });
 	}
 
+
+	public BaseFragment_1 (int p0)
+	{
+		super (p0);
+		if (getClass () == BaseFragment_1.class)
+			mono.android.TypeManager.Activate ("tabApp.UI.BaseFragment`1, tabApp", "System.Int32, mscorlib", this, new java.lang.Object[] { p0 });
+	}
+
 	private java.util.ArrayList refList;
 	public void monodroidAddReference (java.lang.Object obj)
 	{

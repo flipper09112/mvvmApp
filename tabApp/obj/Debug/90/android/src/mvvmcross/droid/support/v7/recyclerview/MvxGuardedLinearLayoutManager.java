@@ -2,7 +2,7 @@ package mvvmcross.droid.support.v7.recyclerview;
 
 
 public class MvxGuardedLinearLayoutManager
-	extends android.support.v7.widget.LinearLayoutManager
+	extends androidx.recyclerview.widget.LinearLayoutManager
 	implements
 		mono.android.IGCUserPeer
 {
@@ -10,7 +10,7 @@ public class MvxGuardedLinearLayoutManager
 	public static final String __md_methods;
 	static {
 		__md_methods = 
-			"n_onLayoutChildren:(Landroid/support/v7/widget/RecyclerView$Recycler;Landroid/support/v7/widget/RecyclerView$State;)V:GetOnLayoutChildren_Landroid_support_v7_widget_RecyclerView_Recycler_Landroid_support_v7_widget_RecyclerView_State_Handler\n" +
+			"n_onLayoutChildren:(Landroidx/recyclerview/widget/RecyclerView$Recycler;Landroidx/recyclerview/widget/RecyclerView$State;)V:GetOnLayoutChildren_Landroidx_recyclerview_widget_RecyclerView_Recycler_Landroidx_recyclerview_widget_RecyclerView_State_Handler\n" +
 			"";
 		mono.android.Runtime.register ("MvvmCross.Droid.Support.V7.RecyclerView.MvxGuardedLinearLayoutManager, MvvmCross.Droid.Support.V7.RecyclerView", MvxGuardedLinearLayoutManager.class, __md_methods);
 	}
@@ -40,12 +40,12 @@ public class MvxGuardedLinearLayoutManager
 	}
 
 
-	public void onLayoutChildren (android.support.v7.widget.RecyclerView.Recycler p0, android.support.v7.widget.RecyclerView.State p1)
+	public void onLayoutChildren (androidx.recyclerview.widget.RecyclerView.Recycler p0, androidx.recyclerview.widget.RecyclerView.State p1)
 	{
 		n_onLayoutChildren (p0, p1);
 	}
 
-	private native void n_onLayoutChildren (android.support.v7.widget.RecyclerView.Recycler p0, android.support.v7.widget.RecyclerView.State p1);
+	private native void n_onLayoutChildren (androidx.recyclerview.widget.RecyclerView.Recycler p0, androidx.recyclerview.widget.RecyclerView.State p1);
 
 	private java.util.ArrayList refList;
 	public void monodroidAddReference (java.lang.Object obj)

@@ -2,7 +2,7 @@ package crc645ed4b3a3b8826996;
 
 
 public class MvxEventSourceBottomSheetDialogFragment
-	extends android.support.design.widget.BottomSheetDialogFragment
+	extends com.google.android.material.bottomsheet.BottomSheetDialogFragment
 	implements
 		mono.android.IGCUserPeer
 {

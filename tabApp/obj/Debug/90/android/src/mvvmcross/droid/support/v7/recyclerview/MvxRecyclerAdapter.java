@@ -2,7 +2,7 @@ package mvvmcross.droid.support.v7.recyclerview;
 
 
 public class MvxRecyclerAdapter
-	extends android.support.v7.widget.RecyclerView.Adapter
+	extends androidx.recyclerview.widget.RecyclerView.Adapter
 	implements
 		mono.android.IGCUserPeer
 {
@@ -10,12 +10,12 @@ public class MvxRecyclerAdapter
 	public static final String __md_methods;
 	static {
 		__md_methods = 
-			"n_onViewAttachedToWindow:(Landroid/support/v7/widget/RecyclerView$ViewHolder;)V:GetOnViewAttachedToWindow_Landroid_support_v7_widget_RecyclerView_ViewHolder_Handler\n" +
-			"n_onViewDetachedFromWindow:(Landroid/support/v7/widget/RecyclerView$ViewHolder;)V:GetOnViewDetachedFromWindow_Landroid_support_v7_widget_RecyclerView_ViewHolder_Handler\n" +
-			"n_onViewRecycled:(Landroid/support/v7/widget/RecyclerView$ViewHolder;)V:GetOnViewRecycled_Landroid_support_v7_widget_RecyclerView_ViewHolder_Handler\n" +
-			"n_onCreateViewHolder:(Landroid/view/ViewGroup;I)Landroid/support/v7/widget/RecyclerView$ViewHolder;:GetOnCreateViewHolder_Landroid_view_ViewGroup_IHandler\n" +
+			"n_onViewAttachedToWindow:(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)V:GetOnViewAttachedToWindow_Landroidx_recyclerview_widget_RecyclerView_ViewHolder_Handler\n" +
+			"n_onViewDetachedFromWindow:(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)V:GetOnViewDetachedFromWindow_Landroidx_recyclerview_widget_RecyclerView_ViewHolder_Handler\n" +
+			"n_onViewRecycled:(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)V:GetOnViewRecycled_Landroidx_recyclerview_widget_RecyclerView_ViewHolder_Handler\n" +
+			"n_onCreateViewHolder:(Landroid/view/ViewGroup;I)Landroidx/recyclerview/widget/RecyclerView$ViewHolder;:GetOnCreateViewHolder_Landroid_view_ViewGroup_IHandler\n" +
 			"n_getItemViewType:(I)I:GetGetItemViewType_IHandler\n" +
-			"n_onBindViewHolder:(Landroid/support/v7/widget/RecyclerView$ViewHolder;I)V:GetOnBindViewHolder_Landroid_support_v7_widget_RecyclerView_ViewHolder_IHandler\n" +
+			"n_onBindViewHolder:(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;I)V:GetOnBindViewHolder_Landroidx_recyclerview_widget_RecyclerView_ViewHolder_IHandler\n" +
 			"n_getItemCount:()I:GetGetItemCountHandler\n" +
 			"";
 		mono.android.Runtime.register ("MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerAdapter, MvvmCross.Droid.Support.V7.RecyclerView", MvxRecyclerAdapter.class, __md_methods);
@@ -30,36 +30,36 @@ public class MvxRecyclerAdapter
 	}
 
 
-	public void onViewAttachedToWindow (android.support.v7.widget.RecyclerView.ViewHolder p0)
+	public void onViewAttachedToWindow (androidx.recyclerview.widget.RecyclerView.ViewHolder p0)
 	{
 		n_onViewAttachedToWindow (p0);
 	}
 
-	private native void n_onViewAttachedToWindow (android.support.v7.widget.RecyclerView.ViewHolder p0);
+	private native void n_onViewAttachedToWindow (androidx.recyclerview.widget.RecyclerView.ViewHolder p0);
 
 
-	public void onViewDetachedFromWindow (android.support.v7.widget.RecyclerView.ViewHolder p0)
+	public void onViewDetachedFromWindow (androidx.recyclerview.widget.RecyclerView.ViewHolder p0)
 	{
 		n_onViewDetachedFromWindow (p0);
 	}
 
-	private native void n_onViewDetachedFromWindow (android.support.v7.widget.RecyclerView.ViewHolder p0);
+	private native void n_onViewDetachedFromWindow (androidx.recyclerview.widget.RecyclerView.ViewHolder p0);
 
 
-	public void onViewRecycled (android.support.v7.widget.RecyclerView.ViewHolder p0)
+	public void onViewRecycled (androidx.recyclerview.widget.RecyclerView.ViewHolder p0)
 	{
 		n_onViewRecycled (p0);
 	}
 
-	private native void n_onViewRecycled (android.support.v7.widget.RecyclerView.ViewHolder p0);
+	private native void n_onViewRecycled (androidx.recyclerview.widget.RecyclerView.ViewHolder p0);
 
 
-	public android.support.v7.widget.RecyclerView.ViewHolder onCreateViewHolder (android.view.ViewGroup p0, int p1)
+	public androidx.recyclerview.widget.RecyclerView.ViewHolder onCreateViewHolder (android.view.ViewGroup p0, int p1)
 	{
 		return n_onCreateViewHolder (p0, p1);
 	}
 
-	private native android.support.v7.widget.RecyclerView.ViewHolder n_onCreateViewHolder (android.view.ViewGroup p0, int p1);
+	private native androidx.recyclerview.widget.RecyclerView.ViewHolder n_onCreateViewHolder (android.view.ViewGroup p0, int p1);
 
 
 	public int getItemViewType (int p0)
@@ -70,12 +70,12 @@ public class MvxRecyclerAdapter
 	private native int n_getItemViewType (int p0);
 
 
-	public void onBindViewHolder (android.support.v7.widget.RecyclerView.ViewHolder p0, int p1)
+	public void onBindViewHolder (androidx.recyclerview.widget.RecyclerView.ViewHolder p0, int p1)
 	{
 		n_onBindViewHolder (p0, p1);
 	}
 
-	private native void n_onBindViewHolder (android.support.v7.widget.RecyclerView.ViewHolder p0, int p1);
+	private native void n_onBindViewHolder (androidx.recyclerview.widget.RecyclerView.ViewHolder p0, int p1);
 
 
 	public int getItemCount ()

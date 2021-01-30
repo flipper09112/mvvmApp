@@ -32,6 +32,14 @@ public class MvxAppCompatActivity
 	}
 
 
+	public MvxAppCompatActivity (int p0)
+	{
+		super (p0);
+		if (getClass () == MvxAppCompatActivity.class)
+			mono.android.TypeManager.Activate ("MvvmCross.Droid.Support.V7.AppCompat.MvxAppCompatActivity, MvvmCross.Droid.Support.V7.AppCompat", "System.Int32, mscorlib", this, new java.lang.Object[] { p0 });
+	}
+
+
 	public void setContentView (int p0)
 	{
 		n_setContentView (p0);

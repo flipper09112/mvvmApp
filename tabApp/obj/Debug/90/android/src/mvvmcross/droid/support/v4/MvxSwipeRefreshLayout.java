@@ -2,7 +2,7 @@ package mvvmcross.droid.support.v4;
 
 
 public class MvxSwipeRefreshLayout
-	extends android.support.v4.widget.SwipeRefreshLayout
+	extends androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 	implements
 		mono.android.IGCUserPeer
 {

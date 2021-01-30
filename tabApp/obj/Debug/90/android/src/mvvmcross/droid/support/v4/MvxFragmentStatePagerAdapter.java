@@ -2,7 +2,7 @@ package mvvmcross.droid.support.v4;
 
 
 public class MvxFragmentStatePagerAdapter
-	extends android.support.v4.app.FragmentStatePagerAdapter
+	extends androidx.fragment.app.FragmentStatePagerAdapter
 	implements
 		mono.android.IGCUserPeer
 {
@@ -11,7 +11,7 @@ public class MvxFragmentStatePagerAdapter
 	static {
 		__md_methods = 
 			"n_getCount:()I:GetGetCountHandler\n" +
-			"n_getItem:(I)Landroid/support/v4/app/Fragment;:GetGetItem_IHandler\n" +
+			"n_getItem:(I)Landroidx/fragment/app/Fragment;:GetGetItem_IHandler\n" +
 			"n_getPageTitle:(I)Ljava/lang/CharSequence;:GetGetPageTitle_IHandler\n" +
 			"n_restoreState:(Landroid/os/Parcelable;Ljava/lang/ClassLoader;)V:GetRestoreState_Landroid_os_Parcelable_Ljava_lang_ClassLoader_Handler\n" +
 			"";
@@ -19,11 +19,19 @@ public class MvxFragmentStatePagerAdapter
 	}
 
 
-	public MvxFragmentStatePagerAdapter (android.support.v4.app.FragmentManager p0)
+	public MvxFragmentStatePagerAdapter (androidx.fragment.app.FragmentManager p0)
 	{
 		super (p0);
 		if (getClass () == MvxFragmentStatePagerAdapter.class)
-			mono.android.TypeManager.Activate ("MvvmCross.Droid.Support.V4.MvxFragmentStatePagerAdapter, MvvmCross.Droid.Support.Fragment", "Android.Support.V4.App.FragmentManager, Xamarin.Android.Support.Fragment", this, new java.lang.Object[] { p0 });
+			mono.android.TypeManager.Activate ("MvvmCross.Droid.Support.V4.MvxFragmentStatePagerAdapter, MvvmCross.Droid.Support.Fragment", "AndroidX.Fragment.App.FragmentManager, Xamarin.AndroidX.Fragment", this, new java.lang.Object[] { p0 });
+	}
+
+
+	public MvxFragmentStatePagerAdapter (androidx.fragment.app.FragmentManager p0, int p1)
+	{
+		super (p0, p1);
+		if (getClass () == MvxFragmentStatePagerAdapter.class)
+			mono.android.TypeManager.Activate ("MvvmCross.Droid.Support.V4.MvxFragmentStatePagerAdapter, MvvmCross.Droid.Support.Fragment", "AndroidX.Fragment.App.FragmentManager, Xamarin.AndroidX.Fragment:System.Int32, mscorlib", this, new java.lang.Object[] { p0, p1 });
 	}
 
 
@@ -35,12 +43,12 @@ public class MvxFragmentStatePagerAdapter
 	private native int n_getCount ();
 
 
-	public android.support.v4.app.Fragment getItem (int p0)
+	public androidx.fragment.app.Fragment getItem (int p0)
 	{
 		return n_getItem (p0);
 	}
 
-	private native android.support.v4.app.Fragment n_getItem (int p0);
+	private native androidx.fragment.app.Fragment n_getItem (int p0);
 
 
 	public java.lang.CharSequence getPageTitle (int p0)

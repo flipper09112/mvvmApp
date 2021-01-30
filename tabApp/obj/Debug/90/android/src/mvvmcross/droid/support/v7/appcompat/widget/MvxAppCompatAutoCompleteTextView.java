@@ -2,7 +2,7 @@ package mvvmcross.droid.support.v7.appcompat.widget;
 
 
 public class MvxAppCompatAutoCompleteTextView
-	extends android.support.v7.widget.AppCompatAutoCompleteTextView
+	extends androidx.appcompat.widget.AppCompatAutoCompleteTextView
 	implements
 		mono.android.IGCUserPeer
 {

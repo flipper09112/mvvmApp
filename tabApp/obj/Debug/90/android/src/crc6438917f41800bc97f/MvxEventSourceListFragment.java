@@ -2,7 +2,7 @@ package crc6438917f41800bc97f;
 
 
 public class MvxEventSourceListFragment
-	extends android.support.v4.app.ListFragment
+	extends androidx.fragment.app.ListFragment
 	implements
 		mono.android.IGCUserPeer
 {

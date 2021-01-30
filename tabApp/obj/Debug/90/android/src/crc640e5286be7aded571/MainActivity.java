@@ -28,6 +28,14 @@ public class MainActivity
 	}
 
 
+	public MainActivity (int p0)
+	{
+		super (p0);
+		if (getClass () == MainActivity.class)
+			mono.android.TypeManager.Activate ("tabApp.MainActivity, tabApp", "System.Int32, mscorlib", this, new java.lang.Object[] { p0 });
+	}
+
+
 	public void onCreate (android.os.Bundle p0)
 	{
 		n_onCreate (p0);

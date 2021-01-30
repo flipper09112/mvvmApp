@@ -2,7 +2,7 @@ package mvvmcross.droid.support.v4;
 
 
 public abstract class MvxCachingFragmentPagerAdapter
-	extends android.support.v4.view.PagerAdapter
+	extends androidx.viewpager.widget.PagerAdapter
 	implements
 		mono.android.IGCUserPeer
 {
@@ -30,11 +30,11 @@ public abstract class MvxCachingFragmentPagerAdapter
 			mono.android.TypeManager.Activate ("MvvmCross.Droid.Support.V4.MvxCachingFragmentPagerAdapter, MvvmCross.Droid.Support.Fragment", "", this, new java.lang.Object[] {  });
 	}
 
-	public MvxCachingFragmentPagerAdapter (android.support.v4.app.FragmentManager p0)
+	public MvxCachingFragmentPagerAdapter (androidx.fragment.app.FragmentManager p0)
 	{
 		super ();
 		if (getClass () == MvxCachingFragmentPagerAdapter.class)
-			mono.android.TypeManager.Activate ("MvvmCross.Droid.Support.V4.MvxCachingFragmentPagerAdapter, MvvmCross.Droid.Support.Fragment", "Android.Support.V4.App.FragmentManager, Xamarin.Android.Support.Fragment", this, new java.lang.Object[] { p0 });
+			mono.android.TypeManager.Activate ("MvvmCross.Droid.Support.V4.MvxCachingFragmentPagerAdapter, MvvmCross.Droid.Support.Fragment", "AndroidX.Fragment.App.FragmentManager, Xamarin.AndroidX.Fragment", this, new java.lang.Object[] { p0 });
 	}
 
 

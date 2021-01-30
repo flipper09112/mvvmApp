@@ -2,7 +2,7 @@ package crc64637580874e6ea20c;
 
 
 public class MvxEventSourceAppCompatDialogFragment
-	extends android.support.v7.app.AppCompatDialogFragment
+	extends androidx.appcompat.app.AppCompatDialogFragment
 	implements
 		mono.android.IGCUserPeer
 {

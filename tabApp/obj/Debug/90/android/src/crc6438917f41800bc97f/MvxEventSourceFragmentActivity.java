@@ -2,7 +2,7 @@ package crc6438917f41800bc97f;
 
 
 public abstract class MvxEventSourceFragmentActivity
-	extends android.support.v4.app.FragmentActivity
+	extends androidx.fragment.app.FragmentActivity
 	implements
 		mono.android.IGCUserPeer
 {
@@ -31,6 +31,14 @@ public abstract class MvxEventSourceFragmentActivity
 		super ();
 		if (getClass () == MvxEventSourceFragmentActivity.class)
 			mono.android.TypeManager.Activate ("MvvmCross.Droid.Support.V4.EventSource.MvxEventSourceFragmentActivity, MvvmCross.Droid.Support.Fragment", "", this, new java.lang.Object[] {  });
+	}
+
+
+	public MvxEventSourceFragmentActivity (int p0)
+	{
+		super (p0);
+		if (getClass () == MvxEventSourceFragmentActivity.class)
+			mono.android.TypeManager.Activate ("MvvmCross.Droid.Support.V4.EventSource.MvxEventSourceFragmentActivity, MvvmCross.Droid.Support.Fragment", "System.Int32, mscorlib", this, new java.lang.Object[] { p0 });
 	}
 
 

@@ -22,6 +22,14 @@ public abstract class MvxSplashScreenAppCompatActivity_2
 			mono.android.TypeManager.Activate ("MvvmCross.Droid.Support.V7.AppCompat.MvxSplashScreenAppCompatActivity`2, MvvmCross.Droid.Support.V7.AppCompat", "", this, new java.lang.Object[] {  });
 	}
 
+
+	public MvxSplashScreenAppCompatActivity_2 (int p0)
+	{
+		super (p0);
+		if (getClass () == MvxSplashScreenAppCompatActivity_2.class)
+			mono.android.TypeManager.Activate ("MvvmCross.Droid.Support.V7.AppCompat.MvxSplashScreenAppCompatActivity`2, MvvmCross.Droid.Support.V7.AppCompat", "System.Int32, mscorlib", this, new java.lang.Object[] { p0 });
+	}
+
 	private java.util.ArrayList refList;
 	public void monodroidAddReference (java.lang.Object obj)
 	{

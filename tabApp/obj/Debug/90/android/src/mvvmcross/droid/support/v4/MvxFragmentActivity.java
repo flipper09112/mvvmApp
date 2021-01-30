@@ -31,6 +31,14 @@ public class MvxFragmentActivity
 	}
 
 
+	public MvxFragmentActivity (int p0)
+	{
+		super (p0);
+		if (getClass () == MvxFragmentActivity.class)
+			mono.android.TypeManager.Activate ("MvvmCross.Droid.Support.V4.MvxFragmentActivity, MvvmCross.Droid.Support.Fragment", "System.Int32, mscorlib", this, new java.lang.Object[] { p0 });
+	}
+
+
 	public void setContentView (int p0)
 	{
 		n_setContentView (p0);

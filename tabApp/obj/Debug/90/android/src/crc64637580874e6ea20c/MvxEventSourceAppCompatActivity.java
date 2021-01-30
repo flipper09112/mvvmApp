@@ -2,7 +2,7 @@ package crc64637580874e6ea20c;
 
 
 public abstract class MvxEventSourceAppCompatActivity
-	extends android.support.v7.app.AppCompatActivity
+	extends androidx.appcompat.app.AppCompatActivity
 	implements
 		mono.android.IGCUserPeer
 {
@@ -31,6 +31,14 @@ public abstract class MvxEventSourceAppCompatActivity
 		super ();
 		if (getClass () == MvxEventSourceAppCompatActivity.class)
 			mono.android.TypeManager.Activate ("MvvmCross.Droid.Support.V7.AppCompat.EventSource.MvxEventSourceAppCompatActivity, MvvmCross.Droid.Support.V7.AppCompat", "", this, new java.lang.Object[] {  });
+	}
+
+
+	public MvxEventSourceAppCompatActivity (int p0)
+	{
+		super (p0);
+		if (getClass () == MvxEventSourceAppCompatActivity.class)
+			mono.android.TypeManager.Activate ("MvvmCross.Droid.Support.V7.AppCompat.EventSource.MvxEventSourceAppCompatActivity, MvvmCross.Droid.Support.V7.AppCompat", "System.Int32, mscorlib", this, new java.lang.Object[] { p0 });
 	}
 
 

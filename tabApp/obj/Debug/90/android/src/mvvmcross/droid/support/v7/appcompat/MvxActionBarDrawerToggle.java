@@ -2,7 +2,7 @@ package mvvmcross.droid.support.v7.appcompat;
 
 
 public class MvxActionBarDrawerToggle
-	extends android.support.v7.app.ActionBarDrawerToggle
+	extends androidx.appcompat.app.ActionBarDrawerToggle
 	implements
 		mono.android.IGCUserPeer
 {
@@ -19,19 +19,19 @@ public class MvxActionBarDrawerToggle
 	}
 
 
-	public MvxActionBarDrawerToggle (android.app.Activity p0, android.support.v4.widget.DrawerLayout p1, android.support.v7.widget.Toolbar p2, int p3, int p4)
+	public MvxActionBarDrawerToggle (android.app.Activity p0, androidx.drawerlayout.widget.DrawerLayout p1, androidx.appcompat.widget.Toolbar p2, int p3, int p4)
 	{
 		super (p0, p1, p2, p3, p4);
 		if (getClass () == MvxActionBarDrawerToggle.class)
-			mono.android.TypeManager.Activate ("MvvmCross.Droid.Support.V7.AppCompat.MvxActionBarDrawerToggle, MvvmCross.Droid.Support.V7.AppCompat", "Android.App.Activity, Mono.Android:Android.Support.V4.Widget.DrawerLayout, Xamarin.Android.Support.DrawerLayout:Android.Support.V7.Widget.Toolbar, Xamarin.Android.Support.v7.AppCompat:System.Int32, mscorlib:System.Int32, mscorlib", this, new java.lang.Object[] { p0, p1, p2, p3, p4 });
+			mono.android.TypeManager.Activate ("MvvmCross.Droid.Support.V7.AppCompat.MvxActionBarDrawerToggle, MvvmCross.Droid.Support.V7.AppCompat", "Android.App.Activity, Mono.Android:AndroidX.DrawerLayout.Widget.DrawerLayout, Xamarin.AndroidX.DrawerLayout:AndroidX.AppCompat.Widget.Toolbar, Xamarin.AndroidX.AppCompat:System.Int32, mscorlib:System.Int32, mscorlib", this, new java.lang.Object[] { p0, p1, p2, p3, p4 });
 	}
 
 
-	public MvxActionBarDrawerToggle (android.app.Activity p0, android.support.v4.widget.DrawerLayout p1, int p2, int p3)
+	public MvxActionBarDrawerToggle (android.app.Activity p0, androidx.drawerlayout.widget.DrawerLayout p1, int p2, int p3)
 	{
 		super (p0, p1, p2, p3);
 		if (getClass () == MvxActionBarDrawerToggle.class)
-			mono.android.TypeManager.Activate ("MvvmCross.Droid.Support.V7.AppCompat.MvxActionBarDrawerToggle, MvvmCross.Droid.Support.V7.AppCompat", "Android.App.Activity, Mono.Android:Android.Support.V4.Widget.DrawerLayout, Xamarin.Android.Support.DrawerLayout:System.Int32, mscorlib:System.Int32, mscorlib", this, new java.lang.Object[] { p0, p1, p2, p3 });
+			mono.android.TypeManager.Activate ("MvvmCross.Droid.Support.V7.AppCompat.MvxActionBarDrawerToggle, MvvmCross.Droid.Support.V7.AppCompat", "Android.App.Activity, Mono.Android:AndroidX.DrawerLayout.Widget.DrawerLayout, Xamarin.AndroidX.DrawerLayout:System.Int32, mscorlib:System.Int32, mscorlib", this, new java.lang.Object[] { p0, p1, p2, p3 });
 	}
 
 

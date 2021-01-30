@@ -25,11 +25,11 @@ public class MvxCachingFragmentStatePagerAdapter
 			mono.android.TypeManager.Activate ("MvvmCross.Droid.Support.V4.MvxCachingFragmentStatePagerAdapter, MvvmCross.Droid.Support.Fragment", "", this, new java.lang.Object[] {  });
 	}
 
-	public MvxCachingFragmentStatePagerAdapter (android.support.v4.app.FragmentManager p0)
+	public MvxCachingFragmentStatePagerAdapter (androidx.fragment.app.FragmentManager p0)
 	{
 		super ();
 		if (getClass () == MvxCachingFragmentStatePagerAdapter.class)
-			mono.android.TypeManager.Activate ("MvvmCross.Droid.Support.V4.MvxCachingFragmentStatePagerAdapter, MvvmCross.Droid.Support.Fragment", "Android.Support.V4.App.FragmentManager, Xamarin.Android.Support.Fragment", this, new java.lang.Object[] { p0 });
+			mono.android.TypeManager.Activate ("MvvmCross.Droid.Support.V4.MvxCachingFragmentStatePagerAdapter, MvvmCross.Droid.Support.Fragment", "AndroidX.Fragment.App.FragmentManager, Xamarin.AndroidX.Fragment", this, new java.lang.Object[] { p0 });
 	}
 
 

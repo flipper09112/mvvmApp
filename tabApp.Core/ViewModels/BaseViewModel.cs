@@ -1,4 +1,5 @@
-﻿using MvvmCross.ViewModels;
+﻿using MvvmCross.Core.ViewModels;
+using MvvmCross.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;

@@ -2,7 +2,7 @@ package mvvmcross.droid.support.v7.recyclerview;
 
 
 public class MvxRecyclerView
-	extends android.support.v7.widget.RecyclerView
+	extends androidx.recyclerview.widget.RecyclerView
 	implements
 		mono.android.IGCUserPeer
 {
@@ -10,7 +10,7 @@ public class MvxRecyclerView
 	public static final String __md_methods;
 	static {
 		__md_methods = 
-			"n_setLayoutManager:(Landroid/support/v7/widget/RecyclerView$LayoutManager;)V:GetSetLayoutManager_Landroid_support_v7_widget_RecyclerView_LayoutManager_Handler\n" +
+			"n_setLayoutManager:(Landroidx/recyclerview/widget/RecyclerView$LayoutManager;)V:GetSetLayoutManager_Landroidx_recyclerview_widget_RecyclerView_LayoutManager_Handler\n" +
 			"n_onDetachedFromWindow:()V:GetOnDetachedFromWindowHandler\n" +
 			"";
 		mono.android.Runtime.register ("MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView, MvvmCross.Droid.Support.V7.RecyclerView", MvxRecyclerView.class, __md_methods);
@@ -41,12 +41,12 @@ public class MvxRecyclerView
 	}
 
 
-	public void setLayoutManager (android.support.v7.widget.RecyclerView.LayoutManager p0)
+	public void setLayoutManager (androidx.recyclerview.widget.RecyclerView.LayoutManager p0)
 	{
 		n_setLayoutManager (p0);
 	}
 
-	private native void n_setLayoutManager (android.support.v7.widget.RecyclerView.LayoutManager p0);
+	private native void n_setLayoutManager (androidx.recyclerview.widget.RecyclerView.LayoutManager p0);
 
 
 	public void onDetachedFromWindow ()

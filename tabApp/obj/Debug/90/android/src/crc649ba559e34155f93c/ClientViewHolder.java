@@ -2,7 +2,7 @@ package crc649ba559e34155f93c;
 
 
 public class ClientViewHolder
-	extends android.support.v7.widget.RecyclerView.ViewHolder
+	extends androidx.recyclerview.widget.RecyclerView.ViewHolder
 	implements
 		mono.android.IGCUserPeer
 {

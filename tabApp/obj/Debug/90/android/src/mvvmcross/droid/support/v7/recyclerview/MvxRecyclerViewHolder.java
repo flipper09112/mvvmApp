@@ -2,7 +2,7 @@ package mvvmcross.droid.support.v7.recyclerview;
 
 
 public class MvxRecyclerViewHolder
-	extends android.support.v7.widget.RecyclerView.ViewHolder
+	extends androidx.recyclerview.widget.RecyclerView.ViewHolder
 	implements
 		mono.android.IGCUserPeer
 {

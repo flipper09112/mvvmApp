@@ -30,12 +30,19 @@ namespace tabApp.UI
 
         public override void OnCreate(Bundle savedInstanceState)
         {
-            base.OnCreate(savedInstanceState);
+            try
+            {
+                base.OnCreate(savedInstanceState);
 
-            Vm = (BaseViewModel)ViewModel;
-
-            Vm.PropertyChanged -= VmPropertyChanged;
-            Vm.PropertyChanged += VmPropertyChanged;
+                Vm = (BaseViewModel)ViewModel;
+                if (Vm != null)
+                {
+                    Vm.PropertyChanged -= VmPropertyChanged;
+                    Vm.PropertyChanged += VmPropertyChanged;
+                }
+            }
+            finally { }
+            
         }
 
         private void VmPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

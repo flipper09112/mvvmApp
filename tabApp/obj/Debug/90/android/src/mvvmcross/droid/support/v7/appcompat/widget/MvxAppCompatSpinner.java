@@ -2,7 +2,7 @@ package mvvmcross.droid.support.v7.appcompat.widget;
 
 
 public class MvxAppCompatSpinner
-	extends android.support.v7.widget.AppCompatSpinner
+	extends androidx.appcompat.widget.AppCompatSpinner
 	implements
 		mono.android.IGCUserPeer
 {

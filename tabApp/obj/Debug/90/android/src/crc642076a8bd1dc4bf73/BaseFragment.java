@@ -27,6 +27,14 @@ public abstract class BaseFragment
 	}
 
 
+	public BaseFragment (int p0)
+	{
+		super (p0);
+		if (getClass () == BaseFragment.class)
+			mono.android.TypeManager.Activate ("tabApp.UI.BaseFragment, tabApp", "System.Int32, mscorlib", this, new java.lang.Object[] { p0 });
+	}
+
+
 	public void onCreate (android.os.Bundle p0)
 	{
 		n_onCreate (p0);

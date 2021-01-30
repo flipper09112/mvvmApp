@@ -26,6 +26,14 @@ public abstract class MvxSplashScreenAppCompatActivity
 	}
 
 
+	public MvxSplashScreenAppCompatActivity (int p0)
+	{
+		super (p0);
+		if (getClass () == MvxSplashScreenAppCompatActivity.class)
+			mono.android.TypeManager.Activate ("MvvmCross.Droid.Support.V7.AppCompat.MvxSplashScreenAppCompatActivity, MvvmCross.Droid.Support.V7.AppCompat", "System.Int32, mscorlib", this, new java.lang.Object[] { p0 });
+	}
+
+
 	public void onCreate (android.os.Bundle p0)
 	{
 		n_onCreate (p0);

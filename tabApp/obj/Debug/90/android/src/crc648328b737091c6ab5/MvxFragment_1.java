@@ -22,6 +22,14 @@ public abstract class MvxFragment_1
 			mono.android.TypeManager.Activate ("MvvmCross.Droid.Support.V4.MvxFragment`1, MvvmCross.Droid.Support.Fragment", "", this, new java.lang.Object[] {  });
 	}
 
+
+	public MvxFragment_1 (int p0)
+	{
+		super (p0);
+		if (getClass () == MvxFragment_1.class)
+			mono.android.TypeManager.Activate ("MvvmCross.Droid.Support.V4.MvxFragment`1, MvvmCross.Droid.Support.Fragment", "System.Int32, mscorlib", this, new java.lang.Object[] { p0 });
+	}
+
 	private java.util.ArrayList refList;
 	public void monodroidAddReference (java.lang.Object obj)
 	{
