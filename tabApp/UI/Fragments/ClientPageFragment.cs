@@ -144,7 +144,6 @@ namespace tabApp.UI.Fragments
             SetupTabLayout();
         }
 
-
         private void SetupTabLayout()
         {
             List<string> tabsNames = new List<string>();

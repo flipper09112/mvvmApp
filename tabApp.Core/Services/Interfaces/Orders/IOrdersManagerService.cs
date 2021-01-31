@@ -7,6 +7,8 @@ namespace tabApp.Core.Services.Interfaces.Orders
 {
     public interface IOrdersManagerService
     {
+        List<(Client Client, ExtraOrder ExtraOrder)> TodayOrders { get; }
+
         double GetValue(int clientId, DailyOrder dailyOrder);
         double WeekAmmount(Client client);
     }

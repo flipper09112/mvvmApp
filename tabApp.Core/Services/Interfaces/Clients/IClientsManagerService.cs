@@ -15,5 +15,6 @@ namespace tabApp.Core.Services.Interfaces.Clients
         Regist AddExtra(Client client, double extra);
         ExtraOrder AddNewOrder(Client client, ExtraOrder extraOrder);
         Regist RemoveExtraOrder(Client client, ExtraOrder order);
+        Client GetClosestClient(double currentLatitude, double currentLogitude);
     }
 }

@@ -37,7 +37,7 @@ namespace tabApp.Services.Implementations
             alert.SetView(dialogView);
             alert.SetPositiveButton(confirmText, (senderAlert, args) =>
             {
-                confirmAction.Invoke(checkBox.Checked);
+                confirmAction?.Invoke(checkBox.Checked);
             }); 
 
             Dialog dialog = alert.Create();

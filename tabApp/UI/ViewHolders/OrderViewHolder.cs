@@ -12,6 +12,7 @@ using Android.Support.V4.Content;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using tabApp.Core;
 using tabApp.Core.Models;
 using tabApp.Core.ViewModels;
 
@@ -26,6 +27,7 @@ namespace tabApp.UI.ViewHolders
         private Button _cancelAppointment;
         private TextView _orderStatus;
         private ClientPageViewModel viewModel;
+        private HomeViewModel homeViewModel;
         private ExtraOrder extraOrder;
 
         public OrderViewHolder(View itemView) : base(itemView)
@@ -39,7 +41,7 @@ namespace tabApp.UI.ViewHolders
             _orderStatus = itemView.FindViewById<TextView>(Resource.Id.orderStatus);
         }
 
-        internal void Bind(ExtraOrder extraOrder, Core.ViewModels.ClientPageViewModel viewModel)
+        internal void Bind(ExtraOrder extraOrder, Core.ViewModels.ClientPageViewModel viewModel = null)
         {
             this.viewModel = viewModel;
             this.extraOrder = extraOrder;

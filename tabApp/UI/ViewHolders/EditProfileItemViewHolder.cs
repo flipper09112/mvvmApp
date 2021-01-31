@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using tabApp.Core.Models;
 using tabApp.Helpers;
+using tabApp.Services.Implementations;
 
 namespace tabApp.UI.ViewHolders
 {
@@ -40,14 +41,38 @@ namespace tabApp.UI.ViewHolders
             _editValue.Text = clientProfileField.NewValue != null ? clientProfileField.NewValue : clientProfileField.Value;
             _icon.SetImageResource(ImageHelper.GetImageResource(context, clientProfileField.IconName));
 
-            if(clientProfileField.IsInt)
+            if (clientProfileField.IsDate)
             {
-                _editValue.SetFilters(new IInputFilter[] { new DecimalDigitsInputFilter(0) });
-                _editValue.InputType = InputTypes.ClassNumber | InputTypes.NumberFlagDecimal;
+                _editValue.Click -= EditValueClick;
+                _editValue.Click += EditValueClick;
             }
+            else
+            {
+                if (clientProfileField.IsInt)
+                {
+                    _editValue.SetFilters(new IInputFilter[] { new DecimalDigitsInputFilter(0) });
+                    _editValue.InputType = InputTypes.ClassNumber | InputTypes.NumberFlagDecimal;
+                }
+                if (clientProfileField.IsDouble)
+                {
+                    _editValue.SetFilters(new IInputFilter[] { new DecimalDigitsInputFilter(2) });
+                    _editValue.InputType = InputTypes.ClassNumber | InputTypes.NumberFlagDecimal;
 
-            _editValue.TextChanged -= EditValueTextChanged;
-            _editValue.TextChanged += EditValueTextChanged;
+                }
+                _editValue.TextChanged -= EditValueTextChanged;
+                _editValue.TextChanged += EditValueTextChanged;
+            }
+        }
+
+        private void EditValueClick(object sender, EventArgs e)
+        {
+            new DialogService().ShowDatePickerDialog(SetNewDate);
+        }
+
+        private void SetNewDate(DateTime obj)
+        {
+            _editValue.Text = obj.ToString("dd/MM/yyyy");
+            EditValueTextChanged(null, null);
         }
 
         private void EditValueTextChanged(object sender, TextChangedEventArgs e)

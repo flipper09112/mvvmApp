@@ -421,6 +421,10 @@ namespace tabApp.Core.Services.Implementations
             {
                 return DetailTypeEnum.CancelOrder;
             }
+            else if (DetailTypeEnum.Edit.ToString().Equals(displayedText))
+            {
+                return DetailTypeEnum.Edit;
+            }
             else
             {
                 return DetailTypeEnum.None;

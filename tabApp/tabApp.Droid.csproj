@@ -77,6 +77,8 @@
     <Compile Include="Services\Implementations\DialogService.cs" />
     <Compile Include="Services\Implementations\FileService.cs" />
     <Compile Include="Setup.cs" />
+    <Compile Include="UI\Adapters\Home\HomePageOrdersListAdapter.cs" />
+    <Compile Include="UI\Adapters\Home\HomePageViewPagerAdapter.cs" />
     <Compile Include="UI\Fragments\EditClient\EditClientProfileFragment.cs" />
     <Compile Include="UI\Adapters\EditClient\EditClientProfileItemsAdapter.cs" />
     <Compile Include="UI\Adapters\EditClient\EditClientViewPagerAdapter.cs" />
@@ -89,6 +91,7 @@
     <Compile Include="UI\Fragments\EditClientFragment.cs" />
     <Compile Include="UI\Fragments\EditClient\EditClientMapFragment.cs" />
     <Compile Include="UI\ViewHolders\EditProfileItemViewHolder.cs" />
+    <Compile Include="UI\ViewHolders\HomePageOrderViewHolder.cs" />
     <Compile Include="UI\ViewHolders\OrderViewHolder.cs" />
     <Compile Include="UI\ViewHolders\ProductsOrderListViewHolder.cs" />
     <Compile Include="UI\Adapters\ClientPage\ViewPager\ClientPageDetailsAdapter.cs" />
@@ -405,6 +408,23 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\MapViewEditClient.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_calendar.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_money.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_edit.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_gps.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\HomePagerOrderItem.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

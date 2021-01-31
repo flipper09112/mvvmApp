@@ -166,6 +166,7 @@ namespace tabApp.Core.ViewModels
             }
             return details;
         }
+
         private async void ShowExtraOptions()
         {
             await _navigationService.Navigate<OtherOptionsViewModel>();

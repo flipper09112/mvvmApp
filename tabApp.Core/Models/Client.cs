@@ -6,15 +6,15 @@ namespace tabApp.Core.Models
 {
     public class Client
     {
-        public int Id { get; }
-        public string Name { get; }
-        public string SubName { get; }
-        public Address Address { get; }
+        public int Id { get; private set; }
+        public string Name { get; private set; }
+        public string SubName { get; private set; }
+        public Address Address { get; private set; }
         public DateTime PaymentDate { get; private set; }
-        public PaymentTypeEnum PaymentType { get; }
-        public bool Active { get; }
+        public PaymentTypeEnum PaymentType { get; private set; }
+        public bool Active { get; private set; }
         public double ExtraValueToPay { get; private set; }
-        public List<DailyOrder> DailyOrders { get; }
+        public List<DailyOrder> DailyOrders { get; private set; }
 
         //Extra Params
         public List<Regist> DetailsList { get; private set; }
@@ -68,12 +68,48 @@ namespace tabApp.Core.Models
         }
 
         #endregion
+
+        #region Update
+        internal void UpdateLocation(string newLocation)
+        {
+            Address.SetCoordenadas(newLocation);
+        }
+
+        internal void UpdateName(string newValue)
+        {
+            Name = newValue;
+        }
+
+        internal void UpdateSubName(string newValue)
+        {
+            SubName = newValue;
+        }
+
+        internal void UpdateAddressDesc(string newValue)
+        {
+            Address.UpdateAddressDesc(newValue);
+        }
+
+        internal void UpdateNumberDoor(int newValue)
+        {
+            Address.UpdateAddressNumberDoor(newValue);
+        }
+
+        internal void UpdatePaymentDate(DateTime dateTime)
+        {
+            PaymentDate = dateTime;
+        }
+
+        internal void UpdateExtraValueToPay(double v)
+        {
+            ExtraValueToPay = v;
+        }
+        #endregion
+
         internal void AddExtra(double extra)
         {
             ExtraValueToPay += extra;
         }
-
-
 
         internal void RemoveOrder(ExtraOrder order)
         {
@@ -93,14 +129,33 @@ namespace tabApp.Core.Models
 
     public class Address
     {
-        public string AddressDesc { get; }
-        public int NumberDoor { get; }
-        public string Coordenadas { get; }
+        public string AddressDesc { get; private set; }
+        public int NumberDoor { get; private set; }
+        public string Coordenadas { get; private set; }
+
+        public string Lat => Coordenadas.Split(',')[0] + "," + Coordenadas.Split(',')[1];
+        public string Lgt => Coordenadas.Split(',')[2] + "," + Coordenadas.Split(',')[3];
+
         public Address(string addressDesc, int door, string coord)
         {
             AddressDesc = addressDesc;
             NumberDoor = door;
             Coordenadas = coord;
+        }
+
+        internal void SetCoordenadas(string newLocation)
+        {
+            Coordenadas = newLocation;
+        }
+
+        internal void UpdateAddressDesc(string newValue)
+        {
+            AddressDesc = newValue;
+        }
+
+        internal void UpdateAddressNumberDoor(int newValue)
+        {
+            NumberDoor = newValue;
         }
     }
 }

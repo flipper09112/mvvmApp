@@ -11,6 +11,7 @@ using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using MvvmCross.Binding.BindingContext;
+using tabApp.Core;
 using tabApp.Core.Models;
 using tabApp.Core.ViewModels;
 using tabApp.UI.ViewHolders;

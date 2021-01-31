@@ -123,7 +123,7 @@ public override int GetItemPosition(Java.Lang.Object @object)
         {
             if(position == 0)
             {
-                return new EditClientProfileFragment(ViewModel);
+                return new EditClientProfileFragment(ViewModel, ViewModel.ProfileItems);
 
             } else if (position == 1)
             {
@@ -131,7 +131,7 @@ public override int GetItemPosition(Java.Lang.Object @object)
             }
             else 
             {
-                return new EditClientProfileFragment(ViewModel);
+                return new EditClientProfileFragment(ViewModel, ViewModel.AdminItems);
             }
             return null;
         }

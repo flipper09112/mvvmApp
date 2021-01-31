@@ -1,11 +1,14 @@
 ﻿using System;
+using Android;
 using Android.App;
 using Android.Content.PM;
+using Android.Locations;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
+using Android.Support.V4.Content;
 using Android.Support.V4.Widget;
-using Android.Support.V7.App;
+using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using MvvmCross.Droid.Support.V4;
@@ -19,11 +22,14 @@ namespace tabApp
 {
     [MvxActivityPresentation]
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true, ScreenOrientation = Android.Content.PM.ScreenOrientation.Landscape, TurnScreenOn = true)]
-    public class MainActivity : MvxAppCompatActivity<MainViewModel>
+    public class MainActivity : MvxAppCompatActivity<MainViewModel>, Android.Locations.ILocationListener
     {
         public ProgressBar _indeterminateBar;
         private DrawerLayout _drawerLayout;
         private NavigationView _navigationView;
+        private bool _FindClosestClient;
+
+        public Action<Location> UpdateEditClientLocation { get; internal set; }
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -56,6 +62,24 @@ namespace tabApp
             ViewModel.UpdateUiHomePage += UpdateUiHomePage;
         }
 
+        public void RequestCurrentLocationUpdates()
+        {
+            if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.AccessFineLocation) == Permission.Granted)
+            {
+                Criteria locationCriteria = new Criteria();
+                locationCriteria.Accuracy = Accuracy.Coarse;
+                locationCriteria.PowerRequirement = Power.Medium;
+
+                LocationManager locationManager = (LocationManager)GetSystemService(LocationService);
+                string locationProvider = locationManager.GetBestProvider(locationCriteria, true);
+                locationManager.RequestSingleUpdate(locationProvider, this, null);
+            }
+            else
+            {
+                // The app does not have permission ACCESS_FINE_LOCATION 
+            }
+        }
+
         private void ViewModelPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             ViewModelPropertyChanged(ViewModel.IsBusy, e);
@@ -83,7 +107,23 @@ namespace tabApp
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             MenuInflater.Inflate(Resource.Menu.menu_main, menu);
+
+            //set search bar configs
+            var mSearch = menu.FindItem(Resource.Id.action_search);
+            Android.Support.V7.Widget.SearchView mSearchView = (Android.Support.V7.Widget.SearchView) mSearch.ActionView;
+            mSearchView.QueryHint = "Insira dados do cliente";
+            EditText searchEditText = (EditText)mSearchView.FindViewById(Resource.Id.search_src_text);
+            searchEditText.SetTextColor(Resources.GetColor(Resource.Color.white));
+            searchEditText.SetHintTextColor(Resources.GetColor(Resource.Color.white));
+            mSearchView.QueryTextChange -= MSearchViewQueryTextChange;
+            mSearchView.QueryTextChange += MSearchViewQueryTextChange;
+
             return true;
+        }
+
+        private void MSearchViewQueryTextChange(object sender, Android.Support.V7.Widget.SearchView.QueryTextChangeEventArgs e)
+        {
+            ViewModel.SetFilterCommand.Execute(e.NewText.ToString());
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
@@ -93,11 +133,28 @@ namespace tabApp
             {
                 return true;
             }
-            if(id == Android.Resource.Id.Home)
+            if (id == Resource.Id.getClosestClient)
+            {
+                ViewModel.IsBusy = true;
+                _FindClosestClient = true;
+                RequestCurrentLocationUpdates();
+                return true;
+            }
+            if (id == Android.Resource.Id.Home)
             {
                 _drawerLayout.OpenDrawer(Android.Support.V4.View.GravityCompat.Start);
                 return true;
-            } 
+            }
+            if (id == Resource.Id.action_search)
+            {
+                var frag = SupportFragmentManager.FindFragmentById(Resource.Id.fragmentContainer);
+                if(frag is HomeFragment)
+                {
+
+                    HomeFragment homeFragment = frag as HomeFragment;
+                }
+                return true;
+            }
 
             return base.OnOptionsItemSelected(item);
         }
@@ -127,5 +184,31 @@ namespace tabApp
         {
             SupportActionBar.Show();
         }
+
+        #region GPS
+        public void OnLocationChanged(Location location)
+        {
+            System.Diagnostics.Debug.WriteLine(location.ToString());
+
+            if(_FindClosestClient)
+            {
+                ViewModel.SetClosestClientCommand.Execute((location.Latitude, location.Longitude));
+                _FindClosestClient = false;
+            }
+            UpdateEditClientLocation?.Invoke(location);
+        }
+
+        public void OnProviderDisabled(string provider)
+        {
+        }
+
+        public void OnProviderEnabled(string provider)
+        {
+        }
+
+        public void OnStatusChanged(string provider, [GeneratedEnum] Availability status, Bundle extras)
+        {
+        }
+        #endregion
     }
 }

@@ -14,7 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Models\NewFolder\" />
     <Folder Include="Resources\" />
+    <Folder Include="Services\Interfaces\Location\" />
   </ItemGroup>
 
 </Project>

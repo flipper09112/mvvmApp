@@ -35,11 +35,11 @@ namespace tabApp.UI.Fragments
             _editViewPager = view.FindViewById<ViewPager>(Resource.Id.editViewPager);
             _tabLayout = view.FindViewById<TabLayout>(Resource.Id.tabLayout);
 
-            _viewPagerAdapter = new EditClientViewPagerAdapter(/*ViewModel.TabsOptions, ViewModel.Client, ViewModel*/FragmentManager);
+            _viewPagerAdapter = new EditClientViewPagerAdapter(FragmentManager);
             _viewPagerAdapter.ViewModel = ViewModel;
             _editViewPager.Adapter = _viewPagerAdapter;
             _tabLayout.SetupWithViewPager(_editViewPager, true);
-
+            SetupTabLayout();
             return view;
         }
 
@@ -47,9 +47,8 @@ namespace tabApp.UI.Fragments
         {
             _activity.HideToolbar();
             _saveChangesButton.Enabled = ViewModel.SaveChangesCommand.CanExecute(null);
-            
-            SetupTabLayout();
         }
+
         private void SetupTabLayout()
         {
             List<string> tabsNames = new List<string>();
@@ -65,10 +64,20 @@ namespace tabApp.UI.Fragments
         public override void CleanBindings()
         {
             ViewModel.SaveChangesCommand.CanExecuteChanged -= SaveChangesCommandCanExecuteChanged;
+            _saveChangesButton.Click -= SaveChangesButtonClick;
         }
         public override void SetupBindings()
         {
             ViewModel.SaveChangesCommand.CanExecuteChanged += SaveChangesCommandCanExecuteChanged;
+            _saveChangesButton.Click += SaveChangesButtonClick;
+        }
+
+        private void SaveChangesButtonClick(object sender, EventArgs e)
+        {
+            if(ViewModel.SaveChangesCommand.CanExecute(null))
+            {
+                ViewModel.SaveChangesCommand.Execute(null);
+            }
         }
 
         private void SaveChangesCommandCanExecuteChanged(object sender, EventArgs e)

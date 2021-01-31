@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout 
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="0dp"
         android:layout_height="200dp"
@@ -30,25 +30,31 @@
             android:layout_width="200dp"
             android:layout_height="100dp"
             android:text="Button"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/button2"
+            app:layout_constraintEnd_toStartOf="@+id/getCurrentLocationButton"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/locationLabel"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="TextView"
+            android:textSize="30sp"
+            android:fontFamily="@font/arista_pro_bold"
+            android:gravity="center"
+            android:background="@drawable/containerretangle"
             app:layout_constraintBottom_toTopOf="@+id/button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button2"
-            android:layout_width="200dp"
+            android:id="@+id/getCurrentLocationButton"
+            android:layout_width="300dp"
             android:layout_height="100dp"
-            android:text="Button"
+            android:text="Obter a localização atual"
+            android:fontFamily="@font/arista_pro_light"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -58,9 +64,10 @@
             android:layout_width="200dp"
             android:layout_height="100dp"
             android:text="Button"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/button2"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
-    </android.support.constraint.ConstraintLayout>
-</android.support.constraint.ConstraintLayout>
+            app:layout_constraintStart_toEndOf="@+id/getCurrentLocationButton"
+            app:layout_constraintTop_toBottomOf="@+id/locationLabel" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -46,6 +46,9 @@ namespace tabApp.UI.ViewHolders
                 case DetailTypeEnum.CancelOrder:
                     _imageView.SetImageResource(Resource.Drawable.ic_cancel_order);
                     break;
+                case DetailTypeEnum.Edit:
+                    _imageView.SetImageResource(Resource.Drawable.ic_edit);
+                    break;
                 default:
                     _imageView.SetImageResource(Resource.Drawable.ic_other_detail);
                     break;

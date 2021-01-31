@@ -5,6 +5,7 @@ androidx.appcompat.widget.Toolbar;obj\Debug\90\res\layout\chooseproductfragment.
 androidx.cardview.widget.CardView;obj\Debug\90\res\layout\clientlistitem.xml
 androidx.cardview.widget.CardView;obj\Debug\90\res\layout\clientpagefragment.xml
 androidx.cardview.widget.CardView;obj\Debug\90\res\layout\detailitem.xml
+androidx.cardview.widget.CardView;obj\Debug\90\res\layout\homepagerorderitem.xml
 androidx.cardview.widget.CardView;obj\Debug\90\res\layout\orderitem.xml
 androidx.cardview.widget.CardView;obj\Debug\90\res\layout\otheroptionitem.xml
 androidx.cardview.widget.CardView;obj\Debug\90\res\layout\simpleproductitem.xml
@@ -19,6 +20,7 @@ androidx.constraintlayout.widget.ConstraintLayout;obj\Debug\90\res\layout\editcl
 androidx.constraintlayout.widget.ConstraintLayout;obj\Debug\90\res\layout\editprofileitem.xml
 androidx.constraintlayout.widget.ConstraintLayout;obj\Debug\90\res\layout\emptylistitems.xml
 androidx.constraintlayout.widget.ConstraintLayout;obj\Debug\90\res\layout\homefragment.xml
+androidx.constraintlayout.widget.ConstraintLayout;obj\Debug\90\res\layout\homepagerorderitem.xml
 androidx.constraintlayout.widget.ConstraintLayout;obj\Debug\90\res\layout\mapvieweditclient.xml
 androidx.constraintlayout.widget.ConstraintLayout;obj\Debug\90\res\layout\nav_drawer_header_main.xml
 androidx.constraintlayout.widget.ConstraintLayout;obj\Debug\90\res\layout\orderitem.xml
@@ -30,6 +32,7 @@ androidx.recyclerview.widget.RecyclerView;obj\Debug\90\res\layout\homefragment.x
 androidx.recyclerview.widget.RecyclerView;obj\Debug\90\res\layout\recyclerviewlayout.xml
 androidx.viewpager.widget.ViewPager;obj\Debug\90\res\layout\clientpagefragment.xml
 androidx.viewpager.widget.ViewPager;obj\Debug\90\res\layout\editclientfragment.xml
+androidx.viewpager.widget.ViewPager;obj\Debug\90\res\layout\homefragment.xml
 attr;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\0\jl\res\values\mvxbindingattributes.xml
 attr;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\6\jl\res\values\mvxrecyclerviewbindingattributes.xml
 background;obj\Debug\90\res\mipmap-anydpi-v26\ic_launcher.xml
@@ -49,6 +52,7 @@ com.google.android.material.navigation.NavigationView;obj\Debug\90\res\layout\ac
 com.google.android.material.navigation.NavigationView;obj\Debug\90\res\layout\sidebar.xml
 com.google.android.material.tabs.TabLayout;obj\Debug\90\res\layout\clientpagefragment.xml
 com.google.android.material.tabs.TabLayout;obj\Debug\90\res\layout\editclientfragment.xml
+com.google.android.material.tabs.TabLayout;obj\Debug\90\res\layout\homefragment.xml
 corners;obj\Debug\90\res\drawable\containerretangle.xml
 corners;obj\Debug\90\res\drawable\red_button_default.xml
 corners;obj\Debug\90\res\drawable\red_button_pressed.xml
@@ -73,6 +77,7 @@ ImageView;obj\Debug\90\res\layout\clientorderfragment.xml
 ImageView;obj\Debug\90\res\layout\detailitem.xml
 ImageView;obj\Debug\90\res\layout\editprofileitem.xml
 ImageView;obj\Debug\90\res\layout\emptylistitems.xml
+ImageView;obj\Debug\90\res\layout\homepagerorderitem.xml
 ImageView;obj\Debug\90\res\layout\nav_drawer_header_main.xml
 ImageView;obj\Debug\90\res\layout\orderitem.xml
 ImageView;obj\Debug\90\res\layout\otheroptionitem.xml
@@ -90,6 +95,7 @@ LinearLayout;obj\Debug\90\res\layout\calendarlayout.xml
 LinearLayout;obj\Debug\90\res\layout\chooseproductfragment.xml
 LinearLayout;obj\Debug\90\res\layout\dailyorderproductitem.xml
 LinearLayout;obj\Debug\90\res\layout\dailysordersdescfragment.xml
+LinearLayout;obj\Debug\90\res\layout\homepagerorderitem.xml
 LinearLayout;obj\Debug\90\res\layout\otheroptionitem.xml
 LinearLayout;obj\Debug\90\res\layout\otheroptionsfragment.xml
 LinearLayout;obj\Debug\90\res\layout\paymentdialog.xml
@@ -102,11 +108,15 @@ padding;obj\Debug\90\res\drawable\containerretangle.xml
 padding;obj\Debug\90\res\drawable\red_button_default.xml
 padding;obj\Debug\90\res\drawable\red_button_pressed.xml
 path;obj\Debug\90\res\drawable\ic_add_extra.xml
+path;obj\Debug\90\res\drawable\ic_calendar.xml
 path;obj\Debug\90\res\drawable\ic_cancel_order.xml
 path;obj\Debug\90\res\drawable\ic_change.xml
 path;obj\Debug\90\res\drawable\ic_delivery.xml
 path;obj\Debug\90\res\drawable\ic_door.xml
+path;obj\Debug\90\res\drawable\ic_edit.xml
+path;obj\Debug\90\res\drawable\ic_gps.xml
 path;obj\Debug\90\res\drawable\ic_hamburger_menu.xml
+path;obj\Debug\90\res\drawable\ic_money.xml
 path;obj\Debug\90\res\drawable\ic_nickname.xml
 path;obj\Debug\90\res\drawable\ic_no_results.xml
 path;obj\Debug\90\res\drawable\ic_other_detail.xml
@@ -160,6 +170,7 @@ TextView;obj\Debug\90\res\layout\detailitem.xml
 TextView;obj\Debug\90\res\layout\editclientfragment.xml
 TextView;obj\Debug\90\res\layout\editprofileitem.xml
 TextView;obj\Debug\90\res\layout\emptylistitems.xml
+TextView;obj\Debug\90\res\layout\homepagerorderitem.xml
 TextView;obj\Debug\90\res\layout\mapvieweditclient.xml
 TextView;obj\Debug\90\res\layout\orderitem.xml
 TextView;obj\Debug\90\res\layout\otheroptionitem.xml
@@ -169,11 +180,15 @@ TextView;obj\Debug\90\res\layout\sidebar.xml
 TextView;obj\Debug\90\res\layout\simpleproductitem.xml
 TextView;obj\Debug\90\res\layout\spinnerdateitem.xml
 vector;obj\Debug\90\res\drawable\ic_add_extra.xml
+vector;obj\Debug\90\res\drawable\ic_calendar.xml
 vector;obj\Debug\90\res\drawable\ic_cancel_order.xml
 vector;obj\Debug\90\res\drawable\ic_change.xml
 vector;obj\Debug\90\res\drawable\ic_delivery.xml
 vector;obj\Debug\90\res\drawable\ic_door.xml
+vector;obj\Debug\90\res\drawable\ic_edit.xml
+vector;obj\Debug\90\res\drawable\ic_gps.xml
 vector;obj\Debug\90\res\drawable\ic_hamburger_menu.xml
+vector;obj\Debug\90\res\drawable\ic_money.xml
 vector;obj\Debug\90\res\drawable\ic_nickname.xml
 vector;obj\Debug\90\res\drawable\ic_no_results.xml
 vector;obj\Debug\90\res\drawable\ic_other_detail.xml
@@ -187,3 +202,5 @@ View;obj\Debug\90\res\layout\clientorderfragment.xml
 View;obj\Debug\90\res\layout\clientpagefragment.xml
 View;obj\Debug\90\res\layout\detailitem.xml
 View;obj\Debug\90\res\layout\homefragment.xml
+View;obj\Debug\90\res\layout\homepagerorderitem.xml
+View;obj\Debug\90\res\layout\orderitem.xml

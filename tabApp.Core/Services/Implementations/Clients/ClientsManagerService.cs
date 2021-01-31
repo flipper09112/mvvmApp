@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using tabApp.Core.Models;
 using tabApp.Core.Services.Interfaces.Clients;
@@ -78,6 +79,20 @@ namespace tabApp.Core.Services.Implementations.Clients
             client.RemoveOrder(order);
             client.SetNewRegist(regist);
             return regist;
+        }
+
+        public Client GetClosestClient(double currentLatitude, double currentLogitude)
+        {
+            Dictionary<Client, double> distances = new Dictionary<Client, double>();
+            foreach (Client client in ClientsList)
+            {
+                if (client.Address.Coordenadas.Equals("null")) continue;
+
+                double distance = Math.Sqrt(Math.Pow(double.Parse(client.Address.Lat) - currentLatitude, 2) + Math.Pow(double.Parse(client.Address.Lgt) - currentLogitude, 2));
+                distances.Add(client, distance);
+            }
+            double minimumDistance = distances.Min(distance => distance.Value);
+            return distances.First(distance => distance.Value == minimumDistance).Key;
         }
     }
 }
