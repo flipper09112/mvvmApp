@@ -27,6 +27,7 @@ namespace tabApp.Core.Models
         None,
         AddExtra,
         CancelOrder,
-        Edit
+        Edit,
+        NewClient
     }
 }

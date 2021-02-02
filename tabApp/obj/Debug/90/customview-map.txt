@@ -19,6 +19,7 @@ androidx.constraintlayout.widget.ConstraintLayout;obj\Debug\90\res\layout\detail
 androidx.constraintlayout.widget.ConstraintLayout;obj\Debug\90\res\layout\editclientfragment.xml
 androidx.constraintlayout.widget.ConstraintLayout;obj\Debug\90\res\layout\editprofileitem.xml
 androidx.constraintlayout.widget.ConstraintLayout;obj\Debug\90\res\layout\emptylistitems.xml
+androidx.constraintlayout.widget.ConstraintLayout;obj\Debug\90\res\layout\globalorderfragment.xml
 androidx.constraintlayout.widget.ConstraintLayout;obj\Debug\90\res\layout\homefragment.xml
 androidx.constraintlayout.widget.ConstraintLayout;obj\Debug\90\res\layout\homepagerorderitem.xml
 androidx.constraintlayout.widget.ConstraintLayout;obj\Debug\90\res\layout\mapvieweditclient.xml
@@ -28,6 +29,7 @@ androidx.drawerlayout.widget.DrawerLayout;obj\Debug\90\res\layout\activity_main.
 androidx.recyclerview.widget.RecyclerView;obj\Debug\90\res\layout\chooseproductfragment.xml
 androidx.recyclerview.widget.RecyclerView;obj\Debug\90\res\layout\clientorderfragment.xml
 androidx.recyclerview.widget.RecyclerView;obj\Debug\90\res\layout\dailysordersdescfragment.xml
+androidx.recyclerview.widget.RecyclerView;obj\Debug\90\res\layout\globalorderfragment.xml
 androidx.recyclerview.widget.RecyclerView;obj\Debug\90\res\layout\homefragment.xml
 androidx.recyclerview.widget.RecyclerView;obj\Debug\90\res\layout\recyclerviewlayout.xml
 androidx.viewpager.widget.ViewPager;obj\Debug\90\res\layout\clientpagefragment.xml
@@ -40,6 +42,7 @@ background;obj\Debug\90\res\mipmap-anydpi-v26\ic_launcher_round.xml
 Button;obj\Debug\90\res\layout\clientorderfragment.xml
 Button;obj\Debug\90\res\layout\clientpagefragment.xml
 Button;obj\Debug\90\res\layout\editclientfragment.xml
+Button;obj\Debug\90\res\layout\globalorderfragment.xml
 Button;obj\Debug\90\res\layout\mapvieweditclient.xml
 Button;obj\Debug\90\res\layout\orderitem.xml
 cache-path;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\52\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
@@ -83,6 +86,7 @@ ImageView;obj\Debug\90\res\layout\orderitem.xml
 ImageView;obj\Debug\90\res\layout\otheroptionitem.xml
 ImageView;obj\Debug\90\res\layout\sidebar.xml
 include;obj\Debug\90\res\layout\activity_main.xml
+include;obj\Debug\90\res\layout\globalorderfragment.xml
 item;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\0\jl\res\values\ids.xml
 item;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\0\jl\res\values\mvxbindingattributes.xml
 item;obj\Debug\90\res\drawable\cardviewbg.xml
@@ -95,6 +99,7 @@ LinearLayout;obj\Debug\90\res\layout\calendarlayout.xml
 LinearLayout;obj\Debug\90\res\layout\chooseproductfragment.xml
 LinearLayout;obj\Debug\90\res\layout\dailyorderproductitem.xml
 LinearLayout;obj\Debug\90\res\layout\dailysordersdescfragment.xml
+LinearLayout;obj\Debug\90\res\layout\globalorderfragment.xml
 LinearLayout;obj\Debug\90\res\layout\homepagerorderitem.xml
 LinearLayout;obj\Debug\90\res\layout\otheroptionitem.xml
 LinearLayout;obj\Debug\90\res\layout\otheroptionsfragment.xml
@@ -111,6 +116,7 @@ path;obj\Debug\90\res\drawable\ic_add_extra.xml
 path;obj\Debug\90\res\drawable\ic_calendar.xml
 path;obj\Debug\90\res\drawable\ic_cancel_order.xml
 path;obj\Debug\90\res\drawable\ic_change.xml
+path;obj\Debug\90\res\drawable\ic_click_me.xml
 path;obj\Debug\90\res\drawable\ic_delivery.xml
 path;obj\Debug\90\res\drawable\ic_door.xml
 path;obj\Debug\90\res\drawable\ic_edit.xml
@@ -170,6 +176,7 @@ TextView;obj\Debug\90\res\layout\detailitem.xml
 TextView;obj\Debug\90\res\layout\editclientfragment.xml
 TextView;obj\Debug\90\res\layout\editprofileitem.xml
 TextView;obj\Debug\90\res\layout\emptylistitems.xml
+TextView;obj\Debug\90\res\layout\globalorderfragment.xml
 TextView;obj\Debug\90\res\layout\homepagerorderitem.xml
 TextView;obj\Debug\90\res\layout\mapvieweditclient.xml
 TextView;obj\Debug\90\res\layout\orderitem.xml
@@ -183,6 +190,7 @@ vector;obj\Debug\90\res\drawable\ic_add_extra.xml
 vector;obj\Debug\90\res\drawable\ic_calendar.xml
 vector;obj\Debug\90\res\drawable\ic_cancel_order.xml
 vector;obj\Debug\90\res\drawable\ic_change.xml
+vector;obj\Debug\90\res\drawable\ic_click_me.xml
 vector;obj\Debug\90\res\drawable\ic_delivery.xml
 vector;obj\Debug\90\res\drawable\ic_door.xml
 vector;obj\Debug\90\res\drawable\ic_edit.xml
@@ -201,6 +209,7 @@ View;obj\Debug\90\res\layout\clientlistitem.xml
 View;obj\Debug\90\res\layout\clientorderfragment.xml
 View;obj\Debug\90\res\layout\clientpagefragment.xml
 View;obj\Debug\90\res\layout\detailitem.xml
+View;obj\Debug\90\res\layout\globalorderfragment.xml
 View;obj\Debug\90\res\layout\homefragment.xml
 View;obj\Debug\90\res\layout\homepagerorderitem.xml
 View;obj\Debug\90\res\layout\orderitem.xml

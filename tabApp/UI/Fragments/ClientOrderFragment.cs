@@ -27,7 +27,7 @@ namespace tabApp.UI.Fragments
         private RadioButton _r_parcial;
         private Button _addProduct;
         private RecyclerView _recyclerView;
-        private ClientOrderAdapter _adapter;
+        private ProductsAmmountListAdapter _adapter;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -71,7 +71,7 @@ namespace tabApp.UI.Fragments
 
         private void UpdateListOrder()
         {
-            _adapter = new ClientOrderAdapter(ViewModel.OrderProducts, ViewModel.SaveNewOrderCommand);
+            _adapter = new ProductsAmmountListAdapter(ViewModel.OrderProducts, ViewModel.SaveNewOrderCommand);
             _recyclerView.SetAdapter(_adapter);
         }
 

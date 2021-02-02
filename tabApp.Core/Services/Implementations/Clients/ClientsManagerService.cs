@@ -94,5 +94,15 @@ namespace tabApp.Core.Services.Implementations.Clients
             double minimumDistance = distances.Min(distance => distance.Value);
             return distances.First(distance => distance.Value == minimumDistance).Key;
         }
+
+        public ExtraOrder HasOrderThisDate(Client client, DateTime dateTime)
+        {
+            foreach(var extraorder in client.ExtraOrdersList)
+            {
+                if (extraorder.OrderDay.Date == dateTime.Date)
+                    return extraorder;
+            }
+            return null;
+        }
     }
 }

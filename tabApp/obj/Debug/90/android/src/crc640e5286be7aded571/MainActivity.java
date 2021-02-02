@@ -5,7 +5,8 @@ public class MainActivity
 	extends crc648d9adcc6b772c31e.MvxAppCompatActivity_1
 	implements
 		mono.android.IGCUserPeer,
-		android.location.LocationListener
+		android.location.LocationListener,
+		com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
 {
 /** @hide */
 	public static final String __md_methods;
@@ -20,6 +21,7 @@ public class MainActivity
 			"n_onProviderDisabled:(Ljava/lang/String;)V:GetOnProviderDisabled_Ljava_lang_String_Handler:Android.Locations.ILocationListenerInvoker, Mono.Android, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null\n" +
 			"n_onProviderEnabled:(Ljava/lang/String;)V:GetOnProviderEnabled_Ljava_lang_String_Handler:Android.Locations.ILocationListenerInvoker, Mono.Android, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null\n" +
 			"n_onStatusChanged:(Ljava/lang/String;ILandroid/os/Bundle;)V:GetOnStatusChanged_Ljava_lang_String_ILandroid_os_Bundle_Handler:Android.Locations.ILocationListenerInvoker, Mono.Android, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null\n" +
+			"n_onNavigationItemSelected:(Landroid/view/MenuItem;)Z:GetOnNavigationItemSelected_Landroid_view_MenuItem_Handler:Google.Android.Material.Navigation.NavigationView/IOnNavigationItemSelectedListenerInvoker, Xamarin.Google.Android.Material\n" +
 			"";
 		mono.android.Runtime.register ("tabApp.MainActivity, tabApp", MainActivity.class, __md_methods);
 	}
@@ -111,6 +113,14 @@ public class MainActivity
 	}
 
 	private native void n_onStatusChanged (java.lang.String p0, int p1, android.os.Bundle p2);
+
+
+	public boolean onNavigationItemSelected (android.view.MenuItem p0)
+	{
+		return n_onNavigationItemSelected (p0);
+	}
+
+	private native boolean n_onNavigationItemSelected (android.view.MenuItem p0);
 
 	private java.util.ArrayList refList;
 	public void monodroidAddReference (java.lang.Object obj)

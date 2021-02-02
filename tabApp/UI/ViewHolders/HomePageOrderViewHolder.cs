@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using tabApp.Core.Models;
+using tabApp.Core.ViewModels.Global;
 
 namespace tabApp.UI.ViewHolders
 {
@@ -29,6 +30,13 @@ namespace tabApp.UI.ViewHolders
         internal void Bind((Client Client, ExtraOrder ExtraOrder) extraOrder, Core.HomeViewModel viewModel)
         {
             _orderTitle.Text = "Encomenda para o cliente '"+ extraOrder.Client.Name + "'\nId: " + extraOrder.Client.Id;
+            _orderAddress.Text = extraOrder.Client.Address.AddressDesc;
+            _orderDesc.Text = viewModel.GetOrderDesc(extraOrder.ExtraOrder);
+        }
+
+        internal void Bind((Client Client, ExtraOrder ExtraOrder) extraOrder, GlobalOrderViewModel viewModel)
+        {
+            _orderTitle.Text = "Encomenda para o cliente '" + extraOrder.Client.Name + "'\nId: " + extraOrder.Client.Id;
             _orderAddress.Text = extraOrder.Client.Address.AddressDesc;
             _orderDesc.Text = viewModel.GetOrderDesc(extraOrder.ExtraOrder);
         }

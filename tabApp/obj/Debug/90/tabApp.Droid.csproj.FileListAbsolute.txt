@@ -693,3 +693,7 @@ C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc6473d
 C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc6473d3eb7b23af5644\HomePageOrdersListAdapter.java
 C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc649ba559e34155f93c\HomePageOrderViewHolder.java
 C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\layout\homepagerorderitem.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\drawable\ic_click_me.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\layout\globalorderfragment.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc644c933f2aa3dd2be6\GlobalOrderFragment.java
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc646a4ad767a75a43be\ProductsAmmountListAdapter.java

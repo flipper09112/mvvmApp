@@ -21,6 +21,7 @@ namespace tabApp.UI.Fragments
     public class ClientPageFragment : BaseFragment<ClientPageViewModel>
     {
         private MainActivity _activity;
+        private TextView _dateTextView;
 
         #region Private Labels
         private TextView _clientName;
@@ -62,6 +63,7 @@ namespace tabApp.UI.Fragments
             _activity = ParentActivity as MainActivity;
 
             #region Setup Labels
+            _dateTextView = view.FindViewById<TextView>(Resource.Id.dateTextView);
             _clientName = view.FindViewById<TextView>(Resource.Id.clientName);
             _payDate = view.FindViewById<TextView>(Resource.Id.payDate);
             _spinnerDates = view.FindViewById<Spinner>(Resource.Id.spinnerDates);
@@ -142,6 +144,21 @@ namespace tabApp.UI.Fragments
 
             _viewPagerAdapter?.NotifyDataSetChanged();
             SetupTabLayout();
+
+            if(ViewModel.Client.PaymentType == Core.Models.PaymentTypeEnum.JuntaDias)
+            {
+                _dateTextView.Visibility = ViewStates.Visible;
+                _spinnerDates.Visibility = ViewStates.Invisible;
+                _dateTextView.Text = ViewModel.DateSelected.ToString("dd/MM/yyyy");
+
+                _dateTextView.Click -= DateTextViewClick;
+                _dateTextView.Click += DateTextViewClick;
+            }
+        }
+
+        private void DateTextViewClick(object sender, EventArgs e)
+        {
+            ViewModel.ShowDatePickerDialogCommand.Execute(null);
         }
 
         private void SetupTabLayout()

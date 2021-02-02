@@ -21,6 +21,7 @@ namespace tabApp.Core.Services.Implementations
         private readonly string ClientsListFileName = "MeuArquivoXLS.xls";
         private readonly string ProductsListFileName = "tabela_precos.xls";
         private readonly string LogsListFileName = "logs.xls";
+        private readonly string OldLogsListFileName = "logs.txt";
 
         private readonly IGetFileService _getFileService;
         private readonly IFileService _fileService;
@@ -57,6 +58,8 @@ namespace tabApp.Core.Services.Implementations
             _fileService.SaveFile(LogsListFileName, byteArrayLogsUpdated, true);
         }
 
+        private bool firstTime = false;
+        private bool firstTimeWrite = false;
         public async Task StartAsync()
         {
             if (!_fileService.HasFile(ClientsListFileName))
@@ -76,6 +79,13 @@ namespace tabApp.Core.Services.Implementations
                 await StartAsync();
                 return;
             }
+            else if (/*!_fileService.HasFile(LogsListFileName)*/firstTime)
+            {
+                firstTime = false;
+                _fileService.SaveFile(OldLogsListFileName, await _getFileService.GetUrlDownload(OldLogsListFileName));
+                await StartAsync();
+                return;
+            }
             else
             {
                 byte[] byteArrayClients = _fileService.GetFile(ClientsListFileName);
@@ -84,7 +94,202 @@ namespace tabApp.Core.Services.Implementations
                 ReadProductsList(byteArrayProducts);
                 byte[] byteArrayLogs = _fileService.GetFile(LogsListFileName);
                 ReadLogsList(byteArrayLogs);
+                if(firstTimeWrite)
+                {
+                    byte[] byteArrayOldLogs = _fileService.GetFile(OldLogsListFileName);
+                    ReadOldLogsList(byteArrayOldLogs, byteArrayLogs);
+                }
             }
+        }
+
+        private void ReadOldLogsList(byte[] byteArrayOldLogs, byte[] byteArrayLogs)
+        {
+            MemoryStream xls = new MemoryStream(byteArrayLogs); 
+            Workbook workbook = new Workbook();
+            workbook.LoadFromStream(xls);
+            Worksheet sheet = workbook.Worksheets[0];
+            int newRow = sheet.Rows.Length + 1;
+            
+
+            MemoryStream ms = new MemoryStream(byteArrayOldLogs);
+            string data;
+            string logId;
+            string info;
+            string tipo;
+            string dataencomenda;
+            string[] lineSplit;
+            Regist regist;
+            ExtraOrder order;
+            using (var sr = new StreamReader(ms))
+            {
+                foreach(var line in sr.ReadToEnd().Split('\n'))
+                {
+                    try
+                    {
+                        regist = null;
+                        order = null;
+
+                        lineSplit = line.Split(':');
+                        tipo = lineSplit[0].Split(' ')[0];
+
+                        //get id
+                        logId = lineSplit[0];
+                        logId = logId.Substring(logId.IndexOf("[") + 1);
+                        logId = logId.Substring(0, logId.IndexOf("]"));
+
+                        //get data
+                        data = line.Split('-')[1];
+
+                        if (DateTime.Parse(data) < DateTime.Today.AddMonths(-1))
+                            continue;
+
+                        if (tipo.Equals("PAGAMENTO"))
+                        {
+                            //get info
+                            info = lineSplit[1];
+                            info = info.Substring(1, info.IndexOf("€") + 1);
+
+                            regist = new Regist(DateTime.Parse(data), info, int.Parse(logId), DetailTypeEnum.Payment);
+                        }
+                        else if (tipo.Equals("EXTRA"))
+                        {
+                            //get info
+                            info = lineSplit[1];
+                            info = info.Substring(1, info.IndexOf("€") + 1);
+
+                            regist = new Regist(DateTime.Parse(data), info, int.Parse(logId), DetailTypeEnum.AddExtra);
+                        }
+                        else if (tipo.Equals("EDICAO"))
+                        {
+                            info = lineSplit[1].Replace(",", "\n");
+                            info = info.Substring(1, info.IndexOf("-"));
+
+                            regist = new Regist(DateTime.Parse(data), info, int.Parse(logId), DetailTypeEnum.Edit);
+                        }
+                        else if (tipo.Equals("SOBRA"))
+                        {
+                            info = lineSplit[1].Replace(",", "\n");
+                            info = info.Substring(1, info.IndexOf("-"));
+                            //TODO: global regist
+                            regist = null;
+                        }
+                        else if (tipo.Equals("ENCOMENDA"))
+                        {
+                            info = lineSplit[1].Replace(",", "\n");
+                            info = info.Replace("&", ".");
+                            info = info.Substring(1, info.IndexOf("-"));
+
+                            dataencomenda = lineSplit[1].Split(' ')[4].Split(',')[0];
+
+                            order = new ExtraOrder(int.Parse(logId), DateTime.Parse(data), DateTime.Parse(dataencomenda), new List<(int ProductId, double Ammount)>(), true);
+                        }
+                        else if (tipo.Equals("NOVOCLIENTE"))
+                        {
+                            info = lineSplit[1];
+                            info = info.Substring(1, info.IndexOf("-"));
+
+                            regist = new Regist(DateTime.Parse(data), info, int.Parse(logId), DetailTypeEnum.NewClient);
+                        }
+
+                        
+                        if (regist != null)
+                        {
+                            _clientsManagerService.SetNewRegist(regist.ClientId, regist);
+
+                            sheet.InsertRow(newRow);
+
+                            sheet.Range[newRow, (int)LogsListItemsPositions.ID].Text = regist.ClientId.ToString();
+                            sheet.Range[newRow, (int)LogsListItemsPositions.Type].Text = regist.DetailType.ToString();
+                            sheet.Range[newRow, (int)LogsListItemsPositions.Info].Text = regist.Info;
+                            sheet.Range[newRow, (int)LogsListItemsPositions.Date].Text = regist.DetailRegistDay.ToString("dd/MM/yyyy");
+
+                            newRow += 1;
+                        }
+                        if(order != null)
+                        {
+                            _clientsManagerService.SetNewOrder(order.ClientId, order);
+
+                            sheet.InsertRow(newRow);
+
+                            sheet.Range[newRow, (int)LogsListItemsPositions.ID].Text = order.ClientId.ToString();
+                            sheet.Range[newRow, (int)LogsListItemsPositions.Type].Text = order.DetailType.ToString();
+                            sheet.Range[newRow, (int)LogsListItemsPositions.Info].Text = string.Empty;
+                            sheet.Range[newRow, (int)LogsListItemsPositions.Date].Text = order.OrderRegistDay.ToString("dd/MM/yyyy");
+                            sheet.Range[newRow, (int)LogsListItemsPositions.OrderDay].Text = order.OrderDay.ToString("dd/MM/yyyy");
+                            sheet.Range[newRow, (int)LogsListItemsPositions.Order].Text = GetOrderStringDb(order.AllItems);
+                            sheet.Range[newRow, (int)LogsListItemsPositions.IsAll].Text = order.IsTotal ? "1" : "0";
+
+                            newRow += 1;
+                        }
+
+                    } catch(Exception e)
+                    {
+                        Debug.Write("Error in line: " + line);
+                    }
+                }
+
+                /*
+                 * String line;
+
+            while ((line = br.readLine()) != null) {
+
+
+                else if (tipo.equals("REGISTO")) {
+                    info = lineSplit[1].replaceAll(",", "\n");
+                    info = info.replaceAll("&", ".");
+                    info = info.substring(1, info.indexOf("-"));
+
+                    info = info.replaceAll("]", "\t");
+                    info = info.replaceAll(";", "-");
+
+                    registo = new RegistoLoja(Integer.parseInt(logId), formatter.parse(data), info, new ExtraEncomenda(Integer.parseInt(logId)));
+
+                }
+
+                else if (tipo.equals("TOTALENCOMENDA")) {
+                    info = lineSplit[1].replaceAll(",", "\n");
+                    info = info.replaceAll("&", ".");
+                    info = info.substring(1, info.indexOf("-"));
+                    if (tipo.equals("REGISTO")) {
+                        info = info.replaceAll("]", "\t");
+                        info = info.replaceAll(";", "-");
+                    }
+                    //TODO: global regist
+
+                }
+
+                else if (tipo.equals("INATIVIDADE")) {
+                    info = lineSplit[1];
+                    info = info.substring(1, info.indexOf("-"));
+
+                    registo = new RegistoInatividade(Integer.parseInt(logId), formatter.parse(data), info);
+
+
+                }
+                else if (tipo.equals("REMOVECLIENTE")) {
+                    info = lineSplit[1];
+                    info = info.substring(1, info.indexOf("-"));
+
+                    registo = new RegistoDeleteCliente(Integer.parseInt(logId), formatter.parse(data), info);
+                }
+
+                else if (tipo.equals("INFO")) {
+                    //get info
+                    info = lineSplit[1];
+                    info = info.substring(1, info.indexOf("-"));
+
+                    registo = new RegistoGenerico(Integer.parseInt(logId), formatter.parse(data), info);
+
+                }
+
+                else {
+                    continue;
+                }
+                 */
+            }
+            MemoryStream output = new MemoryStream();
+            workbook.SaveToStream(output, FileFormat.Version97to2003);
+            _fileService.SaveFile(LogsListFileName, output.ToArray(), true);
         }
 
         #region Read Functions
@@ -465,7 +670,8 @@ namespace tabApp.Core.Services.Implementations
                 produtoId = int.Parse(array.Split('-')[0]);
                 quantidade = double.Parse(array.Split('-')[1]);
 
-                allItems.Add((produtoId, quantidade));
+                if(produtoId != 148)
+                    allItems.Add((produtoId, quantidade));
             }
 
             return new DailyOrder(day, allItems);

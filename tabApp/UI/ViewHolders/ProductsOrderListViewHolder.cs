@@ -19,6 +19,7 @@ namespace tabApp.UI.Adapters
     public class ProductsOrderListViewHolder : RecyclerView.ViewHolder
     {
         private TextView _productName;
+        private LinearLayout _layout;
         private EditText _productAmmount;
         private ProductAmmount product;
 
@@ -27,15 +28,21 @@ namespace tabApp.UI.Adapters
         public ProductsOrderListViewHolder(View itemView) : base(itemView)
         {
             _productName = itemView.FindViewById<TextView>(Resource.Id.productName);
+            _layout = itemView.FindViewById<LinearLayout>(Resource.Id.layout);
             _productAmmount = itemView.FindViewById<EditText>(Resource.Id.productAmmount);
         }
 
-        internal void Bind(ProductAmmount product)
+        internal void Bind(ProductAmmount product, bool withoutMargins)
         {
             this.product = product;
             SetupEditText();
             _productName.Text = product.Product.Name;
             _productAmmount.Text = product.Product.Unity ? product.Ammount.ToString("N0") : product.Ammount.ToString("N2");
+
+            if(withoutMargins)
+            {
+                SetMargins(_layout, 10, 10);
+            }
         }
 
         private void SetupEditText()
@@ -53,6 +60,15 @@ namespace tabApp.UI.Adapters
             Double.TryParse(e.Text.ToString().Replace(".", ","), out ammount);
             product.Ammount = ammount;
             SaveButtonCanChange?.RaiseCanExecuteChanged();
+        }
+
+        public void SetMargins(View v, int l, int r)
+        {
+            if (v.LayoutParameters is ViewGroup.MarginLayoutParams) {
+                ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams)v.LayoutParameters;
+                p.SetMargins(l, p.TopMargin, r, p.BottomMargin);
+                v.RequestLayout();
+            }
         }
     }
 }

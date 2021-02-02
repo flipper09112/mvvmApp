@@ -50,6 +50,7 @@ namespace tabApp.Core.ViewModels
         public MvxCommand ShowExtraOptionsCommand;
         public MvxCommand<ExtraOrder> CancelOrderCommand;
         public MvxCommand ShoeEditPageCommand;
+        public MvxCommand ShowDatePickerDialogCommand;
 
         public ClientPageViewModel(IGetSpinnerDatesService getSpinnerDatesService, 
                                    IChooseClientService chooseClientService,
@@ -97,6 +98,7 @@ namespace tabApp.Core.ViewModels
             ShowExtraOptionsCommand = new MvxCommand(ShowExtraOptions);
             CancelOrderCommand = new MvxCommand<ExtraOrder>(CancelOrder);
             ShoeEditPageCommand = new MvxCommand(ShoeEditPage);
+            ShowDatePickerDialogCommand = new MvxCommand(ShowDatePickerDialog);
         }
 
         public Client Client => _chooseClientService.ClientSelected;
@@ -202,6 +204,16 @@ namespace tabApp.Core.ViewModels
         private void SetPayment()
         {
             _dialogService.ShowConfirmDialog("Confirmar Pagamento?", "Sim", ConfirmPayment);
+        }
+
+        private void ShowDatePickerDialog()
+        {
+            _dialogService.ShowDatePickerDialog(SetDateSelected);
+        }
+
+        private void SetDateSelected(DateTime obj)
+        {
+            DateSelected = obj;
         }
 
         private bool CanSetPayment()

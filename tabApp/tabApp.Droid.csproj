@@ -82,7 +82,7 @@
     <Compile Include="UI\Fragments\EditClient\EditClientProfileFragment.cs" />
     <Compile Include="UI\Adapters\EditClient\EditClientProfileItemsAdapter.cs" />
     <Compile Include="UI\Adapters\EditClient\EditClientViewPagerAdapter.cs" />
-    <Compile Include="UI\Adapters\NewOrderPage\ClientOrderAdapter.cs" />
+    <Compile Include="UI\Adapters\NewOrderPage\ProductsAmmountListAdapter.cs" />
     <Compile Include="UI\Adapters\ClientPage\ClientPageSpinnerAdapter.cs" />
     <Compile Include="UI\Adapters\DailyOrderDescAdapter.cs" />
     <Compile Include="UI\Adapters\OtherOptionsGridAdapter.cs" />
@@ -90,6 +90,7 @@
     <Compile Include="UI\Adapters\ClientPage\ViewPager\ClientPageOrdersListAdapter.cs" />
     <Compile Include="UI\Fragments\EditClientFragment.cs" />
     <Compile Include="UI\Fragments\EditClient\EditClientMapFragment.cs" />
+    <Compile Include="UI\Fragments\Global\GlobalOrderFragment.cs" />
     <Compile Include="UI\ViewHolders\EditProfileItemViewHolder.cs" />
     <Compile Include="UI\ViewHolders\HomePageOrderViewHolder.cs" />
     <Compile Include="UI\ViewHolders\OrderViewHolder.cs" />
@@ -425,6 +426,14 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\HomePagerOrderItem.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_click_me.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\GlobalOrderFragment.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

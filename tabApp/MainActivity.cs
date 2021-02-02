@@ -21,8 +21,8 @@ using tabApp.UI;
 namespace tabApp
 {
     [MvxActivityPresentation]
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true, ScreenOrientation = Android.Content.PM.ScreenOrientation.Landscape, TurnScreenOn = true)]
-    public class MainActivity : MvxAppCompatActivity<MainViewModel>, Android.Locations.ILocationListener
+    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true, ScreenOrientation = Android.Content.PM.ScreenOrientation.Landscape)]
+    public class MainActivity : MvxAppCompatActivity<MainViewModel>, Android.Locations.ILocationListener, NavigationView.IOnNavigationItemSelectedListener
     {
         public ProgressBar _indeterminateBar;
         private DrawerLayout _drawerLayout;
@@ -38,10 +38,13 @@ namespace tabApp
             SetContentView(Resource.Layout.activity_main);
 
             Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+            NavigationView nav_view = FindViewById<NavigationView>(Resource.Id.nav_view);
             SetSupportActionBar(toolbar);
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
             SupportActionBar.SetDisplayShowHomeEnabled(true);
             SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_hamburger_menu);
+
+            nav_view.SetNavigationItemSelectedListener(this);
 
             _drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
             _navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
@@ -126,6 +129,18 @@ namespace tabApp
             ViewModel.SetFilterCommand.Execute(e.NewText.ToString());
         }
 
+        #region MENUS
+        public bool OnNavigationItemSelected(IMenuItem menuItem)
+        {
+            int id = menuItem.ItemId;
+
+            if (id == Resource.Id.globalOrder)
+            {
+                ViewModel.ShowGlobalOrderPageCommand.Execute(null);
+                return true;
+            }
+            return base.OnOptionsItemSelected(menuItem);
+        }
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             int id = item.ItemId;
@@ -150,7 +165,6 @@ namespace tabApp
                 var frag = SupportFragmentManager.FindFragmentById(Resource.Id.fragmentContainer);
                 if(frag is HomeFragment)
                 {
-
                     HomeFragment homeFragment = frag as HomeFragment;
                 }
                 return true;
@@ -158,6 +172,7 @@ namespace tabApp
 
             return base.OnOptionsItemSelected(item);
         }
+        #endregion
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
@@ -209,6 +224,7 @@ namespace tabApp
         public void OnStatusChanged(string provider, [GeneratedEnum] Availability status, Bundle extras)
         {
         }
+
         #endregion
     }
 }

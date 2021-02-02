@@ -9,6 +9,7 @@ using tabApp.Core.Services.Implementations.Clients;
 using tabApp.Core.Services.Interfaces;
 using tabApp.Core.Services.Interfaces.Clients;
 using tabApp.Core.Services.Interfaces.DB;
+using tabApp.Core.ViewModels.Global;
 
 namespace tabApp.Core.ViewModels
 {
@@ -22,9 +23,12 @@ namespace tabApp.Core.ViewModels
 
         public MvxCommand<(double lat, double lgt)> SetClosestClientCommand { get; private set; }
         public MvxAsyncCommand ShowHomePage { get; private set; }
+        public MvxCommand ShowGlobalOrderPageCommand { get; private set; }
         public MvxCommand<string> SetFilterCommand { get; set; }
 
         public EventHandler UpdateUiHomePage;
+
+        private bool _alreadyStarted;
 
         public MainViewModel(IDBService dbService, IMvxNavigationService navigationService,
                              IChooseClientService chooseClientService, IClientsManagerService clientsManagerService,
@@ -39,6 +43,12 @@ namespace tabApp.Core.ViewModels
             ShowHomePage = new MvxAsyncCommand(async () => await _navigationService.Navigate<HomeViewModel>());
             SetClosestClientCommand = new MvxCommand<(double lat, double lgt)>(ShowClosestClient);
             SetFilterCommand = new MvxCommand<string>(SetFilter);
+            ShowGlobalOrderPageCommand = new MvxCommand(ShowGlobalOrderPage);
+        }
+
+        private async void ShowGlobalOrderPage()
+        {
+            await _navigationService.Navigate<GlobalOrderViewModel>();
         }
 
         private void SetFilter(string obj)
@@ -58,6 +68,9 @@ namespace tabApp.Core.ViewModels
 
         public override async void Appearing()
         {
+            if (_alreadyStarted)
+                return;
+            _alreadyStarted = true;
             IsBusy = true;
             await _dbService.StartAsync();
             UpdateUiHomePage?.Invoke(null, null);
