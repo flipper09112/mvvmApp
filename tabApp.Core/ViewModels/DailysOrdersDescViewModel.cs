@@ -23,11 +23,11 @@ namespace tabApp.Core.ViewModels
         public Client Client => _chooseClientService.ClientSelected;
 
         #region Get Lists
-        public List<(string ProductName, string Ammount)> SegDailyItemsList
+        public List<(Product Product, string Ammount)> SegDailyItemsList
         {
             get
             {
-                List<(string ProductName, string Ammount)> items = new List<(string ProductName, string Ammount)>();
+                List<(Product Product, string Ammount)> items = new List<(Product Product, string Ammount)>();
 
                 Product product;
 
@@ -36,19 +36,19 @@ namespace tabApp.Core.ViewModels
                     product = _productsManagerService.GetProductById(item.ProductId);
 
                     if(product.Unity)
-                        items.Add((product.Name, item.Ammount.ToString("N0")));
+                        items.Add((product, item.Ammount.ToString("N0")));
                     else
-                        items.Add((product.Name, item.Ammount.ToString("N3")));
+                        items.Add((product, item.Ammount.ToString("N3")));
                 }
 
                 return items;
             }
         }
-        public List<(string ProductName, string Ammount)> TerDailyItemsList
+        public List<(Product Product, string Ammount)> TerDailyItemsList
         {
             get
             {
-                List<(string ProductName, string Ammount)> items = new List<(string ProductName, string Ammount)>();
+                List<(Product Product, string Ammount)> items = new List<(Product Product, string Ammount)>();
 
                 Product product;
 
@@ -57,19 +57,19 @@ namespace tabApp.Core.ViewModels
                     product = _productsManagerService.GetProductById(item.ProductId);
 
                     if (product.Unity)
-                        items.Add((product.Name, item.Ammount.ToString("N0")));
+                        items.Add((product, item.Ammount.ToString("N0")));
                     else
-                        items.Add((product.Name, item.Ammount.ToString("N3")));
+                        items.Add((product, item.Ammount.ToString("N3")));
                 }
 
                 return items;
             }
         }
-        public List<(string ProductName, string Ammount)> QuaDailyItemsList
+        public List<(Product Product, string Ammount)> QuaDailyItemsList
         {
             get
             {
-                List<(string ProductName, string Ammount)> items = new List<(string ProductName, string Ammount)>();
+                List<(Product Product, string Ammount)> items = new List<(Product Product, string Ammount)>();
 
                 Product product;
 
@@ -78,19 +78,19 @@ namespace tabApp.Core.ViewModels
                     product = _productsManagerService.GetProductById(item.ProductId);
 
                     if (product.Unity)
-                        items.Add((product.Name, item.Ammount.ToString("N0")));
+                        items.Add((product, item.Ammount.ToString("N0")));
                     else
-                        items.Add((product.Name, item.Ammount.ToString("N3")));
+                        items.Add((product, item.Ammount.ToString("N3")));
                 }
 
                 return items;
             }
         }
-        public List<(string ProductName, string Ammount)> QuiDailyItemsList
+        public List<(Product Product, string Ammount)> QuiDailyItemsList
         {
             get
             {
-                List<(string ProductName, string Ammount)> items = new List<(string ProductName, string Ammount)>();
+                List<(Product Product, string Ammount)> items = new List<(Product Product, string Ammount)>();
 
                 Product product;
 
@@ -99,19 +99,19 @@ namespace tabApp.Core.ViewModels
                     product = _productsManagerService.GetProductById(item.ProductId);
 
                     if (product.Unity)
-                        items.Add((product.Name, item.Ammount.ToString("N0")));
+                        items.Add((product, item.Ammount.ToString("N0")));
                     else
-                        items.Add((product.Name, item.Ammount.ToString("N3")));
+                        items.Add((product, item.Ammount.ToString("N3")));
                 }
 
                 return items;
             }
         }
-        public List<(string ProductName, string Ammount)> SexDailyItemsList
+        public List<(Product Product, string Ammount)> SexDailyItemsList
         {
             get
             {
-                List<(string ProductName, string Ammount)> items = new List<(string ProductName, string Ammount)>();
+                List<(Product Product, string Ammount)> items = new List<(Product Product, string Ammount)>();
 
                 Product product;
 
@@ -120,19 +120,19 @@ namespace tabApp.Core.ViewModels
                     product = _productsManagerService.GetProductById(item.ProductId);
 
                     if (product.Unity)
-                        items.Add((product.Name, item.Ammount.ToString("N0")));
+                        items.Add((product, item.Ammount.ToString("N0")));
                     else
-                        items.Add((product.Name, item.Ammount.ToString("N3")));
+                        items.Add((product, item.Ammount.ToString("N3")));
                 }
 
                 return items;
             }
         }
-        public List<(string ProductName, string Ammount)> SabDailyItemsList
+        public List<(Product Product, string Ammount)> SabDailyItemsList
         {
             get
             {
-                List<(string ProductName, string Ammount)> items = new List<(string ProductName, string Ammount)>();
+                List<(Product Product, string Ammount)> items = new List<(Product Product, string Ammount)>();
 
                 Product product;
 
@@ -141,19 +141,19 @@ namespace tabApp.Core.ViewModels
                     product = _productsManagerService.GetProductById(item.ProductId);
 
                     if (product.Unity)
-                        items.Add((product.Name, item.Ammount.ToString("N0")));
+                        items.Add((product, item.Ammount.ToString("N0")));
                     else
-                        items.Add((product.Name, item.Ammount.ToString("N3")));
+                        items.Add((product, item.Ammount.ToString("N3")));
                 }
 
                 return items;
             }
         }
-        public List<(string ProductName, string Ammount)> DomDailyItemsList
+        public List<(Product Product, string Ammount)> DomDailyItemsList
         {
             get
             {
-                List<(string ProductName, string Ammount)> items = new List<(string ProductName, string Ammount)>();
+                List<(Product Product, string Ammount)> items = new List<(Product Product, string Ammount)>();
 
                 Product product;
 
@@ -162,9 +162,9 @@ namespace tabApp.Core.ViewModels
                     product = _productsManagerService.GetProductById(item.ProductId);
 
                     if (product.Unity)
-                        items.Add((product.Name, item.Ammount.ToString("N0")));
+                        items.Add((product, item.Ammount.ToString("N0")));
                     else
-                        items.Add((product.Name, item.Ammount.ToString("N3")));
+                        items.Add((product, item.Ammount.ToString("N3")));
                 }
 
                 return items;

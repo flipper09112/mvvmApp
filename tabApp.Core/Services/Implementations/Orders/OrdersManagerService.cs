@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using tabApp.Core.Helpers;
 using tabApp.Core.Models;
+using tabApp.Core.Models.GlobalOrder;
 using tabApp.Core.Services.Interfaces.Clients;
 using tabApp.Core.Services.Interfaces.Orders;
 using tabApp.Core.Services.Interfaces.Products;
@@ -53,6 +54,50 @@ namespace tabApp.Core.Services.Implementations.Orders
                     }
                 }
                 return orders;
+            }
+        }
+
+        public List<CakeClientItem> CakesClientsTomorrow { 
+            get
+            {
+                List<CakeClientItem> cakeClients = new List<CakeClientItem>();
+
+                bool hasCake = false;
+                List<(int ProductId, int Ammount)> products;
+                foreach (var client in _clientsManagerService?.ClientsList ?? new List<Client>())
+                {
+                    hasCake = false;
+                    products = new List<(int ProductId, int Ammount)>();
+
+                    //Adicionar os produtos de uma encomenda extra
+                    foreach (var extraorder in client.ExtraOrdersList)
+                    {
+                        if (extraorder.OrderDay.Date == DateTime.Today.AddDays(1))
+                        {
+                            foreach(var item in extraorder.AllItems)
+                            {
+                                if (_productsManagerService.GetProductById(item.ProductId).ProductType == ProductTypeEnum.PastelariaIndividual)
+                                {
+                                    products.Add((item.ProductId, (int)item.Ammount));
+                                }
+                            }
+                        }
+                    }
+                    //encomenda normal
+                    foreach (var item in ClientHelper.GetDailyOrder(DateTime.Today.AddDays(1).DayOfWeek, client).AllItems)
+                    {
+                        if (_productsManagerService.GetProductById(item.ProductId).ProductType == ProductTypeEnum.PastelariaIndividual)
+                        {
+                            products.Add((item.ProductId, (int)item.Ammount));
+                        }
+                    }
+
+                    if(products.Count > 0) {
+                        cakeClients.Add(new CakeClientItem(client, products));
+                    }
+                }
+
+                return cakeClients;
             }
         }
 

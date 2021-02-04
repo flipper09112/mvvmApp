@@ -77,6 +77,7 @@
     <Compile Include="Services\Implementations\DialogService.cs" />
     <Compile Include="Services\Implementations\FileService.cs" />
     <Compile Include="Setup.cs" />
+    <Compile Include="UI\Adapters\CakesTotalOrderAdapter.cs" />
     <Compile Include="UI\Adapters\Home\HomePageOrdersListAdapter.cs" />
     <Compile Include="UI\Adapters\Home\HomePageViewPagerAdapter.cs" />
     <Compile Include="UI\Fragments\EditClient\EditClientProfileFragment.cs" />
@@ -90,9 +91,12 @@
     <Compile Include="UI\Adapters\ClientPage\ViewPager\ClientPageOrdersListAdapter.cs" />
     <Compile Include="UI\Fragments\EditClientFragment.cs" />
     <Compile Include="UI\Fragments\EditClient\EditClientMapFragment.cs" />
+    <Compile Include="UI\Fragments\EditClient\EditDailyOrdersFragment.cs" />
     <Compile Include="UI\Fragments\Global\GlobalOrderFragment.cs" />
+    <Compile Include="UI\Fragments\SelectDaysPageFragment.cs" />
     <Compile Include="UI\ViewHolders\EditProfileItemViewHolder.cs" />
     <Compile Include="UI\ViewHolders\HomePageOrderViewHolder.cs" />
+    <Compile Include="UI\ViewHolders\IndividualCakeOrderItemViewHolder.cs" />
     <Compile Include="UI\ViewHolders\OrderViewHolder.cs" />
     <Compile Include="UI\ViewHolders\ProductsOrderListViewHolder.cs" />
     <Compile Include="UI\Adapters\ClientPage\ViewPager\ClientPageDetailsAdapter.cs" />
@@ -434,6 +438,26 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\GlobalOrderFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\DailysOrdersDescEditFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\DailyOrderProductEditItem.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\SelectDaysPageFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\IndividualCakeOrderItem.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

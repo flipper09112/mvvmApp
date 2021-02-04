@@ -104,6 +104,34 @@ namespace tabApp.Core.Models
         {
             ExtraValueToPay = v;
         }
+
+        internal void UpdateDailyOrder(DailyOrder dailyOrder, DayOfWeek day)
+        {
+            switch (day)
+            {
+                case DayOfWeek.Monday:
+                    DailyOrders[0] = dailyOrder;
+                    break;
+                case DayOfWeek.Tuesday:
+                    DailyOrders[1] = dailyOrder;
+                    break;
+                case DayOfWeek.Wednesday:
+                    DailyOrders[2] = dailyOrder;
+                    break;
+                case DayOfWeek.Thursday:
+                    DailyOrders[3] = dailyOrder;
+                    break;
+                case DayOfWeek.Friday:
+                    DailyOrders[4] = dailyOrder;
+                    break;
+                case DayOfWeek.Saturday:
+                    DailyOrders[5] = dailyOrder;
+                    break;
+                case DayOfWeek.Sunday:
+                    DailyOrders[6] = dailyOrder;
+                    break;
+            }
+        }
         #endregion
 
         internal void AddExtra(double extra)

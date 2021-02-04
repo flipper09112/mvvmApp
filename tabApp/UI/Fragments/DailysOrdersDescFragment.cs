@@ -39,7 +39,7 @@ namespace tabApp.UI.Fragments
         private DailyOrderDescAdapter _terAdapter;
         private DailyOrderDescAdapter _quaAdapter;
         private DailyOrderDescAdapter _sexAdapter;
-        private RecyclerView.Adapter _sabAdapter;
+        private DailyOrderDescAdapter _sabAdapter;
         private DailyOrderDescAdapter _domAdapter;
         private DailyOrderDescAdapter _quiAdapter;
 
@@ -119,37 +119,37 @@ namespace tabApp.UI.Fragments
 
         private void SetupSegList()
         {
-            _segAdapter = new DailyOrderDescAdapter(ViewModel.SegDailyItemsList);
+            _segAdapter = new DailyOrderDescAdapter(ViewModel.SegDailyItemsList, false);
             _segRecyclerView.SetAdapter(_segAdapter);
         }
         private void SetupTerList()
         {
-            _terAdapter = new DailyOrderDescAdapter(ViewModel.TerDailyItemsList);
+            _terAdapter = new DailyOrderDescAdapter(ViewModel.TerDailyItemsList, false);
             _terRecyclerView.SetAdapter(_terAdapter);
         }
         private void SetupQuaList()
         {
-            _quaAdapter = new DailyOrderDescAdapter(ViewModel.QuaDailyItemsList);
+            _quaAdapter = new DailyOrderDescAdapter(ViewModel.QuaDailyItemsList, false);
             _quaRecyclerView.SetAdapter(_quaAdapter);
         }
         private void SetupQuiList()
         {
-            _quiAdapter = new DailyOrderDescAdapter(ViewModel.QuiDailyItemsList);
+            _quiAdapter = new DailyOrderDescAdapter(ViewModel.QuiDailyItemsList, false);
             _quiRecyclerView.SetAdapter(_quiAdapter);
         }
         private void SetupSexList()
         {
-            _sexAdapter = new DailyOrderDescAdapter(ViewModel.SexDailyItemsList);
+            _sexAdapter = new DailyOrderDescAdapter(ViewModel.SexDailyItemsList, false);
             _sexRecyclerView.SetAdapter(_sexAdapter);
         }
         private void SetupSabList()
         {
-            _sabAdapter = new DailyOrderDescAdapter(ViewModel.SabDailyItemsList);
+            _sabAdapter = new DailyOrderDescAdapter(ViewModel.SabDailyItemsList, false);
             _sabRecyclerView.SetAdapter(_sabAdapter);
         }
         private void SetupDomList()
         {
-            _domAdapter = new DailyOrderDescAdapter(ViewModel.DomDailyItemsList);
+            _domAdapter = new DailyOrderDescAdapter(ViewModel.DomDailyItemsList, false);
             _domRecyclerView.SetAdapter(_domAdapter);
         }
         #endregion

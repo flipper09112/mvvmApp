@@ -697,3 +697,11 @@ C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\drawable\ic_clic
 C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\layout\globalorderfragment.xml
 C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc644c933f2aa3dd2be6\GlobalOrderFragment.java
 C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc646a4ad767a75a43be\ProductsAmmountListAdapter.java
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc640b646eb21c052cb1\EditDailyOrdersFragment.java
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\layout\dailysordersdesceditfragment.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\layout\dailyorderproductedititem.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\layout\selectdayspagefragment.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc642d73cef5109f53ec\SelectDaysPageFragment.java
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\layout\individualcakeorderitem.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc646a4ad767a75a43be\CakesTotalOrderAdapter.java
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc649ba559e34155f93c\IndividualCakeOrderItemViewHolder.java

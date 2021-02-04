@@ -16,5 +16,6 @@ namespace tabApp.Core.Models
         public MvxCommand RefreshSaveCommand { get; internal set; }
         public bool IsDouble { get; internal set; }
         public string Type { get; internal set; }
+        public Product Product { get; internal set; }
     }
 }

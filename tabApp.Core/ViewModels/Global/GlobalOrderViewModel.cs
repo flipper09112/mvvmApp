@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using tabApp.Core.Models;
+using tabApp.Core.Models.GlobalOrder;
 using tabApp.Core.Services.Interfaces.Orders;
 using tabApp.Core.Services.Interfaces.Products;
 
@@ -44,10 +45,24 @@ namespace tabApp.Core.ViewModels.Global
             }
         }
 
+        private List<CakeClientItem> _cakesClients;
+        public List<CakeClientItem> CakesClients
+        {
+            get
+            {
+                return _cakesClients;
+            }
+            set
+            {
+                _cakesClients = value;
+            }
+        }
+
         public override void Appearing()
         {
             ProductsList = _ordersManagerService.GetTotalOrder(DateTime.Today.AddDays(1));
             TomorrowOrders = _ordersManagerService.TomorrowOrders;
+            CakesClients = _ordersManagerService.CakesClientsTomorrow;
         }
 
         public override void DisAppearing()

@@ -31,6 +31,7 @@ namespace tabApp.UI.Fragments.Global
         private MainActivity _activity;
         private ProductsAmmountListAdapter _mainAdapter;
         private HomePageOrdersListAdapter _orderAdapter;
+        private CakesTotalOrderAdapter _cakesAdapter;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -69,6 +70,9 @@ namespace tabApp.UI.Fragments.Global
 
             _orderAdapter = new HomePageOrdersListAdapter(ViewModel.TomorrowOrders, ViewModel);
             _ordersRecyclerView.SetAdapter(_orderAdapter);
+
+            _cakesAdapter = new CakesTotalOrderAdapter(ViewModel.CakesClients, ViewModel);
+            _cakesRecyclerView.SetAdapter(_cakesAdapter);
 
             _noOrdersItems.Visibility = ViewModel.TomorrowOrders?.Count == 0 ? ViewStates.Visible : ViewStates.Invisible;
         }

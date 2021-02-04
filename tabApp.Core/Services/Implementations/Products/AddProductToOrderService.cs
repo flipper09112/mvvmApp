@@ -11,6 +11,21 @@ namespace tabApp.Core.Services.Implementations.Products
         private List<Product> _productsSelected = new List<Product>();
         public List<Product> ProductsSelected => _productsSelected;
 
+        public DayOfWeek AddProductDay { get ; set ; }
+
+        private List<DayOfWeek> _listDaysToPast = new List<DayOfWeek>();
+        public List<DayOfWeek> ListDaysToPast 
+        { 
+            get
+            {
+                return _listDaysToPast;
+            }
+            set
+            {
+                _listDaysToPast = value;
+            }
+        }
+
         public void AddProduct(Product product)
         {
             _productsSelected.Add(product);
@@ -19,6 +34,7 @@ namespace tabApp.Core.Services.Implementations.Products
         public void Clear()
         {
             _productsSelected.Clear();
+            _listDaysToPast.Clear();
         }
     }
 }

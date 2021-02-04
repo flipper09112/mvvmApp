@@ -35,10 +35,11 @@ namespace tabApp.UI.Fragments
             _editViewPager = view.FindViewById<ViewPager>(Resource.Id.editViewPager);
             _tabLayout = view.FindViewById<TabLayout>(Resource.Id.tabLayout);
 
-            _viewPagerAdapter = new EditClientViewPagerAdapter(FragmentManager);
+            _viewPagerAdapter = new EditClientViewPagerAdapter(ChildFragmentManager);
             _viewPagerAdapter.ViewModel = ViewModel;
             _editViewPager.Adapter = _viewPagerAdapter;
             _tabLayout.SetupWithViewPager(_editViewPager, true);
+
             SetupTabLayout();
             return view;
         }

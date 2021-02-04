@@ -124,6 +124,7 @@ namespace tabApp.Core.ViewModels
                         _orderProducts.Add(new ProductAmmount() { Product = product, Ammount = 0});
                     }
                 });
+                _addProductToOrderService.Clear();
                 return _orderProducts;
             }
         } 
