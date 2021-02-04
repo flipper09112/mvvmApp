@@ -7,3 +7,12 @@ C:\Users\Utilizador\source\repos\tabApp\tabApp.Core\obj\Debug\netstandard2.0\tab
 C:\Users\Utilizador\source\repos\tabApp\tabApp.Core\obj\Debug\netstandard2.0\tabApp.Core.csproj.CoreCompileInputs.cache
 C:\Users\Utilizador\source\repos\tabApp\tabApp.Core\obj\Debug\netstandard2.0\tabApp.Core.dll
 C:\Users\Utilizador\source\repos\tabApp\tabApp.Core\obj\Debug\netstandard2.0\tabApp.Core.pdb
+C:\Users\Filipe\Documents\appmvvm\tabApp.Core\bin\Debug\netstandard2.0\tabApp.Core.deps.json
+C:\Users\Filipe\Documents\appmvvm\tabApp.Core\bin\Debug\netstandard2.0\tabApp.Core.dll
+C:\Users\Filipe\Documents\appmvvm\tabApp.Core\bin\Debug\netstandard2.0\tabApp.Core.pdb
+C:\Users\Filipe\Documents\appmvvm\tabApp.Core\obj\Debug\netstandard2.0\tabApp.Core.csprojAssemblyReference.cache
+C:\Users\Filipe\Documents\appmvvm\tabApp.Core\obj\Debug\netstandard2.0\tabApp.Core.AssemblyInfoInputs.cache
+C:\Users\Filipe\Documents\appmvvm\tabApp.Core\obj\Debug\netstandard2.0\tabApp.Core.AssemblyInfo.cs
+C:\Users\Filipe\Documents\appmvvm\tabApp.Core\obj\Debug\netstandard2.0\tabApp.Core.csproj.CoreCompileInputs.cache
+C:\Users\Filipe\Documents\appmvvm\tabApp.Core\obj\Debug\netstandard2.0\tabApp.Core.dll
+C:\Users\Filipe\Documents\appmvvm\tabApp.Core\obj\Debug\netstandard2.0\tabApp.Core.pdb

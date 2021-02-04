@@ -30,6 +30,8 @@ namespace tabApp.UI.Adapters
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
+            IndividualCakeOrderItemViewHolder vh = holder as IndividualCakeOrderItemViewHolder;
+            vh.Bind(cakesClients[holder.AdapterPosition]);
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)

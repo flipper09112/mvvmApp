@@ -63,11 +63,11 @@ namespace tabApp.Core.Services.Implementations.Orders
                 List<CakeClientItem> cakeClients = new List<CakeClientItem>();
 
                 bool hasCake = false;
-                List<(int ProductId, int Ammount)> products;
+                List<(string ProductName, int Ammount)> products;
                 foreach (var client in _clientsManagerService?.ClientsList ?? new List<Client>())
                 {
                     hasCake = false;
-                    products = new List<(int ProductId, int Ammount)>();
+                    products = new List<(string ProductName, int Ammount)>();
 
                     //Adicionar os produtos de uma encomenda extra
                     foreach (var extraorder in client.ExtraOrdersList)
@@ -76,9 +76,10 @@ namespace tabApp.Core.Services.Implementations.Orders
                         {
                             foreach(var item in extraorder.AllItems)
                             {
-                                if (_productsManagerService.GetProductById(item.ProductId).ProductType == ProductTypeEnum.PastelariaIndividual)
+                                Product p = _productsManagerService.GetProductById(item.ProductId);
+                                if (p.ProductType == ProductTypeEnum.PastelariaIndividual)
                                 {
-                                    products.Add((item.ProductId, (int)item.Ammount));
+                                    products.Add((p.Name, (int)item.Ammount));
                                 }
                             }
                         }
@@ -86,9 +87,10 @@ namespace tabApp.Core.Services.Implementations.Orders
                     //encomenda normal
                     foreach (var item in ClientHelper.GetDailyOrder(DateTime.Today.AddDays(1).DayOfWeek, client).AllItems)
                     {
+                        Product p = _productsManagerService.GetProductById(item.ProductId);
                         if (_productsManagerService.GetProductById(item.ProductId).ProductType == ProductTypeEnum.PastelariaIndividual)
                         {
-                            products.Add((item.ProductId, (int)item.Ammount));
+                            products.Add((p.Name, (int)item.Ammount));
                         }
                     }
 
