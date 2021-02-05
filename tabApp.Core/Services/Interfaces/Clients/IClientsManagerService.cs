@@ -17,5 +17,6 @@ namespace tabApp.Core.Services.Interfaces.Clients
         Regist RemoveExtraOrder(Client client, ExtraOrder order);
         Client GetClosestClient(double currentLatitude, double currentLogitude);
         ExtraOrder HasOrderThisDate(Client client, DateTime dateTime);
+        bool ClientHasExtraOrderThisDay(Client clientSelected, DateTime dateSelected);
     }
 }

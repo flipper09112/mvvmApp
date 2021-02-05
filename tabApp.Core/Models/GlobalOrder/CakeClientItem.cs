@@ -8,11 +8,13 @@ namespace tabApp.Core.Models.GlobalOrder
     {
         public List<(string ProductName, int Ammount)> Products { get; }
         public Client Client { get; }
+        public bool Selected { get; set; }
 
-        public CakeClientItem(Client client, List<(string ProductName, int Ammount)> products)
+        public CakeClientItem(Client client, List<(string ProductName, int Ammount)> products, bool selected = false)
         {
             Client = client;
             Products = products;
+            Selected = selected;
         }
 
     }

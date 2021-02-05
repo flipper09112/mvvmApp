@@ -80,6 +80,7 @@
     <Compile Include="UI\Adapters\CakesTotalOrderAdapter.cs" />
     <Compile Include="UI\Adapters\Home\HomePageOrdersListAdapter.cs" />
     <Compile Include="UI\Adapters\Home\HomePageViewPagerAdapter.cs" />
+    <Compile Include="UI\Fragments\ClientPage\AddStoreRegistFragment.cs" />
     <Compile Include="UI\Fragments\EditClient\EditClientProfileFragment.cs" />
     <Compile Include="UI\Adapters\EditClient\EditClientProfileItemsAdapter.cs" />
     <Compile Include="UI\Adapters\EditClient\EditClientViewPagerAdapter.cs" />
@@ -93,7 +94,7 @@
     <Compile Include="UI\Fragments\EditClient\EditClientMapFragment.cs" />
     <Compile Include="UI\Fragments\EditClient\EditDailyOrdersFragment.cs" />
     <Compile Include="UI\Fragments\Global\GlobalOrderFragment.cs" />
-    <Compile Include="UI\Fragments\SelectDaysPageFragment.cs" />
+    <Compile Include="UI\Fragments\EditClient\SelectDaysPageFragment.cs" />
     <Compile Include="UI\ViewHolders\EditProfileItemViewHolder.cs" />
     <Compile Include="UI\ViewHolders\HomePageOrderViewHolder.cs" />
     <Compile Include="UI\ViewHolders\IndividualCakeOrderItemViewHolder.cs" />
@@ -103,12 +104,12 @@
     <Compile Include="UI\Adapters\ClientPage\ViewPager\ClientPageViewPagerAdapter.cs" />
     <Compile Include="UI\Adapters\Home\ClientsListAdapter.cs" />
     <Compile Include="UI\Bases\BaseFragment.cs" />
-    <Compile Include="UI\Fragments\ChooseProductFragment.cs" />
+    <Compile Include="UI\Fragments\ClientPage\ChooseProductFragment.cs" />
     <Compile Include="UI\Fragments\ClientOrderFragment.cs" />
-    <Compile Include="UI\Fragments\ClientPageFragment.cs" />
-    <Compile Include="UI\Fragments\DailysOrdersDescFragment.cs" />
+    <Compile Include="UI\Fragments\ClientPage\ClientPageFragment.cs" />
+    <Compile Include="UI\Fragments\ClientPage\DailysOrdersDescFragment.cs" />
     <Compile Include="UI\Fragments\HomeFragment.cs" />
-    <Compile Include="UI\Fragments\OtherOptionsFragment.cs" />
+    <Compile Include="UI\Fragments\ClientPage\OtherOptionsFragment.cs" />
     <Compile Include="UI\ViewHolders\ClientViewHolder.cs" />
     <Compile Include="UI\ViewHolders\DailyOrderProductViewHolder.cs" />
     <Compile Include="UI\ViewHolders\DetailViewHolder.cs" />
@@ -460,6 +461,17 @@
     <AndroidResource Include="Resources\layout\IndividualCakeOrderItem.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_insert.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\AddStoreRegistFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_calendar_mono.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

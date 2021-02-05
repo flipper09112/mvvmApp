@@ -23,7 +23,7 @@ namespace tabApp.Core.Services.Implementations
         private readonly string LogsListFileName = "logs.xls";
         private readonly string OldLogsListFileName = "logs.txt";
 
-        private readonly IGetFileService _getFileService;
+        private readonly IFirebaseService _firebaseService;
         private readonly IFileService _fileService;
         private readonly IClientsManagerService _clientsManagerService;
         private readonly IProductsManagerService _productsManagerService;
@@ -31,14 +31,25 @@ namespace tabApp.Core.Services.Implementations
         public DBService(IProductsManagerService productsManagerService, 
             IClientsManagerService clientsManagerService, 
             IFileService fileService, 
-            IGetFileService getFileService)
+            IFirebaseService getFileService)
         {
             _fileService = fileService;
-            _getFileService = getFileService;
+            _firebaseService = getFileService;
             _clientsManagerService = clientsManagerService;
             _productsManagerService = productsManagerService;
         }
 
+        public void SaveAllDocs()
+        {
+            /*byte[] fileData = _fileService.GetFile(ClientsListFileName);
+            _firebaseService.SaveFile(ClientsListFileName, fileData);
+            fileData = _fileService.GetFile(ProductsListFileName);
+            _firebaseService.SaveFile(ProductsListFileName, fileData);
+            fileData = _fileService.GetFile(LogsListFileName);
+            _firebaseService.SaveFile(LogsListFileName, fileData);*/
+        }
+
+        #region SaveDataFunctions
         public void SaveNewClientData(Client client)
         {
             byte[] byteArrayClients = _fileService.GetFile(ClientsListFileName);
@@ -57,6 +68,7 @@ namespace tabApp.Core.Services.Implementations
             byte[] byteArrayLogsUpdated = NewRegistsDB(order, byteArrayLogs);
             _fileService.SaveFile(LogsListFileName, byteArrayLogsUpdated, true);
         }
+        #endregion
 
         private bool firstTime = false;
         private bool firstTimeWrite = false;
@@ -64,25 +76,25 @@ namespace tabApp.Core.Services.Implementations
         {
             if (!_fileService.HasFile(ClientsListFileName))
             {
-                _fileService.SaveFile(ClientsListFileName, await _getFileService.GetUrlDownload(ClientsListFileName));
+                _fileService.SaveFile(ClientsListFileName, await _firebaseService.GetUrlDownload(ClientsListFileName));
                 await StartAsync();
                 return;
             } else if(!_fileService.HasFile(ProductsListFileName))
             {
-                _fileService.SaveFile(ProductsListFileName, await _getFileService.GetUrlDownload(ProductsListFileName));
+                _fileService.SaveFile(ProductsListFileName, await _firebaseService.GetUrlDownload(ProductsListFileName));
                 await StartAsync();
                 return;
             }
             else if (!_fileService.HasFile(LogsListFileName))
             {
-                _fileService.SaveFile(LogsListFileName, await _getFileService.GetUrlDownload(LogsListFileName));
+                _fileService.SaveFile(LogsListFileName, await _firebaseService.GetUrlDownload(LogsListFileName));
                 await StartAsync();
                 return;
             }
             else if (/*!_fileService.HasFile(LogsListFileName)*/firstTime)
             {
                 firstTime = false;
-                _fileService.SaveFile(OldLogsListFileName, await _getFileService.GetUrlDownload(OldLogsListFileName));
+                _fileService.SaveFile(OldLogsListFileName, await _firebaseService.GetUrlDownload(OldLogsListFileName));
                 await StartAsync();
                 return;
             }
@@ -102,6 +114,7 @@ namespace tabApp.Core.Services.Implementations
             }
         }
 
+        #region Read Functions
         private void ReadOldLogsList(byte[] byteArrayOldLogs, byte[] byteArrayLogs)
         {
             MemoryStream xls = new MemoryStream(byteArrayLogs); 
@@ -291,8 +304,6 @@ namespace tabApp.Core.Services.Implementations
             workbook.SaveToStream(output, FileFormat.Version97to2003);
             _fileService.SaveFile(LogsListFileName, output.ToArray(), true);
         }
-
-        #region Read Functions
         private void ReadLogsList(byte[] byteArrayLogs)
         {
             MemoryStream ms = new MemoryStream(byteArrayLogs);
@@ -781,6 +792,7 @@ namespace tabApp.Core.Services.Implementations
                     return "N";
             }
         }
+
         #endregion
     }
 }

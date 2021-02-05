@@ -35,6 +35,7 @@
         android:text="Adicionar Produto"
         android:fontFamily="@font/arista_pro_bold"
         android:textSize="20sp"
+        android:enabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/divider"
         app:layout_constraintStart_toStartOf="parent" />
@@ -46,6 +47,7 @@
         android:text="Adicionar encomenda/cliente"
         android:fontFamily="@font/arista_pro_bold"
         android:textSize="20sp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/divider2"
         app:layout_constraintStart_toEndOf="@+id/divider" />
@@ -67,6 +69,7 @@
         android:text="Outras opções"
         android:fontFamily="@font/arista_pro_bold"
         android:textSize="20sp"
+        android:enabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/sendOrder"
         app:layout_constraintStart_toEndOf="@+id/divider2" />
@@ -80,7 +83,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider3">
 
-    </androidx.recyclerview.widget.RecyclerView>
+    </android.support.v7.widget.RecyclerView>
 
     <View
         android:id="@+id/divider3"
@@ -158,5 +161,14 @@
         app:layout_constraintBottom_toTopOf="@+id/sendOrder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/divider2"
+        app:layout_constraintTop_toBottomOf="@+id/divider3"/>
+    <include 
+        android:id="@+id/noCakesOrdersItems"
+        layout="@layout/emptylistitems"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/addOrderCakes"
+        app:layout_constraintEnd_toStartOf="@+id/divider2"
+        app:layout_constraintStart_toEndOf="@+id/divider"
         app:layout_constraintTop_toBottomOf="@+id/divider3"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

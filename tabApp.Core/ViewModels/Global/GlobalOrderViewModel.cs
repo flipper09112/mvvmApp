@@ -1,8 +1,10 @@
-﻿using System;
+﻿using MvvmCross.Commands;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using tabApp.Core.Models;
 using tabApp.Core.Models.GlobalOrder;
+using tabApp.Core.Services.Interfaces.DB;
 using tabApp.Core.Services.Interfaces.Orders;
 using tabApp.Core.Services.Interfaces.Products;
 
@@ -12,11 +14,22 @@ namespace tabApp.Core.ViewModels.Global
     {
         private readonly IOrdersManagerService _ordersManagerService;
         private readonly IProductsManagerService _productsManagerService;
+        private readonly IDBService _dBService;
 
-        public GlobalOrderViewModel(IOrdersManagerService ordersManagerService, IProductsManagerService productsManagerService)
+        public MvxCommand SaveAllDataCommand;
+
+        public GlobalOrderViewModel(IOrdersManagerService ordersManagerService, IProductsManagerService productsManagerService, IDBService dBService)
         {
             _ordersManagerService = ordersManagerService;
             _productsManagerService = productsManagerService;
+            _dBService = dBService;
+
+            SaveAllDataCommand = new MvxCommand(SaveAllData);
+        }
+
+        private void SaveAllData()
+        {
+            _dBService.SaveAllDocs();
         }
 
         private List<ProductAmmount> _productsList;
@@ -88,6 +101,19 @@ namespace tabApp.Core.ViewModels.Global
                 info += item.Product.Name + " - " + (item.Product.Unity ? item.Ammount.ToString("N0") : item.Ammount.ToString("N3")) + "\n\n";
             }
             info += "----------------------------------------\n\n";
+
+            foreach(var item in CakesClients)
+            {
+                if(!item.Selected)
+                {
+                    foreach(var products in item.Products)
+                    {
+                        info += products.ProductName + " - " + products.Ammount + "\n";
+                    }
+                    info += "----------------------------------------\n\n";
+                }
+            }
+
             return info;
         }
     }

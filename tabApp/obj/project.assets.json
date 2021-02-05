@@ -4421,24 +4421,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Filipe\\.nuget\\packages\\": {},
+    "C:\\Users\\Utilizador\\.nuget\\packages\\": {},
     "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Filipe\\Documents\\appmvvm\\tabApp\\tabApp.Droid.csproj",
+      "projectUniqueName": "C:\\Users\\Utilizador\\source\\repos\\tabApp\\tabApp\\tabApp.Droid.csproj",
       "projectName": "tabApp.Droid",
-      "projectPath": "C:\\Users\\Filipe\\Documents\\appmvvm\\tabApp\\tabApp.Droid.csproj",
-      "packagesPath": "C:\\Users\\Filipe\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Filipe\\Documents\\appmvvm\\tabApp\\obj\\",
+      "projectPath": "C:\\Users\\Utilizador\\source\\repos\\tabApp\\tabApp\\tabApp.Droid.csproj",
+      "packagesPath": "C:\\Users\\Utilizador\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Utilizador\\source\\repos\\tabApp\\tabApp\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\Filipe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Utilizador\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
@@ -4452,8 +4452,8 @@
       "frameworks": {
         "monoandroid90": {
           "projectReferences": {
-            "C:\\Users\\Filipe\\Documents\\appmvvm\\tabApp.Core\\tabApp.Core.csproj": {
-              "projectPath": "C:\\Users\\Filipe\\Documents\\appmvvm\\tabApp.Core\\tabApp.Core.csproj"
+            "C:\\Users\\Utilizador\\source\\repos\\tabApp\\tabApp.Core\\tabApp.Core.csproj": {
+              "projectPath": "C:\\Users\\Utilizador\\source\\repos\\tabApp\\tabApp.Core\\tabApp.Core.csproj"
             }
           }
         }

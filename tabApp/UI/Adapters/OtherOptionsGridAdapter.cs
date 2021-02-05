@@ -2,6 +2,7 @@
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using System;
@@ -41,11 +42,18 @@ namespace tabApp.UI.Adapters
             var view = inflater.Inflate(Resource.Layout.OtherOptionItem, parent, false);
 
             TextView name = view.FindViewById<TextView>(Resource.Id.android_gridview_text);
+            CardView layout = view.FindViewById<CardView>(Resource.Id.android_custom_gridview_layout);
             ImageView image = view.FindViewById<ImageView>(Resource.Id.android_gridview_image);
             name.Text = options[position].Name;
             image.SetImageResource(ImageHelper.GetImageResource(context, options[position].ImageName));
 
+            layout.Click += delegate {
+                options[position].Action.Execute(null);
+            };
+
             return view;
         }
+
+
     }
 }

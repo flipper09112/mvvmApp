@@ -83,6 +83,15 @@ namespace tabApp
             }
         }
 
+        internal void HideMenu()
+        {
+            _drawerLayout.SetDrawerLockMode(DrawerLayout.LockModeLockedClosed);  
+        }
+        internal void ShowMenu()
+        {
+            _drawerLayout.SetDrawerLockMode(DrawerLayout.LockModeUnlocked);
+        }
+
         private void ViewModelPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             ViewModelPropertyChanged(ViewModel.IsBusy, e);

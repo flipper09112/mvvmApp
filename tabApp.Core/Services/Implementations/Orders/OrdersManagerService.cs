@@ -171,6 +171,22 @@ namespace tabApp.Core.Services.Implementations.Orders
 
             return ammount;
         }
+        public double GetValue(int clientId, List<(int ProductId, double Ammount)> allitems)
+        {
+            double ammount = 0;
+
+            foreach (var item in allitems)
+            {
+                Product product = _productsManagerService.GetProductById(item.ProductId);
+
+                if (product == null)
+                    return -1;
+
+                ammount += item.Ammount * _productsManagerService.GetProductAmmount(clientId, product);
+            }
+
+            return ammount;
+        }
 
         public double WeekAmmount(Client client)
         {

@@ -13,5 +13,6 @@ namespace tabApp.Core.Services.Interfaces.DB
         void SaveNewRegist(Regist regist);
         void SaveNewRegist(ExtraOrder order);
         void RemoveRegist(ExtraOrder obj);
+        void SaveAllDocs();
     }
 }

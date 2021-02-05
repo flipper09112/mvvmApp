@@ -28,6 +28,7 @@ namespace tabApp.UI.Fragments.Global
         private Button _addOrderCakes;
         private Button _addProduct;
         private View _noOrdersItems;
+        private View _noCakesOrdersItems;
         private MainActivity _activity;
         private ProductsAmmountListAdapter _mainAdapter;
         private HomePageOrdersListAdapter _orderAdapter;
@@ -45,6 +46,7 @@ namespace tabApp.UI.Fragments.Global
             _addOrderCakes = view.FindViewById<Button>(Resource.Id.addOrderCakes);
             _addProduct = view.FindViewById<Button>(Resource.Id.addProduct);
             _noOrdersItems = view.FindViewById<View>(Resource.Id.noOrdersItems);
+            _noCakesOrdersItems = view.FindViewById<View>(Resource.Id.noCakesOrdersItems);
 
             _activity = ParentActivity as MainActivity;
 
@@ -59,10 +61,13 @@ namespace tabApp.UI.Fragments.Global
         {
             ViewModel.PropertyChanged -= ViewModelPropertyChanged;
             _sendOrder.Click -= SendOrderClick;
+
+            _activity.ShowMenu();
         }
 
         public override void SetUI()
         {
+            _activity.HideMenu();
             _activity.HideToolbar();
 
             _mainAdapter = new ProductsAmmountListAdapter(ViewModel.ProductsList, null, true);
@@ -75,6 +80,7 @@ namespace tabApp.UI.Fragments.Global
             _cakesRecyclerView.SetAdapter(_cakesAdapter);
 
             _noOrdersItems.Visibility = ViewModel.TomorrowOrders?.Count == 0 ? ViewStates.Visible : ViewStates.Invisible;
+            _noCakesOrdersItems.Visibility = ViewModel.CakesClients?.Count == 0 ? ViewStates.Visible : ViewStates.Invisible;
         }
 
         public override void SetupBindings()
@@ -85,6 +91,7 @@ namespace tabApp.UI.Fragments.Global
 
         private void SendOrderClick(object sender, EventArgs e)
         {
+            ViewModel.SaveAllDataCommand.Execute(null);
             //string email = "encomendas@panilima.pt";
             string email = "flipper09@live.com.pt";
             string info = ViewModel.GetTextForSentToEmail();

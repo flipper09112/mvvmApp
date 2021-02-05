@@ -104,5 +104,15 @@ namespace tabApp.Core.Services.Implementations.Clients
             }
             return null;
         }
+
+        public bool ClientHasExtraOrderThisDay(Client clientSelected, DateTime dateSelected)
+        {
+            foreach(var order in clientSelected.ExtraOrdersList ?? new List<ExtraOrder>())
+            {
+                if (order.OrderDay.Date == dateSelected.Date)
+                    return true;
+            }
+            return false;
+        }
     }
 }
