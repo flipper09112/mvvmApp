@@ -133,6 +133,9 @@ namespace tabApp.Core.Services.Implementations.Orders
             {
                 var listItem = items.Find(item => item.Product.Id == dailyItem.ProductId);
                 Product productModel = _productsManagerService.GetProductById(dailyItem.ProductId);
+                if (productModel.ProductType == ProductTypeEnum.PastelariaIndividual)
+                    continue;
+
                 if (!productModel.Unity)
                 {
                     items.Add(new ProductAmmount()

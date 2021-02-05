@@ -80,7 +80,8 @@
     <Compile Include="UI\Adapters\CakesTotalOrderAdapter.cs" />
     <Compile Include="UI\Adapters\Home\HomePageOrdersListAdapter.cs" />
     <Compile Include="UI\Adapters\Home\HomePageViewPagerAdapter.cs" />
-    <Compile Include="UI\Fragments\ClientPage\AddStoreRegistFragment.cs" />
+    <Compile Include="UI\Fragments\ClientPage\OtherOptions\AddStoreRegistFragment.cs" />
+    <Compile Include="UI\Fragments\ClientPage\OtherOptions\PrintAccountFragment.cs" />
     <Compile Include="UI\Fragments\EditClient\EditClientProfileFragment.cs" />
     <Compile Include="UI\Adapters\EditClient\EditClientProfileItemsAdapter.cs" />
     <Compile Include="UI\Adapters\EditClient\EditClientViewPagerAdapter.cs" />

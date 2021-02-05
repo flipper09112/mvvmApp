@@ -42,6 +42,8 @@ androidx.recyclerview.widget.RecyclerView;obj\Debug\90\res\layout\recyclerviewla
 androidx.viewpager.widget.ViewPager;obj\Debug\90\res\layout\clientpagefragment.xml
 androidx.viewpager.widget.ViewPager;obj\Debug\90\res\layout\editclientfragment.xml
 androidx.viewpager.widget.ViewPager;obj\Debug\90\res\layout\homefragment.xml
+attr;C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\lp\0\jl\res\values\mvxbindingattributes.xml
+attr;C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\lp\6\jl\res\values\mvxrecyclerviewbindingattributes.xml
 attr;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\0\jl\res\values\mvxbindingattributes.xml
 attr;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\6\jl\res\values\mvxrecyclerviewbindingattributes.xml
 background;obj\Debug\90\res\mipmap-anydpi-v26\ic_launcher.xml
@@ -56,6 +58,7 @@ Button;obj\Debug\90\res\layout\individualcakeorderitem.xml
 Button;obj\Debug\90\res\layout\mapvieweditclient.xml
 Button;obj\Debug\90\res\layout\orderitem.xml
 Button;obj\Debug\90\res\layout\selectdayspagefragment.xml
+cache-path;C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\lp\52\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
 cache-path;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\52\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
 CalendarView;obj\Debug\90\res\layout\calendarlayout.xml
 CheckBox;obj\Debug\90\res\layout\paymentdialog.xml
@@ -71,6 +74,8 @@ com.google.android.material.tabs.TabLayout;obj\Debug\90\res\layout\homefragment.
 corners;obj\Debug\90\res\drawable\containerretangle.xml
 corners;obj\Debug\90\res\drawable\red_button_default.xml
 corners;obj\Debug\90\res\drawable\red_button_pressed.xml
+declare-styleable;C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\lp\0\jl\res\values\mvxbindingattributes.xml
+declare-styleable;C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\lp\6\jl\res\values\mvxrecyclerviewbindingattributes.xml
 declare-styleable;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\0\jl\res\values\mvxbindingattributes.xml
 declare-styleable;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\6\jl\res\values\mvxrecyclerviewbindingattributes.xml
 dimen;obj\Debug\90\res\values\dimens.xml
@@ -78,7 +83,9 @@ EditText;obj\Debug\90\res\layout\chooseproductfragment.xml
 EditText;obj\Debug\90\res\layout\dailyorderproductedititem.xml
 EditText;obj\Debug\90\res\layout\editprofileitem.xml
 EditText;obj\Debug\90\res\layout\productorderitem.xml
+external-cache-path;C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\lp\52\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
 external-cache-path;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\52\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
+external-path;C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\lp\52\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
 external-path;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\52\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
 foreground;obj\Debug\90\res\mipmap-anydpi-v26\ic_launcher.xml
 foreground;obj\Debug\90\res\mipmap-anydpi-v26\ic_launcher_round.xml
@@ -102,6 +109,8 @@ ImageView;obj\Debug\90\res\layout\sidebar.xml
 include;obj\Debug\90\res\layout\activity_main.xml
 include;obj\Debug\90\res\layout\addstoreregistfragment.xml
 include;obj\Debug\90\res\layout\globalorderfragment.xml
+item;C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\lp\0\jl\res\values\ids.xml
+item;C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\lp\0\jl\res\values\mvxbindingattributes.xml
 item;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\0\jl\res\values\ids.xml
 item;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\0\jl\res\values\mvxbindingattributes.xml
 item;obj\Debug\90\res\drawable\cardviewbg.xml
@@ -150,6 +159,7 @@ path;obj\Debug\90\res\drawable\ic_phone.xml
 path;obj\Debug\90\res\drawable\ic_pin_location.xml
 path;obj\Debug\90\res\drawable\ic_printer.xml
 path;obj\Debug\90\res\drawable\ic_search.xml
+paths;C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\lp\52\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
 paths;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\52\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
 ProgressBar;obj\Debug\90\res\layout\activity_main.xml
 RadioButton;obj\Debug\90\res\layout\clientorderfragment.xml
@@ -157,6 +167,11 @@ RadioButton;obj\Debug\90\res\layout\selectdayspagefragment.xml
 RadioGroup;obj\Debug\90\res\layout\clientorderfragment.xml
 RadioGroup;obj\Debug\90\res\layout\selectdayspagefragment.xml
 RelativeLayout;obj\Debug\90\res\layout\content_main.xml
+resources;C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\lp\0\jl\res\values\ids.xml
+resources;C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\lp\0\jl\res\values\mvxbindingattributes.xml
+resources;C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\lp\3\jl\res\values\strings.xml
+resources;C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\lp\5\jl\res\xml\empty.xml
+resources;C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\lp\6\jl\res\values\mvxrecyclerviewbindingattributes.xml
 resources;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\0\jl\res\values\ids.xml
 resources;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\0\jl\res\values\mvxbindingattributes.xml
 resources;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\3\jl\res\values\strings.xml
@@ -180,6 +195,7 @@ solid;obj\Debug\90\res\drawable\greencircle.xml
 solid;obj\Debug\90\res\drawable\red_button_default.xml
 solid;obj\Debug\90\res\drawable\red_button_pressed.xml
 Spinner;obj\Debug\90\res\layout\clientpagefragment.xml
+string;C:\Users\Filipe\Documents\appmvvm\tabApp\obj\Debug\90\lp\3\jl\res\values\strings.xml
 string;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\3\jl\res\values\strings.xml
 string;obj\Debug\90\res\values\strings.xml
 stroke;obj\Debug\90\res\drawable\containerretangle.xml
