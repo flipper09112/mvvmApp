@@ -13,7 +13,9 @@ using MvvmCross.Platforms.Android.Presenters;
 using System.Collections.Generic;
 using System.Reflection;
 using tabApp.Core;
+using tabApp.Core.Services.Implementations.Bluetooth;
 using tabApp.Core.Services.Interfaces;
+using tabApp.Core.Services.Interfaces.Bluetooth;
 using tabApp.Core.Services.Interfaces.Dialogs;
 using tabApp.Services;
 using tabApp.Services.Implementations;
@@ -48,6 +50,7 @@ namespace tabApp
 
             Mvx.LazyConstructAndRegisterSingleton<IFileService, FileService>();
             Mvx.LazyConstructAndRegisterSingleton<IDialogService, DialogService>();
+            Mvx.LazyConstructAndRegisterSingleton<IBluetoothService, BluetoothService>();
         }
 
         protected override IMvxAndroidViewPresenter CreateViewPresenter()

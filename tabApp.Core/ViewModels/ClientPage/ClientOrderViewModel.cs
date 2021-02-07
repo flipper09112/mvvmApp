@@ -78,7 +78,8 @@ namespace tabApp.Core.ViewModels
                                         DateTime.Today,
                                         DateSelected,
                                         items,
-                                        (bool)IsTotal);
+                                        (bool)IsTotal,
+                                        false);
 
             _clientsManagerService.AddNewOrder(_chooseClientService.ClientSelected, order);
             _dBService.SaveNewClientData(_chooseClientService.ClientSelected);

@@ -74,12 +74,15 @@
     <Compile Include="MainApplication.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Implementations\BluetoothService.cs" />
     <Compile Include="Services\Implementations\DialogService.cs" />
     <Compile Include="Services\Implementations\FileService.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="UI\Adapters\CakesTotalOrderAdapter.cs" />
     <Compile Include="UI\Adapters\Home\HomePageOrdersListAdapter.cs" />
     <Compile Include="UI\Adapters\Home\HomePageViewPagerAdapter.cs" />
+    <Compile Include="UI\Adapters\OtherOptions\PrintAccountSpinnerAdapter.cs" />
+    <Compile Include="UI\Adapters\OtherOptions\PrintPreviewAdapter.cs" />
     <Compile Include="UI\Fragments\ClientPage\OtherOptions\AddStoreRegistFragment.cs" />
     <Compile Include="UI\Fragments\ClientPage\OtherOptions\PrintAccountFragment.cs" />
     <Compile Include="UI\Fragments\EditClient\EditClientProfileFragment.cs" />
@@ -88,7 +91,7 @@
     <Compile Include="UI\Adapters\NewOrderPage\ProductsAmmountListAdapter.cs" />
     <Compile Include="UI\Adapters\ClientPage\ClientPageSpinnerAdapter.cs" />
     <Compile Include="UI\Adapters\DailyOrderDescAdapter.cs" />
-    <Compile Include="UI\Adapters\OtherOptionsGridAdapter.cs" />
+    <Compile Include="UI\Adapters\OtherOptions\OtherOptionsGridAdapter.cs" />
     <Compile Include="UI\Adapters\NewOrderPage\ProductsItemsListAdapter.cs" />
     <Compile Include="UI\Adapters\ClientPage\ViewPager\ClientPageOrdersListAdapter.cs" />
     <Compile Include="UI\Fragments\EditClientFragment.cs" />
@@ -100,6 +103,7 @@
     <Compile Include="UI\ViewHolders\HomePageOrderViewHolder.cs" />
     <Compile Include="UI\ViewHolders\IndividualCakeOrderItemViewHolder.cs" />
     <Compile Include="UI\ViewHolders\OrderViewHolder.cs" />
+    <Compile Include="UI\ViewHolders\PrintPreviewViewHolder.cs" />
     <Compile Include="UI\ViewHolders\ProductsOrderListViewHolder.cs" />
     <Compile Include="UI\Adapters\ClientPage\ViewPager\ClientPageDetailsAdapter.cs" />
     <Compile Include="UI\Adapters\ClientPage\ViewPager\ClientPageViewPagerAdapter.cs" />
@@ -473,6 +477,24 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_calendar_mono.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\PrintAccountFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\PrintPreview.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_calculator.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\AddExtraDialog.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

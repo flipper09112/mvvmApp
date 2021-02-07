@@ -22,6 +22,7 @@ namespace tabApp.Core.Enums
         QuiDes = 23,
         SexDes = 24,
         SabDes = 25,
-        DomDes = 26
+        DomDes = 26,
+        PhoneNumber = 27
     }
 }

@@ -9,5 +9,7 @@ namespace tabApp.Core.Services.Implementations.Clients
     {
         Client ClientSelected { get; }
         void SelectClient(Client clientSelected);
+
+        DateTime PayTo { get; set; }
     }
 }

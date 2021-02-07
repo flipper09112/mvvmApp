@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using tabApp.Core.Enums;
 using tabApp.Core.Models;
@@ -123,7 +122,6 @@ namespace tabApp.Core.Services.Implementations
             Worksheet sheet = workbook.Worksheets[0];
             int newRow = sheet.Rows.Length + 1;
             
-
             MemoryStream ms = new MemoryStream(byteArrayOldLogs);
             string data;
             string logId;
@@ -143,7 +141,10 @@ namespace tabApp.Core.Services.Implementations
                         order = null;
 
                         lineSplit = line.Split(':');
-                        tipo = lineSplit[0].Split(' ')[0];
+                        tipo = lineSplit[0].Split(' ')[0].Trim();
+
+                        if (tipo.Equals("LOCALIZAÇÃO"))
+                            continue;
 
                         //get id
                         logId = lineSplit[0];
@@ -153,7 +154,7 @@ namespace tabApp.Core.Services.Implementations
                         //get data
                         data = line.Split('-')[1];
 
-                        if (DateTime.Parse(data) < DateTime.Today.AddMonths(-1))
+                        if (DateTime.Parse(data) < DateTime.Today.AddDays(-5)/*.AddMonths(-1)*/)
                             continue;
 
                         if (tipo.Equals("PAGAMENTO"))
@@ -194,7 +195,7 @@ namespace tabApp.Core.Services.Implementations
 
                             dataencomenda = lineSplit[1].Split(' ')[4].Split(',')[0];
 
-                            order = new ExtraOrder(int.Parse(logId), DateTime.Parse(data), DateTime.Parse(dataencomenda), new List<(int ProductId, double Ammount)>(), true);
+                            order = new ExtraOrder(int.Parse(logId), DateTime.Parse(data), DateTime.Parse(dataencomenda), GetListItemsFromOldRegist(info), true, false);
                         }
                         else if (tipo.Equals("NOVOCLIENTE"))
                         {
@@ -203,8 +204,18 @@ namespace tabApp.Core.Services.Implementations
 
                             regist = new Regist(DateTime.Parse(data), info, int.Parse(logId), DetailTypeEnum.NewClient);
                         }
+                        else if (tipo.Equals("REGISTO"))
+                        {
+                            info = lineSplit[1].Replace(",", "\n");
+                            info = info.Replace("&", ".");
+                            info = info.Substring(1, info.IndexOf("-"));
 
-                        
+                            dataencomenda = lineSplit[1].Split(' ')[4].Split(',')[0];
+
+                            order = new ExtraOrder(int.Parse(logId), DateTime.Parse(data), DateTime.Parse(dataencomenda), GetListItemsFromOldRegist(info), true, true);
+                        }
+
+
                         if (regist != null)
                         {
                             _clientsManagerService.SetNewRegist(regist.ClientId, regist);
@@ -317,6 +328,7 @@ namespace tabApp.Core.Services.Implementations
             string info;
             string extraOrderDesc;
             bool total;
+            bool storeLabel;
             DetailTypeEnum detailType;
             DateTime detailDate;
             DateTime orderDate;
@@ -332,12 +344,13 @@ namespace tabApp.Core.Services.Implementations
                 DateTime.TryParse(sheet.Range[i, (int)LogsListItemsPositions.OrderDay].DisplayedText, out orderDate);
                 extraOrderDesc = sheet.Range[i, (int)LogsListItemsPositions.Order].DisplayedText;
                 total = sheet.Range[i, (int)LogsListItemsPositions.IsAll].DisplayedText.Equals("1");
+                storeLabel = sheet.Range[i, (int)LogsListItemsPositions.StoreLabel].DisplayedText.Equals("1");
 
                 if (detailType == DetailTypeEnum.Order)
                 {
                     _clientsManagerService.SetNewOrder(
                         clientId,
-                        new ExtraOrder(clientId, detailDate, orderDate, GetOrderListItems(extraOrderDesc), total)
+                        new ExtraOrder(clientId, detailDate, orderDate, GetOrderListItems(extraOrderDesc), total, storeLabel)
                         );
                 }
                 else
@@ -419,6 +432,7 @@ namespace tabApp.Core.Services.Implementations
             string addressDesc;
             int door;
             string coord;
+            string phoneNumber;
             Address address;
             DateTime paymentDate;
             string type;
@@ -449,6 +463,9 @@ namespace tabApp.Core.Services.Implementations
                 paymentDate = DateTime.ParseExact(sheet.Range[i, (int)ClientsListItemsPositions.Payment].Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                 type = sheet.Range[i, (int)ClientsListItemsPositions.PaymentType].Text;
                 active = sheet.Range[i, (int)ClientsListItemsPositions.Active].Text.Equals("1");
+                phoneNumber = sheet.Range[i, (int)ClientsListItemsPositions.PhoneNumber].DisplayedText;
+                phoneNumber = phoneNumber.Equals("") ? "Sem numero" : phoneNumber;
+
 
                 #region Daily Orders
                 segDesc = GetDailyOrder(sheet.Range[i, (int)ClientsListItemsPositions.SegDes].Text, DayOfWeek.Monday);
@@ -472,7 +489,7 @@ namespace tabApp.Core.Services.Implementations
                 address = new Address(addressDesc, door, coord);
                 paymentType = GetPaymentType(type);
 
-                clientsList.Add(new Client(id, name, subName, address, paymentDate, paymentType, active, extraValueToPay, dailyOrdersList));
+                clientsList.Add(new Client(id, name, subName, address, paymentDate, paymentType, active, extraValueToPay, dailyOrdersList, phoneNumber));
             }
             _clientsManagerService.SetClients(clientsList);
         }
@@ -505,6 +522,7 @@ namespace tabApp.Core.Services.Implementations
                     sheet.Range[i, (int)ClientsListItemsPositions.PaymentType].Text = GetPaymentType(client.PaymentType);
                     sheet.Range[i, (int)ClientsListItemsPositions.Extra].Text = client.ExtraValueToPay.ToString();
                     sheet.Range[i, (int)ClientsListItemsPositions.Active].Text = client.Active ? "1" : "0";
+                    sheet.Range[i, (int)ClientsListItemsPositions.PhoneNumber].Text = client.PhoneNumber;
                     sheet.Range[i, (int)ClientsListItemsPositions.SegDes].Text = GetOrderStringDb(client.SegDailyOrder);
                     sheet.Range[i, (int)ClientsListItemsPositions.TerDes].Text = GetOrderStringDb(client.TerDailyOrder);
                     sheet.Range[i, (int)ClientsListItemsPositions.QuaDes].Text = GetOrderStringDb(client.QuaDailyOrder);
@@ -558,6 +576,7 @@ namespace tabApp.Core.Services.Implementations
             sheet.Range[newRow, (int)LogsListItemsPositions.OrderDay].Text = regist.OrderDay.ToString("dd/MM/yyyy");
             sheet.Range[newRow, (int)LogsListItemsPositions.Order].Text = GetOrderStringDb(regist.AllItems);
             sheet.Range[newRow, (int)LogsListItemsPositions.IsAll].Text = regist.IsTotal ? "1" : "0";
+            sheet.Range[newRow, (int)LogsListItemsPositions.StoreLabel].Text = regist.StoreOrder ? "1" : "0";
 
             workbook.SaveToStream(output, FileFormat.Version97to2003);
             return output.ToArray();
@@ -586,6 +605,7 @@ namespace tabApp.Core.Services.Implementations
             string info;
             string extraOrderDesc;
             bool total;
+            bool storeOrder;
             DetailTypeEnum detailType;
             DateTime detailDate;
             DateTime orderDate;
@@ -601,11 +621,12 @@ namespace tabApp.Core.Services.Implementations
                 DateTime.TryParse(sheet.Range[i, (int)LogsListItemsPositions.OrderDay].DisplayedText, out orderDate);
                 extraOrderDesc = sheet.Range[i, (int)LogsListItemsPositions.Order].DisplayedText;
                 total = sheet.Range[i, (int)LogsListItemsPositions.IsAll].DisplayedText.Equals("1");
+                storeOrder = sheet.Range[i, (int)LogsListItemsPositions.StoreLabel].DisplayedText.Equals("1");
 
                 if (detailType == DetailTypeEnum.Order)
                 {
 
-                    ExtraOrder order = new ExtraOrder(clientId, detailDate, orderDate, GetOrderListItems(extraOrderDesc), total);
+                    ExtraOrder order = new ExtraOrder(clientId, detailDate, orderDate, GetOrderListItems(extraOrderDesc), total, storeOrder);
                     if (order.Equals(obj))
                     {
                         sheet.DeleteRow(i);
@@ -619,6 +640,41 @@ namespace tabApp.Core.Services.Implementations
         #endregion
 
         #region HELPERS
+        private List<(int ProductId, double Ammount)> GetListItemsFromOldRegist(string quantidades)
+        {
+            List<(int ProductId, double Ammount)> items = new List<(int ProductId, double Ammount)>();
+
+            int produtoId;
+            double quantidade;
+            bool first = true;
+            string temp;
+
+            foreach (string array in quantidades.Split('\n'))
+            {
+                if (first)
+                {
+                    first = false;
+                    continue;
+                }
+
+                if (array.Contains("Total"))
+                    continue;
+
+                temp = array.Substring(1);
+                temp = Regex.Replace(temp, @"[^\u0000-\u007F]+", string.Empty);
+                string[] allcomponents = Regex.Split(temp, ";");
+                produtoId = _productsManagerService.GetProductByClosestName(allcomponents[0].Trim())?.Id ?? -1;
+                if(produtoId != -1)
+                {
+                    quantidade = 0;
+                    double.TryParse(array.Split(';')[1].Replace("\n", ""), out quantidade);
+                    if(quantidade > 0)
+                        items.Add((produtoId, quantidade));
+                }
+            }
+
+            return items;
+        }
         private DetailTypeEnum GetLogType(string displayedText)
         {
             if (DetailTypeEnum.Payment.ToString().Equals(displayedText))

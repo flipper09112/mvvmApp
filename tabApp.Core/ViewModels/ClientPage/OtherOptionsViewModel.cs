@@ -6,6 +6,7 @@ using System.Text;
 using tabApp.Core.Models;
 using tabApp.Core.Services.Implementations.Clients;
 using tabApp.Core.ViewModels.ClientPage;
+using tabApp.Core.ViewModels.ClientPage.OtherOptions;
 
 namespace tabApp.Core.ViewModels
 {
@@ -14,7 +15,11 @@ namespace tabApp.Core.ViewModels
         private readonly IChooseClientService _chooseClientService;
         private readonly IMvxNavigationService _navigationService;
 
+        public EventHandler ShowCalculatorEvent;
+
         public MvxCommand InsertNewRegistCommand;
+        public MvxCommand PrintPageCommand;
+        public MvxCommand ShowCalculatorCommand;
 
         public OtherOptionsViewModel(IChooseClientService chooseClientService, IMvxNavigationService navigationService)
         {
@@ -22,7 +27,19 @@ namespace tabApp.Core.ViewModels
             _navigationService = navigationService;
 
             InsertNewRegistCommand = new MvxCommand(InsertNewRegist);
+            PrintPageCommand = new MvxCommand(PrintPage);
+            ShowCalculatorCommand = new MvxCommand(ShowCalculator);
 
+        }
+
+        private void ShowCalculator()
+        {
+            ShowCalculatorEvent?.Invoke(null, null);
+        }
+
+        private async void PrintPage()
+        {
+            await _navigationService.Navigate<PrintAccountViewModel>();
         }
 
         private async void InsertNewRegist()
@@ -36,7 +53,8 @@ namespace tabApp.Core.ViewModels
             {
                 List<Option> options = new List<Option>();
 
-                options.Add(new Option(null, "Imprimir Conta", "ic_printer"));
+                options.Add(new Option(PrintPageCommand, "Imprimir Conta", "ic_printer"));
+                options.Add(new Option(ShowCalculatorCommand, "Abrir Calculadora", "ic_calculator"));
                 options.Add(new Option(null, "Alterar Quantidade", "ic_change"));
                 if(_chooseClientService.ClientSelected.PaymentType == PaymentTypeEnum.Loja)
                     options.Add(new Option(InsertNewRegistCommand, "Inserir despesa do dia", "ic_insert"));

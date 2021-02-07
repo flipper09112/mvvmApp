@@ -134,6 +134,7 @@ namespace tabApp.Core.ViewModels
             set
             {
                 _dateSelected = value;
+                _chooseClientService.PayTo = value;
                 PayCommand.RaiseCanExecuteChanged();
                 RaisePropertyChanged(nameof(DateSelected));
             }
@@ -144,7 +145,7 @@ namespace tabApp.Core.ViewModels
 
         private void CancelOrder(ExtraOrder order)
         {
-            _dialogService.ShowConfirmDialog("Confirmar o cancelamento da consulta", "Sim", ConfirmCancelOrder, "Não", order);
+            _dialogService.ShowConfirmDialog("Confirmar o cancelamento da encomenda", "Sim", ConfirmCancelOrder, "Não", order);
         }
 
         private void ConfirmCancelOrder(object obj)
@@ -224,7 +225,8 @@ namespace tabApp.Core.ViewModels
         private void ConfirmPayment(bool payExtra)
         {
             IsBusy = true;
-            var regist = _clientsManagerService.SetPayment(Client, DateSelected, payExtra);
+            var regist = _clientsManagerService.SetPayment(Client, DateSelected, payExtra
+                , payExtra ? _ammountToPayService.Calculate(Client, DateSelected) : _ammountToPayService.Calculate(Client, DateSelected) - Client.ExtraValueToPay);
             _dBService.SaveNewClientData(Client);
             _dBService.SaveNewRegist(regist);
             IsBusy = false;

@@ -23,6 +23,50 @@ namespace tabApp.Core.Services.Implementations.Products
             return product.PVP;
         }
 
+        public Product GetProductByClosestName(string productName)
+        {
+            Product produto = null;
+            double sim = 0;
+            double simProv;
+
+            if (productName.Equals("Bolos pastelaria") || productName.Length == 0)
+                return null;
+
+            foreach (Product item in ProductsList)
+            {
+                simProv = Compare(productName, item.Name);
+                if (simProv > sim)
+                {
+                    sim = simProv;
+                    produto = item;
+                }
+            }
+            return produto;
+        }
+
+        private double Compare(string name, string compareName)
+        {
+            int length = name.Length;
+            int comLength = compareName.Length;
+            int max = length;
+            int min = comLength;
+            int result = 0;
+            if (length < comLength)
+            {
+                max = comLength;
+                min = length;
+            }
+
+            for (int index = 0; index < min; index++)
+            {
+                if (name[index] == compareName[index])
+                {
+                    result++;
+                }
+            }
+            return (double)(result) / (double)(max);
+        }
+
         public Product GetProductById(int productId)
         {
             return _productsList.Find(item => item.Id == productId);

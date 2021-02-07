@@ -48,7 +48,7 @@ namespace tabApp.UI.Adapters
             image.SetImageResource(ImageHelper.GetImageResource(context, options[position].ImageName));
 
             layout.Click += delegate {
-                options[position].Action.Execute(null);
+                options[position].Action?.Execute(null);
             };
 
             return view;

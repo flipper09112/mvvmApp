@@ -13,5 +13,6 @@ namespace tabApp.Core.Services.Interfaces.Products
         Product GetProductById(int productId);
         string GetProductNameById(int productId);
         double GetProductAmmount(int clientId, Product product);
+        Product GetProductByClosestName(string productName);
     }
 }

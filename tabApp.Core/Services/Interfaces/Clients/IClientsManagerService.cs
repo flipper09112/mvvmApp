@@ -11,7 +11,7 @@ namespace tabApp.Core.Services.Interfaces.Clients
         void SetClients(List<Client> clientsList);
         void SetNewOrder(int clientId, ExtraOrder extraOrder);
         void SetNewRegist(int clientId, Regist detail);
-        Regist SetPayment(Client client, DateTime dateSelected, bool payExtra);
+        Regist SetPayment(Client client, DateTime dateSelected, bool payExtra, double value);
         Regist AddExtra(Client client, double extra);
         ExtraOrder AddNewOrder(Client client, ExtraOrder extraOrder);
         Regist RemoveExtraOrder(Client client, ExtraOrder order);

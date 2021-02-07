@@ -21,6 +21,9 @@ namespace tabApp.Services.Implementations
     public class DialogService : IDialogService
     {
         private Action<DateTime> _confirmAction;
+        private EditText et;
+        private RadioButton addRB;
+        private RadioButton subRB;
 
         public void ShowConfirmDialog(string question, string confirmText, Action<bool> confirmAction)
         {
@@ -85,9 +88,7 @@ namespace tabApp.Services.Implementations
             var top = Mvx.Resolve<IMvxAndroidCurrentTopActivity>();
             var act = top.Activity;
 
-            EditText et = new EditText(act);
-            et.SetFilters(new IInputFilter[] { new DecimalDigitsInputFilter(2) });
-            et.InputType = InputTypes.ClassNumber | InputTypes.NumberFlagDecimal;
+
             Android.App.AlertDialog.Builder alert = new Android.App.AlertDialog.Builder(act);
             alert.SetTitle(question);
             alert.SetMessage(""); 
@@ -95,12 +96,22 @@ namespace tabApp.Services.Implementations
             {
                 double value;
                 double.TryParse(et.Text.Replace(".", ","), out value);
-                confirmAction.Invoke(value);
+                if(value != 0)
+                    confirmAction.Invoke(addRB.Checked ? value : (value * -1));
             });
-            alert.SetView(et);
+            alert.SetView(/*et*/Resource.Layout.AddExtraDialog);
 
             Dialog dialog = alert.Create();
             dialog.Show();
+
+            et = dialog.FindViewById<EditText>(Resource.Id.textView5);
+            et.SetFilters(new IInputFilter[] { new DecimalDigitsInputFilter(2) });
+            et.InputType = InputTypes.ClassNumber | InputTypes.NumberFlagDecimal;
+
+            addRB = dialog.FindViewById<RadioButton>(Resource.Id.addRB);
+            addRB.Checked = true;
+            subRB = dialog.FindViewById<RadioButton>(Resource.Id.addRB);
+
         }
 
     }

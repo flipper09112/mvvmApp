@@ -34,12 +34,14 @@ namespace tabApp.Core.Models
         public DateTime OrderDay { get; }
         public int ClientId { get; }
         public DateTime OrderRegistDay { get; }
+        public bool StoreOrder { get; }
 
-        public ExtraOrder(int clientId, DateTime orderRegistDay, DateTime orderDay, List<(int ProductId, double Ammount)> allItems, bool isTotal) : base(allItems, isTotal)
+        public ExtraOrder(int clientId, DateTime orderRegistDay, DateTime orderDay, List<(int ProductId, double Ammount)> allItems, bool isTotal, bool storeOrder) : base(allItems, isTotal)
         {
             ClientId = clientId;
             OrderRegistDay = orderRegistDay;
             OrderDay = orderDay;
+            StoreOrder = storeOrder;
         }
 
         public override bool Equals(object obj)
@@ -52,7 +54,8 @@ namespace tabApp.Core.Models
                     && same
                     && OrderDay == order.OrderDay
                     && OrderRegistDay == order.OrderRegistDay
-                    && this.IsTotal == order.IsTotal)
+                    && this.IsTotal == order.IsTotal
+                    && this.StoreOrder == order.StoreOrder)
                     return true;
             }
             return false;

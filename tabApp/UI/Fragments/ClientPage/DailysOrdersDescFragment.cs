@@ -97,7 +97,7 @@ namespace tabApp.UI.Fragments
             SetupDomList();
 
             SetContainerLayout();
-            if(DateTime.Today.DayOfWeek >= DayOfWeek.Friday)
+            if(DateTime.Today.DayOfWeek >= DayOfWeek.Friday || DateTime.Today.DayOfWeek == DayOfWeek.Sunday)
                 _horizontalScrollView.PostDelayed(ScrollHorizontalView, 0);
         }
 

@@ -15,6 +15,7 @@ namespace tabApp.Core.Models
         public bool Active { get; private set; }
         public double ExtraValueToPay { get; private set; }
         public List<DailyOrder> DailyOrders { get; private set; }
+        public string PhoneNumber { get; private set; }
 
         //Extra Params
         public List<Regist> DetailsList { get; private set; }
@@ -32,7 +33,7 @@ namespace tabApp.Core.Models
 
         #endregion
 
-        public Client(int id, string name, string subName, Address address, DateTime paymentDate, PaymentTypeEnum paymentType, bool active, double extraValue, List<DailyOrder> dailyOrders)
+        public Client(int id, string name, string subName, Address address, DateTime paymentDate, PaymentTypeEnum paymentType, bool active, double extraValue, List<DailyOrder> dailyOrders, string phoneNumber)
         {
             Id = id;
             Name = name;
@@ -43,6 +44,7 @@ namespace tabApp.Core.Models
             Active = active;
             ExtraValueToPay = extraValue;
             DailyOrders = dailyOrders;
+            PhoneNumber = phoneNumber;
 
             DetailsList = new List<Regist>();
             ExtraOrdersList = new List<ExtraOrder>();
@@ -70,6 +72,11 @@ namespace tabApp.Core.Models
         #endregion
 
         #region Update
+
+        internal void UpdatePhoneNumber(string phoneNumber)
+        {
+            PhoneNumber = phoneNumber;
+        }
         internal void UpdateLocation(string newLocation)
         {
             Address.SetCoordenadas(newLocation);
@@ -143,6 +150,7 @@ namespace tabApp.Core.Models
         {
             ExtraOrdersList.Remove(order);
         }
+
     }
 
     public enum PaymentTypeEnum

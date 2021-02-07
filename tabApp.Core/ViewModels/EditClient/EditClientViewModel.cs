@@ -330,6 +330,9 @@ namespace tabApp.Core.ViewModels
                     case nameof(DomDailyItemsList):
                         Client.UpdateDailyOrder(GetnewDailyOrder(dailyOrderItems, DayOfWeek.Sunday), DayOfWeek.Sunday);
                         break;
+                    case nameof(Client.PhoneNumber):
+                        Client.UpdatePhoneNumber(item.NewValue);
+                        break;
                     default:
                         _dialogService.ShowConfirmDialog("Alguma coisa correu mal", "Este parametro nao foi salvo (" + nameof(item.Type) + ")", null);
                         break;
@@ -659,11 +662,10 @@ namespace tabApp.Core.ViewModels
             });
             items.Add(new ClientProfileField()
             {
-                IsInt = true,
                 IconName = "ic_phone",
                 Name = "Telemóvel",
-                Value = "Indisponivel",
-                Type = nameof(Client),
+                Value = Client.PhoneNumber,
+                Type = nameof(Client.PhoneNumber),
                 RefreshSaveCommand = SaveChangesCommand
             });
             return items;

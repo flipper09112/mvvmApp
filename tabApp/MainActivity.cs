@@ -80,6 +80,8 @@ namespace tabApp
             else
             {
                 // The app does not have permission ACCESS_FINE_LOCATION 
+                RequestPermissions(new string[] { Manifest.Permission.AccessFineLocation }, 1);
+                ViewModel.IsBusy = false;
             }
         }
 

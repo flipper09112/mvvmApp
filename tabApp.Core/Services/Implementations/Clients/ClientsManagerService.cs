@@ -35,11 +35,11 @@ namespace tabApp.Core.Services.Implementations.Clients
         }
 
         //USED in APP
-        public Regist SetPayment(Client client, DateTime dateSelected, bool payExtra)
+        public Regist SetPayment(Client client, DateTime dateSelected, bool payExtra, double total)
         {
             var regist = new Regist(
                 DateTime.Today,
-                "Pagamento realizado até dia " + dateSelected.ToString("dd/MM/yyyy"),
+                "Pagamento realizado até dia " + dateSelected.ToString("dd/MM/yyyy") + "\nToTal: " + total.ToString("C"),
                 client.Id,
                 DetailTypeEnum.Payment
                 );

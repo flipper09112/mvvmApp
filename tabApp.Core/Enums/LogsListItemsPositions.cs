@@ -12,6 +12,7 @@ namespace tabApp.Core.Enums
         Info = 4,
         Order = 5,
         IsAll = 6,
-        OrderDay = 7
+        OrderDay = 7,
+        StoreLabel = 8
     }
 }

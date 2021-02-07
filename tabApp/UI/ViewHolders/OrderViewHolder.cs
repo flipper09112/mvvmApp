@@ -22,6 +22,7 @@ namespace tabApp.UI.ViewHolders
     {
         private Context context;
         private TextView _orderDayLabel;
+        private TextView _orderLabel;
         private TextView _productsLabel;
         private ImageView _imageView;
         private Button _cancelAppointment;
@@ -35,6 +36,7 @@ namespace tabApp.UI.ViewHolders
             context = itemView.Context;
 
             _orderDayLabel = itemView.FindViewById<TextView>(Resource.Id.orderDayLabel);
+            _orderLabel = itemView.FindViewById<TextView>(Resource.Id.orderLabel);
             _productsLabel = itemView.FindViewById<TextView>(Resource.Id.productsLabel);
             _imageView = itemView.FindViewById<ImageView>(Resource.Id.imageView);
             _cancelAppointment = itemView.FindViewById<Button>(Resource.Id.cancelAppointment);
@@ -54,7 +56,17 @@ namespace tabApp.UI.ViewHolders
                 _imageView.SetColorFilter(GetColorFromInteger(Resource.Color.blue));
                 _orderStatus.Text = "Concluída";
                 _orderStatus.SetTextColor(GetColorFromInteger(Resource.Color.blue));
-                _cancelAppointment.Visibility = ViewStates.Invisible;
+
+                if(extraOrder.StoreOrder)
+                {
+                    _cancelAppointment.Visibility = ViewStates.Visible;
+                    _cancelAppointment.Text = "Anular registo";
+                    _orderDayLabel.Text = "Registo do dia";
+                }
+                else
+                {
+                    _cancelAppointment.Visibility = ViewStates.Invisible;
+                }
             } else
             {
                 _imageView.SetColorFilter(GetColorFromInteger(Resource.Color.green)); 

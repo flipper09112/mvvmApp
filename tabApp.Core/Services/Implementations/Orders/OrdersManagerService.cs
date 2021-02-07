@@ -32,7 +32,7 @@ namespace tabApp.Core.Services.Implementations.Orders
                 {
                     foreach(var extraorder in client.ExtraOrdersList)
                     {
-                        if(extraorder.OrderDay.Date == DateTime.Today)
+                        if(extraorder.OrderDay.Date == DateTime.Today && !extraorder.StoreOrder)
                             orders.Add((client, extraorder));
                     }
                 }
@@ -49,7 +49,7 @@ namespace tabApp.Core.Services.Implementations.Orders
                 {
                     foreach (var extraorder in client.ExtraOrdersList)
                     {
-                        if (extraorder.OrderDay.Date == DateTime.Today.AddDays(1))
+                        if (extraorder.OrderDay.Date == DateTime.Today.AddDays(1) && !extraorder.StoreOrder)
                             orders.Add((client, extraorder));
                     }
                 }
