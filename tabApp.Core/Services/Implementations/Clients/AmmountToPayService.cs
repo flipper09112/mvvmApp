@@ -150,7 +150,7 @@ namespace tabApp.Core.Services.Implementations.Clients
 
         private double CalculateWeekValue(Client client, DateTime payTo)
         {
-            int diffDays = (int)Math.Abs((client.PaymentDate - payTo).TotalDays);
+            /*int diffDays = (int)Math.Abs((client.PaymentDate - payTo).TotalDays);
 
             if (diffDays == 0)
                 return 0 + client.ExtraValueToPay;
@@ -160,8 +160,46 @@ namespace tabApp.Core.Services.Implementations.Clients
                 diffweeks -= 1;
 
             double weekAmmount = _ordersManagerService.WeekAmmount(client);
+            
+            return weekAmmount * diffweeks + client.ExtraValueToPay;*/
+            double ammount = 0;
+            DateTime temp = client.PaymentDate;
+            temp = temp.AddDays(1);
 
-            return weekAmmount * diffweeks + client.ExtraValueToPay;
+            while ((temp - payTo.AddDays(1)).TotalDays != 0)
+            {
+                if (temp.DayOfWeek == DayOfWeek.Monday)
+                {
+                    ammount += _ordersManagerService.GetValue(client.Id, client.SegDailyOrder);
+                }
+                else if (temp.DayOfWeek == DayOfWeek.Tuesday)
+                {
+                    ammount += _ordersManagerService.GetValue(client.Id, client.TerDailyOrder);
+                }
+                else if (temp.DayOfWeek == DayOfWeek.Wednesday)
+                {
+                    ammount += _ordersManagerService.GetValue(client.Id, client.QuaDailyOrder);
+                }
+                else if (temp.DayOfWeek == DayOfWeek.Thursday)
+                {
+                    ammount += _ordersManagerService.GetValue(client.Id, client.QuiDailyOrder);
+                }
+                else if (temp.DayOfWeek == DayOfWeek.Friday)
+                {
+                    ammount += _ordersManagerService.GetValue(client.Id, client.SexDailyOrder);
+                }
+                else if (temp.DayOfWeek == DayOfWeek.Saturday)
+                {
+                    ammount += _ordersManagerService.GetValue(client.Id, client.SabDailyOrder);
+                }
+                else if (temp.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    ammount += _ordersManagerService.GetValue(client.Id, client.DomDailyOrder);
+                }
+                temp = temp.AddDays(1);
+            }
+
+            return ammount + client.ExtraValueToPay;
         }
 
         private DailyOrder GetOrderDay(Client client)
@@ -185,6 +223,48 @@ namespace tabApp.Core.Services.Implementations.Clients
                 default:
                     return null;
             }
+        }
+
+        public double CalculateUntilDate(Client client, DateTime endDate)
+        {
+            double ammount = 0;
+            DateTime temp = client.PaymentDate;
+            temp = temp.AddDays(1);
+
+            while ((temp - endDate).TotalDays != 0)
+            {
+                if (temp.DayOfWeek == DayOfWeek.Monday)
+                {
+                    ammount += _ordersManagerService.GetValue(client.Id, client.SegDailyOrder);
+                }
+                else if (temp.DayOfWeek == DayOfWeek.Tuesday)
+                {
+                    ammount += _ordersManagerService.GetValue(client.Id, client.TerDailyOrder);
+                }
+                else if (temp.DayOfWeek == DayOfWeek.Wednesday)
+                {
+                    ammount += _ordersManagerService.GetValue(client.Id, client.QuaDailyOrder);
+                }
+                else if (temp.DayOfWeek == DayOfWeek.Thursday)
+                {
+                    ammount += _ordersManagerService.GetValue(client.Id, client.QuiDailyOrder);
+                }
+                else if (temp.DayOfWeek == DayOfWeek.Friday)
+                {
+                    ammount += _ordersManagerService.GetValue(client.Id, client.SexDailyOrder);
+                }
+                else if (temp.DayOfWeek == DayOfWeek.Saturday)
+                {
+                    ammount += _ordersManagerService.GetValue(client.Id, client.SabDailyOrder);
+                }
+                else if (temp.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    ammount += _ordersManagerService.GetValue(client.Id, client.DomDailyOrder);
+                }
+                temp = temp.AddDays(1);
+            }
+
+            return ammount + client.ExtraValueToPay;
         }
     }
 }

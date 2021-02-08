@@ -84,6 +84,7 @@
     <Compile Include="UI\Adapters\OtherOptions\PrintAccountSpinnerAdapter.cs" />
     <Compile Include="UI\Adapters\OtherOptions\PrintPreviewAdapter.cs" />
     <Compile Include="UI\Fragments\ClientPage\OtherOptions\AddStoreRegistFragment.cs" />
+    <Compile Include="UI\Fragments\ClientPage\OtherOptions\ChangeDailyOrderFragment.cs" />
     <Compile Include="UI\Fragments\ClientPage\OtherOptions\PrintAccountFragment.cs" />
     <Compile Include="UI\Fragments\EditClient\EditClientProfileFragment.cs" />
     <Compile Include="UI\Adapters\EditClient\EditClientProfileItemsAdapter.cs" />
@@ -493,6 +494,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\AddExtraDialog.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\ChangeDailyOrderFragment.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

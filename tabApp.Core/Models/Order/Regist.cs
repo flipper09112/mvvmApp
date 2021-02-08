@@ -28,6 +28,7 @@ namespace tabApp.Core.Models
         AddExtra,
         CancelOrder,
         Edit,
-        NewClient
+        NewClient,
+        ChangeDailyOrder
     }
 }

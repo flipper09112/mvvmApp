@@ -1403,3 +1403,5 @@ C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc64f4d
 C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc64f4d5605f22455bba\PrintAccountSpinnerAdapter.java
 C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\drawable\ic_calculator.xml
 C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\layout\addextradialog.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\layout\changedailyorderfragment.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc64e9b1356e257958f6\ChangeDailyOrderFragment.java

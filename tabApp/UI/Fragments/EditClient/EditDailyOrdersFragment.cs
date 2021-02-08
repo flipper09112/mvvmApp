@@ -5,11 +5,13 @@ using Android.Runtime;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using MvvmCross.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using tabApp.Core.ViewModels;
+using tabApp.Core.ViewModels.ClientPage.OtherOptions;
 using tabApp.UI.Adapters;
 
 namespace tabApp.UI.Fragments.EditClient
@@ -17,6 +19,7 @@ namespace tabApp.UI.Fragments.EditClient
     public class EditDailyOrdersFragment : Android.Support.V4.App.Fragment
     {
         private EditClientViewModel viewModel;
+        private ChangeDailyOrderViewModel viewModel1;
 
         private RecyclerView _segRecyclerView;
         private RecyclerView _terRecyclerView;
@@ -45,6 +48,12 @@ namespace tabApp.UI.Fragments.EditClient
         {
             this.viewModel = viewModel;
         }
+
+        public EditDailyOrdersFragment(ChangeDailyOrderViewModel viewModel1)
+        {
+            this.viewModel1 = viewModel1;
+        }
+
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             View view = inflater.Inflate(Resource.Layout.DailysOrdersDescEditFragment, container, false);
@@ -102,7 +111,11 @@ namespace tabApp.UI.Fragments.EditClient
 
             _duplicateDaysButton.Click -= DuplicateDaysButtonClick;
 
-            viewModel.PropertyChanged -= ViewModelPropertyChanged;
+            if(viewModel != null)
+                viewModel.PropertyChanged -= ViewModelPropertyChanged;
+
+            if (viewModel1 != null)
+                viewModel1.PropertyChanged -= ViewModelPropertyChanged;
         }
 
         private void SetupBindings()
@@ -117,12 +130,16 @@ namespace tabApp.UI.Fragments.EditClient
 
             _duplicateDaysButton.Click += DuplicateDaysButtonClick;
 
-            viewModel.PropertyChanged += ViewModelPropertyChanged;
+            if (viewModel != null)
+                viewModel.PropertyChanged += ViewModelPropertyChanged;
+            if (viewModel1 != null)
+                viewModel1.PropertyChanged += ViewModelPropertyChanged;
         }
 
         private void DuplicateDaysButtonClick(object sender, EventArgs e)
         {
-            viewModel.ShowSelectDaysPageCommand.Execute(null);
+            viewModel?.ShowSelectDaysPageCommand.Execute(null);
+            viewModel1?.ShowSelectDaysPageCommand.Execute(null);
         }
 
         private void ViewModelPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -154,37 +171,44 @@ namespace tabApp.UI.Fragments.EditClient
         }
         private void AddProductDomClick(object sender, EventArgs e)
         {
-            viewModel.AddProductCommand.Execute(DayOfWeek.Sunday);
+            viewModel?.AddProductCommand.Execute(DayOfWeek.Sunday);
+            viewModel1?.AddProductCommand.Execute(DayOfWeek.Sunday);
         }
 
         private void AddProductSabClick(object sender, EventArgs e)
         {
-            viewModel.AddProductCommand.Execute(DayOfWeek.Saturday);
+            viewModel?.AddProductCommand.Execute(DayOfWeek.Saturday);
+            viewModel1?.AddProductCommand.Execute(DayOfWeek.Saturday);
         }
 
         private void AddProductSexClick(object sender, EventArgs e)
         {
-            viewModel.AddProductCommand.Execute(DayOfWeek.Friday);
+            viewModel?.AddProductCommand.Execute(DayOfWeek.Friday);
+            viewModel1?.AddProductCommand.Execute(DayOfWeek.Friday);
         }
 
         private void AddProductQuiClick(object sender, EventArgs e)
         {
-            viewModel.AddProductCommand.Execute(DayOfWeek.Thursday);
+            viewModel?.AddProductCommand.Execute(DayOfWeek.Thursday);
+            viewModel1?.AddProductCommand.Execute(DayOfWeek.Thursday);
         }
 
         private void AddProductQuaClick(object sender, EventArgs e)
         {
-            viewModel.AddProductCommand.Execute(DayOfWeek.Wednesday);
+            viewModel?.AddProductCommand.Execute(DayOfWeek.Wednesday);
+            viewModel1?.AddProductCommand.Execute(DayOfWeek.Wednesday);
         }
 
         private void AddProductTerClick(object sender, EventArgs e)
         {
-            viewModel.AddProductCommand.Execute(DayOfWeek.Tuesday);
+            viewModel?.AddProductCommand.Execute(DayOfWeek.Tuesday);
+            viewModel1?.AddProductCommand.Execute(DayOfWeek.Tuesday);
         }
 
         private void AddProductSegClick(object sender, EventArgs e)
         {
-            viewModel.AddProductCommand.Execute(DayOfWeek.Monday);
+            viewModel?.AddProductCommand.Execute(DayOfWeek.Monday);
+            viewModel1?.AddProductCommand.Execute(DayOfWeek.Monday);
         }
 
         private void SetUi()
@@ -199,37 +223,58 @@ namespace tabApp.UI.Fragments.EditClient
         }
         private void SetupSegList()
         {
-            _segAdapter = new DailyOrderDescAdapter(viewModel.SegDailyItemsList);
+            if(viewModel != null)
+                _segAdapter = new DailyOrderDescAdapter(viewModel.SegDailyItemsList);
+            if (viewModel1 != null)
+                _segAdapter = new DailyOrderDescAdapter(viewModel1.SegDailyItemsList);
             _segRecyclerView.SetAdapter(_segAdapter);
         }
         private void SetupTerList()
         {
-            _terAdapter = new DailyOrderDescAdapter(viewModel.TerDailyItemsList);
+            if (viewModel != null)
+                _terAdapter = new DailyOrderDescAdapter(viewModel.TerDailyItemsList);
+            if (viewModel1 != null)
+                _terAdapter = new DailyOrderDescAdapter(viewModel1.TerDailyItemsList);
             _terRecyclerView.SetAdapter(_terAdapter);
         }
         private void SetupQuaList()
         {
-            _quaAdapter = new DailyOrderDescAdapter(viewModel.QuaDailyItemsList);
+            if (viewModel != null)
+                _quaAdapter = new DailyOrderDescAdapter(viewModel.QuaDailyItemsList);
+            if (viewModel1 != null)
+                _quaAdapter = new DailyOrderDescAdapter(viewModel1.QuaDailyItemsList);
             _quaRecyclerView.SetAdapter(_quaAdapter);
         }
         private void SetupQuiList()
         {
-            _quiAdapter = new DailyOrderDescAdapter(viewModel.QuiDailyItemsList);
+            if (viewModel != null)
+                _quiAdapter = new DailyOrderDescAdapter(viewModel.QuiDailyItemsList);
+            if (viewModel1 != null)
+                _quiAdapter = new DailyOrderDescAdapter(viewModel1.QuiDailyItemsList);
             _quiRecyclerView.SetAdapter(_quiAdapter);
         }
         private void SetupSexList()
         {
-            _sexAdapter = new DailyOrderDescAdapter(viewModel.SexDailyItemsList);
+            if (viewModel != null)
+                _sexAdapter = new DailyOrderDescAdapter(viewModel.SexDailyItemsList);
+            if (viewModel1 != null)
+                _sexAdapter = new DailyOrderDescAdapter(viewModel1.SexDailyItemsList);
             _sexRecyclerView.SetAdapter(_sexAdapter);
         }
         private void SetupSabList()
         {
-            _sabAdapter = new DailyOrderDescAdapter(viewModel.SabDailyItemsList);
+            if (viewModel != null)
+                _sabAdapter = new DailyOrderDescAdapter(viewModel.SabDailyItemsList);
+            if (viewModel1 != null)
+                _sabAdapter = new DailyOrderDescAdapter(viewModel1.SabDailyItemsList);
             _sabRecyclerView.SetAdapter(_sabAdapter);
         }
         private void SetupDomList()
         {
-            _domAdapter = new DailyOrderDescAdapter(viewModel.DomDailyItemsList);
+            if (viewModel != null)
+                _domAdapter = new DailyOrderDescAdapter(viewModel.DomDailyItemsList);
+            if (viewModel1 != null)
+                _domAdapter = new DailyOrderDescAdapter(viewModel1.DomDailyItemsList);
             _domRecyclerView.SetAdapter(_domAdapter);
         }
     }
