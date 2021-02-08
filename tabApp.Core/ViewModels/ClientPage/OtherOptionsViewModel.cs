@@ -20,6 +20,7 @@ namespace tabApp.Core.ViewModels
         public MvxCommand InsertNewRegistCommand;
         public MvxCommand PrintPageCommand;
         public MvxCommand ShowCalculatorCommand;
+        public MvxCommand ChangeDailyOrdersCommand;
 
         public OtherOptionsViewModel(IChooseClientService chooseClientService, IMvxNavigationService navigationService)
         {
@@ -29,7 +30,13 @@ namespace tabApp.Core.ViewModels
             InsertNewRegistCommand = new MvxCommand(InsertNewRegist);
             PrintPageCommand = new MvxCommand(PrintPage);
             ShowCalculatorCommand = new MvxCommand(ShowCalculator);
+            ChangeDailyOrdersCommand = new MvxCommand(ChangeDailyOrders);
 
+        }
+
+        private async void ChangeDailyOrders()
+        {
+            await _navigationService.Navigate<ChangeDailyOrderViewModel>();
         }
 
         private void ShowCalculator()
@@ -55,7 +62,7 @@ namespace tabApp.Core.ViewModels
 
                 options.Add(new Option(PrintPageCommand, "Imprimir Conta", "ic_printer"));
                 options.Add(new Option(ShowCalculatorCommand, "Abrir Calculadora", "ic_calculator"));
-                options.Add(new Option(null, "Alterar Quantidade", "ic_change"));
+                options.Add(new Option(ChangeDailyOrdersCommand, "Alterar Quantidade", "ic_change"));
                 if(_chooseClientService.ClientSelected.PaymentType == PaymentTypeEnum.Loja)
                     options.Add(new Option(InsertNewRegistCommand, "Inserir despesa do dia", "ic_insert"));
 

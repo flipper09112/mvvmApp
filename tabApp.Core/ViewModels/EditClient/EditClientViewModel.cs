@@ -702,7 +702,6 @@ namespace tabApp.Core.ViewModels
         #region Get Lists
         private List<ClientProfileField> _segDailyItemsList;
         private bool _segDailyItem;
-
         public List<ClientProfileField> SegDailyItemsList
         {
             get

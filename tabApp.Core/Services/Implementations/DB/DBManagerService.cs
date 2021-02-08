@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using tabApp.Core.Models;
 using tabApp.Core.Services.Interfaces.Clients;
 using tabApp.Core.Services.Interfaces.DB;
 

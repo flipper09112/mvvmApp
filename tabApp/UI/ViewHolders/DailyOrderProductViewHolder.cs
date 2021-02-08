@@ -53,7 +53,7 @@ namespace tabApp.UI.ViewHolders
         private void ProductEditAmmountTextChanged(object sender, Android.Text.TextChangedEventArgs e)
         {
             clientProfileField.NewValue = _productEditAmmount.Text;
-            clientProfileField.RefreshSaveCommand.RaiseCanExecuteChanged();
+            clientProfileField.RefreshSaveCommand?.RaiseCanExecuteChanged();
         }
     }
 }

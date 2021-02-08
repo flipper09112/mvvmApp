@@ -40,12 +40,12 @@ namespace tabApp.Core.Services.Implementations
 
         public void SaveAllDocs()
         {
-            /*byte[] fileData = _fileService.GetFile(ClientsListFileName);
+            byte[] fileData = _fileService.GetFile(ClientsListFileName);
             _firebaseService.SaveFile(ClientsListFileName, fileData);
             fileData = _fileService.GetFile(ProductsListFileName);
             _firebaseService.SaveFile(ProductsListFileName, fileData);
             fileData = _fileService.GetFile(LogsListFileName);
-            _firebaseService.SaveFile(LogsListFileName, fileData);*/
+            _firebaseService.SaveFile(LogsListFileName, fileData);
         }
 
         #region SaveDataFunctions
@@ -69,8 +69,8 @@ namespace tabApp.Core.Services.Implementations
         }
         #endregion
 
-        private bool firstTime = true;
-        private bool firstTimeWrite = true;
+        private bool firstTime = false;
+        private bool firstTimeWrite = false;
         public async Task StartAsync()
         {
             if (!_fileService.HasFile(ClientsListFileName))

@@ -8,5 +8,6 @@ namespace tabApp.Core.Services.Interfaces.Clients
     public interface IAmmountToPayService
     {
         double Calculate(Client client, DateTime payTo);
+        double CalculateUntilDate(Client client, DateTime endDate);
     }
 }
