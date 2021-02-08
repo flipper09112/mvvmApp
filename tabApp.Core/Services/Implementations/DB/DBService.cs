@@ -69,8 +69,8 @@ namespace tabApp.Core.Services.Implementations
         }
         #endregion
 
-        private bool firstTime = false;
-        private bool firstTimeWrite = false;
+        private bool firstTime = true;
+        private bool firstTimeWrite = true;
         public async Task StartAsync()
         {
             if (!_fileService.HasFile(ClientsListFileName))
@@ -137,6 +137,9 @@ namespace tabApp.Core.Services.Implementations
                 {
                     try
                     {
+                        if (line.Equals(""))
+                            continue;
+
                         regist = null;
                         order = null;
 
@@ -248,7 +251,7 @@ namespace tabApp.Core.Services.Implementations
 
                     } catch(Exception e)
                     {
-                        Debug.Write("Error in line: " + line);
+                        Debug.Write("----------------------------Error in line: " + line);
                     }
                 }
 
