@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout 
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -199,7 +199,7 @@
             android:scaleX="1.5"
             android:scaleY="1.5"
             android:fontFamily="@font/arista_pro_light"
-            android:text="Encomenda Total" />
+            android:text="Encomenda\nTotal" />
 
         <RadioButton
             android:id="@+id/r_parcial"
@@ -211,7 +211,7 @@
             android:scaleX="1.5"
             android:scaleY="1.5"
             android:fontFamily="@font/arista_pro_light"
-            android:text="Encomenda Extra" />
+            android:text="Encomenda\nExtra" />
     </RadioGroup>
 
     <android.support.v7.widget.RecyclerView
@@ -236,4 +236,4 @@
         app:layout_constraintEnd_toStartOf="@+id/divider29"
         app:layout_constraintStart_toStartOf="parent" />
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

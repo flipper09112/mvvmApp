@@ -68,11 +68,11 @@ namespace tabApp.UI.Fragments
             _payDate = view.FindViewById<TextView>(Resource.Id.payDate);
             _spinnerDates = view.FindViewById<Spinner>(Resource.Id.spinnerDates);
             _ammountToPay = view.FindViewById<TextView>(Resource.Id.ammountToPay);
-            _payButton = view.FindViewById<Button>(Resource.Id.payButton);
-            _addExtraButton = view.FindViewById<Button>(Resource.Id.addExtraButton);
-            _addOrderButton = view.FindViewById<Button>(Resource.Id.addOrderButton);
-            _editButton = view.FindViewById<Button>(Resource.Id.editButton);
-            _optionsButton = view.FindViewById<Button>(Resource.Id.optionsButton);
+            _payButton = view.FindViewById<Button>(Resource.Id.payButton1);
+            _addExtraButton = view.FindViewById<Button>(Resource.Id.addExtraButton1);
+            _addOrderButton = view.FindViewById<Button>(Resource.Id.addOrderButton1);
+            _editButton = view.FindViewById<Button>(Resource.Id.editButton1);
+            _optionsButton = view.FindViewById<Button>(Resource.Id.optionsButton1);
             _viewPager = view.FindViewById<ViewPager>(Resource.Id.viewPager);
             _tabLayout = view.FindViewById<TabLayout>(Resource.Id.tabLayout);
 
