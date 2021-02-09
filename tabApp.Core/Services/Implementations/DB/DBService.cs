@@ -157,7 +157,7 @@ namespace tabApp.Core.Services.Implementations
                         //get data
                         data = line.Split('-')[1];
 
-                        if (DateTime.Parse(data) < DateTime.Today.AddDays(-5)/*.AddMonths(-1)*/)
+                        if (DateTime.Parse(data) < DateTime.Today.AddDays(-15 )/*.AddMonths(-1)*/)
                             continue;
 
                         if (tipo.Equals("PAGAMENTO"))

@@ -92,7 +92,6 @@ external-cache-path;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\
 external-path;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\52\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
 foreground;obj\Debug\90\res\mipmap-anydpi-v26\ic_launcher.xml
 foreground;obj\Debug\90\res\mipmap-anydpi-v26\ic_launcher_round.xml
-fragment;obj\Debug\90\res\layout\changedailyorderfragment.xml
 FrameLayout;obj\Debug\90\res\layout\calendarlayout.xml
 FrameLayout;obj\Debug\90\res\layout\changedailyorderfragment.xml
 FrameLayout;obj\Debug\90\res\layout\content_main.xml
@@ -114,7 +113,6 @@ ImageView;obj\Debug\90\res\layout\printaccountfragment.xml
 ImageView;obj\Debug\90\res\layout\sidebar.xml
 include;obj\Debug\90\res\layout\activity_main.xml
 include;obj\Debug\90\res\layout\addstoreregistfragment.xml
-include;obj\Debug\90\res\layout\changedailyorderfragment.xml
 include;obj\Debug\90\res\layout\globalorderfragment.xml
 item;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\0\jl\res\values\ids.xml
 item;C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\lp\0\jl\res\values\mvxbindingattributes.xml
@@ -124,10 +122,9 @@ item;obj\Debug\90\res\menu\activity_main_drawer.xml
 item;obj\Debug\90\res\menu\menu_main.xml
 item;obj\Debug\90\res\values\styles.xml
 LinearLayout;obj\Debug\90\res\layout\activity_main.xml
-LinearLayout;obj\Debug\90\res\layout\addextradialog.xml
 LinearLayout;obj\Debug\90\res\layout\calendarlayout.xml
-LinearLayout;obj\Debug\90\res\layout\changedailyorderfragment.xml
 LinearLayout;obj\Debug\90\res\layout\chooseproductfragment.xml
+LinearLayout;obj\Debug\90\res\layout\clientpagefragment.xml
 LinearLayout;obj\Debug\90\res\layout\dailyorderproductedititem.xml
 LinearLayout;obj\Debug\90\res\layout\dailyorderproductitem.xml
 LinearLayout;obj\Debug\90\res\layout\dailysordersdesceditfragment.xml
@@ -136,7 +133,6 @@ LinearLayout;obj\Debug\90\res\layout\otheroptionitem.xml
 LinearLayout;obj\Debug\90\res\layout\otheroptionsfragment.xml
 LinearLayout;obj\Debug\90\res\layout\paymentdialog.xml
 LinearLayout;obj\Debug\90\res\layout\printaccountfragment.xml
-LinearLayout;obj\Debug\90\res\layout\printpreview.xml
 LinearLayout;obj\Debug\90\res\layout\productorderitem.xml
 LinearLayout;obj\Debug\90\res\layout\selectdayspagefragment.xml
 LinearLayout;obj\Debug\90\res\layout\sidebar.xml
@@ -208,7 +204,6 @@ stroke;obj\Debug\90\res\drawable\red_button_default.xml
 stroke;obj\Debug\90\res\drawable\red_button_pressed.xml
 style;obj\Debug\90\res\values\styles.xml
 Switch;obj\Debug\90\res\layout\printpreview.xml
-tabApp.UI.Fragments.EditClient;obj\Debug\90\res\layout\changedailyorderfragment.xml
 TableLayout;obj\Debug\90\res\layout\clientpagefragment.xml
 TableRow;obj\Debug\90\res\layout\clientpagefragment.xml
 TextView;obj\Debug\90\res\layout\addstoreregistfragment.xml
