@@ -70,8 +70,8 @@ namespace tabApp
             if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.AccessFineLocation) == Permission.Granted)
             {
                 Criteria locationCriteria = new Criteria();
-                locationCriteria.Accuracy = Accuracy.Coarse;
-                locationCriteria.PowerRequirement = Power.Medium;
+                locationCriteria.Accuracy = Accuracy.Fine;
+                locationCriteria.PowerRequirement = Power.NoRequirement;
 
                 LocationManager locationManager = (LocationManager)GetSystemService(LocationService);
                 string locationProvider = locationManager.GetBestProvider(locationCriteria, true);

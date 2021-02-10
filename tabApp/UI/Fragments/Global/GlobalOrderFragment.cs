@@ -96,7 +96,7 @@ namespace tabApp.UI.Fragments.Global
             string email = "flipper09@live.com.pt";
             string info = ViewModel.GetTextForSentToEmail();
 
-            var emailIntent = new Intent(Android.Content.Intent.ActionSend);
+            var emailIntent = new Intent(Android.Content.Intent.ActionSendto);
             emailIntent.PutExtra(Android.Content.Intent.ExtraEmail, new string[] {email});
             emailIntent.PutExtra(Android.Content.Intent.ExtraSubject, "Encomenda Manuela");
             emailIntent.PutExtra(Android.Content.Intent.ExtraText, info);
