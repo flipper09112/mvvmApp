@@ -253,7 +253,7 @@ namespace tabApp.Core.ViewModels.ClientPage.OtherOptions
         private void UpdateClient()
         {
             double extra = _ammountToPayService.CalculateUntilDate(Client, DateTime.AddDays(-1));
-            Client.UpdatePaymentDate(DateTime);
+            Client.UpdatePaymentDate(DateTime.AddDays(-1));
             Client.UpdateExtraValueToPay(extra);
         }
 
