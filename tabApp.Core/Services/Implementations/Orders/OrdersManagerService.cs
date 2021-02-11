@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using tabApp.Core.Helpers;
 using tabApp.Core.Models;
@@ -200,6 +201,35 @@ namespace tabApp.Core.Services.Implementations.Orders
                 weekValue += GetValue(client.Id, item);
             }
             return weekValue;
+        }
+
+        public List<ProductAmmount> GetTotalOrderFromClient(Client fromClient, DateTime dateTime)
+        {
+            int position = _clientsManagerService.ClientsList.IndexOf(fromClient) == -1 ? 0 : _clientsManagerService.ClientsList.IndexOf(fromClient);
+
+            List<ProductAmmount> items = new List<ProductAmmount>();
+            foreach (var client in _clientsManagerService.ClientsList.Skip(position))
+            {
+                if (!client.Active) continue;
+                ExtraOrder order = _clientsManagerService.HasOrderThisDate(client, dateTime);
+                if (order == null)
+                {
+                    AddProductAmmountToList(items, ClientHelper.GetDailyOrder(dateTime.DayOfWeek, client).AllItems);
+                }
+                else
+                {
+                    if (order.IsTotal)
+                    {
+                        AddProductAmmountToList(items, order.AllItems);
+                    }
+                    else
+                    {
+                        AddProductAmmountToList(items, order.AllItems);
+                        AddProductAmmountToList(items, ClientHelper.GetDailyOrder(dateTime.DayOfWeek, client).AllItems);
+                    }
+                }
+            }
+            return items;
         }
     }
 }

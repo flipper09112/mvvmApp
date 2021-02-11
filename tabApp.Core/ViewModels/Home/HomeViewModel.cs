@@ -118,6 +118,21 @@ namespace tabApp.Core
         public override void DisAppearing()
         {
         }
+
+        public string GetRemainingProducts(double latitude, double longitude)
+        {
+            string txt = "";
+            Client client = _clientsManagerService.GetClosestClient(latitude, longitude);
+
+            var list = _ordersManagerService.GetTotalOrderFromClient(client, DateTime.Today);
+
+            foreach (var item in list)
+            {
+                txt += item.Product.Name + " - " + item.Ammount.ToString("N2") + "\n";
+            }
+
+            return txt;
+        }
     }
 
     public class SecondaryOptions
