@@ -729,3 +729,12 @@ C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\androidx\proguard\cf
 C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\androidx\proguard\d2412acc-2e0d-4723-9e64-f0dc94826676.txt
 C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\androidx\proguard\dd585eec-ecc5-45cb-9741-b943bd87c24a.txt
 C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\androidx\proguard\fa82ec8e-1c01-4a36-982b-755b4b7e581f.txt
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\layout\pricetableitem.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\drawable\ic_not_found.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\drawable\ic_price.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc642d6d8ab5cda89a6f\PriceTableAdapter.java
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc644c933f2aa3dd2be6\PriceTableFragment.java
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\android\src\crc649ba559e34155f93c\PriceTableViewHolder.java
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\layout\pricetablefragment.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\drawable\ic_filter_full.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp\obj\Debug\90\res\drawable\ic_filter.xml

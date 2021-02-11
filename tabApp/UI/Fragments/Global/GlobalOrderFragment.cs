@@ -63,6 +63,7 @@ namespace tabApp.UI.Fragments.Global
             _sendOrder.Click -= SendOrderClick;
 
             _activity.ShowMenu();
+            _activity.ShowToolbar();
         }
 
         public override void SetUI()

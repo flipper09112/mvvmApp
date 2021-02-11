@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-	<group>
+	<group
+        android:checkableBehavior="single">
 
 		<item android:title="Funções Gerais">
 			<item android:id="@+id/globalOrder"
 				  android:title="Fazer encomenda" />
-			<item android:id="@+id/nav_item_two"
-				  android:title=" " />
-			<item android:id="@+id/nav_item_three"
-				  android:title=" " />
 		</item>
 
 	</group>
 
-	<group>
-		<item  android:title="Definições" android:id="@+id/group_menu">
-			<item android:id="@+id/nav_item_four"
-				  android:title=" " />
-			<item android:id="@+id/nav_item_five"
-				  android:title=" " />
+	<item android:title="" />
+
+	<group
+        android:checkableBehavior="single">
+		<item  
+			android:title="Definições" 
+			android:id="@+id/group_menu">
+			<item android:id="@+id/tabela"
+				  android:title="Tabela de Preços" />
 		</item>
 	</group>
 

@@ -24,6 +24,7 @@ namespace tabApp.Core.ViewModels
         public MvxCommand<(double lat, double lgt)> SetClosestClientCommand { get; private set; }
         public MvxAsyncCommand ShowHomePage { get; private set; }
         public MvxCommand ShowGlobalOrderPageCommand { get; private set; }
+        public MvxCommand ShowPriceTableCommand { get; private set; }
         public MvxCommand<string> SetFilterCommand { get; set; }
 
         public EventHandler UpdateUiHomePage;
@@ -44,6 +45,12 @@ namespace tabApp.Core.ViewModels
             SetClosestClientCommand = new MvxCommand<(double lat, double lgt)>(ShowClosestClient);
             SetFilterCommand = new MvxCommand<string>(SetFilter);
             ShowGlobalOrderPageCommand = new MvxCommand(ShowGlobalOrderPage);
+            ShowPriceTableCommand = new MvxCommand(ShowPriceTable);
+        }
+
+        private async void ShowPriceTable()
+        {
+            await _navigationService.Navigate<PriceTableViewModel>();
         }
 
         private async void ShowGlobalOrderPage()

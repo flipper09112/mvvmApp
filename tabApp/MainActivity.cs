@@ -174,6 +174,12 @@ namespace tabApp
                 ViewModel.ShowGlobalOrderPageCommand.Execute(null);
                 return true;
             }
+            if (id == Resource.Id.tabela)
+            {
+                ViewModel.ShowPriceTableCommand.Execute(null);
+                return true;
+            }
+
             return base.OnOptionsItemSelected(menuItem);
         }
         public override bool OnOptionsItemSelected(IMenuItem item)
