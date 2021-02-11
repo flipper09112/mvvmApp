@@ -92,11 +92,10 @@ namespace tabApp.UI.Fragments.Global
         private void SendOrderClick(object sender, EventArgs e)
         {
             ViewModel.SaveAllDataCommand.Execute(null);
-            //string email = "encomendas@panilima.pt";
-            string email = "flipper09@live.com.pt";
+            string email = "encomendas@panilima.pt";
             string info = ViewModel.GetTextForSentToEmail();
 
-            var emailIntent = new Intent(Android.Content.Intent.ActionSend);
+            var emailIntent = new Intent(Android.Content.Intent.ActionSendto);
             emailIntent.PutExtra(Android.Content.Intent.ExtraEmail, new string[] {email});
             emailIntent.PutExtra(Android.Content.Intent.ExtraSubject, "Encomenda Manuela");
             emailIntent.PutExtra(Android.Content.Intent.ExtraText, info);

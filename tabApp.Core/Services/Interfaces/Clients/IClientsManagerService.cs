@@ -18,5 +18,6 @@ namespace tabApp.Core.Services.Interfaces.Clients
         Client GetClosestClient(double currentLatitude, double currentLogitude);
         ExtraOrder HasOrderThisDate(Client client, DateTime dateTime);
         bool ClientHasExtraOrderThisDay(Client clientSelected, DateTime dateSelected);
+        DailyOrder GetTodayDailyOrder(Client client, DayOfWeek day);
     }
 }
