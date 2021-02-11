@@ -100,7 +100,7 @@ namespace tabApp
 
                 LocationManager locationManager = (LocationManager)GetSystemService(LocationService);
                 string locationProvider = locationManager.GetBestProvider(locationCriteria, true);
-                locationManager.RequestLocationUpdates(locationProvider, 500, 0, this);
+                locationManager.RequestLocationUpdates(locationProvider, 500, 10, this);
             }
             else
             {

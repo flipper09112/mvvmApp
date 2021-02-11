@@ -30,6 +30,7 @@ namespace tabApp.UI.Fragments.Home.ViewPager
         private MarkerOptions options;
         private Marker marker;
         private bool _selected;
+        private bool _clientsAdded;
 
         public HomePageMapFragment(HomeViewModel viewModel)
         {
@@ -59,6 +60,8 @@ namespace tabApp.UI.Fragments.Home.ViewPager
 
         private void SetPoints()
         {
+            if(_clientsAdded) return;
+            _clientsAdded = true;
             foreach(var client in viewModel.ClientsList)
             {
                 if(client.Address.Coordenadas != null && !client.Address.Coordenadas.Equals("") && !client.Address.Coordenadas.Equals("null"))
@@ -123,9 +126,12 @@ namespace tabApp.UI.Fragments.Home.ViewPager
             options.SetIcon(BitmapDescriptorFactory.FromBitmap(smallMarker));
             // options.SetIcon(BitmapDescriptorFactory.FromResource(Resource.Drawable.ic_click_me));
             
-            _map.Clear();
+            //_map.Clear();
             SetPoints();
-            marker = _map?.AddMarker(options);
+            if (marker == null)
+                marker = _map?.AddMarker(options);
+            else
+                marker.Position = latlngall;
             
             CameraPosition.Builder builder = CameraPosition.InvokeBuilder();
             builder.Target(latlngall);
@@ -152,6 +158,7 @@ namespace tabApp.UI.Fragments.Home.ViewPager
 
         private void MapMarkerClick(object sender, GoogleMap.MarkerClickEventArgs e)
         {
+            
             if (e.Marker.IsInfoWindowShown)
             {
                 _selected = false;

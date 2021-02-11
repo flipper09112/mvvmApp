@@ -58,7 +58,6 @@ Button;obj\Debug\90\res\layout\addstoreregistfragment.xml
 Button;obj\Debug\90\res\layout\changedailyorderfragment.xml
 Button;obj\Debug\90\res\layout\clientorderfragment.xml
 Button;obj\Debug\90\res\layout\clientpagefragment.xml
-Button;obj\Debug\90\res\layout\custom_infowindow.xml
 Button;obj\Debug\90\res\layout\dailysordersdesceditfragment.xml
 Button;obj\Debug\90\res\layout\editclientfragment.xml
 Button;obj\Debug\90\res\layout\globalorderfragment.xml
