@@ -66,6 +66,8 @@ namespace tabApp.Core.ViewModels
                 if(_chooseClientService.ClientSelected.PaymentType == PaymentTypeEnum.Loja)
                     options.Add(new Option(InsertNewRegistCommand, "Inserir despesa do dia", "ic_insert"));
 
+                options.Add(new Option(null, "Adicionar notificação", "ic_notification"));
+
                 return options;
             }
         }

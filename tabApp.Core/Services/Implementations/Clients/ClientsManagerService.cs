@@ -114,5 +114,36 @@ namespace tabApp.Core.Services.Implementations.Clients
             }
             return false;
         }
+
+        public DailyOrder GetTodayDailyOrder(Client client, DayOfWeek day)
+        {
+            switch(day)
+            {
+                case DayOfWeek.Monday:
+                    return client.SegDailyOrder;
+                    break;
+                case DayOfWeek.Tuesday:
+                    return client.TerDailyOrder;
+                    break;
+                case DayOfWeek.Wednesday:
+                    return client.QuaDailyOrder;
+                    break;
+                case DayOfWeek.Thursday:
+                    return client.QuiDailyOrder;
+                    break;
+                case DayOfWeek.Friday:
+                    return client.SexDailyOrder;
+                    break;
+                case DayOfWeek.Saturday:
+                    return client.SabDailyOrder;
+                    break;
+                case DayOfWeek.Sunday:
+                    return client.DomDailyOrder;
+                    break;
+                default:
+                    return null;
+            }
+        }
+
     }
 }

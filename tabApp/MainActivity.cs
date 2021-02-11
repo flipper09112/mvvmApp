@@ -30,6 +30,7 @@ namespace tabApp
         private bool _FindClosestClient;
 
         public Action<Location> UpdateEditClientLocation { get; internal set; }
+        public Action<Location> UpdateHomeMapLocation { get; internal set; }
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -65,13 +66,17 @@ namespace tabApp
             ViewModel.UpdateUiHomePage += UpdateUiHomePage;
         }
 
+        internal void StopRequestCurrentLocationLoopUpdates()
+        {
+            LocationManager locationManager = (LocationManager)GetSystemService(LocationService);
+            locationManager.RemoveUpdates(this);
+        }
         public void RequestCurrentLocationUpdates()
         {
-            if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.AccessFineLocation) == Permission.Granted)
+             if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.AccessFineLocation) == Permission.Granted)
             {
                 Criteria locationCriteria = new Criteria();
                 locationCriteria.Accuracy = Accuracy.Fine;
-                locationCriteria.PowerRequirement = Power.NoRequirement;
 
                 LocationManager locationManager = (LocationManager)GetSystemService(LocationService);
                 string locationProvider = locationManager.GetBestProvider(locationCriteria, true);
@@ -82,6 +87,25 @@ namespace tabApp
                 // The app does not have permission ACCESS_FINE_LOCATION 
                 RequestPermissions(new string[] { Manifest.Permission.AccessFineLocation }, 1);
                 ViewModel.IsBusy = false;
+            }
+        }
+
+        internal void RequestCurrentLocationLoopUpdates()
+        {
+            if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.AccessFineLocation) == Permission.Granted)
+            {
+                Criteria locationCriteria = new Criteria();
+                locationCriteria.Accuracy = Accuracy.Fine;
+                locationCriteria.PowerRequirement = Power.NoRequirement;
+
+                LocationManager locationManager = (LocationManager)GetSystemService(LocationService);
+                string locationProvider = locationManager.GetBestProvider(locationCriteria, true);
+                locationManager.RequestLocationUpdates(locationProvider, 500, 10, this);
+            }
+            else
+            {
+                // The app does not have permission ACCESS_FINE_LOCATION 
+                RequestPermissions(new string[] { Manifest.Permission.AccessFineLocation }, 1);
             }
         }
 
@@ -222,6 +246,7 @@ namespace tabApp
                 _FindClosestClient = false;
             }
             UpdateEditClientLocation?.Invoke(location);
+            UpdateHomeMapLocation?.Invoke(location);
         }
 
         public void OnProviderDisabled(string provider)

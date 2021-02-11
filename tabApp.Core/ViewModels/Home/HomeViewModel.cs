@@ -48,6 +48,23 @@ namespace tabApp.Core
             await _navigationService.Navigate<ClientPageViewModel>();
         }
 
+        public string GetClientDailyOrderDesc(Client client)
+        {
+            string txt = "";
+
+            foreach (var item in _clientsManagerService.GetTodayDailyOrder(client, DateTime.Today.DayOfWeek).AllItems)
+            {
+                txt += _productsManagerService.GetProductById(item.ProductId).Name + " - " + item.Ammount.ToString("N2") + "\n";
+            }
+
+            return txt;
+        }
+
+        public bool CheckClientHasExtraOrderToday(Client client)
+        {
+            return _clientsManagerService.ClientHasExtraOrderThisDay(client, DateTime.Today);
+        }
+
         public List<Client> ClientsList
         {
             get
@@ -84,7 +101,7 @@ namespace tabApp.Core
         {
             List<SecondaryOptions> items = new List<SecondaryOptions>();
             items.Add(new OrdersPage("Encomendas", _ordersManagerService.TodayOrders));
-            items.Add(new SecondaryOptions("Restante"));
+            items.Add(new SecondaryOptions("Localização"));
             return items;
         }
         public string GetOrderDesc(ExtraOrder obj)

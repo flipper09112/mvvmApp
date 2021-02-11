@@ -26,6 +26,7 @@
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <AndroidUseAapt2>true</AndroidUseAapt2>
     <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
+    <AndroidErrorOnCustomJavaObject>false</AndroidErrorOnCustomJavaObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -42,6 +43,7 @@
     <EnableLLVM>false</EnableLLVM>
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
     <BundleAssemblies>false</BundleAssemblies>
+    <AndroidErrorOnCustomJavaObject>false</AndroidErrorOnCustomJavaObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -55,6 +57,7 @@
     <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
     <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+    <AndroidErrorOnCustomJavaObject>false</AndroidErrorOnCustomJavaObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android.Export" />
@@ -100,6 +103,8 @@
     <Compile Include="UI\Fragments\EditClient\EditDailyOrdersFragment.cs" />
     <Compile Include="UI\Fragments\Global\GlobalOrderFragment.cs" />
     <Compile Include="UI\Fragments\EditClient\SelectDaysPageFragment.cs" />
+    <Compile Include="UI\Fragments\Home\ViewPager\HomePageMapFragment.cs" />
+    <Compile Include="UI\Fragments\Home\ViewPager\HomePageOrdersFragment.cs" />
     <Compile Include="UI\ViewHolders\EditProfileItemViewHolder.cs" />
     <Compile Include="UI\ViewHolders\HomePageOrderViewHolder.cs" />
     <Compile Include="UI\ViewHolders\IndividualCakeOrderItemViewHolder.cs" />
@@ -114,7 +119,7 @@
     <Compile Include="UI\Fragments\ClientOrderFragment.cs" />
     <Compile Include="UI\Fragments\ClientPage\ClientPageFragment.cs" />
     <Compile Include="UI\Fragments\ClientPage\DailysOrdersDescFragment.cs" />
-    <Compile Include="UI\Fragments\HomeFragment.cs" />
+    <Compile Include="UI\Fragments\Home\HomeFragment.cs" />
     <Compile Include="UI\Fragments\ClientPage\OtherOptionsFragment.cs" />
     <Compile Include="UI\ViewHolders\ClientViewHolder.cs" />
     <Compile Include="UI\ViewHolders\DailyOrderProductViewHolder.cs" />
@@ -504,6 +509,37 @@
     <AndroidResource Include="Resources\layout\ChangeDailyOrderFragment.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_notification.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\HomePageMapFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\car_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\custom_infowindow.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_bread.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_client.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_client_png.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_alarm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_alarm_png.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
