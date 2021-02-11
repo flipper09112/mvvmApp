@@ -108,6 +108,7 @@ namespace tabApp.Core.Services.Implementations.Orders
             List<ProductAmmount> items = new List<ProductAmmount>();
             foreach(var client in _clientsManagerService.ClientsList)
             {
+                if (!client.Active) continue;
                 ExtraOrder order = _clientsManagerService.HasOrderThisDate(client, dateTime);
                 if(order == null)
                 {
