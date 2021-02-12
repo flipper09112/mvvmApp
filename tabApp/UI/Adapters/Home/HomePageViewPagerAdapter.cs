@@ -11,6 +11,7 @@ namespace tabApp.UI.Adapters.Home
     public class HomePageViewPagerAdapter : FragmentStatePagerAdapter
     {
         public List<SecondaryOptions> TabsOptions;
+        private HomePageOrdersFragment encomenda;
 
         public override int Count => TabsOptions?.Count ?? 0;
         public HomeViewModel ViewModel { get; internal set; }
@@ -23,7 +24,8 @@ namespace tabApp.UI.Adapters.Home
         {
             if (TabsOptions[position].Name.Equals("Encomendas"))
             {
-                return new HomePageOrdersFragment((OrdersPage)TabsOptions[position], ViewModel);
+                encomenda = new HomePageOrdersFragment((OrdersPage)TabsOptions[position], ViewModel);
+                return encomenda;
             }
             else if (TabsOptions[position].Name.Equals("Localização"))
             {

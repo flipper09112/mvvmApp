@@ -18,6 +18,8 @@ namespace tabApp.UI.Fragments.Home.ViewPager
     {
         private OrdersPage ordersPage;
         private HomeViewModel ViewModel;
+        private HomePageOrdersListAdapter adapter;
+        private RecyclerView recycler;
 
         public HomePageOrdersFragment(Core.OrdersPage ordersPage, Core.HomeViewModel viewModel)
         {
@@ -32,8 +34,8 @@ namespace tabApp.UI.Fragments.Home.ViewPager
 
             View view = inflater.Inflate(Resource.Layout.RecyclerViewLayout, container, false);
 
-            var adapter = new HomePageOrdersListAdapter(ordersPage, ViewModel);
-            var recycler = view.FindViewById<RecyclerView>(Resource.Id.recyclerView);
+            adapter = new HomePageOrdersListAdapter(ordersPage, ViewModel);
+            recycler = view.FindViewById<RecyclerView>(Resource.Id.recyclerView);
             var layoutManager = new LinearLayoutManager(Context);
 
             recycler.SetLayoutManager(layoutManager);

@@ -62,7 +62,7 @@ namespace tabApp.UI.Fragments.Home.ViewPager
         {
             if(_clientsAdded) return;
             _clientsAdded = true;
-            foreach(var client in viewModel.ClientsList)
+            foreach(var client in viewModel?.ClientsList ?? new List<Core.Models.Client>())
             {
                 if(client.Address.Coordenadas != null && !client.Address.Coordenadas.Equals("") && !client.Address.Coordenadas.Equals("null"))
                 {

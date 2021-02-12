@@ -48,6 +48,11 @@ namespace tabApp.Core
             await _navigationService.Navigate<ClientPageViewModel>();
         }
 
+        public List<SecondaryOptions> RefreshTabOptions()
+        {
+            return GetSecondaryOptions();
+        }
+
         public string GetClientDailyOrderDesc(Client client)
         {
             string txt = "";
@@ -88,7 +93,7 @@ namespace tabApp.Core
             set
             {
                 _tabsOptions = value;
-                RaisePropertyChanged(nameof(TabsOptions));
+               //RaisePropertyChanged(nameof(TabsOptions));
             }
         }
 
