@@ -48,11 +48,18 @@ namespace tabApp.UI
 
         public override void SetUI()
         {
-            _clientsAdapter = new ClientsListAdapter(ViewModel.ClientsList, ViewModel.ShowClientPage); 
-            _clientsList.SetAdapter(_clientsAdapter);
-            _viewPagerAdapter.TabsOptions = ViewModel.TabsOptions;
-            _viewPagerAdapter.NotifyDataSetChanged();
-            SetupTabLayout();
+            Activity.RunOnUiThread(() => {
+                _clientsAdapter = new ClientsListAdapter(ViewModel.ClientsList, ViewModel.ShowClientPage);
+                _clientsList.SetAdapter(_clientsAdapter);
+                ViewModel.Appearing();
+                _viewPagerAdapter = new HomePageViewPagerAdapter(ChildFragmentManager);
+                _viewPagerAdapter.ViewModel = ViewModel;
+                _homeViewPager.Adapter = _viewPagerAdapter;
+                _viewPagerAdapter.TabsOptions = ViewModel.TabsOptions;
+                _viewPagerAdapter.NotifyDataSetChanged();
+                SetupTabLayout();
+            });
+            
         }
         private void SetupTabLayout()
         {
