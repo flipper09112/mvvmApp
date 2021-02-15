@@ -30,8 +30,8 @@
 	<color name="olive">#808000</color>
 	<color name="purple">#800080</color>
 	<color name="maroon">#800000</color>
-	<color name="aqua">#00FFFF</color>
-	<color name="lime">#00FF00</color>
+	<color name="aqua50">#8000FFFF</color>
+	<color name="lime50">#8000FF00</color>
 	<color name="teal">#008080</color>
 	<color name="navy">#000080</color>
 	<color name="black">#000000</color>

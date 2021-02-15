@@ -6227,7 +6227,7 @@ namespace tabApp
 			public const int androidx_core_secondary_text_default_material_light = 2131034139;
 			
 			// aapt resource value: 0x7F05001C
-			public const int aqua = 2131034140;
+			public const int aqua50 = 2131034140;
 			
 			// aapt resource value: 0x7F05001D
 			public const int background_floating_material_dark = 2131034141;
@@ -6443,7 +6443,7 @@ namespace tabApp
 			public const int ic_launcher_background = 2131034211;
 			
 			// aapt resource value: 0x7F050064
-			public const int lime = 2131034212;
+			public const int lime50 = 2131034212;
 			
 			// aapt resource value: 0x7F050065
 			public const int maroon = 2131034213;

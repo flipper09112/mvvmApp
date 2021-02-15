@@ -205,9 +205,11 @@ namespace tabApp.Core.Services.Implementations.Orders
 
         public List<ProductAmmount> GetTotalOrderFromClient(Client fromClient, DateTime dateTime)
         {
+            List<ProductAmmount> items = new List<ProductAmmount>();
+            if (_clientsManagerService.ClientsList == null) return items;
+
             int position = _clientsManagerService.ClientsList.IndexOf(fromClient) == -1 ? 0 : _clientsManagerService.ClientsList.IndexOf(fromClient);
 
-            List<ProductAmmount> items = new List<ProductAmmount>();
             foreach (var client in _clientsManagerService.ClientsList.Skip(position))
             {
                 if (!client.Active) continue;

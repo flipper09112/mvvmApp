@@ -83,6 +83,8 @@ namespace tabApp.Core.Services.Implementations.Clients
 
         public Client GetClosestClient(double currentLatitude, double currentLogitude)
         {
+            if (ClientsList == null) return null;
+
             Dictionary<Client, double> distances = new Dictionary<Client, double>();
             foreach (Client client in ClientsList)
             {

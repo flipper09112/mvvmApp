@@ -61,7 +61,7 @@ namespace tabApp.UI.ViewHolders
                 {
                     _cancelAppointment.Visibility = ViewStates.Visible;
                     _cancelAppointment.Text = "Anular registo";
-                    _orderDayLabel.Text = "Registo do dia";
+                    _orderDayLabel.Text = "Registo do dia\n" + extraOrder.OrderDay.ToString("dd/MM/yyyy");
                 }
                 else
                 {
