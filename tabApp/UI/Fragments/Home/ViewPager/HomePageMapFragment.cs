@@ -117,22 +117,22 @@ namespace tabApp.UI.Fragments.Home.ViewPager
         private void MoveCamera(LatLng latlngall)
         {
 
-            options = new MarkerOptions().SetPosition(_locationSaved).SetTitle("Nova localização");
+            options = new MarkerOptions().SetPosition(_locationSaved).SetTitle("Localização atual");
             int height = 80;
             int width = 120;
             BitmapDrawable bitmapdraw = (BitmapDrawable)Context.Resources.GetDrawable(Resource.Drawable.car_logo);
             Bitmap b = bitmapdraw.Bitmap;
             Bitmap smallMarker = Bitmap.CreateScaledBitmap(b, width, height, false);
             options.SetIcon(BitmapDescriptorFactory.FromBitmap(smallMarker));
-            // options.SetIcon(BitmapDescriptorFactory.FromResource(Resource.Drawable.ic_click_me));
             
-            //_map.Clear();
             SetPoints();
             if (marker == null)
                 marker = _map?.AddMarker(options);
             else
                 marker.Position = latlngall;
-            
+
+            marker.Snippet = viewModel.GetRemainingProducts(latlngall.Latitude, latlngall.Longitude);
+
             CameraPosition.Builder builder = CameraPosition.InvokeBuilder();
             builder.Target(latlngall);
             builder.Zoom(17);
@@ -181,7 +181,6 @@ namespace tabApp.UI.Fragments.Home.ViewPager
         private void UpdateHomeMapLocation(Location obj)
         {
             _locationSaved = new LatLng(obj.Latitude, obj.Longitude);
-            if (_selected) return;
             MoveCamera(_locationSaved);
         }
 

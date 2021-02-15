@@ -33,6 +33,7 @@ namespace tabApp.Services.Implementations
             LayoutInflater inflater = act.LayoutInflater;
             View dialogView = inflater.Inflate(Resource.Layout.PaymentDialog, null);
             CheckBox checkBox = (CheckBox)dialogView.FindViewById(Resource.Id.extraCheckBox);
+            checkBox.Checked = true;
 
             Android.App.AlertDialog.Builder alert = new Android.App.AlertDialog.Builder(act);
             alert.SetTitle(question);

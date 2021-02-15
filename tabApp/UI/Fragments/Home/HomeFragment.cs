@@ -41,25 +41,25 @@ namespace tabApp.UI
             _viewPagerAdapter = new HomePageViewPagerAdapter(ChildFragmentManager);
             _viewPagerAdapter.ViewModel = ViewModel;
             _homeViewPager.Adapter = _viewPagerAdapter;
-            _tabLayout.SetupWithViewPager(_homeViewPager, true);
+            _tabLayout.SetupWithViewPager(_homeViewPager, true); 
+
 
             return view;
         }
 
         public override void SetUI()
         {
-            Activity.RunOnUiThread(() => {
-                _clientsAdapter = new ClientsListAdapter(ViewModel.ClientsList, ViewModel.ShowClientPage);
-                _clientsList.SetAdapter(_clientsAdapter);
-                ViewModel.Appearing();
-                _viewPagerAdapter = new HomePageViewPagerAdapter(ChildFragmentManager);
-                _viewPagerAdapter.ViewModel = ViewModel;
-                _homeViewPager.Adapter = _viewPagerAdapter;
-                _viewPagerAdapter.TabsOptions = ViewModel.TabsOptions;
-                _viewPagerAdapter.NotifyDataSetChanged();
-                SetupTabLayout();
-            });
-            
+            _clientsAdapter = new ClientsListAdapter(ViewModel.ClientsList, ViewModel.ShowClientPage);
+            _clientsList.SetAdapter(_clientsAdapter);
+            _viewPagerAdapter.TabsOptions = ViewModel.TabsOptions;
+            _viewPagerAdapter.NotifyDataSetChanged();
+            SetupTabLayout();
+
+            if(ViewModel.ClientSelected != null)
+            {
+                int pos = ViewModel.ClientsList.IndexOf(ViewModel.ClientSelected);
+                _clientsList.ScrollToPosition(pos);
+            }
         }
         private void SetupTabLayout()
         {
