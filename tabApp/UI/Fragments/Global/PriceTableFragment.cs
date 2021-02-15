@@ -21,6 +21,8 @@ namespace tabApp.UI.Fragments.Global
     {
         private MainActivity _activity;
         private RecyclerView _recyclerView;
+        private EditText _searchEdt;
+        private TextView _resultsLabel;
         private PriceTableAdapter _adapter;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -30,24 +32,47 @@ namespace tabApp.UI.Fragments.Global
             _activity = ParentActivity as MainActivity;
 
             _recyclerView = view.FindViewById<RecyclerView>(Resource.Id.recyclerView);
+            _searchEdt = view.FindViewById<EditText>(Resource.Id.editMobileNo);
+            _resultsLabel = view.FindViewById<TextView>(Resource.Id.resultsLabel);
+
             _adapter = new PriceTableAdapter(ViewModel.AllProducts);
             _recyclerView.SetLayoutManager(new GridLayoutManager(Context, 3, GridLayoutManager.Vertical, false));
             _recyclerView.SetAdapter(_adapter);
 
             return view;
         }
+
         public override void CleanBindings()
         {
             _activity.ShowToolbar();
+            _activity.ShowMenu();
+            _searchEdt.TextChanged -= SearchEdtClick;
+            ViewModel.PropertyChanged -= ViewModelPropertyChanged;
         }
 
         public override void SetUI()
         {
+            _adapter.AllProducts = ViewModel.AllProducts;
+            _resultsLabel.Text = ViewModel.AllProducts.Count + " resultados encontrados";
+            _adapter.NotifyDataSetChanged();
         }
 
         public override void SetupBindings()
         {
             _activity.HideToolbar();
+            _activity.HideMenu();
+            _searchEdt.TextChanged += SearchEdtClick;
+            ViewModel.PropertyChanged += ViewModelPropertyChanged;
+        }
+
+        private void ViewModelPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            SetUI();
+        }
+
+        private void SearchEdtClick(object sender, EventArgs e)
+        {
+            ViewModel.SearchProduct = _searchEdt.Text;
         }
     }
 }

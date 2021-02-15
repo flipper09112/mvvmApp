@@ -57,14 +57,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/resultsLabel"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/resultsLabel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="300 resultados encontrados"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="20dp"
@@ -79,9 +78,9 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginRight="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView4"
+        app:layout_constraintBottom_toBottomOf="@+id/resultsLabel"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView4"
+        app:layout_constraintTop_toTopOf="@+id/resultsLabel"
         app:srcCompat="@drawable/ic_filter" />
 
 </androidx.constraintlayout.widget.ConstraintLayout >

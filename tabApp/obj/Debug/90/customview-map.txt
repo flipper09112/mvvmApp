@@ -298,6 +298,7 @@ View;obj\Debug\90\res\layout\globalorderfragment.xml
 View;obj\Debug\90\res\layout\homefragment.xml
 View;obj\Debug\90\res\layout\homepagerorderitem.xml
 View;obj\Debug\90\res\layout\individualcakeorderitem.xml
+View;obj\Debug\90\res\layout\orderitem.xml
 View;obj\Debug\90\res\layout\pricetableitem.xml
 View;obj\Debug\90\res\layout\printaccountfragment.xml
 View;obj\Debug\90\res\layout\selectdayspagefragment.xml

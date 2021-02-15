@@ -42,6 +42,7 @@ namespace tabApp.Core
             ShowClientPage = new MvxAsyncCommand<Client>(ShowClientPageAction);
         }
 
+        public Client ClientSelected => _chooseClientService.ClientSelected;
         private async Task ShowClientPageAction(Client clientSelected)
         {
             _chooseClientService.SelectClient(clientSelected);

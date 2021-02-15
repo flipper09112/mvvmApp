@@ -8,6 +8,7 @@
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_margin="25dp"
@@ -64,6 +65,7 @@
                 android:gravity="center"
                 android:text="TextView"
                 android:textSize="35sp"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toTopOf="@+id/divider2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/divider"
@@ -110,6 +112,7 @@
                 android:gravity="center"
                 android:text="Preço"
                 android:textSize="35sp"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/divider4"
                 app:layout_constraintStart_toEndOf="@+id/divider3"
@@ -123,6 +126,7 @@
                 android:gravity="center"
                 android:text="0.00 §"
                 android:textSize="25sp"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/divider4"

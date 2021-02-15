@@ -13,14 +13,11 @@
 
 	<item android:title="" />
 
-	<group
-        android:checkableBehavior="single">
 		<item  
 			android:title="Definições" 
 			android:id="@+id/group_menu">
 			<item android:id="@+id/tabela"
 				  android:title="Tabela de Preços" />
 		</item>
-	</group>
 
 </menu>

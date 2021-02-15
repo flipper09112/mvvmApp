@@ -16,19 +16,19 @@ namespace tabApp.UI.Adapters.Global
 {
     public class PriceTableAdapter : RecyclerView.Adapter
     {
-        private List<Product> allProducts;
+        public List<Product> AllProducts;
 
         public PriceTableAdapter(List<Product> allProducts)
         {
-            this.allProducts = allProducts;
+            this.AllProducts = allProducts;
         }
 
-        public override int ItemCount => allProducts?.Count ?? 0;
+        public override int ItemCount => AllProducts?.Count ?? 0;
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
             PriceTableViewHolder vh = holder as PriceTableViewHolder;
-            vh.Bind(allProducts[holder.AdapterPosition]);
+            vh.Bind(AllProducts[holder.AdapterPosition]);
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
