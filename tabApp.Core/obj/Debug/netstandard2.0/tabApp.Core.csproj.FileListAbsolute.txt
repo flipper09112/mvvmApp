@@ -1,0 +1,9 @@
+C:\Users\Utilizador\source\repos\tabApp\tabApp.Core\bin\Debug\netstandard2.0\tabApp.Core.deps.json
+C:\Users\Utilizador\source\repos\tabApp\tabApp.Core\bin\Debug\netstandard2.0\tabApp.Core.dll
+C:\Users\Utilizador\source\repos\tabApp\tabApp.Core\bin\Debug\netstandard2.0\tabApp.Core.pdb
+C:\Users\Utilizador\source\repos\tabApp\tabApp.Core\obj\Debug\netstandard2.0\tabApp.Core.csprojAssemblyReference.cache
+C:\Users\Utilizador\source\repos\tabApp\tabApp.Core\obj\Debug\netstandard2.0\tabApp.Core.AssemblyInfoInputs.cache
+C:\Users\Utilizador\source\repos\tabApp\tabApp.Core\obj\Debug\netstandard2.0\tabApp.Core.AssemblyInfo.cs
+C:\Users\Utilizador\source\repos\tabApp\tabApp.Core\obj\Debug\netstandard2.0\tabApp.Core.csproj.CoreCompileInputs.cache
+C:\Users\Utilizador\source\repos\tabApp\tabApp.Core\obj\Debug\netstandard2.0\tabApp.Core.dll
+C:\Users\Utilizador\source\repos\tabApp\tabApp.Core\obj\Debug\netstandard2.0\tabApp.Core.pdb
