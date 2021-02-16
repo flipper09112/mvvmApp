@@ -1,18 +1,23 @@
 ﻿using Android.Bluetooth;
+using Android.Content;
 using Java.Util;
+using MvvmCross;
+using MvvmCross.Platforms.Android;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using tabApp.Core.Services.Interfaces.Bluetooth;
+using tabApp.Services.Implementations.Native;
 
 namespace tabApp.Core.Services.Implementations.Bluetooth
 {
     public class BluetoothService : IBluetoothService
     {
-        private BluetoothServerSocket serverSocket;
-        private BluetoothSocket socket;
+        public BluetoothServerSocket ServerSocket { get; private set; }
+        public BluetoothSocket Socket { get; private set; }
 
         public string BTDefaultDevice => "MTP-II";
 
@@ -56,7 +61,7 @@ namespace tabApp.Core.Services.Implementations.Bluetooth
             }
         }
 
-        public void StartServerSocket()
+        public async void StartServerSocket()
         {
             using (BluetoothAdapter bluetoothAdapter = BluetoothAdapter.DefaultAdapter)
             {
@@ -66,36 +71,27 @@ namespace tabApp.Core.Services.Implementations.Bluetooth
                                           select bd).FirstOrDefault();*/
                 try
                 {
-                    serverSocket = bluetoothAdapter.ListenUsingRfcommWithServiceRecord("connect", UUID.FromString("00001101-0000-1000-8000-00805f9b34fb"));
+                    ServerSocket = bluetoothAdapter.ListenUsingRfcommWithServiceRecord("connect", UUID.FromString("00001101-0000-1000-8000-00805f9b34fb"));
 
-                    while (true)
-                    {
-                        try
-                        {
-                            socket = serverSocket.Accept();
-                        }
-                        catch (Exception e)
-                        {
-                            Debug.WriteLine("Acept server socket bt error");
-                            break;
-                        }
+                    var top = Mvx.Resolve<IMvxAndroidCurrentTopActivity>();
+                    var act = top.Activity;
 
-                        if (socket != null)
-                        {
-                            // A connection was accepted. Perform work associated with
-                            // the connection in a separate thread.
-                            /*manageMyConnectedSocket(socket);
-                            mmServerSocket.close();*/
-                            break;
-                        }
-                    }
+                    Intent service = new Intent(act, typeof(BluetoothManagerService));
 
+                    act.StartService(service);
+
+                    
                 }
                 catch (Exception exp)
                 {
-                    throw exp;
+
                 }
             }
+        }
+
+        public void StopServerSocket()
+        {
+            Socket?.Close();
         }
     }
 }

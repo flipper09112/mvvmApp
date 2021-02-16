@@ -67,6 +67,7 @@ namespace tabApp.UI.Fragments.Global
 
         private void IncomingButtonClick(object sender, EventArgs e)
         {
+            ViewModel.IncomingCommand.Execute(null);
         }
     }
 }

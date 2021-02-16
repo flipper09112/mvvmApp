@@ -27,12 +27,12 @@ namespace tabApp.Core.ViewModels.Global
 
         private async void Outcoming()
         {
-            await _navigationService.Navigate<BtIncomingViewModel>();
+            await _navigationService.Navigate<BtOutcomingViewModel>();
         }
 
         private async void Incoming()
         {
-            await _navigationService.Navigate<BtOutcomingViewModel>();
+            await _navigationService.Navigate<BtIncomingViewModel>();
         }
 
         public List<string> PairedDevices => _bluetoothService.GetPairedDevices();
