@@ -2,6 +2,7 @@
 using Java.Util;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using tabApp.Core.Services.Interfaces.Bluetooth;
@@ -10,6 +11,9 @@ namespace tabApp.Core.Services.Implementations.Bluetooth
 {
     public class BluetoothService : IBluetoothService
     {
+        private BluetoothServerSocket serverSocket;
+        private BluetoothSocket socket;
+
         public string BTDefaultDevice => "MTP-II";
 
         public List<string> GetPairedDevices()
@@ -44,6 +48,48 @@ namespace tabApp.Core.Services.Implementations.Bluetooth
                         bluetoothSocket?.OutputStream.Write(buffer, 0, buffer.Length);
                         bluetoothSocket.Close();
                     }
+                }
+                catch (Exception exp)
+                {
+                    throw exp;
+                }
+            }
+        }
+
+        public void StartServerSocket()
+        {
+            using (BluetoothAdapter bluetoothAdapter = BluetoothAdapter.DefaultAdapter)
+            {
+                var btdevice = bluetoothAdapter?.BondedDevices.Select(i => i.Name).ToList();
+               /*BluetoothDevice device = (from bd in bluetoothAdapter?.BondedDevices
+                                          where bd?.Name == BTDefaultDevice //TODO
+                                          select bd).FirstOrDefault();*/
+                try
+                {
+                    serverSocket = bluetoothAdapter.ListenUsingRfcommWithServiceRecord("connect", UUID.FromString("00001101-0000-1000-8000-00805f9b34fb"));
+
+                    while (true)
+                    {
+                        try
+                        {
+                            socket = serverSocket.Accept();
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.WriteLine("Acept server socket bt error");
+                            break;
+                        }
+
+                        if (socket != null)
+                        {
+                            // A connection was accepted. Perform work associated with
+                            // the connection in a separate thread.
+                            /*manageMyConnectedSocket(socket);
+                            mmServerSocket.close();*/
+                            break;
+                        }
+                    }
+
                 }
                 catch (Exception exp)
                 {

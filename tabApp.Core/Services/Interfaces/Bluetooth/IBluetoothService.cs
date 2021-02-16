@@ -9,5 +9,6 @@ namespace tabApp.Core.Services.Interfaces.Bluetooth
         string BTDefaultDevice { get; }
         List<String> GetPairedDevices();
         void SendData(string preview);
+        void StartServerSocket();
     }
 }
