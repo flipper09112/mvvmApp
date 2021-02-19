@@ -13,6 +13,17 @@ namespace tabApp.Core.Services.Implementations.Clients
         private List<Client> _clientsList;
         public List<Client> ClientsList => _clientsList;
 
+        public List<Client> ClientsUpdatedToday {
+            get
+            {
+                List<Client> clients = new List<Client>();
+                ClientsList.ForEach(item => {
+                    if (item.LastChangeDate.Date == DateTime.Today)
+                        clients.Add(item);
+                });
+                return clients;
+            }
+        }
         public ClientsManagerService()
         {
         }
@@ -147,5 +158,18 @@ namespace tabApp.Core.Services.Implementations.Clients
             }
         }
 
+        public void ReplaceClientModel(Client client)
+        {
+            int count = 0;
+            foreach (Client item in _clientsList)
+            {
+                if (item.Id == client.Id) {
+
+                    _clientsList[count] = client;
+                    break;
+                }
+                count++;
+            }
+        }
     }
 }

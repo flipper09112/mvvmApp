@@ -49,7 +49,7 @@ namespace tabApp.Core.Services.Implementations
         }
 
         #region SaveDataFunctions
-        public void SaveNewClientData(Client client)
+        public void SaveClientData(Client client)
         {
             byte[] byteArrayClients = _fileService.GetFile(ClientsListFileName);
             byte[] byteArrayClientsUpdated = UpdateClientDB(client, byteArrayClients);
@@ -438,6 +438,8 @@ namespace tabApp.Core.Services.Implementations
             string phoneNumber;
             Address address;
             DateTime paymentDate;
+            string lastDateChangestr;
+            DateTime lastDateChange;
             string type;
             PaymentTypeEnum paymentType;
             bool active;
@@ -468,6 +470,8 @@ namespace tabApp.Core.Services.Implementations
                 active = sheet.Range[i, (int)ClientsListItemsPositions.Active].Text.Equals("1");
                 phoneNumber = sheet.Range[i, (int)ClientsListItemsPositions.PhoneNumber].DisplayedText;
                 phoneNumber = phoneNumber.Equals("") ? "Sem numero" : phoneNumber;
+                lastDateChangestr = sheet.Range[i, (int)ClientsListItemsPositions.LastDateChange].DisplayedText;
+                lastDateChange = lastDateChangestr.Equals("") ? DateTime.MinValue : DateTime.Parse(lastDateChangestr);
 
 
                 #region Daily Orders
@@ -492,7 +496,7 @@ namespace tabApp.Core.Services.Implementations
                 address = new Address(addressDesc, door, coord);
                 paymentType = GetPaymentType(type);
 
-                clientsList.Add(new Client(id, name, subName, address, paymentDate, paymentType, active, extraValueToPay, dailyOrdersList, phoneNumber));
+                clientsList.Add(new Client(id, name, subName, address, paymentDate, paymentType, active, extraValueToPay, dailyOrdersList, phoneNumber, lastDateChange));
             }
             _clientsManagerService.SetClients(clientsList);
         }
@@ -526,6 +530,10 @@ namespace tabApp.Core.Services.Implementations
                     sheet.Range[i, (int)ClientsListItemsPositions.Extra].Text = client.ExtraValueToPay.ToString();
                     sheet.Range[i, (int)ClientsListItemsPositions.Active].Text = client.Active ? "1" : "0";
                     sheet.Range[i, (int)ClientsListItemsPositions.PhoneNumber].Text = client.PhoneNumber;
+
+                    client.LastChangeDate = DateTime.Today;
+                    sheet.Range[i, (int)ClientsListItemsPositions.LastDateChange].Text = client.LastChangeDate.ToString("dd/MM/yyyy");
+
                     sheet.Range[i, (int)ClientsListItemsPositions.SegDes].Text = GetOrderStringDb(client.SegDailyOrder);
                     sheet.Range[i, (int)ClientsListItemsPositions.TerDes].Text = GetOrderStringDb(client.TerDailyOrder);
                     sheet.Range[i, (int)ClientsListItemsPositions.QuaDes].Text = GetOrderStringDb(client.QuaDailyOrder);

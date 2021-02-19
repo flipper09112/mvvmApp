@@ -77,9 +77,10 @@
     <Compile Include="MainApplication.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Implementations\BluetoothService.cs" />
-    <Compile Include="Services\Implementations\DialogService.cs" />
-    <Compile Include="Services\Implementations\FileService.cs" />
+    <Compile Include="Services\Implementations\CrossPlat\BluetoothService.cs" />
+    <Compile Include="Services\Implementations\CrossPlat\DialogService.cs" />
+    <Compile Include="Services\Implementations\CrossPlat\FileService.cs" />
+    <Compile Include="Services\Implementations\Native\BluetoothManagerService.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="UI\Adapters\CakesTotalOrderAdapter.cs" />
     <Compile Include="UI\Adapters\Global\PriceTableAdapter.cs" />
@@ -102,9 +103,12 @@
     <Compile Include="UI\Fragments\EditClientFragment.cs" />
     <Compile Include="UI\Fragments\EditClient\EditClientMapFragment.cs" />
     <Compile Include="UI\Fragments\EditClient\EditDailyOrdersFragment.cs" />
+    <Compile Include="UI\Fragments\Global\Bt\BtIncomingFragment.cs" />
+    <Compile Include="UI\Fragments\Global\Bt\BtOutcomingFragment.cs" />
     <Compile Include="UI\Fragments\Global\GlobalOrderFragment.cs" />
     <Compile Include="UI\Fragments\EditClient\SelectDaysPageFragment.cs" />
     <Compile Include="UI\Fragments\Global\PriceTableFragment.cs" />
+    <Compile Include="UI\Fragments\Global\SynchronizeFragment.cs" />
     <Compile Include="UI\Fragments\Home\ViewPager\HomePageMapFragment.cs" />
     <Compile Include="UI\Fragments\Home\ViewPager\HomePageOrdersFragment.cs" />
     <Compile Include="UI\ViewHolders\EditProfileItemViewHolder.cs" />
@@ -131,6 +135,13 @@
     <Compile Include="UI\ViewHolders\SimpleProductViewHolder.cs" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidAsset Include="Assets\Lotties\sending-bt-data.json" />
+    <AndroidAsset Include="Assets\Lotties\transfer.json" />
+    <AndroidAsset Include="Assets\Lotties\waiting-bluetooth-connection.json" />
+    <AndroidAsset Include="Assets\Lotties\connected.json" />
+    <AndroidAsset Include="Assets\Lotties\success.json" />
+    <AndroidAsset Include="Assets\Lotties\error.json" />
+    <AndroidAsset Include="Assets\Lotties\load.json" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />
@@ -174,6 +185,9 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Com.Airbnb.Android.Lottie">
+      <Version>3.0.6</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Annotations">
       <Version>28.0.0.3</Version>
     </PackageReference>
@@ -565,6 +579,54 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_filter.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\SynchronizeFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_bluetooth.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\green_button.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\green_button_default.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\green_button_pressed.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\blue_button.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\blue_button_default.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\blue_button_pressed.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\BtIncomingFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\BtOutcomingFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>

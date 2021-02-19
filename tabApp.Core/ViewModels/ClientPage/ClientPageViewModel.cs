@@ -152,7 +152,7 @@ namespace tabApp.Core.ViewModels
         {
             IsBusy = true;
             var regist = _clientsManagerService.RemoveExtraOrder(Client, (ExtraOrder)obj); 
-            _dBService.SaveNewClientData(Client);
+            _dBService.SaveClientData(Client);
             _dBService.RemoveRegist((ExtraOrder)obj);
             _dBService.SaveNewRegist(regist);
             IsBusy = false;
@@ -196,7 +196,7 @@ namespace tabApp.Core.ViewModels
         {
             IsBusy = true;
             var regist = _clientsManagerService.AddExtra(Client, extra);
-            _dBService.SaveNewClientData(Client);
+            _dBService.SaveClientData(Client);
             _dBService.SaveNewRegist(regist);
             IsBusy = false;
             RaisePropertyChanged(nameof(AddExtraAction));
@@ -227,7 +227,7 @@ namespace tabApp.Core.ViewModels
             IsBusy = true;
             var regist = _clientsManagerService.SetPayment(Client, DateSelected, payExtra
                 , payExtra ? _ammountToPayService.Calculate(Client, DateSelected) : _ammountToPayService.Calculate(Client, DateSelected) - Client.ExtraValueToPay);
-            _dBService.SaveNewClientData(Client);
+            _dBService.SaveClientData(Client);
             _dBService.SaveNewRegist(regist);
             IsBusy = false;
             _navigationService.Close(this);

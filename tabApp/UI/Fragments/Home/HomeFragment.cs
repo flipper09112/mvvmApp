@@ -22,6 +22,7 @@ namespace tabApp.UI
     [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.fragmentContainer, true)]
     public class HomeFragment : BaseFragment<HomeViewModel>
     {
+        private MainActivity _activity;
         private RecyclerView _clientsList;
         private ViewPager _homeViewPager;
         private TabLayout _tabLayout;
@@ -31,6 +32,8 @@ namespace tabApp.UI
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             View view = inflater.Inflate(Resource.Layout.HomeFragment, container, false);
+
+            _activity = ParentActivity as MainActivity;
 
             _clientsList = view.FindViewById<RecyclerView>(Resource.Id.clientsList);
             _homeViewPager = view.FindViewById<ViewPager>(Resource.Id.homeViewPager);
@@ -49,6 +52,8 @@ namespace tabApp.UI
 
         public override void SetUI()
         {
+            _activity.ShowToolbar();
+
             _clientsAdapter = new ClientsListAdapter(ViewModel.ClientsList, ViewModel.ShowClientPage);
             _clientsList.SetAdapter(_clientsAdapter);
             _viewPagerAdapter.TabsOptions = ViewModel.TabsOptions;

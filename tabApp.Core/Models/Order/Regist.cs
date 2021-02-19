@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace tabApp.Core.Models
 {
+    [Serializable]
     public class Regist
     {
         public DateTime DetailRegistDay { get; }

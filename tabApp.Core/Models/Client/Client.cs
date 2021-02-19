@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 
 namespace tabApp.Core.Models
 {
-    public class Client
+    [Serializable]
+    public class Client /*: ISerializable*/
     {
         public int Id { get; private set; }
         public string Name { get; private set; }
@@ -16,6 +20,7 @@ namespace tabApp.Core.Models
         public double ExtraValueToPay { get; private set; }
         public List<DailyOrder> DailyOrders { get; private set; }
         public string PhoneNumber { get; private set; }
+        public DateTime LastChangeDate { get; set; }
 
         //Extra Params
         public List<Regist> DetailsList { get; private set; }
@@ -33,7 +38,7 @@ namespace tabApp.Core.Models
 
         #endregion
 
-        public Client(int id, string name, string subName, Address address, DateTime paymentDate, PaymentTypeEnum paymentType, bool active, double extraValue, List<DailyOrder> dailyOrders, string phoneNumber)
+        public Client(int id, string name, string subName, Address address, DateTime paymentDate, PaymentTypeEnum paymentType, bool active, double extraValue, List<DailyOrder> dailyOrders, string phoneNumber, DateTime lastChangeDate)
         {
             Id = id;
             Name = name;
@@ -45,6 +50,7 @@ namespace tabApp.Core.Models
             ExtraValueToPay = extraValue;
             DailyOrders = dailyOrders;
             PhoneNumber = phoneNumber;
+            LastChangeDate = lastChangeDate;
 
             DetailsList = new List<Regist>();
             ExtraOrdersList = new List<ExtraOrder>();
@@ -151,6 +157,45 @@ namespace tabApp.Core.Models
             ExtraOrdersList.Remove(order);
         }
 
+        public byte[] ObjectToByteArray()
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            using (var ms = new MemoryStream())
+            {
+                bf.Serialize(ms, this);
+                return ms.ToArray();
+            }
+        }
+
+        /*public Client(SerializationInfo info, StreamingContext ctxt)
+        {
+            //Get the values from info and assign them to the appropriate properties
+            Id = (int)info.GetValue("Id", typeof(int));
+            Name = (string)info.GetValue("Name", typeof(string));
+            SubName = (string)info.GetValue("SubName", typeof(string));
+            PaymentDate = (DateTime)info.GetValue("PaymentDate", typeof(DateTime));
+            Address = (Address)info.GetValue("Address", typeof(Address));
+            PaymentType = (PaymentTypeEnum)info.GetValue("PaymentType", typeof(PaymentTypeEnum));
+            Active = (bool)info.GetValue("Active", typeof(bool));
+            ExtraValueToPay = (double)info.GetValue("ExtraValueToPay", typeof(double));
+            PhoneNumber = (string)info.GetValue("PhoneNumber", typeof(string));
+            DailyOrders = new List<DailyOrder>((DailyOrder[])info.GetValue("DailyOrders", typeof(DailyOrder[])));
+            //DetailsList = new List<Regist>((Regist[])info.GetValue("DetailsList", typeof(Regist[])));
+        }
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("Id", Id);
+            info.AddValue("Name", Name);
+            info.AddValue("SubName", SubName);
+            info.AddValue("PaymentDate", PaymentDate);
+            info.AddValue("Address", Address);
+            info.AddValue("PaymentType", PaymentType);
+            info.AddValue("Active", Active);
+            info.AddValue("ExtraValueToPay", ExtraValueToPay);
+            info.AddValue("PhoneNumber", ExtraValueToPay);
+            info.AddValue("DailyOrders", DailyOrders.ToArray());
+            //info.AddValue("DetailsList", DetailsList.ToArray());
+        }*/
     }
 
     public enum PaymentTypeEnum
@@ -163,7 +208,8 @@ namespace tabApp.Core.Models
         None
     }
 
-    public class Address
+    [Serializable]
+    public class Address /*: ISerializable */
     {
         public string AddressDesc { get; private set; }
         public int NumberDoor { get; private set; }
@@ -193,5 +239,21 @@ namespace tabApp.Core.Models
         {
             NumberDoor = newValue;
         }
+        /*
+        #region Serializable
+        public Address(SerializationInfo info, StreamingContext ctxt)
+        {
+            //Get the values from info and assign them to the appropriate properties
+            AddressDesc = (string)info.GetValue("AddressDesc", typeof(string));
+            NumberDoor = (int)info.GetValue("NumberDoor", typeof(int));
+            Coordenadas = (string)info.GetValue("Coordenadas", typeof(string));
+        }
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("AddressDesc", AddressDesc);
+            info.AddValue("NumberDoor", NumberDoor);
+            info.AddValue("Coordenadas", Coordenadas);
+        }
+        #endregion*/
     }
 }

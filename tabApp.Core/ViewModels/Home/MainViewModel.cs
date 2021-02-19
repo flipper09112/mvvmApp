@@ -25,6 +25,7 @@ namespace tabApp.Core.ViewModels
         public MvxAsyncCommand ShowHomePage { get; private set; }
         public MvxCommand ShowGlobalOrderPageCommand { get; private set; }
         public MvxCommand ShowPriceTableCommand { get; private set; }
+        public MvxCommand SyncronizeCommand { get; private set; }
         public MvxCommand<string> SetFilterCommand { get; set; }
 
         public EventHandler UpdateUiHomePage;
@@ -46,6 +47,12 @@ namespace tabApp.Core.ViewModels
             SetFilterCommand = new MvxCommand<string>(SetFilter);
             ShowGlobalOrderPageCommand = new MvxCommand(ShowGlobalOrderPage);
             ShowPriceTableCommand = new MvxCommand(ShowPriceTable);
+            SyncronizeCommand = new MvxCommand(Syncronize);
+        }
+
+        private async void Syncronize()
+        {
+            await _navigationService.Navigate<SynchronizeViewModel>();
         }
 
         private async void ShowPriceTable()

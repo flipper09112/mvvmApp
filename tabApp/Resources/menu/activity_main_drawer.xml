@@ -13,11 +13,17 @@
 
 	<item android:title="" />
 
-		<item  
-			android:title="Definições" 
-			android:id="@+id/group_menu">
-			<item android:id="@+id/tabela"
-				  android:title="Tabela de Preços" />
-		</item>
+	<item  
+		android:title="Definições" 
+		android:id="@+id/group_menu">
+		<item android:id="@+id/tabela"
+				android:title="Tabela de Preços" />
+	</item>
+
+
+	<item android:title="" />
+	
+	<item android:id="@+id/conectBt"
+			android:title="Sincronizar dados" />
 
 </menu>
