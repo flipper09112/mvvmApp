@@ -9,49 +9,90 @@ using Java.IO;
 using MvvmCross;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using System.Threading;
+using tabApp.Core.Models;
 using tabApp.Core.Services.Interfaces.Bluetooth;
 
 namespace tabApp.Services.Implementations.Native
 {
-    public class BluetoothManagerService : Service
+    [Service]
+    public class BluetoothManagerService : IntentService
     {
-        private BluetoothSocket socket;
         private BluetoothServerSocket serverSocket;
-        private InputStream mmInStream;
-        private OutputStream mmOutStream;
+        private static InputStream mmInStream;
+        private static OutputStream mmOutStream;
+        private static BluetoothSocket socket;
+        private static List<Client> newClientsData = new List<Client>();
+
+        private static byte[] mmBuffer = new byte[10000];
+        private static int numBytes; // bytes returned from read()
 
         public override IBinder OnBind(Intent intent)
         {
-
-            WaitConnection();
             return null;
-
         }
+
+        protected override void OnHandleIntent(Intent intent)
+        {
+            if (intent.GetBooleanExtra("serverType", false))
+                WaitConnection();
+            else
+                Connect();
+        }
+
+        private void Connect()
+        {
+            var btService = Mvx.Resolve<IBluetoothService>();
+            socket = btService.Socket;
+
+            while (true)
+            {
+                try
+                {
+                    socket.Connect();
+                }
+                catch (Exception e)
+                {
+                    btService.ErrorLottie?.Invoke();
+                    break;
+                }
+
+                if (socket != null)
+                {
+                    btService.LoadingLottie?.Invoke();
+                    InitStreams();
+                    break;
+                }
+            }
+        }
+
 
         private void WaitConnection()
         {
-            var top = Mvx.Resolve<IBluetoothService>();
-            socket = top.Socket;
-            serverSocket = top.ServerSocket;
+            var btService = Mvx.Resolve<IBluetoothService>();
+            serverSocket = btService.ServerSocket;
 
             while (true)
             {
                 try
                 {
                     socket = serverSocket.Accept();
+                    newClientsData?.Clear();
                 }
                 catch (Exception e)
                 {
-                    //Debug.WriteLine("Acept server socket bt error");
+                    btService.ErrorLottie?.Invoke();
                     break;
                 }
 
                 if (socket != null)
                 {
-                    // A connection was accepted. Perform work associated with
-                    // the connection in a separate thread.
+                    btService.LoadingLottie?.Invoke();
                     ManageMyConnectedSocket(socket);
                     break;
                 }
@@ -61,35 +102,64 @@ namespace tabApp.Services.Implementations.Native
         private void ManageMyConnectedSocket(BluetoothSocket socket)
         {
             InitStreams();
-
-            ReadDate();
+            ReadDateAsync();
         }
 
-        private void ReadDate()
+        private async System.Threading.Tasks.Task ReadDateAsync()
         {
-            byte[] mmBuffer = new byte[1024];
-            int numBytes; // bytes returned from read()
+            var btService = Mvx.Resolve<IBluetoothService>();
+            serverSocket = btService.ServerSocket;
 
-            // Keep listening to the InputStream until an exception occurs.
             while (true)
             {
                 try
                 {
-                    // Read from the InputStream.
-                    numBytes = mmInStream.Read(mmBuffer);
-                    int X = 2;
-                    // Send the obtained bytes to the UI activity.
-                   /* Message readMsg = handler.obtainMessage(
-                            MessageConstants.MESSAGE_READ, numBytes, -1,
-                            mmBuffer);
-                    readMsg.sendToTarget();*/
+                    while (!socket.InputStream.CanRead || !socket.InputStream.IsDataAvailable())
+                    {
+                    }
+                    Thread.Sleep(250);
+                    numBytes = socket.InputStream.Read(mmBuffer);
+
+                    Client client = ReadClient(mmBuffer, numBytes);
+                    newClientsData.Add(client);
+                    int id = client.Id;
+                    Write("read client");
                 }
-                catch (IOException e)
+                catch (Exception e)
                 {
-                    break;
+                    BinaryFormatter bformatter = new BinaryFormatter();
+                    MemoryStream ms = new MemoryStream();
+
+                    ms.Write(mmBuffer, 0, numBytes);
+                    ms.Position = 0;
+
+                    string eof = (string) bformatter.Deserialize(ms);
+
+                    if(eof.Equals("end"))
+                    {
+                        serverSocket.Close();
+                        btService.ReceiveNewClientsData?.Invoke(newClientsData);
+                        btService.FinishedLottie?.Invoke();
+                        return;
+                    } else
+                    {
+                        btService.ErrorLottie?.Invoke();
+                        return;
+                    }
+                    btService.ErrorLottie?.Invoke();
                 }
             }
+        }
 
+        private Client ReadClient(byte[] mmBuffer, int numBytes)
+        {
+            BinaryFormatter bformatter = new BinaryFormatter();
+            MemoryStream ms = new MemoryStream();
+
+            ms.Write(mmBuffer, 0, numBytes);
+            ms.Position = 0;
+
+            return (Client)bformatter.Deserialize(ms);
         }
 
         private void InitStreams()
@@ -97,25 +167,68 @@ namespace tabApp.Services.Implementations.Native
             InputStream tmpIn = null;
             OutputStream tmpOut = null;
 
-            // Get the input and output streams; using temp objects because
-            // member streams are final.
             try
             {
                 tmpIn = ((Android.Runtime.InputStreamInvoker)socket.InputStream).BaseInputStream;
             }
-            catch (IOException e)
+            catch (Exception e)
             {
             }
             try
             {
                 tmpOut = ((Android.Runtime.OutputStreamInvoker)socket.OutputStream).BaseOutputStream;
             }
-            catch (IOException e)
+            catch (Exception e)
             {
             }
 
             mmInStream = tmpIn;
             mmOutStream = tmpOut;
+        }
+
+        private static void Write(string txt)
+        {
+            try
+            {
+                BinaryFormatter bformatter = new BinaryFormatter();
+                MemoryStream ms = new MemoryStream();
+                bformatter.Serialize(ms, txt);
+                mmOutStream.Write(ms.ToArray());
+                //mmOutStream.Flush();
+            }
+            catch (Exception e)
+            {
+
+            }
+        } 
+
+        internal static void Write(List<Client> client)
+        {
+            var btService = Mvx.Resolve<IBluetoothService>();
+
+            byte[] mmBuffer = new byte[50];
+            try
+            {
+                BinaryFormatter bformatter = new BinaryFormatter();
+                MemoryStream ms = new MemoryStream();
+
+                for(int i = 0; i < client.Count; i++)
+                {
+                    bformatter.Serialize(ms, client[i]);
+                    mmOutStream.Write(ms.ToArray());
+                    mmOutStream.Flush();
+                    ms = new MemoryStream();
+
+                    btService.IncrementProgressiveBar?.Invoke();
+                    mmInStream.Read(mmBuffer);
+                }
+                Write("end");
+                btService.FinishedLottie?.Invoke();
+            }
+            catch (Exception e)
+            {
+                btService.ErrorLottie?.Invoke();
+            }
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Android.App;
-using Android.Bluetooth;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
@@ -13,29 +12,37 @@ using System.Linq;
 using System.Text;
 using tabApp.Core.ViewModels;
 using tabApp.Core.ViewModels.Global.Bt;
+using tabApp.Services.Implementations.Native;
 
 namespace tabApp.UI.Fragments.Global.Bt
 {
     [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.fragmentContainer, true)]
-    public class BtIncomingFragment : BaseFragment<BtIncomingViewModel>
+    public class BtOutcomingFragment : BaseFragment<BtOutcomingViewModel>
     {
         private MainActivity _activity;
         private LottieAnimationView _lottie;
+        private Button _startButton;
+        private Button _sendData;
+        private bool _ready;
+
+        private int count = 1;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            View view = inflater.Inflate(Resource.Layout.BtIncomingFragment, container, false);
+            View view = inflater.Inflate(Resource.Layout.BtOutcomingFragment, container, false);
 
             _activity = ParentActivity as MainActivity;
 
-            _lottie = view.FindViewById<LottieAnimationView>(Resource.Id.lottie);
+            _lottie = view.FindViewById<LottieAnimationView>(Resource.Id.view);
+            _startButton = view.FindViewById<Button>(Resource.Id.startButton);
+            _sendData = view.FindViewById<Button>(Resource.Id.sendData);
 
             return view;
         }
-
         public override void CleanBindings()
         {
-            CloseConnection();
+            _startButton.Click -= StartButtonClick;
+            _sendData.Click -= SendDataClick;
         }
 
         public override void SetUI()
@@ -44,26 +51,46 @@ namespace tabApp.UI.Fragments.Global.Bt
 
         public override void SetupBindings()
         {
-            Connect();
+            _startButton.Click += StartButtonClick;
+            _sendData.Click += SendDataClick; 
         }
 
-        public async void Connect()
+        private void SendDataClick(object sender, EventArgs e)
         {
-            ViewModel.StartServer(DisableLottie, ErrorLottie, FinishedLottie);
-        }
-        public void CloseConnection()
-        {
-            ViewModel.StopServer();
+            BluetoothManagerService.Write(ViewModel.ClientList);
+            _sendData.Enabled = false;
         }
 
-        public void DisableLottie()
+        private void StartButtonClick(object sender, EventArgs e)
+        {
+            ViewModel.Connect(ConnectedLottie, ErrorLottie, FinishedLottie, IncrementProgressiveBar);
+        }
+
+        private void IncrementProgressiveBar()
+        {
+            /*if(_ready)
+            {
+                _ready = false;
+                _lottie.SetMaxProgress(ViewModel.ClientList.Count);
+                _lottie.Progress = count;
+            } else
+            {
+                count++;
+                _lottie.Progress = count;
+            }*/
+        }
+
+        public void ConnectedLottie()
         {
             _lottie.ImageAssetsFolder = "Lotties/";
             LottieDrawable drawable = new LottieDrawable();
-            LottieComposition.Factory.FromAssetFileName(Context, "Lotties/connected.json", (composition) => {
+            LottieComposition.Factory.FromAssetFileName(Context, "Lotties/load.json", (composition) => {
                 _lottie.Composition = composition;
                 _lottie.PlayAnimation();
             });
+
+            _startButton.Enabled = false;
+            _ready = true;
         }
         public void ErrorLottie()
         {

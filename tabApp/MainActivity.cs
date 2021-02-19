@@ -37,7 +37,6 @@ namespace tabApp
             base.OnCreate(savedInstanceState);
             //Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             SetContentView(Resource.Layout.activity_main);
-           // AnimationViewRenderer.Init();
 
             Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             NavigationView nav_view = FindViewById<NavigationView>(Resource.Id.nav_view);

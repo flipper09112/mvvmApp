@@ -9,7 +9,7 @@ namespace tabApp.Core.Services.Interfaces.DB
     public interface IDBService
     {
         Task StartAsync();
-        void SaveNewClientData(Client client);
+        void SaveClientData(Client client);
         void SaveNewRegist(Regist regist);
         void SaveNewRegist(ExtraOrder order);
         void RemoveRegist(ExtraOrder obj);

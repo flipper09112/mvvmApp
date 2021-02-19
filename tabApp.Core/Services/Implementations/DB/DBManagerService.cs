@@ -21,10 +21,36 @@ namespace tabApp.Core.Services.Implementations.DB
 
         public void SaveClient(Models.Client client, string toRegist)
         {
-            _dBService.SaveNewClientData(client);
+            _dBService.SaveClientData(client);
             Models.Regist regist = new Models.Regist(DateTime.Today, toRegist, client.Id, Models.DetailTypeEnum.Edit);
             client.SetNewRegist(regist);
             _dBService.SaveNewRegist(regist);
+        }
+
+        public void UpdateClientFromBluetooth(Client client)
+        {
+            Client oldClient = _clientsManagerService.ClientsList.Find(item => item.Id == client.Id);
+
+            int diff = 0;
+            if ((diff = client.DetailsList.Count - oldClient.DetailsList.Count) != 0)
+            {
+                for (int i = 0; i < diff; i++)
+                {
+                    _dBService.SaveNewRegist(client.DetailsList[i]);
+                }
+            }
+
+            diff = 0;
+            if ((diff = client.ExtraOrdersList.Count - oldClient.ExtraOrdersList.Count) != 0)
+            {
+                for (int i = 0; i < diff; i++)
+                {
+                    _dBService.SaveNewRegist(client.ExtraOrdersList[i]);
+                }
+            }
+
+            _clientsManagerService.ReplaceClientModel(client);
+            _dBService.SaveClientData(client);
         }
     }
 }

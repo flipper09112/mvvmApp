@@ -82,7 +82,7 @@ namespace tabApp.Core.ViewModels
                                         false);
 
             _clientsManagerService.AddNewOrder(_chooseClientService.ClientSelected, order);
-            _dBService.SaveNewClientData(_chooseClientService.ClientSelected);
+            _dBService.SaveClientData(_chooseClientService.ClientSelected);
             _dBService.SaveNewRegist(order);
 
             IsBusy = false;

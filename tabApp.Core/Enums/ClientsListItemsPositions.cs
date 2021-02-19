@@ -23,6 +23,7 @@ namespace tabApp.Core.Enums
         SexDes = 24,
         SabDes = 25,
         DomDes = 26,
-        PhoneNumber = 27
+        PhoneNumber = 27,
+        LastDateChange = 28
     }
 }

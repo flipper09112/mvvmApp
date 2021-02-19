@@ -8,6 +8,8 @@ namespace tabApp.Core.Services.Interfaces.Clients
     public interface IClientsManagerService
     {
         List<Client> ClientsList { get; }
+        List<Client> ClientsUpdatedToday { get; }
+
         void SetClients(List<Client> clientsList);
         void SetNewOrder(int clientId, ExtraOrder extraOrder);
         void SetNewRegist(int clientId, Regist detail);
@@ -19,5 +21,6 @@ namespace tabApp.Core.Services.Interfaces.Clients
         ExtraOrder HasOrderThisDate(Client client, DateTime dateTime);
         bool ClientHasExtraOrderThisDay(Client clientSelected, DateTime dateSelected);
         DailyOrder GetTodayDailyOrder(Client client, DayOfWeek day);
+        void ReplaceClientModel(Client client);
     }
 }
