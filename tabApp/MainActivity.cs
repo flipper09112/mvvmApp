@@ -10,6 +10,7 @@ using Android.Support.V4.Content;
 using Android.Support.V4.Widget;
 using Android.Support.V7.Widget;
 using Android.Views;
+using Android.Webkit;
 using Android.Widget;
 using MvvmCross.Droid.Support.V4;
 using MvvmCross.Droid.Support.V7.AppCompat;
