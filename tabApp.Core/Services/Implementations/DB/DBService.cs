@@ -458,16 +458,16 @@ namespace tabApp.Core.Services.Implementations
             for (int i = 2; i <= sheet.Rows.Length; i++)
             {
                 
-                id = int.Parse(sheet.Range[i, (int)ClientsListItemsPositions.ID].Text);
-                door = int.Parse(sheet.Range[i, (int)ClientsListItemsPositions.Door].Text);
-                extraValueToPay = double.Parse(sheet.Range[i, (int)ClientsListItemsPositions.Extra].Text.Replace(".", ","));
-                name = sheet.Range[i, (int)ClientsListItemsPositions.Name].Text;
-                subName = sheet.Range[i, (int)ClientsListItemsPositions.SubName].Text;
-                addressDesc = sheet.Range[i, (int)ClientsListItemsPositions.AddressDesc].Text;
-                coord = sheet.Range[i, (int)ClientsListItemsPositions.Coordinates].Text;
-                paymentDate = DateTime.ParseExact(sheet.Range[i, (int)ClientsListItemsPositions.Payment].Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                type = sheet.Range[i, (int)ClientsListItemsPositions.PaymentType].Text;
-                active = sheet.Range[i, (int)ClientsListItemsPositions.Active].Text.Equals("1");
+                id = int.Parse(sheet.Range[i, (int)ClientsListItemsPositions.ID].DisplayedText);
+                door = int.Parse(sheet.Range[i, (int)ClientsListItemsPositions.Door].DisplayedText);
+                extraValueToPay = double.Parse(sheet.Range[i, (int)ClientsListItemsPositions.Extra].DisplayedText.Replace(".", ","));
+                name = sheet.Range[i, (int)ClientsListItemsPositions.Name].DisplayedText;
+                subName = sheet.Range[i, (int)ClientsListItemsPositions.SubName].DisplayedText;
+                addressDesc = sheet.Range[i, (int)ClientsListItemsPositions.AddressDesc].DisplayedText;
+                coord = sheet.Range[i, (int)ClientsListItemsPositions.Coordinates].DisplayedText;
+                paymentDate = DateTime.ParseExact(sheet.Range[i, (int)ClientsListItemsPositions.Payment].DisplayedText, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                type = sheet.Range[i, (int)ClientsListItemsPositions.PaymentType].DisplayedText;
+                active = sheet.Range[i, (int)ClientsListItemsPositions.Active].DisplayedText.Equals("1");
                 phoneNumber = sheet.Range[i, (int)ClientsListItemsPositions.PhoneNumber].DisplayedText;
                 phoneNumber = phoneNumber.Equals("") ? "Sem numero" : phoneNumber;
                 lastDateChangestr = sheet.Range[i, (int)ClientsListItemsPositions.LastDateChange].DisplayedText;
@@ -516,7 +516,7 @@ namespace tabApp.Core.Services.Implementations
 
             for (int i = 2; i <= sheet.Rows.Length; i++)
             {
-                id = int.Parse(sheet.Range[i, (int)ClientsListItemsPositions.ID].Text);
+                id = int.Parse(sheet.Range[i, (int)ClientsListItemsPositions.ID].DisplayedText);
 
                 if(id == client.Id)
                 {
