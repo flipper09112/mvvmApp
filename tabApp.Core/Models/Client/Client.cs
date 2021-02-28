@@ -15,6 +15,8 @@ namespace tabApp.Core.Models
         public string SubName { get; private set; }
         public Address Address { get; private set; }
         public DateTime PaymentDate { get; private set; }
+        public DateTime? StartDayStopService { get; set; }
+        public DateTime? LastDayStopService { get; set; }
         public PaymentTypeEnum PaymentType { get; private set; }
         public bool Active { get; private set; }
         public double ExtraValueToPay { get; private set; }
@@ -38,7 +40,7 @@ namespace tabApp.Core.Models
 
         #endregion
 
-        public Client(int id, string name, string subName, Address address, DateTime paymentDate, PaymentTypeEnum paymentType, bool active, double extraValue, List<DailyOrder> dailyOrders, string phoneNumber, DateTime lastChangeDate)
+        public Client(int id, string name, string subName, Address address, DateTime paymentDate, DateTime? startDayStopService, DateTime? lastDayStopService, PaymentTypeEnum paymentType, bool active, double extraValue, List<DailyOrder> dailyOrders, string phoneNumber, DateTime lastChangeDate)
         {
             Id = id;
             Name = name;
@@ -51,6 +53,8 @@ namespace tabApp.Core.Models
             DailyOrders = dailyOrders;
             PhoneNumber = phoneNumber;
             LastChangeDate = lastChangeDate;
+            StartDayStopService = startDayStopService;
+            LastDayStopService = lastDayStopService;
 
             DetailsList = new List<Regist>();
             ExtraOrdersList = new List<ExtraOrder>();
@@ -145,6 +149,11 @@ namespace tabApp.Core.Models
                     break;
             }
         }
+
+        internal void UpdateActive(bool active)
+        {
+            Active = active;
+        }
         #endregion
 
         internal void AddExtra(double extra)
@@ -167,35 +176,16 @@ namespace tabApp.Core.Models
             }
         }
 
-        /*public Client(SerializationInfo info, StreamingContext ctxt)
+        internal void ResetDailyOrders()
         {
-            //Get the values from info and assign them to the appropriate properties
-            Id = (int)info.GetValue("Id", typeof(int));
-            Name = (string)info.GetValue("Name", typeof(string));
-            SubName = (string)info.GetValue("SubName", typeof(string));
-            PaymentDate = (DateTime)info.GetValue("PaymentDate", typeof(DateTime));
-            Address = (Address)info.GetValue("Address", typeof(Address));
-            PaymentType = (PaymentTypeEnum)info.GetValue("PaymentType", typeof(PaymentTypeEnum));
-            Active = (bool)info.GetValue("Active", typeof(bool));
-            ExtraValueToPay = (double)info.GetValue("ExtraValueToPay", typeof(double));
-            PhoneNumber = (string)info.GetValue("PhoneNumber", typeof(string));
-            DailyOrders = new List<DailyOrder>((DailyOrder[])info.GetValue("DailyOrders", typeof(DailyOrder[])));
-            //DetailsList = new List<Regist>((Regist[])info.GetValue("DetailsList", typeof(Regist[])));
+            DailyOrders[0] = new DailyOrder(DayOfWeek.Monday, new List<(int ProductId, double Ammount)>());
+            DailyOrders[1] = new DailyOrder(DayOfWeek.Tuesday, new List<(int ProductId, double Ammount)>());
+            DailyOrders[2] = new DailyOrder(DayOfWeek.Wednesday, new List<(int ProductId, double Ammount)>());
+            DailyOrders[3] = new DailyOrder(DayOfWeek.Thursday, new List<(int ProductId, double Ammount)>());
+            DailyOrders[4] = new DailyOrder(DayOfWeek.Friday, new List<(int ProductId, double Ammount)>());
+            DailyOrders[5] = new DailyOrder(DayOfWeek.Saturday, new List<(int ProductId, double Ammount)>());
+            DailyOrders[6] = new DailyOrder(DayOfWeek.Sunday, new List<(int ProductId, double Ammount)>());
         }
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            info.AddValue("Id", Id);
-            info.AddValue("Name", Name);
-            info.AddValue("SubName", SubName);
-            info.AddValue("PaymentDate", PaymentDate);
-            info.AddValue("Address", Address);
-            info.AddValue("PaymentType", PaymentType);
-            info.AddValue("Active", Active);
-            info.AddValue("ExtraValueToPay", ExtraValueToPay);
-            info.AddValue("PhoneNumber", ExtraValueToPay);
-            info.AddValue("DailyOrders", DailyOrders.ToArray());
-            //info.AddValue("DetailsList", DetailsList.ToArray());
-        }*/
     }
 
     public enum PaymentTypeEnum
@@ -209,7 +199,7 @@ namespace tabApp.Core.Models
     }
 
     [Serializable]
-    public class Address /*: ISerializable */
+    public class Address
     {
         public string AddressDesc { get; private set; }
         public int NumberDoor { get; private set; }
@@ -239,21 +229,5 @@ namespace tabApp.Core.Models
         {
             NumberDoor = newValue;
         }
-        /*
-        #region Serializable
-        public Address(SerializationInfo info, StreamingContext ctxt)
-        {
-            //Get the values from info and assign them to the appropriate properties
-            AddressDesc = (string)info.GetValue("AddressDesc", typeof(string));
-            NumberDoor = (int)info.GetValue("NumberDoor", typeof(int));
-            Coordenadas = (string)info.GetValue("Coordenadas", typeof(string));
-        }
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            info.AddValue("AddressDesc", AddressDesc);
-            info.AddValue("NumberDoor", NumberDoor);
-            info.AddValue("Coordenadas", Coordenadas);
-        }
-        #endregion*/
     }
 }

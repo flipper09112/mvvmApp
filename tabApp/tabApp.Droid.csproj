@@ -88,6 +88,8 @@
     <Compile Include="UI\Adapters\Home\HomePageViewPagerAdapter.cs" />
     <Compile Include="UI\Adapters\OtherOptions\PrintAccountSpinnerAdapter.cs" />
     <Compile Include="UI\Adapters\OtherOptions\PrintPreviewAdapter.cs" />
+    <Compile Include="UI\Adapters\Swipe\SwipeController.cs" />
+    <Compile Include="UI\Adapters\Swipe\UnderlayButton.cs" />
     <Compile Include="UI\Fragments\ClientPage\OtherOptions\AddStoreRegistFragment.cs" />
     <Compile Include="UI\Fragments\ClientPage\OtherOptions\ChangeDailyOrderFragment.cs" />
     <Compile Include="UI\Fragments\ClientPage\OtherOptions\PrintAccountFragment.cs" />
@@ -109,6 +111,7 @@
     <Compile Include="UI\Fragments\EditClient\SelectDaysPageFragment.cs" />
     <Compile Include="UI\Fragments\Global\PriceTableFragment.cs" />
     <Compile Include="UI\Fragments\Global\SynchronizeFragment.cs" />
+    <Compile Include="UI\Fragments\Home\StopDailyFragment.cs" />
     <Compile Include="UI\Fragments\Home\ViewPager\HomePageMapFragment.cs" />
     <Compile Include="UI\Fragments\Home\ViewPager\HomePageOrdersFragment.cs" />
     <Compile Include="UI\ViewHolders\EditProfileItemViewHolder.cs" />
@@ -625,6 +628,25 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\BtOutcomingFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_options.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\StopDailyFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_calendar_cancel.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\black_button_default.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

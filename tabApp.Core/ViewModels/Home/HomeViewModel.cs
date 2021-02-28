@@ -8,9 +8,11 @@ using System.Threading.Tasks;
 using tabApp.Core.Models;
 using tabApp.Core.Services.Implementations.Clients;
 using tabApp.Core.Services.Interfaces.Clients;
+using tabApp.Core.Services.Interfaces.Dialogs;
 using tabApp.Core.Services.Interfaces.Orders;
 using tabApp.Core.Services.Interfaces.Products;
 using tabApp.Core.ViewModels;
+using tabApp.Core.ViewModels.Home;
 
 namespace tabApp.Core
 {
@@ -22,15 +24,21 @@ namespace tabApp.Core
         private readonly IClientsListFilterService _clientsListFilterService;
         private readonly IOrdersManagerService _ordersManagerService;
         private readonly IProductsManagerService _productsManagerService;
+        private readonly IDialogService _dialogService;
 
+
+        public EventHandler DeleteClientEvent;
         public MvxAsyncCommand<Client> ShowClientPage { get; private set; }
+        public MvxCommand<int> DeleteClientCommand { get; private set; }
+        public MvxCommand<int> StopDailysClientCommand { get; private set; }
 
         public HomeViewModel(IMvxNavigationService navigationService, 
                             IClientsManagerService clientsManagerService,
                             IChooseClientService chooseClientService,
                             IClientsListFilterService clientsListFilterService,
                             IOrdersManagerService ordersManagerService,
-                            IProductsManagerService productsManagerService)
+                            IProductsManagerService productsManagerService,
+                            IDialogService dialogService)
         {
             _clientsManagerService = clientsManagerService;
             _navigationService = navigationService;
@@ -38,8 +46,27 @@ namespace tabApp.Core
             _clientsListFilterService = clientsListFilterService;
             _ordersManagerService = ordersManagerService;
             _productsManagerService = productsManagerService;
+            _dialogService = dialogService;
 
             ShowClientPage = new MvxAsyncCommand<Client>(ShowClientPageAction);
+            DeleteClientCommand = new MvxCommand<int>(DeleteClient);
+            StopDailysClientCommand = new MvxCommand<int>(StopDailysClient);
+        }
+
+        private async void StopDailysClient(int arg)
+        {
+            _chooseClientService.SelectClient(_clientsManagerService.ClientsList[arg]);
+            await _navigationService.Navigate<StopDailyViewModel>();
+        }
+
+        private void DeleteClient(int arg)
+        {
+            _dialogService.ShowConfirmDialog("Confirmação", "Pretende apagar o cliente?", DeleteClientConfirm, "Não", ClientSelected);
+        }
+
+        private void DeleteClientConfirm(object obj)
+        {
+            DeleteClientEvent?.Invoke(null, null);
         }
 
         public Client ClientSelected => _chooseClientService.ClientSelected;

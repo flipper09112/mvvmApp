@@ -17,21 +17,21 @@ namespace tabApp.UI.Adapters
 {
     public class ClientsListAdapter : RecyclerView.Adapter
     {
-        private List<Client> clientsList;
+        public List<Client> ClientsList;
         private MvxAsyncCommand<Client> showClientPage;
 
         public ClientsListAdapter(List<Client> clientsList, MvxAsyncCommand<Client> showClientPage)
         {
-            this.clientsList = clientsList;
+            this.ClientsList = clientsList;
             this.showClientPage = showClientPage;
         }
 
-        public override int ItemCount => clientsList?.Count ?? 0;
+        public override int ItemCount => ClientsList?.Count ?? 0;
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
             ClientViewHolder clientVH = holder as ClientViewHolder;
-            clientVH.Bind(clientsList[holder.AdapterPosition]);
+            clientVH.Bind(ClientsList[holder.AdapterPosition]);
             clientVH.Click = ClickClient;
         }
 
@@ -45,5 +45,6 @@ namespace tabApp.UI.Adapters
         {
             showClientPage.Execute(clienSelected);
         }
+
     }
 }

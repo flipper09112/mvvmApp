@@ -71,6 +71,7 @@ namespace tabApp.Core.Services.Implementations
 
         private bool firstTime = false;
         private bool firstTimeWrite = false;
+
         public async Task StartAsync()
         {
             if (!_fileService.HasFile(ClientsListFileName))
@@ -444,6 +445,8 @@ namespace tabApp.Core.Services.Implementations
             PaymentTypeEnum paymentType;
             bool active;
             double extraValueToPay;
+            DateTime? startStopDate;
+            DateTime? endStopDate;
             List<Client> clientsList = new List<Client>();
             List<DailyOrder> dailyOrdersList = new List<DailyOrder>();
             DailyOrder segDesc;
@@ -466,6 +469,17 @@ namespace tabApp.Core.Services.Implementations
                 addressDesc = sheet.Range[i, (int)ClientsListItemsPositions.AddressDesc].DisplayedText;
                 coord = sheet.Range[i, (int)ClientsListItemsPositions.Coordinates].DisplayedText;
                 paymentDate = DateTime.ParseExact(sheet.Range[i, (int)ClientsListItemsPositions.Payment].DisplayedText, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+                if (sheet.Range[i, (int)ClientsListItemsPositions.StartStop].DisplayedText.Equals("-"))
+                    startStopDate = null;
+                else
+                    startStopDate = DateTime.ParseExact(sheet.Range[i, (int)ClientsListItemsPositions.StartStop].DisplayedText, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+                if (sheet.Range[i, (int)ClientsListItemsPositions.EndStop].DisplayedText.Equals("-"))
+                    endStopDate = null;
+                else
+                    endStopDate = DateTime.ParseExact(sheet.Range[i, (int)ClientsListItemsPositions.EndStop].DisplayedText, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
                 type = sheet.Range[i, (int)ClientsListItemsPositions.PaymentType].DisplayedText;
                 active = sheet.Range[i, (int)ClientsListItemsPositions.Active].DisplayedText.Equals("1");
                 phoneNumber = sheet.Range[i, (int)ClientsListItemsPositions.PhoneNumber].DisplayedText;
@@ -496,7 +510,19 @@ namespace tabApp.Core.Services.Implementations
                 address = new Address(addressDesc, door, coord);
                 paymentType = GetPaymentType(type);
 
-                clientsList.Add(new Client(id, name, subName, address, paymentDate, paymentType, active, extraValueToPay, dailyOrdersList, phoneNumber, lastDateChange));
+                if(startStopDate != null && endStopDate != null)
+                {
+                    if (DateTime.Today >= startStopDate?.Date && DateTime.Today <= endStopDate?.Date)
+                        active = false;
+                    else if (DateTime.Today > endStopDate?.Date) {
+                        startStopDate = null;
+                        endStopDate = null;
+                        active = true;
+                        //TODO save changes (ao ler pela primeira vez depois de uma paragem o clinete volta a ativo)
+                    }
+                }
+
+                clientsList.Add(new Client(id, name, subName, address, paymentDate, startStopDate, endStopDate, paymentType, active, extraValueToPay, dailyOrdersList, phoneNumber, lastDateChange));
             }
             _clientsManagerService.SetClients(clientsList);
         }
@@ -521,6 +547,8 @@ namespace tabApp.Core.Services.Implementations
                 if(id == client.Id)
                 {
                     sheet.Range[i, (int)ClientsListItemsPositions.Payment].Text = client.PaymentDate.ToString("dd/MM/yyyy");
+                    sheet.Range[i, (int)ClientsListItemsPositions.StartStop].Text = client.StartDayStopService?.ToString("dd/MM/yyyy") ?? "-";
+                    sheet.Range[i, (int)ClientsListItemsPositions.EndStop].Text = client.LastDayStopService?.ToString("dd/MM/yyyy") ?? "-"; 
                     sheet.Range[i, (int)ClientsListItemsPositions.Name].Text = client.Name;
                     sheet.Range[i, (int)ClientsListItemsPositions.SubName].Text = client.SubName;
                     sheet.Range[i, (int)ClientsListItemsPositions.AddressDesc].Text = client.Address.AddressDesc;
