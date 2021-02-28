@@ -31,6 +31,7 @@ namespace tabApp.Core.Models
         CancelOrder,
         Edit,
         NewClient,
-        ChangeDailyOrder
+        ChangeDailyOrder,
+        Inativate
     }
 }

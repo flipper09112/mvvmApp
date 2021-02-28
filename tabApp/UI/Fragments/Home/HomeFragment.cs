@@ -5,6 +5,7 @@ using Android.Runtime;
 using Android.Support.Design.Widget;
 using Android.Support.V4.View;
 using Android.Support.V7.Widget;
+using Android.Support.V7.Widget.Helper;
 using Android.Views;
 using Android.Widget;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
@@ -16,6 +17,7 @@ using tabApp.Core;
 using tabApp.Core.ViewModels;
 using tabApp.UI.Adapters;
 using tabApp.UI.Adapters.Home;
+using tabApp.UI.Adapters.Swipe;
 
 namespace tabApp.UI
 {
@@ -40,6 +42,9 @@ namespace tabApp.UI
             _tabLayout = view.FindViewById<TabLayout>(Resource.Id.tabLayout);
 
             _clientsList.SetLayoutManager(new LinearLayoutManager(Context));
+
+            SwipeController swipeController = new SwipeController(Context, ViewModel);
+            swipeController.AttachToRecyclerView(_clientsList);
 
             _viewPagerAdapter = new HomePageViewPagerAdapter(ChildFragmentManager);
             _viewPagerAdapter.ViewModel = ViewModel;
@@ -81,11 +86,18 @@ namespace tabApp.UI
         public override void SetupBindings()
         {
             ViewModel.PropertyChanged += ViewModelPropertyChanged;
+            ViewModel.DeleteClientEvent += DeleteClientEvent;
         }
 
         public override void CleanBindings()
         {
             ViewModel.PropertyChanged -= ViewModelPropertyChanged;
+            ViewModel.DeleteClientEvent -= DeleteClientEvent;
+        }
+
+        private void DeleteClientEvent(object sender, EventArgs e)
+        {
+            Toast.MakeText(Context, "Delete", ToastLength.Long).Show();
         }
 
         private void ViewModelPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -93,4 +105,5 @@ namespace tabApp.UI
             SetUI();
         }
     }
+
 }

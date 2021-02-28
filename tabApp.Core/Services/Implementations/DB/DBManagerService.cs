@@ -19,10 +19,22 @@ namespace tabApp.Core.Services.Implementations.DB
             _clientsManagerService = clientsManagerService;
         }
 
+        public void InativateClient(Client client, DateTime firstDayIndeterminatedDate)
+        {
+
+        }
+
         public void SaveClient(Models.Client client, string toRegist)
         {
             _dBService.SaveClientData(client);
             Models.Regist regist = new Models.Regist(DateTime.Today, toRegist, client.Id, Models.DetailTypeEnum.Edit);
+            client.SetNewRegist(regist);
+            _dBService.SaveNewRegist(regist);
+        }
+
+        public void SaveClient(Client client, Regist regist)
+        {
+            _dBService.SaveClientData(client); 
             client.SetNewRegist(regist);
             _dBService.SaveNewRegist(regist);
         }

@@ -16,6 +16,8 @@ namespace tabApp.Core.Enums
         Extra = 15,
         Coordinates = 16,
         Active = 17,
+        StartStop = 18,
+        EndStop = 19,
         SegDes = 20,
         TerDes = 21,
         QuaDes = 22,
