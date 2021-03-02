@@ -18,6 +18,7 @@ using MvvmCross.Platforms.Android.Presenters.Attributes;
 using tabApp.Core.ViewModels;
 using tabApp.Helpers;
 using tabApp.UI;
+using tabApp.UI.Fragments.Snooze;
 
 namespace tabApp
 {
@@ -30,8 +31,7 @@ namespace tabApp
         private NavigationView _navigationView;
         private bool _FindClosestClient;
 
-        public Action<Location> UpdateEditClientLocation { get; internal set; }
-        public Action<Location> UpdateHomeMapLocation { get; internal set; }
+        public Action<Location> LocationEvent { get; internal set; }
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -65,6 +65,8 @@ namespace tabApp
 
             ViewModel.UpdateUiHomePage -= UpdateUiHomePage;
             ViewModel.UpdateUiHomePage += UpdateUiHomePage;
+
+            ViewModel.StarCounting();
         }
 
         internal void StopRequestCurrentLocationLoopUpdates()
@@ -101,7 +103,7 @@ namespace tabApp
 
                 LocationManager locationManager = (LocationManager)GetSystemService(LocationService);
                 string locationProvider = locationManager.GetBestProvider(locationCriteria, true);
-                locationManager.RequestLocationUpdates(locationProvider, 500, 10, this);
+                locationManager.RequestLocationUpdates(locationProvider, 250, 0, this);
             }
             else
             {
@@ -231,7 +233,12 @@ namespace tabApp
 
         public override void OnBackPressed()
         {
-            if (SupportFragmentManager.BackStackEntryCount == 1)
+            var frag = SupportFragmentManager.FindFragmentById(Resource.Id.fragmentContainer);
+            if (frag is SnoozeFragment) {
+                OnUserInteraction();
+                return;
+            }
+            else if (SupportFragmentManager.BackStackEntryCount == 1)
             {
                 //do nothing
                 return;
@@ -248,6 +255,22 @@ namespace tabApp
             SupportActionBar.Show();
         }
 
+        public override void OnUserInteraction()
+        {
+            var frag = SupportFragmentManager.FindFragmentById(Resource.Id.fragmentContainer);
+            if (frag is SnoozeFragment)
+            {
+                SupportFragmentManager.PopBackStack();
+                ViewModel.RestartSwatch();
+                ViewModel.StarCounting();
+            }
+            else
+            {
+                ViewModel.RestartSwatch();
+            }
+            base.OnUserInteraction();
+        }
+
         #region GPS
         public void OnLocationChanged(Location location)
         {
@@ -258,8 +281,7 @@ namespace tabApp
                 ViewModel.SetClosestClientCommand.Execute((location.Latitude, location.Longitude));
                 _FindClosestClient = false;
             }
-            UpdateEditClientLocation?.Invoke(location);
-            UpdateHomeMapLocation?.Invoke(location);
+            LocationEvent?.Invoke(location);
         }
 
         public void OnProviderDisabled(string provider)

@@ -13,6 +13,8 @@ using System.Text;
 using tabApp.Core;
 using tabApp.Core.Models;
 using tabApp.Core.ViewModels.Global;
+using tabApp.Core.ViewModels.Snooze;
+using tabApp.UI.Fragments.Snooze;
 using tabApp.UI.ViewHolders;
 
 namespace tabApp.UI.Adapters.Home
@@ -20,10 +22,12 @@ namespace tabApp.UI.Adapters.Home
     public class HomePageOrdersListAdapter : RecyclerView.Adapter
     {
         public List<(Client Client, ExtraOrder ExtraOrder)> ExtraOrdersList;
+        private SnoozeViewModel viewModel2;
         private HomeViewModel viewModel;
         private OrdersPage ordersPage;
         private List<(Client Client, ExtraOrder ExtraOrder)> tomorrowOrders;
         private GlobalOrderViewModel viewModel1;
+        private List<(Client Client, ExtraOrder ExtraOrder)> todayOrders;
 
         public HomePageOrdersListAdapter(OrdersPage ordersPage, HomeViewModel viewModel)
         {
@@ -38,6 +42,12 @@ namespace tabApp.UI.Adapters.Home
             this.viewModel1 = viewModel1;
         }
 
+        public HomePageOrdersListAdapter(List<(Client Client, ExtraOrder ExtraOrder)> todayOrders, SnoozeViewModel viewModel2)
+        {
+            ExtraOrdersList = todayOrders;
+            this.viewModel2 = viewModel2;
+        }
+
         public override int ItemCount => ExtraOrdersList?.Count ?? 0;
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
@@ -47,6 +57,8 @@ namespace tabApp.UI.Adapters.Home
                 vh.Bind(ExtraOrdersList[holder.AdapterPosition], viewModel);
             else if(viewModel1 != null)
                 vh.Bind(ExtraOrdersList[holder.AdapterPosition], viewModel1);
+            else if (viewModel2 != null)
+                vh.Bind(ExtraOrdersList[holder.AdapterPosition], viewModel2);
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
