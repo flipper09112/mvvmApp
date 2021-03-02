@@ -9,6 +9,7 @@ using tabApp.Core.Services.Implementations.Clients;
 using tabApp.Core.Services.Interfaces;
 using tabApp.Core.Services.Interfaces.Clients;
 using tabApp.Core.Services.Interfaces.DB;
+using tabApp.Core.Services.Interfaces.Timer;
 using tabApp.Core.ViewModels.Global;
 
 namespace tabApp.Core.ViewModels
@@ -20,6 +21,7 @@ namespace tabApp.Core.ViewModels
         private readonly IChooseClientService _chooseClientService;
         private readonly IClientsManagerService _clientsManagerService;
         private readonly IClientsListFilterService _clientsListFilterService;
+        private readonly IInativityTimerService _inativityTimerService;
 
         public MvxCommand<(double lat, double lgt)> SetClosestClientCommand { get; private set; }
         public MvxAsyncCommand ShowHomePage { get; private set; }
@@ -34,13 +36,14 @@ namespace tabApp.Core.ViewModels
 
         public MainViewModel(IDBService dbService, IMvxNavigationService navigationService,
                              IChooseClientService chooseClientService, IClientsManagerService clientsManagerService,
-                             IClientsListFilterService clientsListFilterService)
+                             IClientsListFilterService clientsListFilterService, IInativityTimerService inativityTimerService)
         {
             _navigationService = navigationService;
             _dbService = dbService;
             _chooseClientService = chooseClientService;
             _clientsManagerService = clientsManagerService;
             _clientsListFilterService = clientsListFilterService;
+            _inativityTimerService = inativityTimerService;
 
             ShowHomePage = new MvxAsyncCommand(async () => await _navigationService.Navigate<HomeViewModel>());
             SetClosestClientCommand = new MvxCommand<(double lat, double lgt)>(ShowClosestClient);
@@ -92,6 +95,16 @@ namespace tabApp.Core.ViewModels
         }
         public override void DisAppearing()
         {
+        }
+
+        public void StarCounting()
+        {
+            _inativityTimerService.Start();
+        }
+
+        public void RestartSwatch()
+        {
+            _inativityTimerService.Restart();
         }
     }
 }
