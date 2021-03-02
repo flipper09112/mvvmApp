@@ -66,7 +66,7 @@ namespace tabApp.UI.Fragments.EditClient
             base.OnResume();
             SetupMapIfNeeded();
             _getCurrentLocationButton.Click += GetCurrentLocationButtonClick;
-            _activity.UpdateEditClientLocation += SetLocation;
+            _activity.LocationEvent += SetLocation;
             SetUi();
         }
 
@@ -118,7 +118,7 @@ namespace tabApp.UI.Fragments.EditClient
         {
             base.OnPause();
             _getCurrentLocationButton.Click -= GetCurrentLocationButtonClick;
-            _activity.UpdateEditClientLocation -= SetLocation;
+            _activity.LocationEvent -= SetLocation;
         }
 
         #region set Map functions

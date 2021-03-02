@@ -55,7 +55,7 @@ namespace tabApp.UI.Fragments.Home.ViewPager
             SetupMapIfNeeded();
 
             _activity.RequestCurrentLocationLoopUpdates();
-            _activity.UpdateHomeMapLocation += UpdateHomeMapLocation;
+            _activity.LocationEvent += UpdateHomeMapLocation;
         }
 
         private void SetPoints()
@@ -94,7 +94,7 @@ namespace tabApp.UI.Fragments.Home.ViewPager
         {
             base.OnPause();
             _activity.StopRequestCurrentLocationLoopUpdates();
-            _activity.UpdateHomeMapLocation -= UpdateHomeMapLocation;
+            _activity.LocationEvent -= UpdateHomeMapLocation;
         }
 
 
