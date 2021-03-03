@@ -59,14 +59,10 @@ namespace tabApp.Core
             await _navigationService.Navigate<StopDailyViewModel>();
         }
 
-        private void DeleteClient(int arg)
+        private async void DeleteClient(int arg)
         {
-            _dialogService.ShowConfirmDialog("Confirmação", "Pretende apagar o cliente?", DeleteClientConfirm, "Não", ClientSelected);
-        }
-
-        private void DeleteClientConfirm(object obj)
-        {
-            DeleteClientEvent?.Invoke(null, null);
+            _chooseClientService.SelectClient(ClientsList[arg]);
+            await _navigationService.Navigate<DeleteClientViewModel>();
         }
 
         public Client ClientSelected => _chooseClientService.ClientSelected;

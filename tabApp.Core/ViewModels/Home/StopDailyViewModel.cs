@@ -75,7 +75,6 @@ namespace tabApp.Core.ViewModels.Home
             } else
             {
                 SetupClientIndeterminatedStop();
-                _dBManagerService.InativateClient(Client, FirstDayIndeterminatedDate);
                 GoBack?.Invoke(null, null);
             }
             IsBusy = false;

@@ -623,6 +623,36 @@ namespace tabApp.Core.Services.Implementations
         #endregion
 
         #region Delete
+        public void RemoveClient(Client client)
+        {
+            byte[] byteArray = _fileService.GetFile(ClientsListFileName);
+            byte[] byteArrayUpdated = DeleteClientDB(client, byteArray);
+            _fileService.SaveFile(ClientsListFileName, byteArrayUpdated, true);
+        }
+        private byte[] DeleteClientDB(Client client, byte[] byteArray)
+        {
+            MemoryStream ms = new MemoryStream(byteArray);
+            MemoryStream output = new MemoryStream();
+
+            Workbook workbook = new Workbook();
+            workbook.LoadFromStream(ms);
+            Worksheet sheet = workbook.Worksheets[0];
+
+            int id;
+
+            for (int i = 2; i <= sheet.Rows.Length; i++)
+            {
+                id = int.Parse(sheet.Range[i, (int)ClientsListItemsPositions.ID].DisplayedText);
+                if(id == client.Id)
+                {
+                    sheet.DeleteRow(i);
+                    break;
+                }
+            }
+            workbook.SaveToStream(output, FileFormat.Version97to2003);
+            return output.ToArray();
+        }
+
         public void RemoveRegist(ExtraOrder obj)
         {
             byte[] byteArrayLogs = _fileService.GetFile(LogsListFileName);
