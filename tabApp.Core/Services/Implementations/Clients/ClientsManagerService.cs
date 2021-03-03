@@ -35,14 +35,17 @@ namespace tabApp.Core.Services.Implementations.Clients
 
         public void SetNewOrder(int clientId, ExtraOrder extraOrder)
         {
-            Client client = ClientsList.Find(cli => cli.Id == clientId);
-            client.SetNewOrder(extraOrder);
+            /*if (ClientsList.Exists(cli => cli.Id == clientId))
+            {*/
+                Client client = ClientsList.Find(cli => cli.Id == clientId);
+                client?.SetNewOrder(extraOrder);
+            /*}*/
         }
 
         public void SetNewRegist(int clientId, Regist detail)
         {
             Client client = ClientsList.Find(cli => cli.Id == clientId);
-            client.SetNewRegist(detail);
+            client?.SetNewRegist(detail);
         }
 
         //USED in APP

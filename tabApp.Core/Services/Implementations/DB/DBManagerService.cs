@@ -19,9 +19,9 @@ namespace tabApp.Core.Services.Implementations.DB
             _clientsManagerService = clientsManagerService;
         }
 
-        public void InativateClient(Client client, DateTime firstDayIndeterminatedDate)
+        public void RemoveClient(Client client)
         {
-
+            _dBService.RemoveClient(client);
         }
 
         public void SaveClient(Models.Client client, string toRegist)
