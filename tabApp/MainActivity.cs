@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Runtime.Remoting.Contexts;
 using Android;
 using Android.App;
+using Android.Content;
 using Android.Content.PM;
 using Android.Locations;
 using Android.OS;
@@ -12,9 +14,11 @@ using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Webkit;
 using Android.Widget;
+using MvvmCross;
 using MvvmCross.Droid.Support.V4;
 using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
+using tabApp.Core.Services.Interfaces.Orders;
 using tabApp.Core.ViewModels;
 using tabApp.Helpers;
 using tabApp.UI;
@@ -30,6 +34,7 @@ namespace tabApp
         private DrawerLayout _drawerLayout;
         private NavigationView _navigationView;
         private bool _FindClosestClient;
+        private string locationProvider;
 
         public Action<Location> LocationEvent { get; internal set; }
 
@@ -68,7 +73,6 @@ namespace tabApp
 
             ViewModel.StarCounting();
         }
-
         internal void StopRequestCurrentLocationLoopUpdates()
         {
             LocationManager locationManager = (LocationManager)GetSystemService(LocationService);
@@ -97,12 +101,13 @@ namespace tabApp
         {
             if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.AccessFineLocation) == Permission.Granted)
             {
+                if (locationProvider != null) return;
                 Criteria locationCriteria = new Criteria();
                 locationCriteria.Accuracy = Accuracy.Fine;
                 locationCriteria.PowerRequirement = Power.NoRequirement;
 
                 LocationManager locationManager = (LocationManager)GetSystemService(LocationService);
-                string locationProvider = locationManager.GetBestProvider(locationCriteria, true);
+                locationProvider = locationManager.GetBestProvider(locationCriteria, true);
                 locationManager.RequestLocationUpdates(locationProvider, 250, 0, this);
             }
             else
@@ -271,6 +276,46 @@ namespace tabApp
             base.OnUserInteraction();
         }
 
+        private void CheckIfClosestOrder(Location location)
+        {
+            var ordersManagerService = Mvx.Resolve<IOrdersManagerService>();
+            double distance;
+            foreach (var order in ordersManagerService.TodayOrders)
+            {
+                if (!order.Client.Address.Coordenadas.Equals(null)) { 
+                    distance = Math.Sqrt(Math.Pow(double.Parse(order.Client.Address.Lat) - location.Latitude, 2) + Math.Pow(double.Parse(order.Client.Address.Lgt) - location.Longitude, 2));
+                    if(distance < 80)
+                    {
+                        OrderNotification();
+                    }
+                }
+            }
+        }
+
+        private void OrderNotification()
+        {
+        }
+
+        #region ForeGroundService
+        public void StartForegroundServiceCompat<T>(Bundle args = null) where T : Service
+        {
+            var intent = new Intent(this, typeof(T));
+            if (args != null)
+            {
+                intent.PutExtras(args);
+            }
+
+            if (Android.OS.Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.O)
+            {
+                this.StartForegroundService(intent);
+            }
+            else
+            {
+                this.StartService(intent);
+            }
+        }
+        #endregion
+
         #region GPS
         public void OnLocationChanged(Location location)
         {
@@ -281,7 +326,10 @@ namespace tabApp
                 ViewModel.SetClosestClientCommand.Execute((location.Latitude, location.Longitude));
                 _FindClosestClient = false;
             }
+
             LocationEvent?.Invoke(location);
+
+            CheckIfClosestOrder(location);
         }
 
         public void OnProviderDisabled(string provider)

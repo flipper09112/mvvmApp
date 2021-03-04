@@ -93,7 +93,7 @@ namespace tabApp.UI.Fragments.Home.ViewPager
         public override void OnPause()
         {
             base.OnPause();
-            _activity.StopRequestCurrentLocationLoopUpdates();
+            //_activity.StopRequestCurrentLocationLoopUpdates();
             _activity.LocationEvent -= UpdateHomeMapLocation;
         }
 

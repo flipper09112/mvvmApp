@@ -47,7 +47,7 @@ namespace tabApp.UI.Fragments.Snooze
         }
         public override void CleanBindings()
         {
-            _activity.StopRequestCurrentLocationLoopUpdates();
+            //_activity.StopRequestCurrentLocationLoopUpdates();
             _activity.LocationEvent -= LocationEvent;
         }
 
@@ -79,7 +79,7 @@ namespace tabApp.UI.Fragments.Snooze
 
         public override void SetupBindings()
         {
-            _activity.RequestCurrentLocationLoopUpdates();
+           // _activity.RequestCurrentLocationLoopUpdates();
             _activity.LocationEvent += LocationEvent;
         }
 
