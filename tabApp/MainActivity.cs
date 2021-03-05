@@ -15,12 +15,14 @@ using Android.Views;
 using Android.Webkit;
 using Android.Widget;
 using MvvmCross;
+using MvvmCross.Commands;
 using MvvmCross.Droid.Support.V4;
 using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using tabApp.Core.Services.Interfaces.Orders;
 using tabApp.Core.ViewModels;
 using tabApp.Helpers;
+using tabApp.Services.Implementations.Native;
 using tabApp.UI;
 using tabApp.UI.Fragments.Snooze;
 
@@ -28,8 +30,10 @@ namespace tabApp
 {
     [MvxActivityPresentation]
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true, ScreenOrientation = Android.Content.PM.ScreenOrientation.Landscape)]
-    public class MainActivity : MvxAppCompatActivity<MainViewModel>, Android.Locations.ILocationListener, NavigationView.IOnNavigationItemSelectedListener
+    public class MainActivity : MvxAppCompatActivity<MainViewModel>, NavigationView.IOnNavigationItemSelectedListener
     {
+        public static MainActivity Instance;
+
         public ProgressBar _indeterminateBar;
         private DrawerLayout _drawerLayout;
         private NavigationView _navigationView;
@@ -37,6 +41,8 @@ namespace tabApp
         private string locationProvider;
 
         public Action<Location> LocationEvent { get; internal set; }
+        public MvxCommand<Location> LocationEventCommand;
+        private int timer = 0;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -72,51 +78,11 @@ namespace tabApp
             ViewModel.UpdateUiHomePage += UpdateUiHomePage;
 
             ViewModel.StarCounting();
-        }
-        internal void StopRequestCurrentLocationLoopUpdates()
-        {
-            LocationManager locationManager = (LocationManager)GetSystemService(LocationService);
-            locationManager.RemoveUpdates(this);
-        }
-        public void RequestCurrentLocationUpdates()
-        {
-             if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.AccessFineLocation) == Permission.Granted)
-            {
-                Criteria locationCriteria = new Criteria();
-                locationCriteria.Accuracy = Accuracy.Fine;
 
-                LocationManager locationManager = (LocationManager)GetSystemService(LocationService);
-                string locationProvider = locationManager.GetBestProvider(locationCriteria, true);
-                locationManager.RequestSingleUpdate(locationProvider, this, null);
-            }
-            else
-            {
-                // The app does not have permission ACCESS_FINE_LOCATION 
-                RequestPermissions(new string[] { Manifest.Permission.AccessFineLocation }, 1);
-                ViewModel.IsBusy = false;
-            }
+            LocationEventCommand = new MvxCommand<Location>(LocationEventCmd);
+            Instance = this;
+            StartForegroundServiceCompat<ForegroundService>();
         }
-
-        internal void RequestCurrentLocationLoopUpdates()
-        {
-            if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.AccessFineLocation) == Permission.Granted)
-            {
-                if (locationProvider != null) return;
-                Criteria locationCriteria = new Criteria();
-                locationCriteria.Accuracy = Accuracy.Fine;
-                locationCriteria.PowerRequirement = Power.NoRequirement;
-
-                LocationManager locationManager = (LocationManager)GetSystemService(LocationService);
-                locationProvider = locationManager.GetBestProvider(locationCriteria, true);
-                locationManager.RequestLocationUpdates(locationProvider, 250, 0, this);
-            }
-            else
-            {
-                // The app does not have permission ACCESS_FINE_LOCATION 
-                RequestPermissions(new string[] { Manifest.Permission.AccessFineLocation }, 1);
-            }
-        }
-
         internal void HideMenu()
         {
             _drawerLayout.SetDrawerLockMode(DrawerLayout.LockModeLockedClosed);  
@@ -207,7 +173,6 @@ namespace tabApp
             {
                 ViewModel.IsBusy = true;
                 _FindClosestClient = true;
-                RequestCurrentLocationUpdates();
                 return true;
             }
             if (id == Android.Resource.Id.Home)
@@ -278,7 +243,12 @@ namespace tabApp
 
         private void CheckIfClosestOrder(Location location)
         {
-            var ordersManagerService = Mvx.Resolve<IOrdersManagerService>();
+            timer += 1;
+            if(timer == 25)
+            {
+
+            }
+             /*var ordersManagerService = Mvx.Resolve<IOrdersManagerService>();
             double distance;
             foreach (var order in ordersManagerService.TodayOrders)
             {
@@ -289,7 +259,7 @@ namespace tabApp
                         OrderNotification();
                     }
                 }
-            }
+            }*/
         }
 
         private void OrderNotification()
@@ -305,22 +275,21 @@ namespace tabApp
                 intent.PutExtras(args);
             }
 
-            if (Android.OS.Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.O)
+           /* if (Android.OS.Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.O)
             {
                 this.StartForegroundService(intent);
             }
             else
-            {
+            {*/
                 this.StartService(intent);
-            }
+            /*}*/
         }
         #endregion
 
         #region GPS
-        public void OnLocationChanged(Location location)
-        {
-            System.Diagnostics.Debug.WriteLine(location.ToString());
 
+        private void LocationEventCmd(Location location)
+        {
             if(_FindClosestClient)
             {
                 ViewModel.SetClosestClientCommand.Execute((location.Latitude, location.Longitude));
@@ -331,19 +300,6 @@ namespace tabApp
 
             CheckIfClosestOrder(location);
         }
-
-        public void OnProviderDisabled(string provider)
-        {
-        }
-
-        public void OnProviderEnabled(string provider)
-        {
-        }
-
-        public void OnStatusChanged(string provider, [GeneratedEnum] Availability status, Bundle extras)
-        {
-        }
-
         #endregion
     }
 }

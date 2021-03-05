@@ -53,8 +53,6 @@ namespace tabApp.UI.Fragments.Home.ViewPager
         {
             base.OnResume();
             SetupMapIfNeeded();
-
-            _activity.RequestCurrentLocationLoopUpdates();
             _activity.LocationEvent += UpdateHomeMapLocation;
         }
 

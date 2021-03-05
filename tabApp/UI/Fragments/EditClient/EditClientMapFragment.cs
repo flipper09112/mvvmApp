@@ -27,6 +27,7 @@ namespace tabApp.UI.Fragments.EditClient
         private Button _getCurrentLocationButton;
         private TextView _locationLabel;
         private LatLng _locationSaved;
+        private bool _setNewLocation;
 
         public EditClientMapFragment(EditClientViewModel viewModel)
         {
@@ -83,14 +84,16 @@ namespace tabApp.UI.Fragments.EditClient
         private void GetCurrentLocationButtonClick(object sender, EventArgs e)
         {
             viewModel.IsBusy = true;
-            _activity.RequestCurrentLocationUpdates();
+            _setNewLocation = true;
         }
         private void SetLocation(Location location)
         {
+            if (!_setNewLocation) return;
             _locationLabel.Text = location.Latitude + "," + location.Longitude;
             _locationLabel.SetBackgroundResource(Resource.Color.green);
             viewModel.NewLocation = _locationLabel.Text;
             viewModel.IsBusy = false;
+            _setNewLocation = false;
 
             _locationSaved = new LatLng(location.Latitude, location.Longitude);
             MoveCamera(_locationSaved);
