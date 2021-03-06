@@ -85,7 +85,7 @@ namespace tabApp.UI.Fragments.Snooze
 
         private void LocationEvent(Location obj)
         {
-            _speedometer.SetSpeed(obj.Speed);
+            _speedometer.SetSpeed(obj.Speed * 3.6f);
 
             SetClosestOrder(obj);
         }
