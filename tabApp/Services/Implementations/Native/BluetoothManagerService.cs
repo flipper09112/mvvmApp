@@ -29,7 +29,7 @@ namespace tabApp.Services.Implementations.Native
         private static BluetoothSocket socket;
         private static List<Client> newClientsData = new List<Client>();
 
-        private static byte[] mmBuffer = new byte[10000];
+        private static byte[] mmBuffer = new byte[100000];
         private static int numBytes; // bytes returned from read()
 
         public override IBinder OnBind(Intent intent)
@@ -133,20 +133,22 @@ namespace tabApp.Services.Implementations.Native
                     ms.Write(mmBuffer, 0, numBytes);
                     ms.Position = 0;
 
-                    string eof = (string) bformatter.Deserialize(ms);
-
-                    if(eof.Equals("end"))
+                    try
                     {
-                        serverSocket.Close();
-                        btService.ReceiveNewClientsData?.Invoke(newClientsData);
-                        btService.FinishedLottie?.Invoke();
-                        return;
-                    } else
+                        string eof = (string) bformatter.Deserialize(ms);
+
+                        if (eof.Equals("end"))
+                        {
+                            serverSocket.Close();
+                            btService.ReceiveNewClientsData?.Invoke(newClientsData);
+                            btService.FinishedLottie?.Invoke();
+                            return;
+                        }
+
+                    } catch(Exception ex)
                     {
                         btService.ErrorLottie?.Invoke();
-                        return;
                     }
-                    btService.ErrorLottie?.Invoke();
                 }
             }
         }
