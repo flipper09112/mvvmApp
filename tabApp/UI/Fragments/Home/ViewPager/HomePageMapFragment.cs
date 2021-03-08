@@ -125,11 +125,14 @@ namespace tabApp.UI.Fragments.Home.ViewPager
             
             SetPoints();
             if (marker == null)
+            {
                 marker = _map?.AddMarker(options);
+            }
             else
                 marker.Position = latlngall;
 
-            marker.Snippet = viewModel.GetRemainingProducts(latlngall.Latitude, latlngall.Longitude);
+            if(marker != null)
+                marker.Snippet = viewModel.GetRemainingProducts(latlngall.Latitude, latlngall.Longitude);
 
             CameraPosition.Builder builder = CameraPosition.InvokeBuilder();
             builder.Target(latlngall);

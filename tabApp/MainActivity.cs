@@ -43,6 +43,7 @@ namespace tabApp
         public Action<Location> LocationEvent { get; internal set; }
         public MvxCommand<Location> LocationEventCommand;
         private int timer = 0;
+        private Intent foregroundIntent;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -81,8 +82,34 @@ namespace tabApp
 
             LocationEventCommand = new MvxCommand<Location>(LocationEventCmd);
             Instance = this;
-            StartForegroundServiceCompat<ForegroundService>();
         }
+
+        protected override void OnResume()
+        {
+            if(!IsServiceRunning(typeof(ForegroundService)))
+                StartForegroundServiceCompat<ForegroundService>();
+            base.OnResume();
+        }
+
+        protected override void OnDestroy()
+        {
+            StopService(foregroundIntent);
+            base.OnDestroy();
+        }
+
+        public bool IsServiceRunning(System.Type ClassTypeof)
+        {
+            ActivityManager manager = (ActivityManager)ApplicationContext.GetSystemService(ActivityService);
+            foreach (var service in manager.GetRunningServices(int.MaxValue))
+            {
+                if (service.Service.ShortClassName.Contains(ClassTypeof.Name))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         internal void HideMenu()
         {
             _drawerLayout.SetDrawerLockMode(DrawerLayout.LockModeLockedClosed);  
@@ -269,19 +296,20 @@ namespace tabApp
         #region ForeGroundService
         public void StartForegroundServiceCompat<T>(Bundle args = null) where T : Service
         {
-            var intent = new Intent(this, typeof(T));
+            foregroundIntent = new Intent(this, typeof(T));
             if (args != null)
             {
-                intent.PutExtras(args);
+                foregroundIntent.PutExtras(args);
             }
 
            /* if (Android.OS.Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.O)
             {
                 this.StartForegroundService(intent);
+
             }
             else
             {*/
-                this.StartService(intent);
+                this.StartService(foregroundIntent);
             /*}*/
         }
         #endregion

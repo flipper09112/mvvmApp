@@ -66,19 +66,21 @@ namespace tabApp.Services.Implementations.Native
             StartLocationUpdates();
         }
 
+        [return: GeneratedEnum]
         public override StartCommandResult OnStartCommand(Intent intent, [GeneratedEnum] StartCommandFlags flags, int startId)
         {
+
             Log.Debug(logTag, "LocationService started");
 
             // Check if device is running Android 8.0 or higher and call StartForeground() if so
             if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
             {
-
                 var notification = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
                                    .SetContentTitle(Resources.GetString(Resource.String.app_name))
                                    .SetContentText("A aplicação está a rastrear a sua localização para poder criar geo alertas!")
                                    .SetSmallIcon(Resource.Drawable.notification_icon_background)
                                    .SetOngoing(true)
+                                   .SetContentIntent(BuildIntentToShowMainActivity())
                                    .Build();
 
                 var notificationManager =
@@ -93,6 +95,50 @@ namespace tabApp.Services.Implementations.Native
 
             return StartCommandResult.Sticky;
         }
+        /// <summary>
+         /// Builds a PendingIntent that will display the main activity of the app. This is used when the 
+         /// user taps on the notification; it will take them to the main activity of the app.
+         /// </summary>
+         /// <returns>The content intent.</returns>
+        private PendingIntent BuildIntentToShowMainActivity()
+        {
+            var notificationIntent = new Intent(this, typeof(MainActivity));
+            notificationIntent.SetFlags(ActivityFlags.SingleTop | ActivityFlags.ClearTask);
+
+            var pendingIntent = PendingIntent.GetActivity(this, 0, notificationIntent, 0);
+            return pendingIntent;
+        }
+
+        /*public override StartCommandResult OnStartCommand(Intent intent, [GeneratedEnum] StartCommandFlags flags, int startId)
+        {
+            Log.Debug(logTag, "LocationService started");
+
+            // Check if device is running Android 8.0 or higher and call StartForeground() if so
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
+            {
+                Intent notificationIntent = new Intent(this, typeof(MainActivity));
+                PendingIntent pendingIntent = PendingIntent.GetActivity(this, 0, notificationIntent, PendingIntentFlags.UpdateCurrent);
+
+                var notification = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
+                                   .SetContentTitle(Resources.GetString(Resource.String.app_name))
+                                   .SetContentText("A aplicação está a rastrear a sua localização para poder criar geo alertas!")
+                                   .SetSmallIcon(Resource.Drawable.notification_icon_background)
+                                   .SetOngoing(true)
+                                   .SetContentIntent(pendingIntent)
+                                   .Build();
+
+                var notificationManager =
+                    GetSystemService(NotificationService) as NotificationManager;
+
+                var chan = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "On-going Notification", NotificationImportance.Max);
+
+                notificationManager.CreateNotificationChannel(chan);
+
+                StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, notification);
+            }
+
+            return StartCommandResult.Sticky;
+        }*/
 
         // This gets called once, the first time any client bind to the Service
         // and returns an instance of the LocationServiceBinder. All future clients will
