@@ -25,7 +25,7 @@ namespace tabApp.UI.Fragments.Global
         private RecyclerView _mainRecyclerView;
         private Button _otherOptions;
         private Button _sendOrder;
-        private Button _addOrderCakes;
+        private Button _setMoreOrdersDays;
         private Button _addProduct;
         private View _noOrdersItems;
         private View _noCakesOrdersItems;
@@ -43,7 +43,7 @@ namespace tabApp.UI.Fragments.Global
             _mainRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.mainRecyclerView);
             _otherOptions = view.FindViewById<Button>(Resource.Id.otherOptions);
             _sendOrder = view.FindViewById<Button>(Resource.Id.sendOrder);
-            _addOrderCakes = view.FindViewById<Button>(Resource.Id.addOrderCakes);
+            _setMoreOrdersDays = view.FindViewById<Button>(Resource.Id.setMoreOrdersDays);
             _addProduct = view.FindViewById<Button>(Resource.Id.addProduct);
             _noOrdersItems = view.FindViewById<View>(Resource.Id.noOrdersItems);
             _noCakesOrdersItems = view.FindViewById<View>(Resource.Id.noCakesOrdersItems);
@@ -61,6 +61,7 @@ namespace tabApp.UI.Fragments.Global
         {
             ViewModel.PropertyChanged -= ViewModelPropertyChanged;
             _sendOrder.Click -= SendOrderClick;
+            _setMoreOrdersDays.Click -= SetMoreOrdersDaysClick;
 
             _activity.ShowMenu();
             _activity.ShowToolbar();
@@ -88,6 +89,12 @@ namespace tabApp.UI.Fragments.Global
         {
             ViewModel.PropertyChanged += ViewModelPropertyChanged;
             _sendOrder.Click += SendOrderClick;
+            _setMoreOrdersDays.Click += SetMoreOrdersDaysClick;
+        }
+
+        private void SetMoreOrdersDaysClick(object sender, EventArgs e)
+        {
+            ViewModel.SetMoreDaysOrderCommand.Execute(null);
         }
 
         private void SendOrderClick(object sender, EventArgs e)
