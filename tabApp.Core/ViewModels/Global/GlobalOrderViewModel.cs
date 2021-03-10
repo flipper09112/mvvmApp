@@ -1,4 +1,5 @@
 ﻿using MvvmCross.Commands;
+using MvvmCross.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,16 +16,30 @@ namespace tabApp.Core.ViewModels.Global
         private readonly IOrdersManagerService _ordersManagerService;
         private readonly IProductsManagerService _productsManagerService;
         private readonly IDBService _dBService;
-
+        private readonly IMvxNavigationService _navigationService;
+        private readonly IGlobalOrderFilterService _globalOrderFilterService;
         public MvxCommand SaveAllDataCommand;
+        public MvxCommand SetMoreDaysOrderCommand;
 
-        public GlobalOrderViewModel(IOrdersManagerService ordersManagerService, IProductsManagerService productsManagerService, IDBService dBService)
+        public GlobalOrderViewModel(IOrdersManagerService ordersManagerService, 
+                                    IProductsManagerService productsManagerService, 
+                                    IDBService dBService,
+                                    IMvxNavigationService navigationService,
+                                    IGlobalOrderFilterService globalOrderFilterService)
         {
             _ordersManagerService = ordersManagerService;
             _productsManagerService = productsManagerService;
             _dBService = dBService;
+            _navigationService = navigationService;
+            _globalOrderFilterService = globalOrderFilterService;
 
             SaveAllDataCommand = new MvxCommand(SaveAllData);
+            SetMoreDaysOrderCommand = new MvxCommand(SetMoreDaysOrder);
+        }
+
+        private async void SetMoreDaysOrder()
+        {
+            await _navigationService.Navigate<GlobalOrderSelectDaysViewModel>();
         }
 
         private void SaveAllData()
@@ -73,7 +88,15 @@ namespace tabApp.Core.ViewModels.Global
 
         public override void Appearing()
         {
-            ProductsList = _ordersManagerService.GetTotalOrder(DateTime.Today.AddDays(1));
+            if (_globalOrderFilterService.IsActive)
+                ProductsList = _globalOrderFilterService.ProductsList;
+            //else if(!_globalOrderFilterService.IsActive && _globalOrderFilterService.ProductsList != null)
+            else
+            {
+                _globalOrderFilterService.ProductsList = null;
+                ProductsList = _ordersManagerService.GetTotalOrder(DateTime.Today.AddDays(1));
+            }
+            
             TomorrowOrders = _ordersManagerService.TomorrowOrders;
             CakesClients = _ordersManagerService.CakesClientsTomorrow;
         }

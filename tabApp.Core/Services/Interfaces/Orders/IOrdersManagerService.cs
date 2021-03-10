@@ -16,6 +16,7 @@ namespace tabApp.Core.Services.Interfaces.Orders
         double GetValue(int clientId, List<(int ProductId, double Ammount)> allitems);
         double WeekAmmount(Client client);
         List<ProductAmmount> GetTotalOrder(DateTime dateTime);
+        List<ProductAmmount> GetTotalOrder(DateTime startDate, DateTime endDate);
         List<ProductAmmount> GetTotalOrderFromClient(Client client, DateTime dayOfWeek);
     }
 }

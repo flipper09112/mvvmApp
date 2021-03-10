@@ -69,6 +69,7 @@ namespace tabApp.UI
             {
                 int pos = ViewModel.ClientsList.IndexOf(ViewModel.ClientSelected);
                 _clientsList.ScrollToPosition(pos);
+
             }
         }
         private void SetupTabLayout()

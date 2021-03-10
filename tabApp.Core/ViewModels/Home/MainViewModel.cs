@@ -85,7 +85,7 @@ namespace tabApp.Core.ViewModels
 
         public override async void Appearing()
         {
-            if (_alreadyStarted)
+            if (_alreadyStarted || _clientsManagerService?.ClientsList?.Count > 0)
                 return;
             _alreadyStarted = true;
             IsBusy = true;

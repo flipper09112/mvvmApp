@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Runtime.Remoting.Contexts;
 using Android;
 using Android.App;
+using Android.Content;
 using Android.Content.PM;
 using Android.Locations;
 using Android.OS;
@@ -12,11 +14,15 @@ using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Webkit;
 using Android.Widget;
+using MvvmCross;
+using MvvmCross.Commands;
 using MvvmCross.Droid.Support.V4;
 using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
+using tabApp.Core.Services.Interfaces.Orders;
 using tabApp.Core.ViewModels;
 using tabApp.Helpers;
+using tabApp.Services.Implementations.Native;
 using tabApp.UI;
 using tabApp.UI.Fragments.Snooze;
 
@@ -24,14 +30,20 @@ namespace tabApp
 {
     [MvxActivityPresentation]
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true, ScreenOrientation = Android.Content.PM.ScreenOrientation.Landscape)]
-    public class MainActivity : MvxAppCompatActivity<MainViewModel>, Android.Locations.ILocationListener, NavigationView.IOnNavigationItemSelectedListener
+    public class MainActivity : MvxAppCompatActivity<MainViewModel>, NavigationView.IOnNavigationItemSelectedListener
     {
+        public static MainActivity Instance;
+
         public ProgressBar _indeterminateBar;
         private DrawerLayout _drawerLayout;
         private NavigationView _navigationView;
         private bool _FindClosestClient;
+        private string locationProvider;
 
         public Action<Location> LocationEvent { get; internal set; }
+        public MvxCommand<Location> LocationEventCommand;
+        private int timer = 0;
+        private Intent foregroundIntent;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -67,49 +79,35 @@ namespace tabApp
             ViewModel.UpdateUiHomePage += UpdateUiHomePage;
 
             ViewModel.StarCounting();
+
+            LocationEventCommand = new MvxCommand<Location>(LocationEventCmd);
+            Instance = this;
         }
 
-        internal void StopRequestCurrentLocationLoopUpdates()
+        protected override void OnResume()
         {
-            LocationManager locationManager = (LocationManager)GetSystemService(LocationService);
-            locationManager.RemoveUpdates(this);
-        }
-        public void RequestCurrentLocationUpdates()
-        {
-             if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.AccessFineLocation) == Permission.Granted)
-            {
-                Criteria locationCriteria = new Criteria();
-                locationCriteria.Accuracy = Accuracy.Fine;
-
-                LocationManager locationManager = (LocationManager)GetSystemService(LocationService);
-                string locationProvider = locationManager.GetBestProvider(locationCriteria, true);
-                locationManager.RequestSingleUpdate(locationProvider, this, null);
-            }
-            else
-            {
-                // The app does not have permission ACCESS_FINE_LOCATION 
-                RequestPermissions(new string[] { Manifest.Permission.AccessFineLocation }, 1);
-                ViewModel.IsBusy = false;
-            }
+            if(!IsServiceRunning(typeof(ForegroundService)))
+                StartForegroundServiceCompat<ForegroundService>();
+            base.OnResume();
         }
 
-        internal void RequestCurrentLocationLoopUpdates()
+        protected override void OnDestroy()
         {
-            if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.AccessFineLocation) == Permission.Granted)
-            {
-                Criteria locationCriteria = new Criteria();
-                locationCriteria.Accuracy = Accuracy.Fine;
-                locationCriteria.PowerRequirement = Power.NoRequirement;
+            StopService(foregroundIntent);
+            base.OnDestroy();
+        }
 
-                LocationManager locationManager = (LocationManager)GetSystemService(LocationService);
-                string locationProvider = locationManager.GetBestProvider(locationCriteria, true);
-                locationManager.RequestLocationUpdates(locationProvider, 250, 0, this);
-            }
-            else
+        public bool IsServiceRunning(System.Type ClassTypeof)
+        {
+            ActivityManager manager = (ActivityManager)ApplicationContext.GetSystemService(ActivityService);
+            foreach (var service in manager.GetRunningServices(int.MaxValue))
             {
-                // The app does not have permission ACCESS_FINE_LOCATION 
-                RequestPermissions(new string[] { Manifest.Permission.AccessFineLocation }, 1);
+                if (service.Service.ShortClassName.Contains(ClassTypeof.Name))
+                {
+                    return true;
+                }
             }
+            return false;
         }
 
         internal void HideMenu()
@@ -144,7 +142,6 @@ namespace tabApp
                     break;
             }
         }
-
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             MenuInflater.Inflate(Resource.Menu.menu_main, menu);
@@ -202,7 +199,6 @@ namespace tabApp
             {
                 ViewModel.IsBusy = true;
                 _FindClosestClient = true;
-                RequestCurrentLocationUpdates();
                 return true;
             }
             if (id == Android.Resource.Id.Home)
@@ -271,31 +267,66 @@ namespace tabApp
             base.OnUserInteraction();
         }
 
-        #region GPS
-        public void OnLocationChanged(Location location)
+        private void CheckIfClosestOrder(Location location)
         {
-            System.Diagnostics.Debug.WriteLine(location.ToString());
+            timer += 1;
+            if(timer == 25)
+            {
 
+            }
+             /*var ordersManagerService = Mvx.Resolve<IOrdersManagerService>();
+            double distance;
+            foreach (var order in ordersManagerService.TodayOrders)
+            {
+                if (!order.Client.Address.Coordenadas.Equals(null)) { 
+                    distance = Math.Sqrt(Math.Pow(double.Parse(order.Client.Address.Lat) - location.Latitude, 2) + Math.Pow(double.Parse(order.Client.Address.Lgt) - location.Longitude, 2));
+                    if(distance < 80)
+                    {
+                        OrderNotification();
+                    }
+                }
+            }*/
+        }
+
+        private void OrderNotification()
+        {
+        }
+
+        #region ForeGroundService
+        public void StartForegroundServiceCompat<T>(Bundle args = null) where T : Service
+        {
+            foregroundIntent = new Intent(this, typeof(T));
+            if (args != null)
+            {
+                foregroundIntent.PutExtras(args);
+            }
+
+           /* if (Android.OS.Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.O)
+            {
+                this.StartForegroundService(intent);
+
+            }
+            else
+            {*/
+                this.StartService(foregroundIntent);
+            /*}*/
+        }
+        #endregion
+
+        #region GPS
+
+        private void LocationEventCmd(Location location)
+        {
             if(_FindClosestClient)
             {
                 ViewModel.SetClosestClientCommand.Execute((location.Latitude, location.Longitude));
                 _FindClosestClient = false;
             }
+
             LocationEvent?.Invoke(location);
-        }
 
-        public void OnProviderDisabled(string provider)
-        {
+            CheckIfClosestOrder(location);
         }
-
-        public void OnProviderEnabled(string provider)
-        {
-        }
-
-        public void OnStatusChanged(string provider, [GeneratedEnum] Availability status, Bundle extras)
-        {
-        }
-
         #endregion
     }
 }

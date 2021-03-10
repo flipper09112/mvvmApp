@@ -47,7 +47,7 @@ namespace tabApp.UI.Fragments.Snooze
         }
         public override void CleanBindings()
         {
-            _activity.StopRequestCurrentLocationLoopUpdates();
+            //_activity.StopRequestCurrentLocationLoopUpdates();
             _activity.LocationEvent -= LocationEvent;
         }
 
@@ -79,7 +79,7 @@ namespace tabApp.UI.Fragments.Snooze
 
         public override void SetupBindings()
         {
-            _activity.RequestCurrentLocationLoopUpdates();
+           // _activity.RequestCurrentLocationLoopUpdates();
             _activity.LocationEvent += LocationEvent;
         }
 
@@ -94,7 +94,6 @@ namespace tabApp.UI.Fragments.Snooze
         {
             if (_orders == null || _orders.Count == 0) return;
 
-            Client closestClient = null;
             Dictionary<(Client Client, ExtraOrder ExtraOrder), double> distances = new Dictionary<(Client Client, ExtraOrder ExtraOrder), double>();
 
             foreach (var item in _orders)
@@ -111,7 +110,7 @@ namespace tabApp.UI.Fragments.Snooze
             var closestOrder = distances.First(distance => distance.Value == minimumDistance).Key;
 
             int pos = _orders.IndexOf(closestOrder);
-            _todayOrdersList.ScrollToPosition(pos);
+            _todayOrdersList.SmoothScrollToPosition(pos);
         }
     }
 }

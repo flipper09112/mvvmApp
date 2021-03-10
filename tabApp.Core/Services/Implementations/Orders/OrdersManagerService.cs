@@ -233,5 +233,42 @@ namespace tabApp.Core.Services.Implementations.Orders
             }
             return items;
         }
+        private IEnumerable<DateTime> EachDay(DateTime from, DateTime thru)
+        {
+            for (var day = from.Date; day.Date <= thru.Date; day = day.AddDays(1))
+                yield return day;
+        }
+
+        public List<ProductAmmount> GetTotalOrder(DateTime startDate, DateTime endDate)
+        {
+            List<ProductAmmount> items = new List<ProductAmmount>();
+
+            foreach (var client in _clientsManagerService.ClientsList) {
+
+                if (!client.Active) continue;
+
+                ExtraOrder order = _clientsManagerService.HasOrderThisDate(client, startDate);
+
+                if(order != null)
+                {
+                    if (order.IsTotal)
+                    {
+                        AddProductAmmountToList(items, order.AllItems);
+                        continue;
+                    }
+                    else
+                    {
+                        AddProductAmmountToList(items, order.AllItems);
+                    }
+                }
+
+                foreach (DateTime day in EachDay(startDate, endDate))
+                {
+                    AddProductAmmountToList(items, ClientHelper.GetDailyOrder(day.DayOfWeek, client).AllItems);
+                }
+            }
+
+            return items;
+        }
     }
 }

@@ -147,7 +147,8 @@ namespace tabApp.UI.Adapters.Swipe
             Point point = new Point((int)e.RawX, (int)e.RawY);
 
             RecyclerView.ViewHolder swipedViewHolder = recyclerView.FindViewHolderForAdapterPosition(swipedPos);
-            View swipedItem = swipedViewHolder.ItemView;
+            View swipedItem = swipedViewHolder?.ItemView;
+            if (swipedItem == null) return false;
             Rect rect = new Rect();
             swipedItem.GetGlobalVisibleRect(rect);
 
