@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SQLite;
+using SQLiteNetExtensions.Attributes;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
@@ -7,58 +9,66 @@ using System.Text;
 
 namespace tabApp.Core.Models
 {
+    [Table("Client")]
     [Serializable]
-    public class Client /*: ISerializable*/
+    public class Client
     {
-        public int Id { get; private set; }
-        public string Name { get; private set; }
-        public string SubName { get; private set; }
-        public Address Address { get; private set; }
-        public DateTime PaymentDate { get; private set; }
+        [PrimaryKey]
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string SubName { get; set; }
+
+        [OneToOne]
+        public Address Address { get; set; }
+
+        [ForeignKey(typeof(Address))]
+        public int AddressId { get; set; }
+
+        public DateTime PaymentDate { get; set; }
         public DateTime? StartDayStopService { get; set; }
         public DateTime? LastDayStopService { get; set; }
-        public PaymentTypeEnum PaymentType { get; private set; }
-        public bool Active { get; private set; }
-        public double ExtraValueToPay { get; private set; }
-        public List<DailyOrder> DailyOrders { get; private set; }
-        public string PhoneNumber { get; private set; }
+        public PaymentTypeEnum PaymentType { get; set; }
+        public bool Active { get; set; }
+        public double ExtraValueToPay { get; set; }
+
+        [Ignore]
+        public List<DailyOrder> DailyOrders { get; set; }
+
+        public string PhoneNumber { get; set; }
         public DateTime LastChangeDate { get; set; }
 
         //Extra Params
-        public List<Regist> DetailsList { get; private set; }
-        public List<ExtraOrder> ExtraOrdersList { get; private set; }
+        [OneToMany]
+        public List<Regist> DetailsList { get; set; }
+
+        [Ignore]
+        public List<ExtraOrder> ExtraOrdersList { get; set; }
 
         //Indirects Params
         #region PARAMS
+
+        [Ignore]
         public DailyOrder SegDailyOrder => DailyOrders[0];
+
+        [Ignore]
         public DailyOrder TerDailyOrder => DailyOrders[1];
+
+        [Ignore]
         public DailyOrder QuaDailyOrder => DailyOrders[2];
+
+        [Ignore]
         public DailyOrder QuiDailyOrder => DailyOrders[3];
+
+        [Ignore]
         public DailyOrder SexDailyOrder => DailyOrders[4];
+
+        [Ignore]
         public DailyOrder SabDailyOrder => DailyOrders[5];
+
+        [Ignore]
         public DailyOrder DomDailyOrder => DailyOrders[6];
 
         #endregion
-
-        public Client(int id, string name, string subName, Address address, DateTime paymentDate, DateTime? startDayStopService, DateTime? lastDayStopService, PaymentTypeEnum paymentType, bool active, double extraValue, List<DailyOrder> dailyOrders, string phoneNumber, DateTime lastChangeDate)
-        {
-            Id = id;
-            Name = name;
-            SubName = subName;
-            Address = address;
-            PaymentDate = paymentDate;
-            PaymentType = paymentType;
-            Active = active;
-            ExtraValueToPay = extraValue;
-            DailyOrders = dailyOrders;
-            PhoneNumber = phoneNumber;
-            LastChangeDate = lastChangeDate;
-            StartDayStopService = startDayStopService;
-            LastDayStopService = lastDayStopService;
-
-            DetailsList = new List<Regist>();
-            ExtraOrdersList = new List<ExtraOrder>();
-        }
 
         #region sets
         internal void SetNewRegist(Regist detail)
@@ -198,22 +208,20 @@ namespace tabApp.Core.Models
         None
     }
 
+    [Table("Address")]
     [Serializable]
     public class Address
     {
-        public string AddressDesc { get; private set; }
-        public int NumberDoor { get; private set; }
-        public string Coordenadas { get; private set; }
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
+        public string AddressDesc { get; set; }
+        public int NumberDoor { get; set; }
+        public string Coordenadas { get; set; }
 
+        [Ignore]
         public string Lat => Coordenadas.Split(',')[0] + "," + Coordenadas.Split(',')[1];
+        [Ignore]
         public string Lgt => Coordenadas.Split(',')[2] + "," + Coordenadas.Split(',')[3];
-
-        public Address(string addressDesc, int door, string coord)
-        {
-            AddressDesc = addressDesc;
-            NumberDoor = door;
-            Coordenadas = coord;
-        }
 
         internal void SetCoordenadas(string newLocation)
         {

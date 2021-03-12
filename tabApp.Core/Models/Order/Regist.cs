@@ -1,25 +1,32 @@
-﻿using System;
+﻿using SQLite;
+using SQLiteNetExtensions.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text;
 
 namespace tabApp.Core.Models
 {
+    [Table("Regist")]
     [Serializable]
     public class Regist
     {
-        public DateTime DetailRegistDay { get; }
-        public string Info { get; }
-        public int ClientId { get; }
-        public DetailTypeEnum DetailType { get; }
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
+        public DateTime DetailRegistDay { get; set; }
+        public string Info { get; set; }
 
-        public Regist(DateTime detailRegistDay, string info, int clientId, DetailTypeEnum detailType)
+        [ForeignKey(typeof(Client))]
+        public int ClientId { get; set; }
+        public DetailTypeEnum DetailType { get; set; }
+
+        /*public Regist(DateTime detailRegistDay, string info, int clientId, DetailTypeEnum detailType)
         {
             DetailRegistDay = detailRegistDay;
             Info = info;
             ClientId = clientId;
             DetailType = detailType;
-        }
+        }*/
     }
 
     public enum DetailTypeEnum

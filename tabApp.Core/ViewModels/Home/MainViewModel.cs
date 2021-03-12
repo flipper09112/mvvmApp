@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using tabApp.Core.Models;
 using tabApp.Core.Services.Implementations.Clients;
+using tabApp.Core.Services.Implementations.DB;
 using tabApp.Core.Services.Interfaces;
 using tabApp.Core.Services.Interfaces.Clients;
 using tabApp.Core.Services.Interfaces.DB;
@@ -22,6 +23,7 @@ namespace tabApp.Core.ViewModels
         private readonly IClientsManagerService _clientsManagerService;
         private readonly IClientsListFilterService _clientsListFilterService;
         private readonly IInativityTimerService _inativityTimerService;
+        private readonly IClientsDataBaseService _clientsDataBaseService;
 
         public MvxCommand<(double lat, double lgt)> SetClosestClientCommand { get; private set; }
         public MvxAsyncCommand ShowHomePage { get; private set; }
@@ -36,7 +38,8 @@ namespace tabApp.Core.ViewModels
 
         public MainViewModel(IDBService dbService, IMvxNavigationService navigationService,
                              IChooseClientService chooseClientService, IClientsManagerService clientsManagerService,
-                             IClientsListFilterService clientsListFilterService, IInativityTimerService inativityTimerService)
+                             IClientsListFilterService clientsListFilterService, IInativityTimerService inativityTimerService,
+                             IClientsDataBaseService clientsDataBaseService)
         {
             _navigationService = navigationService;
             _dbService = dbService;
@@ -44,6 +47,7 @@ namespace tabApp.Core.ViewModels
             _clientsManagerService = clientsManagerService;
             _clientsListFilterService = clientsListFilterService;
             _inativityTimerService = inativityTimerService;
+            _clientsDataBaseService = clientsDataBaseService;
 
             ShowHomePage = new MvxAsyncCommand(async () => await _navigationService.Navigate<HomeViewModel>());
             SetClosestClientCommand = new MvxCommand<(double lat, double lgt)>(ShowClosestClient);
@@ -80,6 +84,16 @@ namespace tabApp.Core.ViewModels
             Client client = _clientsManagerService.GetClosestClient(coord.lat, coord.lgt);
             _chooseClientService.SelectClient(client);
             await _navigationService.Navigate<ClientPageViewModel>();
+
+             foreach (Client cliente in _clientsManagerService.ClientsList)
+             {
+                 _clientsDataBaseService.Insert(cliente);
+                // _clientsDataBaseService.Insert(cliente.Address);
+
+             }
+
+            var list = _clientsDataBaseService.GetContacts();
+
             IsBusy = false;
         }
 

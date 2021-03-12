@@ -167,7 +167,12 @@ namespace tabApp.Core.Services.Implementations
                             info = lineSplit[1];
                             info = info.Substring(1, info.IndexOf("€") + 1);
 
-                            regist = new Regist(DateTime.Parse(data), info, int.Parse(logId), DetailTypeEnum.Payment);
+                            regist = new Regist() { 
+                                DetailRegistDay = DateTime.Parse(data),
+                                Info = info,
+                                ClientId = int.Parse(logId),
+                                DetailType = DetailTypeEnum.Payment
+                            }; 
                         }
                         else if (tipo.Equals("EXTRA"))
                         {
@@ -175,14 +180,26 @@ namespace tabApp.Core.Services.Implementations
                             info = lineSplit[1];
                             info = info.Substring(1, info.IndexOf("€") + 1);
 
-                            regist = new Regist(DateTime.Parse(data), info, int.Parse(logId), DetailTypeEnum.AddExtra);
+                            regist = new Regist()
+                            {
+                                DetailRegistDay = DateTime.Parse(data),
+                                Info = info,
+                                ClientId = int.Parse(logId),
+                                DetailType = DetailTypeEnum.AddExtra
+                            };
                         }
                         else if (tipo.Equals("EDICAO"))
                         {
                             info = lineSplit[1].Replace(",", "\n");
                             info = info.Substring(1, info.IndexOf("-"));
 
-                            regist = new Regist(DateTime.Parse(data), info, int.Parse(logId), DetailTypeEnum.Edit);
+                            regist = new Regist()
+                            {
+                                DetailRegistDay = DateTime.Parse(data),
+                                Info = info,
+                                ClientId = int.Parse(logId),
+                                DetailType = DetailTypeEnum.Edit
+                            };
                         }
                         else if (tipo.Equals("SOBRA"))
                         {
@@ -206,7 +223,13 @@ namespace tabApp.Core.Services.Implementations
                             info = lineSplit[1];
                             info = info.Substring(1, info.IndexOf("-"));
 
-                            regist = new Regist(DateTime.Parse(data), info, int.Parse(logId), DetailTypeEnum.NewClient);
+                            regist = new Regist()
+                            {
+                                DetailRegistDay = DateTime.Parse(data),
+                                Info = info,
+                                ClientId = int.Parse(logId),
+                                DetailType = DetailTypeEnum.NewClient
+                            };
                         }
                         else if (tipo.Equals("REGISTO"))
                         {
@@ -361,7 +384,13 @@ namespace tabApp.Core.Services.Implementations
                 {
                     _clientsManagerService.SetNewRegist(
                         clientId,
-                        new Regist(detailDate, info, clientId, detailType)
+                        new Regist()
+                        {
+                            DetailRegistDay = detailDate,
+                            Info = info,
+                            ClientId = clientId,
+                            DetailType = detailType
+                        }
                     );
                 }
             }
@@ -507,7 +536,7 @@ namespace tabApp.Core.Services.Implementations
                 dailyOrdersList.Add(domDesc);
                 #endregion
 
-                address = new Address(addressDesc, door, coord);
+                //address = new Address(addressDesc, door, coord);
                 paymentType = GetPaymentType(type);
 
                 if(startStopDate != null && endStopDate != null)
@@ -521,8 +550,33 @@ namespace tabApp.Core.Services.Implementations
                         //TODO save changes (ao ler pela primeira vez depois de uma paragem o clinete volta a ativo)
                     }
                 }
+                //address = new Address(addressDesc, door, coord);
 
-                clientsList.Add(new Client(id, name, subName, address, paymentDate, startStopDate, endStopDate, paymentType, active, extraValueToPay, dailyOrdersList, phoneNumber, lastDateChange));
+                Client client = new Client()
+                {
+                    Id = id,
+                    Name = name,
+                    SubName = subName,
+                    Address = new Address()
+                    {
+                        AddressDesc = addressDesc,
+                        NumberDoor = door,
+                        Coordenadas = coord
+                    },
+                    PaymentDate = paymentDate,
+                    StartDayStopService = startStopDate,
+                    LastDayStopService = endStopDate,
+                    PaymentType = paymentType,
+                    Active = active,
+                    ExtraValueToPay = extraValueToPay,
+                    DailyOrders = dailyOrdersList,
+                    PhoneNumber = phoneNumber,
+                    LastChangeDate = lastDateChange,
+                    DetailsList = new List<Regist>(),
+                    ExtraOrdersList = new List<ExtraOrder>()
+                };
+
+                clientsList.Add(client);
             }
             _clientsManagerService.SetClients(clientsList);
         }

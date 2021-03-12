@@ -27,7 +27,14 @@ namespace tabApp.Core.Services.Implementations.DB
         public void SaveClient(Models.Client client, string toRegist)
         {
             _dBService.SaveClientData(client);
-            Models.Regist regist = new Models.Regist(DateTime.Today, toRegist, client.Id, Models.DetailTypeEnum.Edit);
+
+            Models.Regist regist = new Regist()
+            {
+                DetailRegistDay = DateTime.Today,
+                Info = toRegist,
+                ClientId = client.Id,
+                DetailType = DetailTypeEnum.Edit
+            };
             client.SetNewRegist(regist);
             _dBService.SaveNewRegist(regist);
         }

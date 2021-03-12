@@ -80,6 +80,7 @@
     <Compile Include="Services\Implementations\CrossPlat\BluetoothService.cs" />
     <Compile Include="Services\Implementations\CrossPlat\DialogService.cs" />
     <Compile Include="Services\Implementations\CrossPlat\FileService.cs" />
+    <Compile Include="Services\Implementations\CrossPlat\SQLiteService.cs" />
     <Compile Include="Services\Implementations\Native\BluetoothManagerService.cs" />
     <Compile Include="Services\Implementations\Native\ForegroundService.cs" />
     <Compile Include="Setup.cs" />

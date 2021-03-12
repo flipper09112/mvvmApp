@@ -179,7 +179,16 @@ namespace tabApp.Core.ViewModels.Home
             Client.ResetDailyOrders();
             Client.UpdatePaymentDate(FirstDayIndeterminatedDate.AddDays(-1));
 
-            _dBManagerService.SaveClient(Client, new Regist(DateTime.Today, "O cliente deixou de querer o serviço por tempo indeterminado", Client.Id, DetailTypeEnum.Inativate));
+            _dBManagerService.SaveClient(
+                Client,
+                new Regist()
+                {
+                    DetailRegistDay = DateTime.Today,
+                    Info = "O cliente deixou de querer o serviço por tempo indeterminado",
+                    ClientId = Client.Id,
+                    DetailType = DetailTypeEnum.Inativate
+                }
+            );
         }
         private void SetupClientDeterminatedStop()
         {
@@ -187,12 +196,14 @@ namespace tabApp.Core.ViewModels.Home
             Client.AddExtra(-1 * total);
             Client.StartDayStopService = FirstDayDeterminatedDate;
             Client.LastDayStopService = LastDayDeterminatedDate;
-            _dBManagerService.SaveClient(Client, 
-                new Regist(
-                    DateTime.Today,
-                    "O cliente deixou de querer o serviço durante " + FirstDayDeterminatedDate.ToString("dd/MM/yyyy") + " até " + LastDayDeterminatedDate.ToString("dd/MM/yyyy"), 
-                    Client.Id, 
-                    DetailTypeEnum.Inativate));
+            _dBManagerService.SaveClient(Client,
+                new Regist()
+                {
+                    DetailRegistDay = DateTime.Today,
+                    Info = "O cliente deixou de querer o serviço durante " + FirstDayDeterminatedDate.ToString("dd/MM/yyyy") + " até " + LastDayDeterminatedDate.ToString("dd/MM/yyyy"),
+                    ClientId = Client.Id,
+                    DetailType = DetailTypeEnum.Inativate
+                });
         }
 
         public override void Appearing()

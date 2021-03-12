@@ -16,9 +16,11 @@ using tabApp.Core;
 using tabApp.Core.Services.Implementations.Bluetooth;
 using tabApp.Core.Services.Interfaces;
 using tabApp.Core.Services.Interfaces.Bluetooth;
+using tabApp.Core.Services.Interfaces.DB;
 using tabApp.Core.Services.Interfaces.Dialogs;
 using tabApp.Services;
 using tabApp.Services.Implementations;
+using tabApp.Services.Implementations.CrossPlat;
 
 namespace tabApp
 {
@@ -51,6 +53,7 @@ namespace tabApp
             Mvx.LazyConstructAndRegisterSingleton<IFileService, FileService>();
             Mvx.LazyConstructAndRegisterSingleton<IDialogService, DialogService>();
             Mvx.LazyConstructAndRegisterSingleton<IBluetoothService, BluetoothService>();
+            Mvx.LazyConstructAndRegisterSingleton<ISQLiteService, SQLiteService>();
         }
 
         protected override IMvxAndroidViewPresenter CreateViewPresenter()
