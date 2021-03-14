@@ -19,14 +19,6 @@ namespace tabApp.Core.Models
         [ForeignKey(typeof(Client))]
         public int ClientId { get; set; }
         public DetailTypeEnum DetailType { get; set; }
-
-        /*public Regist(DateTime detailRegistDay, string info, int clientId, DetailTypeEnum detailType)
-        {
-            DetailRegistDay = detailRegistDay;
-            Info = info;
-            ClientId = clientId;
-            DetailType = detailType;
-        }*/
     }
 
     public enum DetailTypeEnum

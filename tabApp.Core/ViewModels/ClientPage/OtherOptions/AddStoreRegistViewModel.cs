@@ -58,18 +58,20 @@ namespace tabApp.Core.ViewModels.ClientPage
         {
             IsBusy = true;
 
-            List<(int ProductId, double Ammount)> items = new List<(int ProductId, double Ammount)>();
+            List<DailyOrderDetails> items = new List<DailyOrderDetails>();
             ItemsList.ForEach(product => {
                 if (product.Ammount > 0)
-                    items.Add((product.Product.Id, product.Ammount));
+                    items.Add(new DailyOrderDetails() { ProductId = product.Product.Id, Ammount = product.Ammount });
             });
 
-            var order = new ExtraOrder(_chooseClientService.ClientSelected.Id, 
-                                        DateTime.Today,
-                                        DateSelected,
-                                        items,
-                                        (bool)true,
-                                        true);
+            var order = new ExtraOrder() {
+                ClientId = _chooseClientService.ClientSelected.Id,
+                OrderRegistDay = DateTime.Today,
+                OrderDay = DateSelected,
+                AllItems = items,
+                IsTotal = true,
+                StoreOrder = true
+            }; 
 
             _clientsManagerService.AddNewOrder(_chooseClientService.ClientSelected, order);
             _dBService.SaveNewRegist(order);

@@ -14,9 +14,9 @@ namespace tabApp.Core.Services.Implementations.Products
 
         public double GetProductAmmount(int clientId, Product product)
         {
-            foreach(var item in product.ReSaleValues ?? new List<(int Id, double Value)>())
+            foreach(var item in product.ReSaleValues ?? new List<ReSaleValues>())
             {
-                if (clientId == item.Id)
+                if (clientId == item.ClientId)
                     return item.Value;
             }
 

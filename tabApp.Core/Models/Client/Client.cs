@@ -31,7 +31,7 @@ namespace tabApp.Core.Models
         public bool Active { get; set; }
         public double ExtraValueToPay { get; set; }
 
-        [Ignore]
+        [OneToMany(CascadeOperations = CascadeOperation.All)]
         public List<DailyOrder> DailyOrders { get; set; }
 
         public string PhoneNumber { get; set; }
@@ -41,32 +41,32 @@ namespace tabApp.Core.Models
         [OneToMany]
         public List<Regist> DetailsList { get; set; }
 
-        [Ignore]
+        [OneToMany]
         public List<ExtraOrder> ExtraOrdersList { get; set; }
 
         //Indirects Params
         #region PARAMS
 
         [Ignore]
-        public DailyOrder SegDailyOrder => DailyOrders[0];
+        public DailyOrder SegDailyOrder => DailyOrders.Find(item => item.DayOfWeek == DayOfWeek.Monday);
 
         [Ignore]
-        public DailyOrder TerDailyOrder => DailyOrders[1];
+        public DailyOrder TerDailyOrder => DailyOrders.Find(item => item.DayOfWeek == DayOfWeek.Tuesday);
 
         [Ignore]
-        public DailyOrder QuaDailyOrder => DailyOrders[2];
+        public DailyOrder QuaDailyOrder => DailyOrders.Find(item => item.DayOfWeek == DayOfWeek.Wednesday);
 
         [Ignore]
-        public DailyOrder QuiDailyOrder => DailyOrders[3];
+        public DailyOrder QuiDailyOrder => DailyOrders.Find(item => item.DayOfWeek == DayOfWeek.Thursday);
 
         [Ignore]
-        public DailyOrder SexDailyOrder => DailyOrders[4];
+        public DailyOrder SexDailyOrder => DailyOrders.Find(item => item.DayOfWeek == DayOfWeek.Friday);
 
         [Ignore]
-        public DailyOrder SabDailyOrder => DailyOrders[5];
+        public DailyOrder SabDailyOrder => DailyOrders.Find(item => item.DayOfWeek == DayOfWeek.Saturday);
 
         [Ignore]
-        public DailyOrder DomDailyOrder => DailyOrders[6];
+        public DailyOrder DomDailyOrder => DailyOrders.Find(item => item.DayOfWeek == DayOfWeek.Sunday);
 
         #endregion
 
@@ -137,25 +137,32 @@ namespace tabApp.Core.Models
             switch (day)
             {
                 case DayOfWeek.Monday:
-                    DailyOrders[0] = dailyOrder;
+                    SegDailyOrder.AllItems.Clear();
+                    SegDailyOrder.AllItems.AddRange(dailyOrder.AllItems);
                     break;
                 case DayOfWeek.Tuesday:
-                    DailyOrders[1] = dailyOrder;
+                    TerDailyOrder.AllItems.Clear();
+                    TerDailyOrder.AllItems.AddRange(dailyOrder.AllItems);
                     break;
                 case DayOfWeek.Wednesday:
-                    DailyOrders[2] = dailyOrder;
+                    QuaDailyOrder.AllItems.Clear();
+                    QuaDailyOrder.AllItems.AddRange(dailyOrder.AllItems);
                     break;
                 case DayOfWeek.Thursday:
-                    DailyOrders[3] = dailyOrder;
+                    QuiDailyOrder.AllItems.Clear();
+                    QuiDailyOrder.AllItems.AddRange(dailyOrder.AllItems);
                     break;
                 case DayOfWeek.Friday:
-                    DailyOrders[4] = dailyOrder;
+                    SexDailyOrder.AllItems.Clear();
+                    SexDailyOrder.AllItems.AddRange(dailyOrder.AllItems);
                     break;
                 case DayOfWeek.Saturday:
-                    DailyOrders[5] = dailyOrder;
+                    SabDailyOrder.AllItems.Clear();
+                    SabDailyOrder.AllItems.AddRange(dailyOrder.AllItems);
                     break;
                 case DayOfWeek.Sunday:
-                    DailyOrders[6] = dailyOrder;
+                    DomDailyOrder.AllItems.Clear();
+                    DomDailyOrder.AllItems.AddRange(dailyOrder.AllItems);
                     break;
             }
         }
@@ -188,13 +195,13 @@ namespace tabApp.Core.Models
 
         internal void ResetDailyOrders()
         {
-            DailyOrders[0] = new DailyOrder(DayOfWeek.Monday, new List<(int ProductId, double Ammount)>());
-            DailyOrders[1] = new DailyOrder(DayOfWeek.Tuesday, new List<(int ProductId, double Ammount)>());
-            DailyOrders[2] = new DailyOrder(DayOfWeek.Wednesday, new List<(int ProductId, double Ammount)>());
-            DailyOrders[3] = new DailyOrder(DayOfWeek.Thursday, new List<(int ProductId, double Ammount)>());
-            DailyOrders[4] = new DailyOrder(DayOfWeek.Friday, new List<(int ProductId, double Ammount)>());
-            DailyOrders[5] = new DailyOrder(DayOfWeek.Saturday, new List<(int ProductId, double Ammount)>());
-            DailyOrders[6] = new DailyOrder(DayOfWeek.Sunday, new List<(int ProductId, double Ammount)>());
+            SegDailyOrder.AllItems.Clear(); 
+            TerDailyOrder.AllItems.Clear(); 
+            QuaDailyOrder.AllItems.Clear(); 
+            QuiDailyOrder.AllItems.Clear(); 
+            SexDailyOrder.AllItems.Clear(); 
+            SabDailyOrder.AllItems.Clear(); 
+            DomDailyOrder.AllItems.Clear(); 
         }
     }
 

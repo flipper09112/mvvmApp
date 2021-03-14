@@ -13,7 +13,7 @@ namespace tabApp.Core.Services.Interfaces.Orders
         List<CakeClientItem> CakesClientsTomorrow { get; }
 
         double GetValue(int clientId, DailyOrder dailyOrder);
-        double GetValue(int clientId, List<(int ProductId, double Ammount)> allitems);
+        double GetValue(int clientId, List<DailyOrderDetails> allitems);
         double WeekAmmount(Client client);
         List<ProductAmmount> GetTotalOrder(DateTime dateTime);
         List<ProductAmmount> GetTotalOrder(DateTime startDate, DateTime endDate);

@@ -1,30 +1,44 @@
-﻿using System;
+﻿using SQLite;
+using SQLiteNetExtensions.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace tabApp.Core.Models
 {
+    [Table("Product")]
     public class Product
     {
-        public string Name { get; }
-        public int Id { get; }
-        public string ImageReference { get; }
-        public bool Unity { get; }
-        public ProductTypeEnum ProductType { get; }
-        public double PVP { get; }
-        public List<(int Id, double Value)> ReSaleValues { get; }
+        public string Name { get; set; }
 
-        public Product(string name, int id, string imageReference, bool unity, 
-            ProductTypeEnum proguctType, double pVP, List<(int Id, double Value)> reSaleValues)
+        [PrimaryKey]
+        public int Id { get; set; }
+        public string ImageReference { get; set; }
+        public bool Unity { get; set; }
+        public ProductTypeEnum ProductType { get; set; }
+        public double PVP { get; set; }
+
+        [OneToMany]
+        public List<ReSaleValues> ReSaleValues { get; set; }
+
+        public Product()
         {
-            Name = name;
-            Id = id;
-            ImageReference = imageReference;
-            Unity = unity;
-            ProductType = proguctType;
-            PVP = pVP;
-            ReSaleValues = reSaleValues;
+            ReSaleValues = new List<ReSaleValues>();
         }
+    }
+
+    [Table("ReSaleValues")]
+    public class ReSaleValues
+    {
+        [PrimaryKey, AutoIncrement]
+        public int ReSaleId { get; set; }
+
+        [ForeignKey(typeof(Product))]
+        public int ProductId { get; set; }
+
+        public int ClientId { get; set; }
+
+        public double Value { get; set; }
     }
 
     public enum ProductTypeEnum

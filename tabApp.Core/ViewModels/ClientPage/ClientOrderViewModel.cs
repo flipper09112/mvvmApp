@@ -69,18 +69,21 @@ namespace tabApp.Core.ViewModels
             if (!HasProducts())
                 return;
 
-            List<(int ProductId, double Ammount)> items = new List<(int ProductId, double Ammount)>();
+            List<DailyOrderDetails> items = new List<DailyOrderDetails>();
             OrderProducts.ForEach(product => {
                 if (product.Ammount > 0)
-                    items.Add((product.Product.Id, product.Ammount));
+                    items.Add(new DailyOrderDetails() { ProductId = product.Product.Id, Ammount = product.Ammount });
             });
 
-            var order = new ExtraOrder(_chooseClientService.ClientSelected.Id, 
-                                        DateTime.Today,
-                                        DateSelected,
-                                        items,
-                                        (bool)IsTotal,
-                                        false);
+            var order = new ExtraOrder()
+            {
+                ClientId = _chooseClientService.ClientSelected.Id,
+                OrderRegistDay = DateTime.Today,
+                OrderDay = DateSelected,
+                AllItems = items,
+                IsTotal = (bool)IsTotal,
+                StoreOrder = false
+            };
 
             _clientsManagerService.AddNewOrder(_chooseClientService.ClientSelected, order);
             _dBService.SaveClientData(_chooseClientService.ClientSelected);

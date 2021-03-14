@@ -10,6 +10,7 @@ using tabApp.Core.Services.Implementations.DB;
 using tabApp.Core.Services.Interfaces;
 using tabApp.Core.Services.Interfaces.Clients;
 using tabApp.Core.Services.Interfaces.DB;
+using tabApp.Core.Services.Interfaces.Products;
 using tabApp.Core.Services.Interfaces.Timer;
 using tabApp.Core.ViewModels.Global;
 
@@ -23,7 +24,8 @@ namespace tabApp.Core.ViewModels
         private readonly IClientsManagerService _clientsManagerService;
         private readonly IClientsListFilterService _clientsListFilterService;
         private readonly IInativityTimerService _inativityTimerService;
-        private readonly IClientsDataBaseService _clientsDataBaseService;
+        private readonly IDataBaseManagerService _clientsDataBaseService;
+        private readonly IProductsManagerService _productsManagerService;
 
         public MvxCommand<(double lat, double lgt)> SetClosestClientCommand { get; private set; }
         public MvxAsyncCommand ShowHomePage { get; private set; }
@@ -39,7 +41,7 @@ namespace tabApp.Core.ViewModels
         public MainViewModel(IDBService dbService, IMvxNavigationService navigationService,
                              IChooseClientService chooseClientService, IClientsManagerService clientsManagerService,
                              IClientsListFilterService clientsListFilterService, IInativityTimerService inativityTimerService,
-                             IClientsDataBaseService clientsDataBaseService)
+                             IDataBaseManagerService clientsDataBaseService, IProductsManagerService productsManagerService)
         {
             _navigationService = navigationService;
             _dbService = dbService;
@@ -48,6 +50,7 @@ namespace tabApp.Core.ViewModels
             _clientsListFilterService = clientsListFilterService;
             _inativityTimerService = inativityTimerService;
             _clientsDataBaseService = clientsDataBaseService;
+            _productsManagerService = productsManagerService;
 
             ShowHomePage = new MvxAsyncCommand(async () => await _navigationService.Navigate<HomeViewModel>());
             SetClosestClientCommand = new MvxCommand<(double lat, double lgt)>(ShowClosestClient);
@@ -85,14 +88,12 @@ namespace tabApp.Core.ViewModels
             _chooseClientService.SelectClient(client);
             await _navigationService.Navigate<ClientPageViewModel>();
 
-             foreach (Client cliente in _clientsManagerService.ClientsList)
-             {
-                 _clientsDataBaseService.Insert(cliente);
-                // _clientsDataBaseService.Insert(cliente.Address);
-
-             }
+             
+            _clientsDataBaseService.InsertAllClients(_clientsManagerService.ClientsList);
+            _clientsDataBaseService.InsertAllProducts(_productsManagerService.ProductsList);
 
             var list = _clientsDataBaseService.GetContacts();
+            var list2 = _clientsDataBaseService.GetProducts();
 
             IsBusy = false;
         }

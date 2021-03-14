@@ -347,15 +347,18 @@ namespace tabApp.Core.ViewModels
 
         private DailyOrder GetnewDailyOrder(List<ClientProfileField> dailyOrderItems, DayOfWeek day)
         {
-            List<(int ProductId, double Ammount)> allItems = new List<(int ProductId, double Ammount)>();
+            List<DailyOrderDetails> allItems = new List<DailyOrderDetails>();
             foreach (var item in dailyOrderItems)
             {
                 if (item.NewValue != null && (item.NewValue.Equals("") || item.NewValue.Equals("0")))
                     continue;
 
-                allItems.Add((item.Product.Id, double.Parse(item.NewValue == null ? item.Value : item.NewValue)));
+                allItems.Add(new DailyOrderDetails() { 
+                    ProductId = item.Product.Id ,
+                    Ammount = double.Parse(item.NewValue == null ? item.Value : item.NewValue)
+                });
             }
-            return new DailyOrder(day, allItems);
+            return new DailyOrder { DayOfWeek = day, AllItems = allItems };
         }
 
         private string _newLocation;
