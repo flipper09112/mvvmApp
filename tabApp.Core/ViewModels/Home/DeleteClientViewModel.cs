@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using tabApp.Core.Models;
 using tabApp.Core.Services.Implementations.Clients;
+using tabApp.Core.Services.Implementations.DB;
 using tabApp.Core.Services.Interfaces.Clients;
 using tabApp.Core.Services.Interfaces.DB;
 using tabApp.Core.Services.Interfaces.Dialogs;
@@ -14,7 +15,7 @@ namespace tabApp.Core.ViewModels.Home
     {
         private IChooseClientService _chooseClientService;
         private IClientsManagerService _clientsManagerService;
-        private IDBManagerService _dBManagerService;
+        private IDataBaseManagerService _dataBaseManagerService;
         private IDialogService _dialogService;
 
         public EventHandler GoBack;
@@ -22,12 +23,12 @@ namespace tabApp.Core.ViewModels.Home
 
         public DeleteClientViewModel(IChooseClientService chooseClientService,
                                      IClientsManagerService clientsManagerService,
-                                     IDBManagerService dBManagerService,
+                                     IDataBaseManagerService dataBaseManagerService,
                                      IDialogService dialogService)
         {
             _chooseClientService = chooseClientService;
             _clientsManagerService = clientsManagerService;
-            _dBManagerService = dBManagerService;
+            _dataBaseManagerService = dataBaseManagerService;
             _dialogService = dialogService;
 
             DeleteCommand = new MvxCommand(Delete);
@@ -42,7 +43,7 @@ namespace tabApp.Core.ViewModels.Home
         {
             IsBusy = true;
             _clientsManagerService.ClientsList.Remove(Client);
-            _dBManagerService.RemoveClient(Client);
+            _dataBaseManagerService.RemoveClient(Client);
             GoBack?.Invoke(null, null);
             IsBusy = false;
         }

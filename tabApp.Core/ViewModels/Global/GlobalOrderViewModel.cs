@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using tabApp.Core.Models;
 using tabApp.Core.Models.GlobalOrder;
+using tabApp.Core.Services.Implementations.DB;
 using tabApp.Core.Services.Interfaces.DB;
 using tabApp.Core.Services.Interfaces.Orders;
 using tabApp.Core.Services.Interfaces.Products;
@@ -15,23 +16,23 @@ namespace tabApp.Core.ViewModels.Global
     {
         private readonly IOrdersManagerService _ordersManagerService;
         private readonly IProductsManagerService _productsManagerService;
-        private readonly IDBService _dBService;
         private readonly IMvxNavigationService _navigationService;
         private readonly IGlobalOrderFilterService _globalOrderFilterService;
+        private readonly IDataBaseManagerService _dataBaseManagerService;
         public MvxCommand SaveAllDataCommand;
         public MvxCommand SetMoreDaysOrderCommand;
 
         public GlobalOrderViewModel(IOrdersManagerService ordersManagerService, 
-                                    IProductsManagerService productsManagerService, 
-                                    IDBService dBService,
+                                    IProductsManagerService productsManagerService,
                                     IMvxNavigationService navigationService,
+                                    IDataBaseManagerService dataBaseManagerService,
                                     IGlobalOrderFilterService globalOrderFilterService)
         {
             _ordersManagerService = ordersManagerService;
             _productsManagerService = productsManagerService;
-            _dBService = dBService;
             _navigationService = navigationService;
             _globalOrderFilterService = globalOrderFilterService;
+            _dataBaseManagerService = dataBaseManagerService;
 
             SaveAllDataCommand = new MvxCommand(SaveAllData);
             SetMoreDaysOrderCommand = new MvxCommand(SetMoreDaysOrder);
@@ -44,7 +45,7 @@ namespace tabApp.Core.ViewModels.Global
 
         private void SaveAllData()
         {
-            _dBService.SaveAllDocs();
+            _dataBaseManagerService.SaveAllDocs();
         }
 
         private List<ProductAmmount> _productsList;

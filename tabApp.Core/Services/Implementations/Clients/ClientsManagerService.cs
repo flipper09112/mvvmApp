@@ -48,12 +48,14 @@ namespace tabApp.Core.Services.Implementations.Clients
         //USED in APP
         public Regist SetPayment(Client client, DateTime dateSelected, bool payExtra, double total)
         {
-            var regist = new Regist(
-                DateTime.Today,
-                "Pagamento realizado até dia " + dateSelected.ToString("dd/MM/yyyy") + "\nToTal: " + total.ToString("C"),
-                client.Id,
-                DetailTypeEnum.Payment
-                );
+            var regist = new Regist()
+            {
+                DetailRegistDay = DateTime.Today,
+                Info = "Pagamento realizado até dia " + dateSelected.ToString("dd/MM/yyyy") + "\nToTal: " + total.ToString("C"),
+                ClientId = client.Id,
+                DetailType = DetailTypeEnum.Payment
+            };
+
             client.SetPaymentDate(dateSelected, payExtra);
             client.SetNewRegist(regist);
 
@@ -62,12 +64,14 @@ namespace tabApp.Core.Services.Implementations.Clients
 
         public Regist AddExtra(Client client, double extra)
         {
-            var regist = new Regist(
-                   DateTime.Today,
-                   "Adicionado um extra de " + extra.ToString("C"),
-                   client.Id,
-                   DetailTypeEnum.AddExtra
-                   );
+            var regist = new Regist()
+            {
+                DetailRegistDay = DateTime.Today,
+                Info = "Adicionado um extra de " + extra.ToString("C"),
+                ClientId = client.Id,
+                DetailType = DetailTypeEnum.AddExtra
+            };
+
             client.AddExtra(extra);
             client.SetNewRegist(regist);
             return regist;
@@ -80,12 +84,13 @@ namespace tabApp.Core.Services.Implementations.Clients
 
         public Regist RemoveExtraOrder(Client client, ExtraOrder order)
         {
-            var regist = new Regist(
-                      DateTime.Today,
-                      "Encomenda cancelada do dia " + order.OrderDay.ToString("dd/MM/yyyy"),
-                      client.Id,
-                      DetailTypeEnum.CancelOrder
-                      );
+            var regist = new Regist()
+            {
+                DetailRegistDay = DateTime.Today,
+                Info = "Encomenda cancelada do dia " + order.OrderDay.ToString("dd/MM/yyyy"),
+                ClientId = client.Id,
+                DetailType = DetailTypeEnum.CancelOrder
+            };
 
             client.RemoveOrder(order);
             client.SetNewRegist(regist);

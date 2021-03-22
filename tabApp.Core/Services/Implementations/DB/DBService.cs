@@ -167,7 +167,12 @@ namespace tabApp.Core.Services.Implementations
                             info = lineSplit[1];
                             info = info.Substring(1, info.IndexOf("€") + 1);
 
-                            regist = new Regist(DateTime.Parse(data), info, int.Parse(logId), DetailTypeEnum.Payment);
+                            regist = new Regist() { 
+                                DetailRegistDay = DateTime.Parse(data),
+                                Info = info,
+                                ClientId = int.Parse(logId),
+                                DetailType = DetailTypeEnum.Payment
+                            }; 
                         }
                         else if (tipo.Equals("EXTRA"))
                         {
@@ -175,14 +180,26 @@ namespace tabApp.Core.Services.Implementations
                             info = lineSplit[1];
                             info = info.Substring(1, info.IndexOf("€") + 1);
 
-                            regist = new Regist(DateTime.Parse(data), info, int.Parse(logId), DetailTypeEnum.AddExtra);
+                            regist = new Regist()
+                            {
+                                DetailRegistDay = DateTime.Parse(data),
+                                Info = info,
+                                ClientId = int.Parse(logId),
+                                DetailType = DetailTypeEnum.AddExtra
+                            };
                         }
                         else if (tipo.Equals("EDICAO"))
                         {
                             info = lineSplit[1].Replace(",", "\n");
                             info = info.Substring(1, info.IndexOf("-"));
 
-                            regist = new Regist(DateTime.Parse(data), info, int.Parse(logId), DetailTypeEnum.Edit);
+                            regist = new Regist()
+                            {
+                                DetailRegistDay = DateTime.Parse(data),
+                                Info = info,
+                                ClientId = int.Parse(logId),
+                                DetailType = DetailTypeEnum.Edit
+                            };
                         }
                         else if (tipo.Equals("SOBRA"))
                         {
@@ -199,14 +216,27 @@ namespace tabApp.Core.Services.Implementations
 
                             dataencomenda = lineSplit[1].Split(' ')[4].Split(',')[0];
 
-                            order = new ExtraOrder(int.Parse(logId), DateTime.Parse(data), DateTime.Parse(dataencomenda), GetListItemsFromOldRegist(info), true, false);
+                            order = new ExtraOrder() {
+                                ClientId = int.Parse(logId),
+                                OrderRegistDay = DateTime.Parse(data),
+                                OrderDay = DateTime.Parse(dataencomenda),
+                                AllItems = GetListItemsFromOldRegist(info),
+                                IsTotal = true,
+                                StoreOrder = false
+                            };
                         }
                         else if (tipo.Equals("NOVOCLIENTE"))
                         {
                             info = lineSplit[1];
                             info = info.Substring(1, info.IndexOf("-"));
 
-                            regist = new Regist(DateTime.Parse(data), info, int.Parse(logId), DetailTypeEnum.NewClient);
+                            regist = new Regist()
+                            {
+                                DetailRegistDay = DateTime.Parse(data),
+                                Info = info,
+                                ClientId = int.Parse(logId),
+                                DetailType = DetailTypeEnum.NewClient
+                            };
                         }
                         else if (tipo.Equals("REGISTO"))
                         {
@@ -216,7 +246,14 @@ namespace tabApp.Core.Services.Implementations
 
                             dataencomenda = lineSplit[1].Split(' ')[4].Split(',')[0];
 
-                            order = new ExtraOrder(int.Parse(logId), DateTime.Parse(data), DateTime.Parse(dataencomenda), GetListItemsFromOldRegist(info), true, true);
+                            order = new ExtraOrder() {
+                                ClientId = int.Parse(logId),
+                                OrderRegistDay = DateTime.Parse(data),
+                                OrderDay = DateTime.Parse(dataencomenda),
+                                AllItems = GetListItemsFromOldRegist(info),
+                                IsTotal = true,
+                                StoreOrder = false
+                            };
                         }
 
 
@@ -354,14 +391,27 @@ namespace tabApp.Core.Services.Implementations
                 {
                     _clientsManagerService.SetNewOrder(
                         clientId,
-                        new ExtraOrder(clientId, detailDate, orderDate, GetOrderListItems(extraOrderDesc), total, storeLabel)
-                        );
+                        new ExtraOrder()
+                        {
+                            ClientId = clientId,
+                            OrderRegistDay = detailDate,
+                            OrderDay = orderDate,
+                            AllItems = GetOrderListItems(extraOrderDesc),
+                            IsTotal = total,
+                            StoreOrder = storeLabel
+                        });
                 }
                 else
                 {
                     _clientsManagerService.SetNewRegist(
                         clientId,
-                        new Regist(detailDate, info, clientId, detailType)
+                        new Regist()
+                        {
+                            DetailRegistDay = detailDate,
+                            Info = info,
+                            ClientId = clientId,
+                            DetailType = detailType
+                        }
                     );
                 }
             }
@@ -385,7 +435,7 @@ namespace tabApp.Core.Services.Implementations
             bool idConverted;
             ProductTypeEnum productType;
             double pvp;
-            List<(int Id, double Value)> reSaleValues = new List<(int Id, double Value)>();
+            List<ReSaleValues> reSaleValues = new List<ReSaleValues>();
             #endregion
 
             for (int i = 2; i <= sheet.Rows.Length; i++)
@@ -398,25 +448,25 @@ namespace tabApp.Core.Services.Implementations
                 productType = GetProductType(sheet.Range[i, (int)ProductsListItemsPositions.Type].DisplayedText);
                 pvp = double.Parse(sheet.Range[i, (int)ProductsListItemsPositions.PVP].DisplayedText);
 
-                reSaleValues = new List<(int Id, double Value)>();
+                reSaleValues = new List<ReSaleValues>();
                 for (int k = (int)ProductsListItemsPositions.PVP + 1; k < sheet.Columns.Length; k++)
                 {
                     idConverted = int.TryParse(sheet.Range[1, k].DisplayedText, out clientId);
                     if (!idConverted) break;
                     productValue = double.Parse(sheet.Range[i, k].DisplayedText.Replace(".", ","));
 
-                    reSaleValues.Add((clientId, productValue));
+                    reSaleValues.Add(new ReSaleValues() { ClientId = clientId, Value = productValue });
                 }
 
-                productsList.Add(new Product(
-                    name,
-                    id,
-                    imageReference,
-                    unity,
-                    productType,
-                    pvp,
-                    reSaleValues
-                    ));
+                productsList.Add(new Product() { 
+                    Name = name,
+                    Id = id,
+                    ImageReference = imageReference,
+                    Unity = unity,
+                    ProductType = productType,
+                    PVP = pvp,
+                    ReSaleValues = reSaleValues
+                });
             }
 
             _productsManagerService.SetProducts(productsList);
@@ -507,7 +557,7 @@ namespace tabApp.Core.Services.Implementations
                 dailyOrdersList.Add(domDesc);
                 #endregion
 
-                address = new Address(addressDesc, door, coord);
+                //address = new Address(addressDesc, door, coord);
                 paymentType = GetPaymentType(type);
 
                 if(startStopDate != null && endStopDate != null)
@@ -521,8 +571,34 @@ namespace tabApp.Core.Services.Implementations
                         //TODO save changes (ao ler pela primeira vez depois de uma paragem o clinete volta a ativo)
                     }
                 }
+                //address = new Address(addressDesc, door, coord);
 
-                clientsList.Add(new Client(id, name, subName, address, paymentDate, startStopDate, endStopDate, paymentType, active, extraValueToPay, dailyOrdersList, phoneNumber, lastDateChange));
+                Client client = new Client()
+                {
+                    Id = id,
+                    Name = name,
+                    SubName = subName,
+                    Address = new Address()
+                    {
+                        AddressDesc = addressDesc,
+                        NumberDoor = door,
+                        Coordenadas = coord
+                    },
+                    PaymentDate = paymentDate,
+                    StartDayStopService = startStopDate,
+                    LastDayStopService = endStopDate,
+                    PaymentType = paymentType,
+                    Active = active,
+                    ExtraValueToPay = extraValueToPay,
+                    DailyOrders = dailyOrdersList,
+                    PhoneNumber = phoneNumber,
+                    LastChangeDate = lastDateChange,
+                    DetailsList = new List<Regist>(),
+                    ExtraOrdersList = new List<ExtraOrder>(),
+                    Position = i - 1
+                };
+
+                clientsList.Add(client);
             }
             _clientsManagerService.SetClients(clientsList);
         }
@@ -695,7 +771,15 @@ namespace tabApp.Core.Services.Implementations
                 if (detailType == DetailTypeEnum.Order)
                 {
 
-                    ExtraOrder order = new ExtraOrder(clientId, detailDate, orderDate, GetOrderListItems(extraOrderDesc), total, storeOrder);
+                    ExtraOrder order = new ExtraOrder()
+                    {
+                        ClientId = clientId,
+                        OrderRegistDay = detailDate,
+                        OrderDay = orderDate,
+                        AllItems = GetOrderListItems(extraOrderDesc),
+                        IsTotal = total,
+                        StoreOrder = storeOrder
+                    };
                     if (order.Equals(obj))
                     {
                         sheet.DeleteRow(i);
@@ -709,9 +793,9 @@ namespace tabApp.Core.Services.Implementations
         #endregion
 
         #region HELPERS
-        private List<(int ProductId, double Ammount)> GetListItemsFromOldRegist(string quantidades)
+        private List<DailyOrderDetails> GetListItemsFromOldRegist(string quantidades)
         {
-            List<(int ProductId, double Ammount)> items = new List<(int ProductId, double Ammount)>();
+            List<DailyOrderDetails> items = new List<DailyOrderDetails>();
 
             int produtoId;
             double quantidade;
@@ -737,8 +821,8 @@ namespace tabApp.Core.Services.Implementations
                 {
                     quantidade = 0;
                     double.TryParse(array.Split(';')[1].Replace("\n", ""), out quantidade);
-                    if(quantidade > 0)
-                        items.Add((produtoId, quantidade));
+                    if (quantidade > 0)
+                        items.Add(new DailyOrderDetails() { ProductId = produtoId, Ammount = quantidade});
                 }
             }
 
@@ -771,9 +855,9 @@ namespace tabApp.Core.Services.Implementations
                 return DetailTypeEnum.None;
             }
         }
-        private List<(int ProductId, double Ammount)> GetOrderListItems(string displayedText)
+        private List<DailyOrderDetails> GetOrderListItems(string displayedText)
         {
-            List<(int ProductId, double Ammount)> allItems = new List<(int ProductId, double Ammount)>();
+            List<DailyOrderDetails> allItems = new List<DailyOrderDetails>();
 
             int produtoId;
             double quantidade;
@@ -786,14 +870,14 @@ namespace tabApp.Core.Services.Implementations
                 produtoId = int.Parse(array.Split('-')[0]);
                 quantidade = double.Parse(array.Split('-')[1]);
 
-                allItems.Add((produtoId, quantidade));
+                allItems.Add(new DailyOrderDetails() { ProductId = produtoId, Ammount = quantidade});
             }
 
             return allItems;
         }
         private DailyOrder GetDailyOrder(string orderDesc, DayOfWeek day)
         {
-            List<(int ProductId, double Ammount)> allItems = new List<(int ProductId, double Ammount)>();
+            List<DailyOrderDetails> allItems = new List<DailyOrderDetails>();
 
             int produtoId;
             double quantidade;
@@ -807,10 +891,10 @@ namespace tabApp.Core.Services.Implementations
                 quantidade = double.Parse(array.Split('-')[1]);
 
                 if(produtoId != 148)
-                    allItems.Add((produtoId, quantidade));
+                    allItems.Add(new DailyOrderDetails { ProductId = produtoId, Ammount = quantidade});
             }
 
-            return new DailyOrder(day, allItems);
+            return new DailyOrder() { DayOfWeek = day, AllItems = allItems };
         }
         private string GetOrderStringDb(DailyOrder segDailyOrder)
         {
@@ -834,7 +918,7 @@ namespace tabApp.Core.Services.Implementations
             }
             return order;
         }
-        private string GetOrderStringDb(List<(int ProductId, double Ammount)> allItems)
+        private string GetOrderStringDb(List<DailyOrderDetails> allItems)
         {
             string order = "";
             bool first = true;

@@ -6,9 +6,11 @@ using System.Collections.Generic;
 using System.Text;
 using tabApp.Core.Models;
 using tabApp.Core.Services.Implementations.Clients;
+using tabApp.Core.Services.Implementations.DB;
 using tabApp.Core.Services.Interfaces;
 using tabApp.Core.Services.Interfaces.Clients;
 using tabApp.Core.Services.Interfaces.DB;
+using tabApp.Core.Services.Interfaces.Products;
 using tabApp.Core.Services.Interfaces.Timer;
 using tabApp.Core.ViewModels.Global;
 
@@ -17,11 +19,13 @@ namespace tabApp.Core.ViewModels
     public class MainViewModel : BaseViewModel
     {
         private readonly IMvxNavigationService _navigationService;
-        private readonly IDBService _dbService;
         private readonly IChooseClientService _chooseClientService;
         private readonly IClientsManagerService _clientsManagerService;
         private readonly IClientsListFilterService _clientsListFilterService;
         private readonly IInativityTimerService _inativityTimerService;
+        private readonly IDataBaseManagerService _dataBaseService;
+        private readonly IProductsManagerService _productsManagerService;
+        private readonly IDBService _dbService;
 
         public MvxCommand<(double lat, double lgt)> SetClosestClientCommand { get; private set; }
         public MvxAsyncCommand ShowHomePage { get; private set; }
@@ -34,16 +38,20 @@ namespace tabApp.Core.ViewModels
 
         private bool _alreadyStarted;
 
-        public MainViewModel(IDBService dbService, IMvxNavigationService navigationService,
+        public MainViewModel(IMvxNavigationService navigationService,
                              IChooseClientService chooseClientService, IClientsManagerService clientsManagerService,
-                             IClientsListFilterService clientsListFilterService, IInativityTimerService inativityTimerService)
+                             IClientsListFilterService clientsListFilterService, IInativityTimerService inativityTimerService,
+                             IDataBaseManagerService clientsDataBaseService, IProductsManagerService productsManagerService,
+                             IDBService dbService)
         {
             _navigationService = navigationService;
-            _dbService = dbService;
             _chooseClientService = chooseClientService;
             _clientsManagerService = clientsManagerService;
             _clientsListFilterService = clientsListFilterService;
             _inativityTimerService = inativityTimerService;
+            _dataBaseService = clientsDataBaseService;
+            _productsManagerService = productsManagerService;
+            _dbService = dbService;
 
             ShowHomePage = new MvxAsyncCommand(async () => await _navigationService.Navigate<HomeViewModel>());
             SetClosestClientCommand = new MvxCommand<(double lat, double lgt)>(ShowClosestClient);
@@ -89,7 +97,15 @@ namespace tabApp.Core.ViewModels
                 return;
             _alreadyStarted = true;
             IsBusy = true;
-            await _dbService.StartAsync();
+
+            //---------DB init-------------
+           // await _dbService.StartAsync();
+            //Here can write xls to sqllite
+           // _dataBaseService.InsertAllDataFromXls(_clientsManagerService.ClientsList, _productsManagerService.ProductsList);
+
+            await _dataBaseService.LoadDataBase();
+            //end DB init
+
             UpdateUiHomePage?.Invoke(null, null);
             IsBusy = false;
         }

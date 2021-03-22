@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SQLite;
+using SQLiteNetExtensions.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -6,85 +8,44 @@ using System.Text;
 
 namespace tabApp.Core.Models
 {
+    [Table("DailyOrder")]
     [Serializable]
-    public abstract class Order /*: ISerializable*/
+    public class DailyOrder 
     {
-        public List<(int ProductId, double Ammount)> AllItems { get; protected set; }
+        [OneToMany(CascadeOperations = CascadeOperation.All)]  
+        public List<DailyOrderDetails> AllItems { get; set; }
 
-        public bool IsTotal { get; protected set; }
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
 
-        protected Order(List<(int ProductId, double Ammount)> allItems, bool isTotal)
+        [ForeignKey(typeof(Client))]
+        public int ClientId { get; set; }
+
+        public DayOfWeek DayOfWeek { get; set; }
+
+        public DailyOrder()
         {
-            AllItems = allItems;
-            IsTotal = isTotal;
         }
-
-      /*  public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            List<int> productsIds = new List<int>();
-            List<double> ammounts = new List<double>();
-            AllItems.ForEach(item => productsIds.Add(item.ProductId));
-            AllItems.ForEach(item => ammounts.Add(item.Ammount));
-
-            info.AddValue("AllItemsInt", productsIds.ToArray());
-            info.AddValue("AllItemsDouble", ammounts.ToArray());
-            info.AddValue("IsTotal", IsTotal);
-        }
-        protected Order(SerializationInfo info, StreamingContext context)
-        {
-            IsTotal = (bool)info.GetValue("IsTotal", typeof(bool));
-
-            List<int> intList = new List<int>((int[])info.GetValue("AllItemsInt", typeof(int[])));
-            List<double> doubleList = new List<double>((double[])info.GetValue("AllItemsDouble", typeof(double[])));
-
-            for(int i = 0; i < intList.Count; i++)
-            {
-                AllItems = new List<(int ProductId, double Ammount)>();
-                AllItems.Add((intList[i], doubleList[i]));
-            }
-        }*/
     }
 
+    [Table("ExtraOrder")]
     [Serializable]
-    public class DailyOrder : Order
+    public class ExtraOrder
     {
-        public DayOfWeek DayOfWeek;
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
 
-        public DailyOrder(DayOfWeek dayOfWeek, List<(int ProductId, double Ammount)> allItems, bool isTotal = true) : base(allItems, isTotal)
-        {
-            DayOfWeek = dayOfWeek;
-        }
+        [ForeignKey(typeof(Client))]
+        public int ClientId { get; set; }
 
-       /* public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            base.GetObjectData(info, context);
-            info.AddValue("DayOfWeek", DayOfWeek);
-            //info.AddValue("IsTotal", IsTotal);
-           // info.AddValue("AllItems", AllItems);
-        }
+        [OneToMany(CascadeOperations = CascadeOperation.All)]
+        public List<DailyOrderDetails> AllItems { get; set; }
 
-        protected DailyOrder(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-            DayOfWeek = (DayOfWeek)info.GetValue("DayOfWeek", typeof(DayOfWeek));
-        }*/
-    }
-
-    [Serializable]
-    public class ExtraOrder : Order
-    {
         public DetailTypeEnum DetailType = DetailTypeEnum.Order;
-        public DateTime OrderDay { get; }
-        public int ClientId { get; }
-        public DateTime OrderRegistDay { get; }
-        public bool StoreOrder { get; }
-
-        public ExtraOrder(int clientId, DateTime orderRegistDay, DateTime orderDay, List<(int ProductId, double Ammount)> allItems, bool isTotal, bool storeOrder) : base(allItems, isTotal)
-        {
-            ClientId = clientId;
-            OrderRegistDay = orderRegistDay;
-            OrderDay = orderDay;
-            StoreOrder = storeOrder;
-        }
+        public DateTime OrderDay { get; set; }
+        public DateTime OrderRegistDay { get; set; }
+        public bool StoreOrder { get; set; }
+        public bool IsTotal { get; set; }
 
         public override bool Equals(object obj)
         {

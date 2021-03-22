@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SQLite;
+using SQLiteNetExtensions.Attributes;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
@@ -7,58 +9,68 @@ using System.Text;
 
 namespace tabApp.Core.Models
 {
+    [Table("Client")]
     [Serializable]
-    public class Client /*: ISerializable*/
+    public class Client
     {
-        public int Id { get; private set; }
-        public string Name { get; private set; }
-        public string SubName { get; private set; }
-        public Address Address { get; private set; }
-        public DateTime PaymentDate { get; private set; }
+        [PrimaryKey]
+        public int Id { get; set; }
+        public int Position { get; set; }
+        public string Name { get; set; }
+        public string SubName { get; set; }
+
+        [OneToOne]
+        public Address Address { get; set; }
+
+        [ForeignKey(typeof(Address))]
+        public int AddressId { get; set; }
+
+        public DateTime PaymentDate { get; set; }
         public DateTime? StartDayStopService { get; set; }
         public DateTime? LastDayStopService { get; set; }
-        public PaymentTypeEnum PaymentType { get; private set; }
-        public bool Active { get; private set; }
-        public double ExtraValueToPay { get; private set; }
-        public List<DailyOrder> DailyOrders { get; private set; }
-        public string PhoneNumber { get; private set; }
+        public PaymentTypeEnum PaymentType { get; set; }
+        public bool Active { get; set; }
+        public double ExtraValueToPay { get; set; }
+
+        [OneToMany]
+        public List<DailyOrder> DailyOrders { get; set; }
+
+        public string PhoneNumber { get; set; }
         public DateTime LastChangeDate { get; set; }
 
         //Extra Params
-        public List<Regist> DetailsList { get; private set; }
-        public List<ExtraOrder> ExtraOrdersList { get; private set; }
+        [OneToMany]
+        public List<Regist> DetailsList { get; set; }
+
+        [OneToMany]
+        public List<ExtraOrder> ExtraOrdersList { get; set; }
 
         //Indirects Params
         #region PARAMS
-        public DailyOrder SegDailyOrder => DailyOrders[0];
-        public DailyOrder TerDailyOrder => DailyOrders[1];
-        public DailyOrder QuaDailyOrder => DailyOrders[2];
-        public DailyOrder QuiDailyOrder => DailyOrders[3];
-        public DailyOrder SexDailyOrder => DailyOrders[4];
-        public DailyOrder SabDailyOrder => DailyOrders[5];
-        public DailyOrder DomDailyOrder => DailyOrders[6];
+
+        [Ignore]
+        public DailyOrder SegDailyOrder => DailyOrders.Find(item => item.DayOfWeek == DayOfWeek.Monday);
+
+        [Ignore]
+        public DailyOrder TerDailyOrder => DailyOrders.Find(item => item.DayOfWeek == DayOfWeek.Tuesday);
+
+        [Ignore]
+        public DailyOrder QuaDailyOrder => DailyOrders.Find(item => item.DayOfWeek == DayOfWeek.Wednesday);
+
+        [Ignore]
+        public DailyOrder QuiDailyOrder => DailyOrders.Find(item => item.DayOfWeek == DayOfWeek.Thursday);
+
+        [Ignore]
+        public DailyOrder SexDailyOrder => DailyOrders.Find(item => item.DayOfWeek == DayOfWeek.Friday);
+
+        [Ignore]
+        public DailyOrder SabDailyOrder => DailyOrders.Find(item => item.DayOfWeek == DayOfWeek.Saturday);
+
+        [Ignore]
+        public DailyOrder DomDailyOrder => DailyOrders.Find(item => item.DayOfWeek == DayOfWeek.Sunday);
+
 
         #endregion
-
-        public Client(int id, string name, string subName, Address address, DateTime paymentDate, DateTime? startDayStopService, DateTime? lastDayStopService, PaymentTypeEnum paymentType, bool active, double extraValue, List<DailyOrder> dailyOrders, string phoneNumber, DateTime lastChangeDate)
-        {
-            Id = id;
-            Name = name;
-            SubName = subName;
-            Address = address;
-            PaymentDate = paymentDate;
-            PaymentType = paymentType;
-            Active = active;
-            ExtraValueToPay = extraValue;
-            DailyOrders = dailyOrders;
-            PhoneNumber = phoneNumber;
-            LastChangeDate = lastChangeDate;
-            StartDayStopService = startDayStopService;
-            LastDayStopService = lastDayStopService;
-
-            DetailsList = new List<Regist>();
-            ExtraOrdersList = new List<ExtraOrder>();
-        }
 
         #region sets
         internal void SetNewRegist(Regist detail)
@@ -127,26 +139,45 @@ namespace tabApp.Core.Models
             switch (day)
             {
                 case DayOfWeek.Monday:
-                    DailyOrders[0] = dailyOrder;
+                    InsertOrReplaceAmmounts(SegDailyOrder, dailyOrder.AllItems);
                     break;
                 case DayOfWeek.Tuesday:
-                    DailyOrders[1] = dailyOrder;
+                    InsertOrReplaceAmmounts(TerDailyOrder, dailyOrder.AllItems);
                     break;
                 case DayOfWeek.Wednesday:
-                    DailyOrders[2] = dailyOrder;
+                    InsertOrReplaceAmmounts(QuaDailyOrder, dailyOrder.AllItems);
                     break;
                 case DayOfWeek.Thursday:
-                    DailyOrders[3] = dailyOrder;
+                    InsertOrReplaceAmmounts(QuiDailyOrder, dailyOrder.AllItems);
                     break;
                 case DayOfWeek.Friday:
-                    DailyOrders[4] = dailyOrder;
+                    InsertOrReplaceAmmounts(SexDailyOrder, dailyOrder.AllItems);
                     break;
                 case DayOfWeek.Saturday:
-                    DailyOrders[5] = dailyOrder;
+                    InsertOrReplaceAmmounts(SabDailyOrder, dailyOrder.AllItems);
                     break;
                 case DayOfWeek.Sunday:
-                    DailyOrders[6] = dailyOrder;
+                    InsertOrReplaceAmmounts(DomDailyOrder, dailyOrder.AllItems);
                     break;
+            }
+        }
+
+        private void InsertOrReplaceAmmounts(DailyOrder dailyOrder, List<DailyOrderDetails> allNewItems)
+        {
+            DailyOrderDetails clientDailyOrderDetails = null;
+
+            foreach (DailyOrderDetails item in allNewItems)
+            {
+                clientDailyOrderDetails = dailyOrder.AllItems.Find(dailyOrderItem => dailyOrderItem.ProductId == item.ProductId);
+
+                if(clientDailyOrderDetails == null)
+                {
+                    dailyOrder.AllItems.Add(item);
+                }
+                else
+                {
+                    clientDailyOrderDetails.Ammount = item.Ammount;
+                }
             }
         }
 
@@ -178,13 +209,13 @@ namespace tabApp.Core.Models
 
         internal void ResetDailyOrders()
         {
-            DailyOrders[0] = new DailyOrder(DayOfWeek.Monday, new List<(int ProductId, double Ammount)>());
-            DailyOrders[1] = new DailyOrder(DayOfWeek.Tuesday, new List<(int ProductId, double Ammount)>());
-            DailyOrders[2] = new DailyOrder(DayOfWeek.Wednesday, new List<(int ProductId, double Ammount)>());
-            DailyOrders[3] = new DailyOrder(DayOfWeek.Thursday, new List<(int ProductId, double Ammount)>());
-            DailyOrders[4] = new DailyOrder(DayOfWeek.Friday, new List<(int ProductId, double Ammount)>());
-            DailyOrders[5] = new DailyOrder(DayOfWeek.Saturday, new List<(int ProductId, double Ammount)>());
-            DailyOrders[6] = new DailyOrder(DayOfWeek.Sunday, new List<(int ProductId, double Ammount)>());
+            SegDailyOrder.AllItems.Clear(); 
+            TerDailyOrder.AllItems.Clear(); 
+            QuaDailyOrder.AllItems.Clear(); 
+            QuiDailyOrder.AllItems.Clear(); 
+            SexDailyOrder.AllItems.Clear(); 
+            SabDailyOrder.AllItems.Clear(); 
+            DomDailyOrder.AllItems.Clear(); 
         }
     }
 
@@ -198,22 +229,20 @@ namespace tabApp.Core.Models
         None
     }
 
+    [Table("Address")]
     [Serializable]
     public class Address
     {
-        public string AddressDesc { get; private set; }
-        public int NumberDoor { get; private set; }
-        public string Coordenadas { get; private set; }
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
+        public string AddressDesc { get; set; }
+        public int NumberDoor { get; set; }
+        public string Coordenadas { get; set; }
 
+        [Ignore]
         public string Lat => Coordenadas.Split(',')[0] + "," + Coordenadas.Split(',')[1];
+        [Ignore]
         public string Lgt => Coordenadas.Split(',')[2] + "," + Coordenadas.Split(',')[3];
-
-        public Address(string addressDesc, int door, string coord)
-        {
-            AddressDesc = addressDesc;
-            NumberDoor = door;
-            Coordenadas = coord;
-        }
 
         internal void SetCoordenadas(string newLocation)
         {

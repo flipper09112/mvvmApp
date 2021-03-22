@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using tabApp.Core.Models;
 using tabApp.Core.Services.Implementations.Clients;
+using tabApp.Core.Services.Implementations.DB;
 using tabApp.Core.Services.Interfaces.DB;
 using tabApp.Core.Services.Interfaces.Dialogs;
 using tabApp.Core.Services.Interfaces.Products;
@@ -16,7 +17,7 @@ namespace tabApp.Core.ViewModels
     {
         private readonly IChooseClientService _chooseClientService;
         private readonly IDialogService _dialogService;
-        private readonly IDBManagerService _dBManagerService;
+        private readonly IDataBaseManagerService _dataBaseManagerService;
         protected readonly IMvxNavigationService _navService;
         protected readonly IProductsManagerService _productsManagerService;
         protected readonly IAddProductToOrderService _addProductToOrderService;
@@ -25,12 +26,16 @@ namespace tabApp.Core.ViewModels
         public MvxCommand ShowSelectDaysPageCommand;
         public MvxCommand<DayOfWeek> AddProductCommand;
 
-        public EditClientViewModel(IChooseClientService chooseClientService, IDialogService dialogService, IDBManagerService dBManagerService, IMvxNavigationService navService,
-            IProductsManagerService productsManagerService, IAddProductToOrderService addProductToOrderService)
+        public EditClientViewModel(IChooseClientService chooseClientService, 
+                                   IDialogService dialogService, 
+                                   IDataBaseManagerService dataBaseManagerService, 
+                                   IMvxNavigationService navService,
+                                   IProductsManagerService productsManagerService, 
+                                   IAddProductToOrderService addProductToOrderService)
         {
             _chooseClientService = chooseClientService;
             _dialogService = dialogService;
-            _dBManagerService = dBManagerService;
+            _dataBaseManagerService = dataBaseManagerService;
             _navService = navService;
             _productsManagerService = productsManagerService;
             _addProductToOrderService = addProductToOrderService;
@@ -282,7 +287,7 @@ namespace tabApp.Core.ViewModels
             }
             if (!isValid) return;
 
-            _dBManagerService.SaveClient(Client, toRegist);
+            _dataBaseManagerService.SaveClient(Client, toRegist);
         }
 
         private bool SaveRegist(ClientProfileField item, List<ClientProfileField> dailyOrderItems = null)
@@ -347,15 +352,18 @@ namespace tabApp.Core.ViewModels
 
         private DailyOrder GetnewDailyOrder(List<ClientProfileField> dailyOrderItems, DayOfWeek day)
         {
-            List<(int ProductId, double Ammount)> allItems = new List<(int ProductId, double Ammount)>();
+            List<DailyOrderDetails> allItems = new List<DailyOrderDetails>();
             foreach (var item in dailyOrderItems)
             {
-                if (item.NewValue != null && (item.NewValue.Equals("") || item.NewValue.Equals("0")))
+                if (item.NewValue != null && (item.NewValue.Equals("")))
                     continue;
 
-                allItems.Add((item.Product.Id, double.Parse(item.NewValue == null ? item.Value : item.NewValue)));
+                allItems.Add(new DailyOrderDetails() { 
+                    ProductId = item.Product.Id ,
+                    Ammount = double.Parse(item.NewValue == null ? item.Value : item.NewValue)
+                });
             }
-            return new DailyOrder(day, allItems);
+            return new DailyOrder { DayOfWeek = day, AllItems = allItems };
         }
 
         private string _newLocation;

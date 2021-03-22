@@ -129,7 +129,7 @@ namespace tabApp.Core.Services.Implementations.Bluetooth
 
             using (BluetoothAdapter bluetoothAdapter = BluetoothAdapter.DefaultAdapter)
             {
-                BluetoothDevice device = GetDevice(bluetoothAdapter, "HUAWEI MediaPad T5"); //TODO
+                BluetoothDevice device = GetDevice(bluetoothAdapter, "HUAWEI MediaPad T5"/*"Galaxy Tab A de Filipe"*/); //TODO
                 Socket = device.CreateRfcommSocketToServiceRecord(UUID.FromString(UIID));
 
                 var top = Mvx.Resolve<IMvxAndroidCurrentTopActivity>();

@@ -129,9 +129,9 @@ namespace tabApp.Core.Services.Implementations.Orders
             return items;
         }
 
-        private void AddProductAmmountToList(List<ProductAmmount> items, List<(int ProductId, double Ammount)> dailyOrder)
+        private void AddProductAmmountToList(List<ProductAmmount> items, List<DailyOrderDetails> allItems)
         {
-            foreach(var dailyItem in dailyOrder)
+            foreach (var dailyItem in allItems)
             {
                 var listItem = items.Find(item => item.Product.Id == dailyItem.ProductId);
                 Product productModel = _productsManagerService.GetProductById(dailyItem.ProductId);
@@ -146,14 +146,15 @@ namespace tabApp.Core.Services.Implementations.Orders
                         Ammount = dailyItem.Ammount
                     });
                 }
-                else if(listItem == null)
+                else if (listItem == null)
                 {
                     items.Add(new ProductAmmount()
                     {
                         Product = productModel,
                         Ammount = dailyItem.Ammount
                     });
-                }else
+                }
+                else
                 {
                     listItem.Ammount += dailyItem.Ammount;
                 }
@@ -176,7 +177,7 @@ namespace tabApp.Core.Services.Implementations.Orders
 
             return ammount;
         }
-        public double GetValue(int clientId, List<(int ProductId, double Ammount)> allitems)
+        public double GetValue(int clientId, List<DailyOrderDetails> allitems)
         {
             double ammount = 0;
 

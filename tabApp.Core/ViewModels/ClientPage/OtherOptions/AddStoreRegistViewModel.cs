@@ -6,6 +6,7 @@ using System.Text;
 using tabApp.Core.Helpers;
 using tabApp.Core.Models;
 using tabApp.Core.Services.Implementations.Clients;
+using tabApp.Core.Services.Implementations.DB;
 using tabApp.Core.Services.Interfaces.Clients;
 using tabApp.Core.Services.Interfaces.DB;
 using tabApp.Core.Services.Interfaces.Dialogs;
@@ -21,7 +22,7 @@ namespace tabApp.Core.ViewModels.ClientPage
         private readonly IAddProductToOrderService _addProductToOrderService;
         private readonly IMvxNavigationService _navigationService;
         private readonly IClientsManagerService _clientsManagerService;
-        private readonly IDBService _dBService;
+        private readonly IDataBaseManagerService _dataBaseManagerService;
 
         private bool _firstTime = true;
 
@@ -34,7 +35,7 @@ namespace tabApp.Core.ViewModels.ClientPage
         public AddStoreRegistViewModel(IChooseClientService chooseClientService, IDialogService dialogService
                                         , IProductsManagerService productsManagerService, IAddProductToOrderService addProductToOrderService,
                                         IMvxNavigationService navigationService, IClientsManagerService clientsManagerService,
-                                        IDBService dBService)
+                                        IDataBaseManagerService dataBaseManagerService)
         {
             _dialogService = dialogService;
             _chooseClientService = chooseClientService;
@@ -42,7 +43,7 @@ namespace tabApp.Core.ViewModels.ClientPage
             _addProductToOrderService = addProductToOrderService;
             _navigationService = navigationService;
             _clientsManagerService = clientsManagerService;
-            _dBService = dBService;
+            _dataBaseManagerService = dataBaseManagerService;
 
             ShowCalendarPickerCommand = new MvxCommand(ShowCalendarPicker);
             AddProductCommand = new MvxCommand(AddProduct);
@@ -58,21 +59,23 @@ namespace tabApp.Core.ViewModels.ClientPage
         {
             IsBusy = true;
 
-            List<(int ProductId, double Ammount)> items = new List<(int ProductId, double Ammount)>();
+            List<DailyOrderDetails> items = new List<DailyOrderDetails>();
             ItemsList.ForEach(product => {
                 if (product.Ammount > 0)
-                    items.Add((product.Product.Id, product.Ammount));
+                    items.Add(new DailyOrderDetails() { ProductId = product.Product.Id, Ammount = product.Ammount });
             });
 
-            var order = new ExtraOrder(_chooseClientService.ClientSelected.Id, 
-                                        DateTime.Today,
-                                        DateSelected,
-                                        items,
-                                        (bool)true,
-                                        true);
+            var order = new ExtraOrder() {
+                ClientId = _chooseClientService.ClientSelected.Id,
+                OrderRegistDay = DateTime.Today,
+                OrderDay = DateSelected,
+                AllItems = items,
+                IsTotal = true,
+                StoreOrder = true
+            }; 
 
             _clientsManagerService.AddNewOrder(_chooseClientService.ClientSelected, order);
-            _dBService.SaveNewRegist(order);
+            _dataBaseManagerService.SaveClient(_chooseClientService.ClientSelected, order);
 
             IsBusy = false;
 
