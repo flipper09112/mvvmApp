@@ -15,6 +15,7 @@ namespace tabApp.Core.Models
     {
         [PrimaryKey]
         public int Id { get; set; }
+        public int Position { get; set; }
         public string Name { get; set; }
         public string SubName { get; set; }
 
@@ -31,7 +32,7 @@ namespace tabApp.Core.Models
         public bool Active { get; set; }
         public double ExtraValueToPay { get; set; }
 
-        [OneToMany(CascadeOperations = CascadeOperation.All)]
+        [OneToMany]
         public List<DailyOrder> DailyOrders { get; set; }
 
         public string PhoneNumber { get; set; }
@@ -67,6 +68,7 @@ namespace tabApp.Core.Models
 
         [Ignore]
         public DailyOrder DomDailyOrder => DailyOrders.Find(item => item.DayOfWeek == DayOfWeek.Sunday);
+
 
         #endregion
 
@@ -137,33 +139,45 @@ namespace tabApp.Core.Models
             switch (day)
             {
                 case DayOfWeek.Monday:
-                    SegDailyOrder.AllItems.Clear();
-                    SegDailyOrder.AllItems.AddRange(dailyOrder.AllItems);
+                    InsertOrReplaceAmmounts(SegDailyOrder, dailyOrder.AllItems);
                     break;
                 case DayOfWeek.Tuesday:
-                    TerDailyOrder.AllItems.Clear();
-                    TerDailyOrder.AllItems.AddRange(dailyOrder.AllItems);
+                    InsertOrReplaceAmmounts(TerDailyOrder, dailyOrder.AllItems);
                     break;
                 case DayOfWeek.Wednesday:
-                    QuaDailyOrder.AllItems.Clear();
-                    QuaDailyOrder.AllItems.AddRange(dailyOrder.AllItems);
+                    InsertOrReplaceAmmounts(QuaDailyOrder, dailyOrder.AllItems);
                     break;
                 case DayOfWeek.Thursday:
-                    QuiDailyOrder.AllItems.Clear();
-                    QuiDailyOrder.AllItems.AddRange(dailyOrder.AllItems);
+                    InsertOrReplaceAmmounts(QuiDailyOrder, dailyOrder.AllItems);
                     break;
                 case DayOfWeek.Friday:
-                    SexDailyOrder.AllItems.Clear();
-                    SexDailyOrder.AllItems.AddRange(dailyOrder.AllItems);
+                    InsertOrReplaceAmmounts(SexDailyOrder, dailyOrder.AllItems);
                     break;
                 case DayOfWeek.Saturday:
-                    SabDailyOrder.AllItems.Clear();
-                    SabDailyOrder.AllItems.AddRange(dailyOrder.AllItems);
+                    InsertOrReplaceAmmounts(SabDailyOrder, dailyOrder.AllItems);
                     break;
                 case DayOfWeek.Sunday:
-                    DomDailyOrder.AllItems.Clear();
-                    DomDailyOrder.AllItems.AddRange(dailyOrder.AllItems);
+                    InsertOrReplaceAmmounts(DomDailyOrder, dailyOrder.AllItems);
                     break;
+            }
+        }
+
+        private void InsertOrReplaceAmmounts(DailyOrder dailyOrder, List<DailyOrderDetails> allNewItems)
+        {
+            DailyOrderDetails clientDailyOrderDetails = null;
+
+            foreach (DailyOrderDetails item in allNewItems)
+            {
+                clientDailyOrderDetails = dailyOrder.AllItems.Find(dailyOrderItem => dailyOrderItem.ProductId == item.ProductId);
+
+                if(clientDailyOrderDetails == null)
+                {
+                    dailyOrder.AllItems.Add(item);
+                }
+                else
+                {
+                    clientDailyOrderDetails.Ammount = item.Ammount;
+                }
             }
         }
 

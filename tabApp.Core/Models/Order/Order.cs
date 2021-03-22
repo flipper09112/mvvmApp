@@ -47,16 +47,6 @@ namespace tabApp.Core.Models
         public bool StoreOrder { get; set; }
         public bool IsTotal { get; set; }
 
-        /*public ExtraOrder(int clientId, DateTime orderRegistDay, DateTime orderDay, List<(int ProductId, double Ammount)> allItems, bool isTotal, bool storeOrder)
-        {
-            AllItems = allItems;
-            IsTotal = isTotal;
-            ClientId = clientId;
-            OrderRegistDay = orderRegistDay;
-            OrderDay = orderDay;
-            StoreOrder = storeOrder;
-        }*/
-
         public override bool Equals(object obj)
         {
             ExtraOrder order = obj as ExtraOrder;

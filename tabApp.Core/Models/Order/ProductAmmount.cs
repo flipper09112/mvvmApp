@@ -13,6 +13,7 @@ namespace tabApp.Core.Models
     }
 
     [Table("DailyOrderDetails")]
+    [Serializable]
     public class DailyOrderDetails
     {
         [PrimaryKey, AutoIncrement]

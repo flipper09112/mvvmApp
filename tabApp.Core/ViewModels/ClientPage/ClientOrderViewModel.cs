@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Text;
 using tabApp.Core.Models;
 using tabApp.Core.Services.Implementations.Clients;
+using tabApp.Core.Services.Implementations.DB;
 using tabApp.Core.Services.Interfaces.Clients;
 using tabApp.Core.Services.Interfaces.DB;
 using tabApp.Core.Services.Interfaces.Dialogs;
@@ -16,8 +17,8 @@ namespace tabApp.Core.ViewModels
     public class ClientOrderViewModel : BaseViewModel
     {
         private readonly IChooseClientService _chooseClientService;
-        private readonly IDBService _dBService;
         private readonly IClientsManagerService _clientsManagerService;
+        private readonly IDataBaseManagerService _dataBaseManagerService;
         private readonly IDialogService _dialogService;
         private readonly IMvxNavigationService _navigationService;
         private readonly IAddProductToOrderService _addProductToOrderService;
@@ -33,14 +34,14 @@ namespace tabApp.Core.ViewModels
                                     IMvxNavigationService navigationService,
                                     IAddProductToOrderService addProductToOrderService,
                                     IClientsManagerService clientsManagerService,
-                                    IDBService dBService)
+                                    IDataBaseManagerService dataBaseManagerService)
         {
             _chooseClientService = chooseClientService;
             _dialogService = dialogService;
             _navigationService = navigationService;
             _addProductToOrderService = addProductToOrderService;
             _clientsManagerService = clientsManagerService;
-            _dBService = dBService;
+            _dataBaseManagerService = dataBaseManagerService;
 
             SelectDateCommand = new MvxCommand(SelectDate);
             SaveNewOrderCommand = new MvxCommand(SaveNewOrder, CanSaveNewOrder);
@@ -86,8 +87,7 @@ namespace tabApp.Core.ViewModels
             };
 
             _clientsManagerService.AddNewOrder(_chooseClientService.ClientSelected, order);
-            _dBService.SaveClientData(_chooseClientService.ClientSelected);
-            _dBService.SaveNewRegist(order);
+            _dataBaseManagerService.SaveClient(_chooseClientService.ClientSelected, order);
 
             IsBusy = false;
 

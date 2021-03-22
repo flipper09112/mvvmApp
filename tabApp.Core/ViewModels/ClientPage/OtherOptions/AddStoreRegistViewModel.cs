@@ -6,6 +6,7 @@ using System.Text;
 using tabApp.Core.Helpers;
 using tabApp.Core.Models;
 using tabApp.Core.Services.Implementations.Clients;
+using tabApp.Core.Services.Implementations.DB;
 using tabApp.Core.Services.Interfaces.Clients;
 using tabApp.Core.Services.Interfaces.DB;
 using tabApp.Core.Services.Interfaces.Dialogs;
@@ -21,7 +22,7 @@ namespace tabApp.Core.ViewModels.ClientPage
         private readonly IAddProductToOrderService _addProductToOrderService;
         private readonly IMvxNavigationService _navigationService;
         private readonly IClientsManagerService _clientsManagerService;
-        private readonly IDBService _dBService;
+        private readonly IDataBaseManagerService _dataBaseManagerService;
 
         private bool _firstTime = true;
 
@@ -34,7 +35,7 @@ namespace tabApp.Core.ViewModels.ClientPage
         public AddStoreRegistViewModel(IChooseClientService chooseClientService, IDialogService dialogService
                                         , IProductsManagerService productsManagerService, IAddProductToOrderService addProductToOrderService,
                                         IMvxNavigationService navigationService, IClientsManagerService clientsManagerService,
-                                        IDBService dBService)
+                                        IDataBaseManagerService dataBaseManagerService)
         {
             _dialogService = dialogService;
             _chooseClientService = chooseClientService;
@@ -42,7 +43,7 @@ namespace tabApp.Core.ViewModels.ClientPage
             _addProductToOrderService = addProductToOrderService;
             _navigationService = navigationService;
             _clientsManagerService = clientsManagerService;
-            _dBService = dBService;
+            _dataBaseManagerService = dataBaseManagerService;
 
             ShowCalendarPickerCommand = new MvxCommand(ShowCalendarPicker);
             AddProductCommand = new MvxCommand(AddProduct);
@@ -74,7 +75,7 @@ namespace tabApp.Core.ViewModels.ClientPage
             }; 
 
             _clientsManagerService.AddNewOrder(_chooseClientService.ClientSelected, order);
-            _dBService.SaveNewRegist(order);
+            _dataBaseManagerService.SaveClient(_chooseClientService.ClientSelected, order);
 
             IsBusy = false;
 

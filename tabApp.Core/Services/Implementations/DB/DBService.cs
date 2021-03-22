@@ -594,7 +594,8 @@ namespace tabApp.Core.Services.Implementations
                     PhoneNumber = phoneNumber,
                     LastChangeDate = lastDateChange,
                     DetailsList = new List<Regist>(),
-                    ExtraOrdersList = new List<ExtraOrder>()
+                    ExtraOrdersList = new List<ExtraOrder>(),
+                    Position = i - 1
                 };
 
                 clientsList.Add(client);

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using tabApp.Core.Models;
+using tabApp.Core.Services.Implementations.DB;
 using tabApp.Core.Services.Interfaces.Bluetooth;
 using tabApp.Core.Services.Interfaces.DB;
 
@@ -10,12 +11,13 @@ namespace tabApp.Core.ViewModels.Global.Bt
     public class BtIncomingViewModel : BaseViewModel
     {
         private IBluetoothService _bluetoothService;
-        private IDBManagerService _dBManagerService;
+        private IDataBaseManagerService _dataBaseManagerService;
 
-        public BtIncomingViewModel(IBluetoothService bluetoothService, IDBManagerService dBManagerService)
+        public BtIncomingViewModel(IBluetoothService bluetoothService, 
+                                   IDataBaseManagerService dataBaseManagerService)
         {
             _bluetoothService = bluetoothService;
-            _dBManagerService = dBManagerService;
+            _dataBaseManagerService = dataBaseManagerService;
         }
 
         public override void Appearing()
@@ -35,7 +37,7 @@ namespace tabApp.Core.ViewModels.Global.Bt
         {
             foreach(Client client in newClients)
             {
-                _dBManagerService.UpdateClientFromBluetooth(client);
+                _dataBaseManagerService.UpdateClientFromBluetooth(client);
             }
         }
 

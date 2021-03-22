@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using tabApp.Core.Models;
 using tabApp.Core.Services.Implementations.Clients;
+using tabApp.Core.Services.Implementations.DB;
 using tabApp.Core.Services.Interfaces.Clients;
 using tabApp.Core.Services.Interfaces.DB;
 using tabApp.Core.Services.Interfaces.Dialogs;
@@ -23,7 +24,7 @@ namespace tabApp.Core.ViewModels
         private readonly IAmmountToPayService _ammountToPayService;
         private readonly IClientsManagerService _clientsManagerService;
         private readonly IMvxNavigationService _navigationService;
-        private readonly IDBService _dBService;
+        private readonly IDataBaseManagerService _dataBaseManagerService;
         private readonly IDialogService _dialogService;
         private readonly IProductsManagerService _productsManagerService;
 
@@ -58,9 +59,9 @@ namespace tabApp.Core.ViewModels
                                    IAmmountToPayService ammountToPayService,
                                    IClientsManagerService clientsManagerService,
                                    IMvxNavigationService navigationService,
-                                   IDBService dBService,
                                    IDialogService dialogService,
-                                   IProductsManagerService productsManagerService)
+                                   IProductsManagerService productsManagerService,
+                                   IDataBaseManagerService dataBaseManagerService)
         {
 
             #region Services
@@ -70,7 +71,7 @@ namespace tabApp.Core.ViewModels
             _ammountToPayService = ammountToPayService;
             _clientsManagerService = clientsManagerService;
             _navigationService = navigationService;
-            _dBService = dBService;
+            _dataBaseManagerService = dataBaseManagerService;
             _dialogService = dialogService;
             _productsManagerService = productsManagerService;
             #endregion
@@ -151,10 +152,11 @@ namespace tabApp.Core.ViewModels
         private void ConfirmCancelOrder(object obj)
         {
             IsBusy = true;
-            var regist = _clientsManagerService.RemoveExtraOrder(Client, (ExtraOrder)obj); 
-            _dBService.SaveClientData(Client);
+            var regist = _clientsManagerService.RemoveExtraOrder(Client, (ExtraOrder)obj);
+            /*_dBService.SaveClientData(Client);
             _dBService.RemoveRegist((ExtraOrder)obj);
-            _dBService.SaveNewRegist(regist);
+            _dBService.SaveNewRegist(regist);*/
+            throw new NotImplementedException();
             IsBusy = false;
             RaisePropertyChanged(nameof(ConfirmCancelOrder));
         }
@@ -196,8 +198,7 @@ namespace tabApp.Core.ViewModels
         {
             IsBusy = true;
             var regist = _clientsManagerService.AddExtra(Client, extra);
-            _dBService.SaveClientData(Client);
-            _dBService.SaveNewRegist(regist);
+            _dataBaseManagerService.SaveClient(Client, regist);
             IsBusy = false;
             RaisePropertyChanged(nameof(AddExtraAction));
         }
@@ -227,8 +228,7 @@ namespace tabApp.Core.ViewModels
             IsBusy = true;
             var regist = _clientsManagerService.SetPayment(Client, DateSelected, payExtra
                 , payExtra ? _ammountToPayService.Calculate(Client, DateSelected) : _ammountToPayService.Calculate(Client, DateSelected) - Client.ExtraValueToPay);
-            _dBService.SaveClientData(Client);
-            _dBService.SaveNewRegist(regist);
+            _dataBaseManagerService.SaveClient(Client, regist);
             IsBusy = false;
             _navigationService.Close(this);
         }

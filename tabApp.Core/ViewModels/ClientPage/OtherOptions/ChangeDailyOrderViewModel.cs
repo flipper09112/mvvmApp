@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using tabApp.Core.Models;
 using tabApp.Core.Services.Implementations.Clients;
+using tabApp.Core.Services.Implementations.DB;
 using tabApp.Core.Services.Interfaces.Clients;
 using tabApp.Core.Services.Interfaces.DB;
 using tabApp.Core.Services.Interfaces.Dialogs;
@@ -19,7 +20,7 @@ namespace tabApp.Core.ViewModels.ClientPage.OtherOptions
         protected readonly IProductsManagerService _productsManagerService;
         protected readonly IChooseClientService _chooseClientService;
         protected readonly IDialogService _dialogService;
-        protected readonly IDBManagerService _dBManagerService;
+        protected readonly IDataBaseManagerService _dataBaseManagerService;
         protected readonly IAmmountToPayService _ammountToPayService;
 
         public MvxCommand ShowSelectDaysPageCommand;
@@ -29,15 +30,20 @@ namespace tabApp.Core.ViewModels.ClientPage.OtherOptions
 
         public EventHandler GoBack2Times;
 
-        public ChangeDailyOrderViewModel(IMvxNavigationService navService, IAddProductToOrderService addProductToOrderService, IProductsManagerService productsManagerService, IChooseClientService chooseClientService,
-                                          IDialogService dialogService, IDBManagerService dBManagerService, IAmmountToPayService ammountToPayService)
+        public ChangeDailyOrderViewModel(IMvxNavigationService navService, 
+                                         IAddProductToOrderService addProductToOrderService, 
+                                         IProductsManagerService productsManagerService, 
+                                         IChooseClientService chooseClientService,
+                                         IDialogService dialogService, 
+                                         IAmmountToPayService ammountToPayService,
+                                         IDataBaseManagerService dataBaseManagerService)
         {
             _navService = navService;
             _addProductToOrderService = addProductToOrderService;
             _productsManagerService = productsManagerService;
             _chooseClientService = chooseClientService;
             _dialogService = dialogService;
-            _dBManagerService = dBManagerService;
+            _dataBaseManagerService = dataBaseManagerService;
             _ammountToPayService = ammountToPayService;
 
             ShowSelectDaysPageCommand = new MvxCommand(ShowSelectDaysPage);
@@ -246,7 +252,7 @@ namespace tabApp.Core.ViewModels.ClientPage.OtherOptions
             }
             if (!isValid) return;
 
-            _dBManagerService.SaveClient(Client, toRegist);
+            _dataBaseManagerService.SaveClient(Client, toRegist);
             GoBack2Times?.Invoke(null, null);
         }
 
@@ -299,11 +305,10 @@ namespace tabApp.Core.ViewModels.ClientPage.OtherOptions
         }
         private DailyOrder GetnewDailyOrder(List<ClientProfileField> dailyOrderItems, DayOfWeek day)
         {
-            
             List<DailyOrderDetails> allItems = new List<DailyOrderDetails>();
             foreach (var item in dailyOrderItems)
             {
-                if (item.NewValue != null && (item.NewValue.Equals("") || item.NewValue.Equals("0")))
+                if (item.NewValue != null && (item.NewValue.Equals("")))
                     continue;
 
                 allItems.Add(new DailyOrderDetails { ProductId = item.Product.Id, Ammount = double.Parse(item.NewValue == null ? item.Value : item.NewValue) });

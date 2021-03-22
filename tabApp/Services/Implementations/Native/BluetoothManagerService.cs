@@ -148,6 +148,7 @@ namespace tabApp.Services.Implementations.Native
                     } catch(Exception ex)
                     {
                         btService.ErrorLottie?.Invoke();
+                        return;
                     }
                 }
             }

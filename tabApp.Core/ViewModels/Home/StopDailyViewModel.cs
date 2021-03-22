@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using tabApp.Core.Models;
 using tabApp.Core.Services.Implementations.Clients;
+using tabApp.Core.Services.Implementations.DB;
 using tabApp.Core.Services.Interfaces.Clients;
 using tabApp.Core.Services.Interfaces.DB;
 using tabApp.Core.Services.Interfaces.Dialogs;
@@ -15,7 +16,7 @@ namespace tabApp.Core.ViewModels.Home
     {
         private IChooseClientService _chooseClientService;
         private IDialogService _dialogService;
-        private IDBManagerService _dBManagerService;
+        private IDataBaseManagerService _dataBaseManagerService;
         private IAmmountToPayService _ammountToPayService;
         private IMvxNavigationService _navigationService;
 
@@ -35,13 +36,13 @@ namespace tabApp.Core.ViewModels.Home
 
         public StopDailyViewModel(IChooseClientService chooseClientService, 
                                   IDialogService dialogService,
-                                  IDBManagerService dBManagerService,
+                                  IDataBaseManagerService dataBaseManagerService,
                                   IAmmountToPayService ammountToPayService,
                                   IMvxNavigationService navigationService)
         {
             _chooseClientService = chooseClientService;
             _dialogService = dialogService;
-            _dBManagerService = dBManagerService;
+            _dataBaseManagerService = dataBaseManagerService;
             _ammountToPayService = ammountToPayService;
             _navigationService = navigationService;
 
@@ -179,7 +180,7 @@ namespace tabApp.Core.ViewModels.Home
             Client.ResetDailyOrders();
             Client.UpdatePaymentDate(FirstDayIndeterminatedDate.AddDays(-1));
 
-            _dBManagerService.SaveClient(
+            _dataBaseManagerService.SaveClient(
                 Client,
                 new Regist()
                 {
@@ -196,7 +197,7 @@ namespace tabApp.Core.ViewModels.Home
             Client.AddExtra(-1 * total);
             Client.StartDayStopService = FirstDayDeterminatedDate;
             Client.LastDayStopService = LastDayDeterminatedDate;
-            _dBManagerService.SaveClient(Client,
+            _dataBaseManagerService.SaveClient(Client,
                 new Regist()
                 {
                     DetailRegistDay = DateTime.Today,
