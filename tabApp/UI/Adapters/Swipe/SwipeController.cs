@@ -137,7 +137,7 @@ namespace tabApp.UI.Adapters.Swipe
         }
         public void InstantiateUnderlayButton(RecyclerView.ViewHolder viewHolder, List<UnderlayButton> underlayButtons) {
             underlayButtons.Add(new UnderlayButton("Apagar", Resource.Drawable.ic_delete, Color.ParseColor("#FF3C30"), viewModel.DeleteClientCommand));
-            underlayButtons.Add(new UnderlayButton("Inativo", 0, Color.ParseColor("#FF9502"), viewModel.StopDailysClientCommand));
+            underlayButtons.Add(new UnderlayButton("Inativar", 0, Color.ParseColor("#FF9502"), viewModel.StopDailysClientCommand));
             underlayButtons.Add(new UnderlayButton("Outros", 0, Color.ParseColor("#C7C7CB"), /*viewModel.DeleteClientCommand*/null));
         }
 

@@ -167,6 +167,7 @@ namespace tabApp.Core.Services.Implementations.DB
         {
             client.LastChangeDate = DateTime.Now;
             CheckDailyOrders(client);
+            client.SetNewRegist(regist);
             database.Insert(regist);
             database.UpdateWithChildren(client);
 
