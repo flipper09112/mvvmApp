@@ -31,6 +31,18 @@ namespace tabApp.Core.Services.Implementations.Clients
         public void SetClients(List<Client> clientsList)
         {
             _clientsList = clientsList;
+
+            foreach(Client cli in _clientsList)
+            {
+
+                var sortedList = cli.ExtraOrdersList.OrderBy(item => item.OrderDay).ToList();
+                cli.ExtraOrdersList = sortedList;
+                cli.ExtraOrdersList.Reverse();
+
+                var sortedList2 = cli.DetailsList.OrderBy(item => item.DetailRegistDay).ToList();
+                cli.DetailsList = sortedList2;
+                cli.DetailsList.Reverse();
+            }
         }
 
         public void SetNewOrder(int clientId, ExtraOrder extraOrder)

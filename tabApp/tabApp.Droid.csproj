@@ -72,6 +72,7 @@
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\DecimalDigitsInputFilter.cs" />
     <Compile Include="Helpers\FragmentHelper.cs" />
+    <Compile Include="Helpers\NotificationHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="MainApplication.cs" />
@@ -115,6 +116,7 @@
     <Compile Include="UI\Fragments\Global\SynchronizeFragment.cs" />
     <Compile Include="UI\Fragments\Home\DeleteClientFragment.cs" />
     <Compile Include="UI\Fragments\Home\GlobalOrderSelectDaysFragment.cs" />
+    <Compile Include="UI\Fragments\Home\InitDailyFragment.cs" />
     <Compile Include="UI\Fragments\Home\StopDailyFragment.cs" />
     <Compile Include="UI\Fragments\Home\ViewPager\HomePageMapFragment.cs" />
     <Compile Include="UI\Fragments\Home\ViewPager\HomePageOrdersFragment.cs" />
@@ -150,6 +152,7 @@
     <AndroidAsset Include="Assets\Lotties\success.json" />
     <AndroidAsset Include="Assets\Lotties\error.json" />
     <AndroidAsset Include="Assets\Lotties\load.json" />
+    <AndroidAsset Include="Assets\Lotties\activate.json" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />
@@ -675,6 +678,14 @@
     <AndroidResource Include="Resources\layout\GlobalOrderSelectDaysFragment.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\InitDailyFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\raw\alarm.mp3" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>

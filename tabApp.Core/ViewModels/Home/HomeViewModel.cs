@@ -56,7 +56,13 @@ namespace tabApp.Core
         private async void StopDailysClient(int arg)
         {
             _chooseClientService.SelectClient(_clientsManagerService.ClientsList[arg]);
-            await _navigationService.Navigate<StopDailyViewModel>();
+            if(_clientsManagerService.ClientsList[arg].Active)
+            {
+                await _navigationService.Navigate<StopDailyViewModel>();
+            }else
+            {
+                await _navigationService.Navigate<InitDailyViewModel>();
+            }
         }
 
         private async void DeleteClient(int arg)
