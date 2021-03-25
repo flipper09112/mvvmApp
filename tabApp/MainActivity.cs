@@ -267,27 +267,6 @@ namespace tabApp
             base.OnUserInteraction();
         }
 
-        private void CheckIfClosestOrder(Location location)
-        {
-            timer += 1;
-            if(timer == 25)
-            {
-
-            }
-             /*var ordersManagerService = Mvx.Resolve<IOrdersManagerService>();
-            double distance;
-            foreach (var order in ordersManagerService.TodayOrders)
-            {
-                if (!order.Client.Address.Coordenadas.Equals(null)) { 
-                    distance = Math.Sqrt(Math.Pow(double.Parse(order.Client.Address.Lat) - location.Latitude, 2) + Math.Pow(double.Parse(order.Client.Address.Lgt) - location.Longitude, 2));
-                    if(distance < 80)
-                    {
-                        OrderNotification();
-                    }
-                }
-            }*/
-        }
-
         private void OrderNotification()
         {
         }
@@ -324,8 +303,6 @@ namespace tabApp
             }
 
             LocationEvent?.Invoke(location);
-
-            CheckIfClosestOrder(location);
         }
         #endregion
     }

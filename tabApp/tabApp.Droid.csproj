@@ -72,6 +72,7 @@
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\DecimalDigitsInputFilter.cs" />
     <Compile Include="Helpers\FragmentHelper.cs" />
+    <Compile Include="Helpers\NotificationHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="MainApplication.cs" />
@@ -682,6 +683,9 @@
     <AndroidResource Include="Resources\layout\InitDailyFragment.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\raw\alarm.mp3" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>

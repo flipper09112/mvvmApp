@@ -13,13 +13,14 @@ namespace tabApp.Core.Services.Implementations.DB
         void InsertAllProducts(List<Product> products);
         void InsertAllDataFromXls(List<Client> clientsList, List<Product> productsList);
 
-        void RemoveClient(int id);
         Task LoadDataBase();
         void SaveClient(Client client, string toRegist);
         void UpdateClientFromBluetooth(Client client);
-        void RemoveClient(Client client);
         void SaveClient(Client client, Regist regist);
         void SaveClient(Client clientSelected, ExtraOrder order);
         void SaveAllDocs();
+        void RemoveClient(Client client);
+        void RemoveClient(int id);
+        void RemoveExtraOrder(Client client, ExtraOrder obj, Regist regist);
     }
 }

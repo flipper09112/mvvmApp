@@ -153,10 +153,7 @@ namespace tabApp.Core.ViewModels
         {
             IsBusy = true;
             var regist = _clientsManagerService.RemoveExtraOrder(Client, (ExtraOrder)obj);
-            /*_dBService.SaveClientData(Client);
-            _dBService.RemoveRegist((ExtraOrder)obj);
-            _dBService.SaveNewRegist(regist);*/
-            throw new NotImplementedException();
+            _dataBaseManagerService.RemoveExtraOrder(Client, (ExtraOrder)obj, regist);
             IsBusy = false;
             RaisePropertyChanged(nameof(ConfirmCancelOrder));
         }

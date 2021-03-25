@@ -75,6 +75,7 @@ namespace tabApp.Core.Services.Implementations.DB
                 Debug.WriteLine(e.Message);
             }
         }
+
         public async Task LoadDataBase()
         {
             if (!_fileService.HasFile(DataBaseName))
@@ -208,7 +209,15 @@ namespace tabApp.Core.Services.Implementations.DB
                             }
                         }
                     }
-                    dailyOrder.AllItems.RemoveAll(item => itemsToRemove.Contains(item));
+                    if(dailyOrder.AllItems.Count == 0)
+                    {
+                        var daily = database.GetWithChildren<DailyOrder>(dailyOrder.Id, true);
+                        daily.AllItems.ForEach(item => database.Delete(item));
+                    }
+                    else
+                    {
+                        dailyOrder.AllItems.RemoveAll(item => itemsToRemove.Contains(item));
+                    }
                 }
             }
         }
@@ -257,6 +266,7 @@ namespace tabApp.Core.Services.Implementations.DB
 
         #endregion
 
+        #region Delete
         public void RemoveClient(int id)
         {
             database.Delete<Client>(id);
@@ -267,5 +277,14 @@ namespace tabApp.Core.Services.Implementations.DB
             database.Delete<Client>(client.Id);
         }
 
+        public void RemoveExtraOrder(Client client, ExtraOrder obj, Regist regist)
+        {
+            obj.AllItems.ForEach(item => database.Delete<DailyOrderDetails>(item.Id));
+            database.Delete<ExtraOrder>(obj.Id);
+            database.Insert(regist);
+            database.UpdateWithChildren(client);
+        }
+
+        #endregion
     }
 }

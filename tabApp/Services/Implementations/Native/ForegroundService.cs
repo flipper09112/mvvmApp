@@ -1,12 +1,18 @@
 ﻿
 using Android.App;
 using Android.Content;
+using Android.Content.PM;
 using Android.Locations;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.V4.App;
 using Android.Util;
+using MvvmCross;
 using System;
+using System.Collections.Generic;
+using tabApp.Core.Services.Interfaces.Orders;
+using tabApp.Helpers;
+using static Android.App.ActivityManager;
 
 namespace tabApp.Services.Implementations.Native
 {
@@ -17,10 +23,11 @@ namespace tabApp.Services.Implementations.Native
         const string NOTIFICATION_CHANNEL_ID = "com.company.app.channel";
 
         readonly string logTag = "LocationService";
-        IBinder binder;
 
         // Set our location manager as the system location service
         protected LocationManager LocMgr = Application.Context.GetSystemService("location") as LocationManager;
+        private bool _running;
+        private NotificationHelper _notificationHelper;
 
         // ILocationListener is a way for the Service to subscribe for updates
         // from the System location Service
@@ -29,14 +36,54 @@ namespace tabApp.Services.Implementations.Native
         {
             MainActivity.Instance?.LocationEventCommand?.Execute(location);
 
+            CheckIfClosestOrder(location);
             // This should be updating every time we request new location updates
             // both when teh app is in the background, and in the foreground
-            Log.Debug(logTag, $"Latitude is {location.Latitude}");
+            /*Log.Debug(logTag, $"Latitude is {location.Latitude}");
             Log.Debug(logTag, $"Longitude is {location.Longitude}");
             Log.Debug(logTag, $"Altitude is {location.Altitude}");
             Log.Debug(logTag, $"Speed is {location.Speed}");
             Log.Debug(logTag, $"Accuracy is {location.Accuracy}");
-            Log.Debug(logTag, $"Bearing is {location.Bearing}");
+            Log.Debug(logTag, $"Bearing is {location.Bearing}");*/
+        }
+        private void CheckIfClosestOrder(Location location)
+        {
+           var ordersManagerService = Mvx.Resolve<IOrdersManagerService>();
+           double distance;
+           foreach (var order in ordersManagerService.TodayOrders)
+           {
+               if (!order.Client.Address.Coordenadas.Equals(null)) {
+                    distance = GetDistance(order.Client.Address, location); 
+                    Log.Debug(logTag, $"Distancia is {distance.ToString("N2")}");
+                    if (distance < 80)
+                    {
+                        NotifyOrder(order);
+                    }
+               }
+           }
+        }
+
+        private double GetDistance(Core.Models.Address address, Location location)
+        {
+            var d1 = double.Parse(address.Lat) * (Math.PI / 180.0);
+            var num1 = double.Parse(address.Lgt) * (Math.PI / 180.0);
+            var d2 = location.Latitude * (Math.PI / 180.0);
+            var num2 = location.Longitude * (Math.PI / 180.0) - num1;
+            var d3 = Math.Pow(Math.Sin((d2 - d1) / 2.0), 2.0) + Math.Cos(d1) * Math.Cos(d2) * Math.Pow(Math.Sin(num2 / 2.0), 2.0);
+
+            return 6376500.0 * (2.0 * Math.Atan2(Math.Sqrt(d3), Math.Sqrt(1.0 - d3)));
+        }
+
+        private void NotifyOrder((Core.Models.Client Client, Core.Models.ExtraOrder ExtraOrder) order)
+        {
+            if(_notificationHelper == null)
+                _notificationHelper = new NotificationHelper(ApplicationContext);
+
+            if(!order.ExtraOrder.HasNotify)
+            {
+                order.ExtraOrder.HasNotify = true;
+                _notificationHelper.Notify(order.ExtraOrder.Id, order.Client.Name, "Encomenda\nCliente ID: " + order.Client.Id);
+            }
         }
 
         public void OnProviderDisabled(string provider)
@@ -109,37 +156,6 @@ namespace tabApp.Services.Implementations.Native
             return pendingIntent;
         }
 
-        /*public override StartCommandResult OnStartCommand(Intent intent, [GeneratedEnum] StartCommandFlags flags, int startId)
-        {
-            Log.Debug(logTag, "LocationService started");
-
-            // Check if device is running Android 8.0 or higher and call StartForeground() if so
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
-            {
-                Intent notificationIntent = new Intent(this, typeof(MainActivity));
-                PendingIntent pendingIntent = PendingIntent.GetActivity(this, 0, notificationIntent, PendingIntentFlags.UpdateCurrent);
-
-                var notification = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
-                                   .SetContentTitle(Resources.GetString(Resource.String.app_name))
-                                   .SetContentText("A aplicação está a rastrear a sua localização para poder criar geo alertas!")
-                                   .SetSmallIcon(Resource.Drawable.notification_icon_background)
-                                   .SetOngoing(true)
-                                   .SetContentIntent(pendingIntent)
-                                   .Build();
-
-                var notificationManager =
-                    GetSystemService(NotificationService) as NotificationManager;
-
-                var chan = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "On-going Notification", NotificationImportance.Max);
-
-                notificationManager.CreateNotificationChannel(chan);
-
-                StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, notification);
-            }
-
-            return StartCommandResult.Sticky;
-        }*/
-
         // This gets called once, the first time any client bind to the Service
         // and returns an instance of the LocationServiceBinder. All future clients will
         // reuse the same instance of the binder
@@ -147,8 +163,7 @@ namespace tabApp.Services.Implementations.Native
         {
             Log.Debug(logTag, "Client now bound to service");
 
-            //binder = new LocationServiceBinder(this);
-            return /*binder*/null;
+            return null;
         }
 
         // Handle location updates from the location manager

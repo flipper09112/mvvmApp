@@ -47,6 +47,14 @@ namespace tabApp.Core.Models
         public bool StoreOrder { get; set; }
         public bool IsTotal { get; set; }
 
+        [Ignore]
+        public bool HasNotify { get; set; }
+
+        public ExtraOrder()
+        {
+            HasNotify = false;
+        }
+
         public override bool Equals(object obj)
         {
             ExtraOrder order = obj as ExtraOrder;
