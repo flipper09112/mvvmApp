@@ -25,6 +25,7 @@ using tabApp.Helpers;
 using tabApp.Services.Implementations.Native;
 using tabApp.UI;
 using tabApp.UI.Fragments.Snooze;
+using ForegroundService = tabApp.Services.Implementations.Native.ForegroundService;
 
 namespace tabApp
 {
