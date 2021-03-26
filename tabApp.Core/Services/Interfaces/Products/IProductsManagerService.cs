@@ -8,6 +8,7 @@ namespace tabApp.Core.Services.Interfaces.Products
     public interface IProductsManagerService
     {
         List<Product> ProductsList { get; }
+        List<Client> ClientsWithTables { get; }
 
         void SetProducts(List<Product> productsList);
         Product GetProductById(int productId);

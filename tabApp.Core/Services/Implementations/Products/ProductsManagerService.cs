@@ -2,15 +2,37 @@
 using System.Collections.Generic;
 using System.Text;
 using tabApp.Core.Models;
+using tabApp.Core.Services.Interfaces.Clients;
 using tabApp.Core.Services.Interfaces.Products;
 
 namespace tabApp.Core.Services.Implementations.Products
 {
     public class ProductsManagerService : IProductsManagerService
     {
+        private IClientsManagerService _clientsManagerService;
+
         private List<Product> _productsList;
 
         public List<Product> ProductsList => _productsList;
+
+        public ProductsManagerService(IClientsManagerService clientsManagerService)
+        {
+            _clientsManagerService = clientsManagerService;
+        }
+
+        public List<Client> ClientsWithTables { 
+            get
+            {
+                List<Client> clients = new List<Client>();
+
+                foreach (var item in _productsList[0].ReSaleValues ?? new List<ReSaleValues>())
+                {
+                    var cli = _clientsManagerService.ClientsList.Find(client => client.Id == item.ClientId);
+                    clients.Add(cli);
+                }
+                return clients;
+            }
+        }
 
         public double GetProductAmmount(int clientId, Product product)
         {
