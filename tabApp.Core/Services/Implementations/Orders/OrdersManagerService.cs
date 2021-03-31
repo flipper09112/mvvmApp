@@ -138,7 +138,7 @@ namespace tabApp.Core.Services.Implementations.Orders
                 if (productModel.ProductType == ProductTypeEnum.PastelariaIndividual)
                     continue;
 
-                if (!productModel.Unity)
+                if (/*!productModel.Unity*/ productModel.ProductType == ProductTypeEnum.None)
                 {
                     items.Add(new ProductAmmount()
                     {

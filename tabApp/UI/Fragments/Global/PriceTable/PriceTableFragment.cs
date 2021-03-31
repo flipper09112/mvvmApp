@@ -23,6 +23,7 @@ namespace tabApp.UI.Fragments.Global
         private RecyclerView _recyclerView;
         private EditText _searchEdt;
         private TextView _resultsLabel;
+        private ImageView _filterIcon;
         private PriceTableAdapter _adapter;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -34,8 +35,9 @@ namespace tabApp.UI.Fragments.Global
             _recyclerView = view.FindViewById<RecyclerView>(Resource.Id.recyclerView);
             _searchEdt = view.FindViewById<EditText>(Resource.Id.editMobileNo);
             _resultsLabel = view.FindViewById<TextView>(Resource.Id.resultsLabel);
+            _filterIcon = view.FindViewById<ImageView>(Resource.Id.filterIcon);
 
-            _adapter = new PriceTableAdapter(ViewModel.AllProducts);
+            _adapter = new PriceTableAdapter(ViewModel, ViewModel.AllProducts);
             _recyclerView.SetLayoutManager(new GridLayoutManager(Context, 3, GridLayoutManager.Vertical, false));
             _recyclerView.SetAdapter(_adapter);
 
@@ -48,12 +50,14 @@ namespace tabApp.UI.Fragments.Global
             _activity.ShowMenu();
             _searchEdt.TextChanged -= SearchEdtClick;
             ViewModel.PropertyChanged -= ViewModelPropertyChanged;
+            _filterIcon.Click -= FilterIconClick;
         }
 
         public override void SetUI()
         {
             _adapter.AllProducts = ViewModel.AllProducts;
             _resultsLabel.Text = ViewModel.AllProducts.Count + " resultados encontrados";
+            _filterIcon.SetImageResource(ViewModel.HasFilter ? Resource.Drawable.ic_filter_full : Resource.Drawable.ic_filter);
             _adapter.NotifyDataSetChanged();
         }
 
@@ -63,6 +67,12 @@ namespace tabApp.UI.Fragments.Global
             _activity.HideMenu();
             _searchEdt.TextChanged += SearchEdtClick;
             ViewModel.PropertyChanged += ViewModelPropertyChanged;
+            _filterIcon.Click += FilterIconClick;
+        }
+
+        private void FilterIconClick(object sender, EventArgs e)
+        {
+            ViewModel.ShowPriceTableFilterCommand.Execute(null);
         }
 
         private void ViewModelPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

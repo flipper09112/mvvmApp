@@ -18,12 +18,14 @@ namespace tabApp.UI.ViewHolders
         private ImageView _imageView;
         private TextView _title;
         private TextView _detailDesc;
+        private TextView _registDate;
 
         public DetailViewHolder(View itemView) : base(itemView)
         {
             _imageView = itemView.FindViewById<ImageView>(Resource.Id.imageView);
             _title = itemView.FindViewById<TextView>(Resource.Id.title);
             _detailDesc = itemView.FindViewById<TextView>(Resource.Id.detailDesc);
+            _registDate = itemView.FindViewById<TextView>(Resource.Id.registDate);
         }
 
         internal void Bind(Regist regist)
@@ -31,6 +33,7 @@ namespace tabApp.UI.ViewHolders
             _title.Text = regist.DetailType.ToString();
             _detailDesc.Text = regist.Info;
             SetImageIcon(regist.DetailType);
+            _registDate.Text = regist.DetailRegistDay.ToString("dd/MM/yyyy");
         }
 
         private void SetImageIcon(DetailTypeEnum detailType)

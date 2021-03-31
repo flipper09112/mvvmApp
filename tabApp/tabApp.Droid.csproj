@@ -19,7 +19,7 @@
     <AndroidResgenClass>Resource</AndroidResgenClass>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v10.0</TargetFrameworkVersion>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
@@ -87,6 +87,8 @@
     <Compile Include="Setup.cs" />
     <Compile Include="UI\Adapters\CakesTotalOrderAdapter.cs" />
     <Compile Include="UI\Adapters\Global\PriceTableAdapter.cs" />
+    <Compile Include="UI\Adapters\Global\PriceTableFilterAdapter.cs" />
+    <Compile Include="UI\Adapters\Global\SelectClientRadiosAdapter.cs" />
     <Compile Include="UI\Adapters\Home\HomePageOrdersListAdapter.cs" />
     <Compile Include="UI\Adapters\Home\HomePageViewPagerAdapter.cs" />
     <Compile Include="UI\Adapters\OtherOptions\PrintAccountSpinnerAdapter.cs" />
@@ -112,7 +114,8 @@
     <Compile Include="UI\Fragments\Global\Bt\BtOutcomingFragment.cs" />
     <Compile Include="UI\Fragments\Global\GlobalOrderFragment.cs" />
     <Compile Include="UI\Fragments\EditClient\SelectDaysPageFragment.cs" />
-    <Compile Include="UI\Fragments\Global\PriceTableFragment.cs" />
+    <Compile Include="UI\Fragments\Global\PriceTable\PriceTableFilterFragment.cs" />
+    <Compile Include="UI\Fragments\Global\PriceTable\PriceTableFragment.cs" />
     <Compile Include="UI\Fragments\Global\SynchronizeFragment.cs" />
     <Compile Include="UI\Fragments\Home\DeleteClientFragment.cs" />
     <Compile Include="UI\Fragments\Home\GlobalOrderSelectDaysFragment.cs" />
@@ -125,7 +128,9 @@
     <Compile Include="UI\ViewHolders\HomePageOrderViewHolder.cs" />
     <Compile Include="UI\ViewHolders\IndividualCakeOrderItemViewHolder.cs" />
     <Compile Include="UI\ViewHolders\OrderViewHolder.cs" />
-    <Compile Include="UI\ViewHolders\PriceTableViewHolder.cs" />
+    <Compile Include="UI\ViewHolders\PriceTable\ClientRadioViewHolder.cs" />
+    <Compile Include="UI\ViewHolders\PriceTable\PriceTableViewHolder.cs" />
+    <Compile Include="UI\ViewHolders\PriceTable\SelectClientFilterViewHolder.cs" />
     <Compile Include="UI\ViewHolders\PrintPreviewViewHolder.cs" />
     <Compile Include="UI\ViewHolders\ProductsOrderListViewHolder.cs" />
     <Compile Include="UI\Adapters\ClientPage\ViewPager\ClientPageDetailsAdapter.cs" />
@@ -228,10 +233,10 @@
     </PackageReference>
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
     <PackageReference Include="MvvmCross">
-      <Version>6.2.3</Version>
+      <Version>6.4.1</Version>
     </PackageReference>
     <PackageReference Include="MvvmCross.Droid.Support.Core.UI">
-      <Version>6.2.3</Version>
+      <Version>6.4.1</Version>
     </PackageReference>
     <PackageReference Include="MvvmCross.Droid.Support.Core.Utils">
       <Version>6.2.3</Version>
@@ -686,6 +691,21 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\raw\alarm.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\PriceTableFilterFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\SelectClientFilter.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\SelectClientRadio.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>

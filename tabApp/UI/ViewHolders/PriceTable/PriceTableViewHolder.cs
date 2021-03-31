@@ -40,14 +40,20 @@ namespace tabApp.UI.ViewHolders
             _priceLabel = itemView.FindViewById<TextView>(Resource.Id.priceLabel);
         }
 
-        internal void Bind(Product product)
+        internal void Bind(Product product, bool hasFilter, Client clientFilter)
         {
             _productName.Text = product.Name;
 
-            if(product.Unity)
-                _priceLabel.Text = product.PVP.ToString("C");
+            if (product.Unity)
+            { 
+                if(!hasFilter) _priceLabel.Text = product.PVP.ToString("C");
+                else _priceLabel.Text = product.ReSaleValues.Find(item => item.ClientId == clientFilter.Id).Value.ToString("C");
+            }
             else
-                _priceLabel.Text = product.PVP.ToString("C") + "/Kg";
+            {
+                if (!hasFilter) _priceLabel.Text = product.PVP.ToString("C") + "/Kg";
+                else _priceLabel.Text = product.ReSaleValues.Find(item => item.ClientId == clientFilter.Id).Value.ToString("C") + "/Kg";
+            }
 
             SetBackground(product.ProductType);
         }
