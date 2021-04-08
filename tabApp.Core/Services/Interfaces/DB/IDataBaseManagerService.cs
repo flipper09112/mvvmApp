@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using tabApp.Core.Models;
+using tabApp.Core.Models.Notifications;
 
 namespace tabApp.Core.Services.Implementations.DB
 {
@@ -8,6 +9,7 @@ namespace tabApp.Core.Services.Implementations.DB
     {
         List<Client> GetClients();
         List<Product> GetProducts();
+        List<Notification> GetNotifications();
 
         void InsertClient(Client contact);
         void InsertAllProducts(List<Product> products);
@@ -22,5 +24,6 @@ namespace tabApp.Core.Services.Implementations.DB
         void RemoveClient(Client client);
         void RemoveClient(int id);
         void RemoveExtraOrder(Client client, ExtraOrder obj, Regist regist);
+        void InsertNotification(Notification notification);
     }
 }

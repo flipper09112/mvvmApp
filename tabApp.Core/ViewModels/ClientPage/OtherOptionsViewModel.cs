@@ -21,6 +21,7 @@ namespace tabApp.Core.ViewModels
         public MvxCommand PrintPageCommand;
         public MvxCommand ShowCalculatorCommand;
         public MvxCommand ChangeDailyOrdersCommand;
+        public MvxCommand ShowCreateNoficationPageCommand;
 
         public OtherOptionsViewModel(IChooseClientService chooseClientService, IMvxNavigationService navigationService)
         {
@@ -31,7 +32,13 @@ namespace tabApp.Core.ViewModels
             PrintPageCommand = new MvxCommand(PrintPage);
             ShowCalculatorCommand = new MvxCommand(ShowCalculator);
             ChangeDailyOrdersCommand = new MvxCommand(ChangeDailyOrders);
+            ShowCreateNoficationPageCommand = new MvxCommand(ShowCreateNoficationPage);
 
+        }
+
+        private async void ShowCreateNoficationPage()
+        {
+            await _navigationService.Navigate<CreateNoficationViewModel>();
         }
 
         private async void ChangeDailyOrders()
@@ -66,7 +73,7 @@ namespace tabApp.Core.ViewModels
                 if(_chooseClientService.ClientSelected.PaymentType == PaymentTypeEnum.Loja)
                     options.Add(new Option(InsertNewRegistCommand, "Inserir despesa do dia", "ic_insert"));
 
-                options.Add(new Option(null, "Adicionar notificação", "ic_notification"));
+                options.Add(new Option(ShowCreateNoficationPageCommand, "Adicionar notificação", "ic_notification"));
 
                 return options;
             }
