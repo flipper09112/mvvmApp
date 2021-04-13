@@ -91,6 +91,7 @@
     <Compile Include="UI\Adapters\Global\SelectClientRadiosAdapter.cs" />
     <Compile Include="UI\Adapters\Home\HomePageOrdersListAdapter.cs" />
     <Compile Include="UI\Adapters\Home\HomePageViewPagerAdapter.cs" />
+    <Compile Include="UI\Adapters\Home\NotificationsListAdapter.cs" />
     <Compile Include="UI\Adapters\OtherOptions\Notifications\CreateNoficationGridAdapter.cs" />
     <Compile Include="UI\Adapters\OtherOptions\PrintAccountSpinnerAdapter.cs" />
     <Compile Include="UI\Adapters\OtherOptions\PrintPreviewAdapter.cs" />
@@ -123,9 +124,11 @@
     <Compile Include="UI\Fragments\Home\GlobalOrderSelectDaysFragment.cs" />
     <Compile Include="UI\Fragments\Home\InitDailyFragment.cs" />
     <Compile Include="UI\Fragments\Home\StopDailyFragment.cs" />
+    <Compile Include="UI\Fragments\Home\ViewPager\HomeNotificationsFragment.cs" />
     <Compile Include="UI\Fragments\Home\ViewPager\HomePageMapFragment.cs" />
     <Compile Include="UI\Fragments\Home\ViewPager\HomePageOrdersFragment.cs" />
     <Compile Include="UI\Fragments\Snooze\SnoozeFragment.cs" />
+    <Compile Include="UI\ViewHolders\NotificationItemViewHolder.cs" />
     <Compile Include="UI\ViewHolders\EditProfileItemViewHolder.cs" />
     <Compile Include="UI\ViewHolders\HomePageOrderViewHolder.cs" />
     <Compile Include="UI\ViewHolders\IndividualCakeOrderItemViewHolder.cs" />
@@ -722,6 +725,14 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_notification_other.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\NotificationItem.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_info.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>

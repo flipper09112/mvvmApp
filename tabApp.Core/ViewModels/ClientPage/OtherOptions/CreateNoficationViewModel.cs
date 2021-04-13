@@ -49,8 +49,6 @@ namespace tabApp.Core.ViewModels.ClientPage.OtherOptions
 
             _dataBaseManagerService.InsertNotification(notification);
 
-            List<Notification> list = _dataBaseManagerService.GetNotifications();
-
             GoBack?.Invoke(null, null);
             GoBack?.Invoke(null, null);
         }
