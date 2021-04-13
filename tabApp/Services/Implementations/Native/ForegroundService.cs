@@ -59,7 +59,7 @@ namespace tabApp.Services.Implementations.Native
             double distance;
             foreach (var order in ordersManagerService.TodayOrders)
             {
-                if (!order.Client.Address.Coordenadas.Equals(null)) {
+                if (!order.Client.Address.Coordenadas.Equals("null") && order.Client.Address.Coordenadas != null) {
                     distance = GetDistance(order.Client.Address, location); 
                     Log.Debug(logTag, $"Distancia is {distance.ToString("N2")}");
                     if (distance < 80)

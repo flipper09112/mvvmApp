@@ -27,13 +27,16 @@ namespace tabApp.Core.Services.Implementations.Orders
         {
             get
             {
+                DateTime testDate = new DateTime(2021, 4, 3);
+
+
                 List<(Client Client, ExtraOrder ExtraOrder)> orders = new List<(Client Client, ExtraOrder ExtraOrder)>();
 
                 foreach(var client in _clientsManagerService?.ClientsList ?? new List<Client>())
                 {
                     foreach(var extraorder in client.ExtraOrdersList)
                     {
-                        if(extraorder.OrderDay.Date == DateTime.Today && !extraorder.StoreOrder)
+                        if(extraorder.OrderDay.Date == /*DateTime.Today*/testDate && !extraorder.StoreOrder)
                             orders.Add((client, extraorder));
                     }
                 }
