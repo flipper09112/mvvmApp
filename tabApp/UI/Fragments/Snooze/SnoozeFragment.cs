@@ -28,6 +28,7 @@ namespace tabApp.UI.Fragments.Snooze
         private ImageView _withoutOrders;
         private List<(Client Client, ExtraOrder ExtraOrder)> _orders;
         private HomePageOrdersListAdapter _adapter;
+        private bool _running;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -92,13 +93,15 @@ namespace tabApp.UI.Fragments.Snooze
 
         private void SetClosestOrder(Location obj)
         {
+            if (_running) return;
+            _running = true;
             if (_orders == null || _orders.Count == 0) return;
 
             Dictionary<(Client Client, ExtraOrder ExtraOrder), double> distances = new Dictionary<(Client Client, ExtraOrder ExtraOrder), double>();
 
             foreach (var item in _orders)
             {
-                if (item.Client.Address.Coordenadas.Equals("null")) continue;
+                if (item.Client.Address.Coordenadas.Equals("null") || item.Client.Address.Coordenadas != null) continue;
 
                 double distance = Math.Sqrt(Math.Pow(double.Parse(item.Client.Address.Lat) - obj.Latitude, 2) + Math.Pow(double.Parse(item.Client.Address.Lgt) - obj.Longitude, 2));
                 distances.Add(item, distance);
@@ -111,6 +114,8 @@ namespace tabApp.UI.Fragments.Snooze
 
             int pos = _orders.IndexOf(closestOrder);
             _todayOrdersList.SmoothScrollToPosition(pos);
+
+            _running = false;
         }
     }
 }

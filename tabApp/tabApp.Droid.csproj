@@ -91,12 +91,15 @@
     <Compile Include="UI\Adapters\Global\SelectClientRadiosAdapter.cs" />
     <Compile Include="UI\Adapters\Home\HomePageOrdersListAdapter.cs" />
     <Compile Include="UI\Adapters\Home\HomePageViewPagerAdapter.cs" />
+    <Compile Include="UI\Adapters\Home\NotificationsListAdapter.cs" />
+    <Compile Include="UI\Adapters\OtherOptions\Notifications\CreateNoficationGridAdapter.cs" />
     <Compile Include="UI\Adapters\OtherOptions\PrintAccountSpinnerAdapter.cs" />
     <Compile Include="UI\Adapters\OtherOptions\PrintPreviewAdapter.cs" />
     <Compile Include="UI\Adapters\Swipe\SwipeController.cs" />
     <Compile Include="UI\Adapters\Swipe\UnderlayButton.cs" />
     <Compile Include="UI\Fragments\ClientPage\OtherOptions\AddStoreRegistFragment.cs" />
     <Compile Include="UI\Fragments\ClientPage\OtherOptions\ChangeDailyOrderFragment.cs" />
+    <Compile Include="UI\Fragments\ClientPage\OtherOptions\CreateNoficationFragment.cs" />
     <Compile Include="UI\Fragments\ClientPage\OtherOptions\PrintAccountFragment.cs" />
     <Compile Include="UI\Fragments\EditClient\EditClientProfileFragment.cs" />
     <Compile Include="UI\Adapters\EditClient\EditClientProfileItemsAdapter.cs" />
@@ -121,9 +124,11 @@
     <Compile Include="UI\Fragments\Home\GlobalOrderSelectDaysFragment.cs" />
     <Compile Include="UI\Fragments\Home\InitDailyFragment.cs" />
     <Compile Include="UI\Fragments\Home\StopDailyFragment.cs" />
+    <Compile Include="UI\Fragments\Home\ViewPager\HomeNotificationsFragment.cs" />
     <Compile Include="UI\Fragments\Home\ViewPager\HomePageMapFragment.cs" />
     <Compile Include="UI\Fragments\Home\ViewPager\HomePageOrdersFragment.cs" />
     <Compile Include="UI\Fragments\Snooze\SnoozeFragment.cs" />
+    <Compile Include="UI\ViewHolders\NotificationItemViewHolder.cs" />
     <Compile Include="UI\ViewHolders\EditProfileItemViewHolder.cs" />
     <Compile Include="UI\ViewHolders\HomePageOrderViewHolder.cs" />
     <Compile Include="UI\ViewHolders\IndividualCakeOrderItemViewHolder.cs" />
@@ -706,6 +711,28 @@
     <AndroidResource Include="Resources\layout\SelectClientRadio.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\CreateNoficationFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UI\Fragments\ClientPage\OtherOptions\Notifications\" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_no_money.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_notification_other.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\NotificationItem.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_info.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>

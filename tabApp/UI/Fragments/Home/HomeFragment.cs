@@ -69,7 +69,6 @@ namespace tabApp.UI
             {
                 int pos = ViewModel.ClientsList.IndexOf(ViewModel.ClientSelected);
                 _clientsList.ScrollToPosition(pos);
-
             }
         }
         private void SetupTabLayout()
@@ -78,7 +77,7 @@ namespace tabApp.UI
             _tabLayout.RemoveAllTabs();
             foreach (var tab in ViewModel?.TabsOptions)
             {
-                _tabLayout.AddTab(_tabLayout.NewTab().SetText(tab.Name));
+                _tabLayout.AddTab(_tabLayout.NewTab().SetText(tab.Name + " (" + tab.Count + ")"));
                 tabsNames.Add(tab.ToString());
             }
             //_viewPagerAdapter.Title = tabsNames;

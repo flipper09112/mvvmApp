@@ -12,6 +12,8 @@ using SQLiteNetExtensions.Extensions;
 using tabApp.Core.Services.Interfaces.Clients;
 using tabApp.Core.Services.Interfaces.Products;
 using tabApp.Core.Services.Interfaces;
+using tabApp.Core.Models.Notifications;
+using tabApp.Core.Services.Interfaces.Notifications;
 
 namespace tabApp.Core.Services.Implementations.DB
 {
@@ -23,7 +25,7 @@ namespace tabApp.Core.Services.Implementations.DB
         private IProductsManagerService _productsManagerService;
         private IFirebaseService _firebaseService;
         private IFileService _fileService;
-
+        private INotificationsManagerService _notificationsManagerService;
 
         private SQLiteConnection database;
         static object locker = new object();
@@ -33,13 +35,15 @@ namespace tabApp.Core.Services.Implementations.DB
                                       IClientsManagerService clientsManagerService,
                                       IProductsManagerService productsManagerService,
                                       IFileService fileService,
-                                      IFirebaseService firebaseService)
+                                      IFirebaseService firebaseService,
+                                      INotificationsManagerService notificationsManagerService)
         {
             _sQLiteService = sQLiteService;
             _clientsManagerService = clientsManagerService;
             _productsManagerService = productsManagerService;
             _firebaseService = firebaseService;
             _fileService = fileService;
+            _notificationsManagerService = notificationsManagerService;
         }
 
         private void CheckDataBaseCreated(bool deleteTables)
@@ -60,6 +64,7 @@ namespace tabApp.Core.Services.Implementations.DB
                     database.DropTable<ReSaleValues>();
                     database.DropTable<DailyOrderDetails>();
                     database.DropTable<ExtraOrder>();
+                    database.DropTable<Notification>();
                 }
                 
                 database.CreateTable<Regist>();
@@ -70,6 +75,7 @@ namespace tabApp.Core.Services.Implementations.DB
                 database.CreateTable<ReSaleValues>();
                 database.CreateTable<DailyOrderDetails>();
                 database.CreateTable<ExtraOrder>();
+                database.CreateTable<Notification>();
 
             } catch (NotSupportedException e) {
                 Debug.WriteLine(e.Message);
@@ -86,6 +92,7 @@ namespace tabApp.Core.Services.Implementations.DB
             CheckDataBaseCreated(false);
             _clientsManagerService.SetClients(GetClients().OrderBy(item => item.Position).ToList<Client>());
             _productsManagerService.SetProducts(GetProducts());
+            _notificationsManagerService.SetNotifications(GetNotifications());
         }
 
         public void SaveAllDocs()
@@ -102,6 +109,12 @@ namespace tabApp.Core.Services.Implementations.DB
             database.InsertAll(client.DetailsList);
             database.Insert(client.DailyOrders);
             database.InsertWithChildren(client);
+        }
+
+        public void InsertNotification(Notification notification)
+        {
+            database.CreateTable<Notification>();
+            database.Insert(notification);
         }
 
         public void InsertAllDataFromXls(List<Client> clients, List<Product> products)
@@ -262,6 +275,17 @@ namespace tabApp.Core.Services.Implementations.DB
                 return database.GetAllWithChildren<Product>();
                 // return (from c in database.Table<Client>() select c).ToList();
             }
+        }
+
+        public List<Notification> GetNotifications()
+        {
+            try
+            {
+                return database.GetAllWithChildren<Notification>();
+            } catch(Exception e)
+            {
+                return new List<Notification>();
+            } 
         }
 
         #endregion

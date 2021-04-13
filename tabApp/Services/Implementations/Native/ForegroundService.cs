@@ -1,4 +1,5 @@
 ﻿
+using Android;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
@@ -7,6 +8,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Support.V4.App;
 using Android.Util;
+using AndroidX.Core.Content;
 using MvvmCross;
 using System;
 using System.Collections.Generic;
@@ -28,6 +30,7 @@ namespace tabApp.Services.Implementations.Native
         protected LocationManager LocMgr = Application.Context.GetSystemService("location") as LocationManager;
         private bool _running;
         private NotificationHelper _notificationHelper;
+        private bool _checkClosestOrderRunning;
 
         // ILocationListener is a way for the Service to subscribe for updates
         // from the System location Service
@@ -36,7 +39,9 @@ namespace tabApp.Services.Implementations.Native
         {
             MainActivity.Instance?.LocationEventCommand?.Execute(location);
 
-            CheckIfClosestOrder(location);
+            if(!_checkClosestOrderRunning)
+                CheckIfClosestOrder(location);
+
             // This should be updating every time we request new location updates
             // both when teh app is in the background, and in the foreground
             /*Log.Debug(logTag, $"Latitude is {location.Latitude}");
@@ -48,19 +53,22 @@ namespace tabApp.Services.Implementations.Native
         }
         private void CheckIfClosestOrder(Location location)
         {
-           var ordersManagerService = Mvx.Resolve<IOrdersManagerService>();
-           double distance;
-           foreach (var order in ordersManagerService.TodayOrders)
-           {
-               if (!order.Client.Address.Coordenadas.Equals(null)) {
+
+            _checkClosestOrderRunning = true;
+            var ordersManagerService = Mvx.Resolve<IOrdersManagerService>();
+            double distance;
+            foreach (var order in ordersManagerService.TodayOrders)
+            {
+                if (!order.Client.Address.Coordenadas.Equals("null") && order.Client.Address.Coordenadas != null) {
                     distance = GetDistance(order.Client.Address, location); 
                     Log.Debug(logTag, $"Distancia is {distance.ToString("N2")}");
                     if (distance < 80)
                     {
                         NotifyOrder(order);
                     }
-               }
-           }
+                }
+            }
+            _checkClosestOrderRunning = false;
         }
 
         private double GetDistance(Core.Models.Address address, Location location)
@@ -176,14 +184,23 @@ namespace tabApp.Services.Implementations.Native
             locationCriteria.Accuracy = Accuracy.Coarse;
             locationCriteria.PowerRequirement = Power.NoRequirement;
 
+            CheckPermissions();
+
             // get provider: GPS, Network, etc.
+            
             var locationProvider = LocMgr.GetBestProvider(locationCriteria, true);
             Log.Debug(logTag, string.Format("You are about to get location updates via {0}", locationProvider));
 
             // Get an initial fix on location
-            LocMgr.RequestLocationUpdates(locationProvider, 250, 0, this);
+            if(locationProvider != null)
+                LocMgr.RequestLocationUpdates(locationProvider, 500, 0, this);
 
             Log.Debug(logTag, "Now sending location updates");
+        }
+
+        private void CheckPermissions()
+        {
+            //TODO
         }
 
         public override void OnDestroy()

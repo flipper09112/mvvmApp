@@ -31,6 +31,10 @@ namespace tabApp.UI.Adapters.Home
             {
                 return new HomePageMapFragment(ViewModel);
             }
+            else if (TabsOptions[position] is NotificationsPage notificationData)
+            {
+                return new HomeNotificationsFragment(ViewModel, notificationData);
+            }
             return null;
         }
         public override void DestroyItem(View container, int position, Java.Lang.Object @object)

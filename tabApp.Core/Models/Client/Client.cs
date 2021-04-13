@@ -240,6 +240,8 @@ namespace tabApp.Core.Models
         public string Coordenadas { get; set; }
 
         [Ignore]
+        public bool HasCoord => !Coordenadas.Equals("null") && !Coordenadas.Equals("");
+        [Ignore]
         public string Lat => Coordenadas.Split(',')[0] + "," + Coordenadas.Split(',')[1];
         [Ignore]
         public string Lgt => Coordenadas.Split(',')[2] + "," + Coordenadas.Split(',')[3];

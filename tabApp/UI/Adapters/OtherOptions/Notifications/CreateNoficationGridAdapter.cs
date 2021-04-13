@@ -9,21 +9,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using tabApp.Core.Models;
+using tabApp.Core.Models.Notifications;
 using tabApp.Helpers;
 
-namespace tabApp.UI.Adapters
+namespace tabApp.UI.Adapters.OtherOptions.Notifications
 {
-    public class OtherOptionsGridAdapter : BaseAdapter
+    public class CreateNoficationGridAdapter : BaseAdapter
     {
-        private List<Option> options;
+        public override int Count => _options?.Count ?? 0;
+        private List<NotificationType> _options;
 
-        public OtherOptionsGridAdapter(List<Option> options)
+        public CreateNoficationGridAdapter(List<NotificationType> options)
         {
-            this.options = options;
+            this._options = options;
         }
-
-        public override int Count => options?.Count ?? 0;
 
         public override Java.Lang.Object GetItem(int position)
         {
@@ -44,16 +43,14 @@ namespace tabApp.UI.Adapters
             TextView name = view.FindViewById<TextView>(Resource.Id.android_gridview_text);
             CardView layout = view.FindViewById<CardView>(Resource.Id.android_custom_gridview_layout);
             ImageView image = view.FindViewById<ImageView>(Resource.Id.android_gridview_image);
-            name.Text = options[position].Name;
-            image.SetImageResource(ImageHelper.GetImageResource(context, options[position].ImageName));
+            name.Text = _options[position].Name;
+            image.SetImageResource(ImageHelper.GetImageResource(context, _options[position].ImageName));
 
             layout.Click += delegate {
-                options[position].Action?.Execute(null);
+                _options[position].Action?.Execute(null);
             };
 
             return view;
         }
-
-
     }
 }

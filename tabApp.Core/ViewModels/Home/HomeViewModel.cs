@@ -6,9 +6,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using tabApp.Core.Models;
+using tabApp.Core.Models.Notifications;
 using tabApp.Core.Services.Implementations.Clients;
 using tabApp.Core.Services.Interfaces.Clients;
 using tabApp.Core.Services.Interfaces.Dialogs;
+using tabApp.Core.Services.Interfaces.Notifications;
 using tabApp.Core.Services.Interfaces.Orders;
 using tabApp.Core.Services.Interfaces.Products;
 using tabApp.Core.ViewModels;
@@ -25,6 +27,7 @@ namespace tabApp.Core
         private readonly IOrdersManagerService _ordersManagerService;
         private readonly IProductsManagerService _productsManagerService;
         private readonly IDialogService _dialogService;
+        private readonly INotificationsManagerService _notificationsManagerService;
 
 
         public EventHandler DeleteClientEvent;
@@ -38,7 +41,8 @@ namespace tabApp.Core
                             IClientsListFilterService clientsListFilterService,
                             IOrdersManagerService ordersManagerService,
                             IProductsManagerService productsManagerService,
-                            IDialogService dialogService)
+                            IDialogService dialogService,
+                            INotificationsManagerService notificationsManagerService)
         {
             _clientsManagerService = clientsManagerService;
             _navigationService = navigationService;
@@ -47,6 +51,7 @@ namespace tabApp.Core
             _ordersManagerService = ordersManagerService;
             _productsManagerService = productsManagerService;
             _dialogService = dialogService;
+            _notificationsManagerService = notificationsManagerService;
 
             ShowClientPage = new MvxAsyncCommand<Client>(ShowClientPageAction);
             DeleteClientCommand = new MvxCommand<int>(DeleteClient);
@@ -136,6 +141,7 @@ namespace tabApp.Core
         {
             List<SecondaryOptions> items = new List<SecondaryOptions>();
             items.Add(new OrdersPage("Encomendas", _ordersManagerService.TodayOrders));
+            items.Add(new NotificationsPage("Notificações", _notificationsManagerService.TodayNotifications));
             items.Add(new SecondaryOptions("Localização"));
             return items;
         }
@@ -168,15 +174,22 @@ namespace tabApp.Core
 
             return txt;
         }
+
+        public Client GetClient(int clientId)
+        {
+            return _clientsManagerService.ClientsList.Find(item => item.Id == clientId);
+        }
     }
 
     public class SecondaryOptions
     {
         public string Name { get; }
+        public int Count { get; set; }
 
         public SecondaryOptions(string name)
         {
             Name = name;
+            Count = 0;
         }
     }
 
@@ -187,6 +200,18 @@ namespace tabApp.Core
         public OrdersPage(string name, List<(Client Client, ExtraOrder ExtraOrder)> value) : base(name)
         {
             Value = value;
+            Count = Value?.Count ?? 0;
         }
     }
+    public class NotificationsPage : SecondaryOptions
+    {
+        public List<Notification> Value { get; }
+
+        public NotificationsPage(string name, List<Notification> value) : base(name)
+        {
+            Value = value;
+            Count = Value?.Count ?? 0;
+        }
+    }
+    
 }
