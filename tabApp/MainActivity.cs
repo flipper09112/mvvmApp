@@ -187,6 +187,12 @@ namespace tabApp
                 return true;
             }
 
+            if (id == Resource.Id.otherOptions)
+            {
+                ViewModel.OtherOptionsCommand.Execute(null);
+                return true;
+            }
+
             return base.OnOptionsItemSelected(menuItem);
         }
         public override bool OnOptionsItemSelected(IMenuItem item)

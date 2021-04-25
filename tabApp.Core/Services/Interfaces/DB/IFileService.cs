@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Java.IO;
+using System;
 using System.Collections.Generic;
-
 using System.Text;
 
 namespace tabApp.Core.Services.Interfaces
@@ -9,6 +9,6 @@ namespace tabApp.Core.Services.Interfaces
     {
         bool HasFile(string fileName);
         byte[] GetFile(string fileName);
-        void SaveFile(string fileName, byte[] data, bool overwrite = false);
+        File SaveFile(string fileName, byte[] data, bool overwrite = false);
     }
 }

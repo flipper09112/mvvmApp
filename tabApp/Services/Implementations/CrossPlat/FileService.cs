@@ -43,7 +43,7 @@ namespace tabApp.Services
             return System.IO.File.ReadAllBytes(f.Path);
         }
 
-        public void SaveFile(string fileName, byte[] data, bool overwrite = false)
+        public File SaveFile(string fileName, byte[] data, bool overwrite = false)
         {
             try
             {
@@ -60,6 +60,8 @@ namespace tabApp.Services
                 fos.Write(data);
                 fos.Flush();
                 fos.Close();
+
+                return f;
             }
             catch (FileNotFoundException e)
             {
@@ -69,6 +71,7 @@ namespace tabApp.Services
             {
                 e.PrintStackTrace();
             }
+            return null;
         }
     }
 }

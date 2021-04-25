@@ -18,5 +18,22 @@ namespace tabApp.Core.Helpers
                 target += 7;
             return date.AddDays(target - start);
         }
+
+        public static DateTime GetFirstDayOfWeek(DateTime dayInWeek)
+        {
+            return GetFirstDayOfWeek(dayInWeek, DayOfWeek.Monday);
+        }
+
+        private static DateTime GetFirstDayOfWeek(DateTime dayInWeek, DayOfWeek firstDay)
+        {
+            DateTime firstDayInWeek = dayInWeek.Date;
+
+            while (firstDayInWeek.DayOfWeek != firstDay)
+            {
+                firstDayInWeek = firstDayInWeek.AddDays(-1);
+            }
+
+            return firstDayInWeek;
+        }
     }
 }

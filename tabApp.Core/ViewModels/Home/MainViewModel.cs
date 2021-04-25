@@ -13,6 +13,7 @@ using tabApp.Core.Services.Interfaces.DB;
 using tabApp.Core.Services.Interfaces.Products;
 using tabApp.Core.Services.Interfaces.Timer;
 using tabApp.Core.ViewModels.Global;
+using tabApp.Core.ViewModels.Global.Other;
 
 namespace tabApp.Core.ViewModels
 {
@@ -32,6 +33,7 @@ namespace tabApp.Core.ViewModels
         public MvxCommand ShowGlobalOrderPageCommand { get; private set; }
         public MvxCommand ShowPriceTableCommand { get; private set; }
         public MvxCommand SyncronizeCommand { get; private set; }
+        public MvxCommand OtherOptionsCommand { get; private set; }
         public MvxCommand<string> SetFilterCommand { get; set; }
 
         public EventHandler UpdateUiHomePage;
@@ -59,6 +61,12 @@ namespace tabApp.Core.ViewModels
             ShowGlobalOrderPageCommand = new MvxCommand(ShowGlobalOrderPage);
             ShowPriceTableCommand = new MvxCommand(ShowPriceTable);
             SyncronizeCommand = new MvxCommand(Syncronize);
+            OtherOptionsCommand = new MvxCommand(OtherOptionsCommandAction);
+        }
+
+        private async void OtherOptionsCommandAction()
+        {
+            await _navigationService.Navigate<AppOtherOptionsViewModel>();
         }
 
         private async void Syncronize()
