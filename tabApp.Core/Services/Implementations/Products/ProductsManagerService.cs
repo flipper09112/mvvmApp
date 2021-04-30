@@ -103,5 +103,29 @@ namespace tabApp.Core.Services.Implementations.Products
         {
             _productsList = productsList;
         }
+
+        public List<ProductTypeEnum> GetAllProductsTypes()
+        {
+            List<ProductTypeEnum> list = new List<ProductTypeEnum>();
+
+            foreach (var prod in _productsList)
+            {
+                if (!list.Contains(prod.ProductType))
+                    list.Add(prod.ProductType);
+            }
+
+            return list;
+        }
+
+        public int GetUniqueId()
+        {
+            int max = 0;
+            foreach(var prod in _productsList)
+            {
+                if (prod.Id > max)
+                    max = prod.Id;
+            }
+            return max + 1;
+        }
     }
 }

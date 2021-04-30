@@ -88,6 +88,7 @@
     <Compile Include="UI\Adapters\CakesTotalOrderAdapter.cs" />
     <Compile Include="UI\Adapters\Global\PriceTableAdapter.cs" />
     <Compile Include="UI\Adapters\Global\PriceTableFilterAdapter.cs" />
+    <Compile Include="UI\Adapters\Global\ProductsTypesListAdapter.cs" />
     <Compile Include="UI\Adapters\Global\SelectClientRadiosAdapter.cs" />
     <Compile Include="UI\Adapters\Home\HomePageOrdersListAdapter.cs" />
     <Compile Include="UI\Adapters\Home\HomePageViewPagerAdapter.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="UI\Adapters\OtherOptions\ReportItemsAdapter.cs" />
     <Compile Include="UI\Adapters\Swipe\SwipeController.cs" />
     <Compile Include="UI\Adapters\Swipe\UnderlayButton.cs" />
+    <Compile Include="UI\Fragments\Bases\BaseOptionsListFragment.cs" />
     <Compile Include="UI\Fragments\ClientPage\OtherOptions\AddStoreRegistFragment.cs" />
     <Compile Include="UI\Fragments\ClientPage\OtherOptions\ChangeDailyOrderFragment.cs" />
     <Compile Include="UI\Fragments\ClientPage\OtherOptions\CreateNoficationFragment.cs" />
@@ -120,6 +122,8 @@
     <Compile Include="UI\Fragments\EditClient\SelectDaysPageFragment.cs" />
     <Compile Include="UI\Fragments\Global\Other\AppOtherOptionsFragment.cs" />
     <Compile Include="UI\Fragments\Global\Other\ReportFragment.cs" />
+    <Compile Include="UI\Fragments\Global\PriceTable\AddProductFragment.cs" />
+    <Compile Include="UI\Fragments\Global\PriceTable\PriceTableConfigurationFragment.cs" />
     <Compile Include="UI\Fragments\Global\PriceTable\PriceTableFilterFragment.cs" />
     <Compile Include="UI\Fragments\Global\PriceTable\PriceTableFragment.cs" />
     <Compile Include="UI\Fragments\Global\SynchronizeFragment.cs" />
@@ -140,6 +144,7 @@
     <Compile Include="UI\ViewHolders\OrderViewHolder.cs" />
     <Compile Include="UI\ViewHolders\PriceTable\ClientRadioViewHolder.cs" />
     <Compile Include="UI\ViewHolders\PriceTable\PriceTableViewHolder.cs" />
+    <Compile Include="UI\ViewHolders\PriceTable\ProductTypeViewHolder.cs" />
     <Compile Include="UI\ViewHolders\PriceTable\SelectClientFilterViewHolder.cs" />
     <Compile Include="UI\ViewHolders\PrintPreviewViewHolder.cs" />
     <Compile Include="UI\ViewHolders\ProductsOrderListViewHolder.cs" />
@@ -770,6 +775,14 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_remove.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_database_config.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\AddProductFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>

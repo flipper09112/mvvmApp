@@ -24,6 +24,7 @@ namespace tabApp.UI.Fragments.Global
         private EditText _searchEdt;
         private TextView _resultsLabel;
         private ImageView _filterIcon;
+        private ImageView _configIcon;
         private PriceTableAdapter _adapter;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -36,6 +37,7 @@ namespace tabApp.UI.Fragments.Global
             _searchEdt = view.FindViewById<EditText>(Resource.Id.editMobileNo);
             _resultsLabel = view.FindViewById<TextView>(Resource.Id.resultsLabel);
             _filterIcon = view.FindViewById<ImageView>(Resource.Id.filterIcon);
+            _configIcon = view.FindViewById<ImageView>(Resource.Id.configIcon);
 
             _adapter = new PriceTableAdapter(ViewModel, ViewModel.AllProducts);
             _recyclerView.SetLayoutManager(new GridLayoutManager(Context, 3, GridLayoutManager.Vertical, false));
@@ -51,6 +53,7 @@ namespace tabApp.UI.Fragments.Global
             _searchEdt.TextChanged -= SearchEdtClick;
             ViewModel.PropertyChanged -= ViewModelPropertyChanged;
             _filterIcon.Click -= FilterIconClick;
+            _configIcon.Click -= ConfigIconClick;
         }
 
         public override void SetUI()
@@ -68,6 +71,12 @@ namespace tabApp.UI.Fragments.Global
             _searchEdt.TextChanged += SearchEdtClick;
             ViewModel.PropertyChanged += ViewModelPropertyChanged;
             _filterIcon.Click += FilterIconClick;
+            _configIcon.Click += ConfigIconClick;
+        }
+
+        private void ConfigIconClick(object sender, EventArgs e)
+        {
+            ViewModel.ShowPriceTableConfigurationCommand.Execute(null);
         }
 
         private void FilterIconClick(object sender, EventArgs e)

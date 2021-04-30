@@ -25,5 +25,6 @@ namespace tabApp.Core.Services.Implementations.DB
         void RemoveClient(int id);
         void RemoveExtraOrder(Client client, ExtraOrder obj, Regist regist);
         void InsertNotification(Notification notification);
+        void InsertNewProduct(Product product);
     }
 }
