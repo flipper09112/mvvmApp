@@ -18,6 +18,7 @@ namespace tabApp.Core.ViewModels.Global
         private IPriceTableFilterService _priceTableFilterService;
 
         public MvxCommand ShowPriceTableFilterCommand;
+        public MvxCommand ShowPriceTableConfigurationCommand;
 
         public bool HasFilter => _priceTableFilterService.HasFilter;
         public Client ClientFilter => _priceTableFilterService.ClientSelected;
@@ -31,6 +32,12 @@ namespace tabApp.Core.ViewModels.Global
             _priceTableFilterService = priceTableFilterService;
 
             ShowPriceTableFilterCommand = new MvxCommand(ShowPriceTableFilter);
+            ShowPriceTableConfigurationCommand = new MvxCommand(ShowPriceTableConfiguration);
+        }
+
+        private async void ShowPriceTableConfiguration()
+        {
+            await _navigationService.Navigate<PriceTableConfigurationViewModel>();
         }
 
         private async void ShowPriceTableFilter()

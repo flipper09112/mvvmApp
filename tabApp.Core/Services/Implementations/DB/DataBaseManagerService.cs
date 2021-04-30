@@ -102,6 +102,13 @@ namespace tabApp.Core.Services.Implementations.DB
         }
 
         #region Inserts
+
+        public void InsertNewProduct(Product product)
+        {
+            database.InsertAll(product.ReSaleValues);
+            database.InsertWithChildren(product);
+        }
+
         public void InsertClient(Client client)
         {
             CheckDataBaseCreated(false);
@@ -308,6 +315,7 @@ namespace tabApp.Core.Services.Implementations.DB
             database.Insert(regist);
             database.UpdateWithChildren(client);
         }
+
 
         #endregion
     }

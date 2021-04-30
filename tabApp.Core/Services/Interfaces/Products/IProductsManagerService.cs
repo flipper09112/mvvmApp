@@ -13,7 +13,9 @@ namespace tabApp.Core.Services.Interfaces.Products
         void SetProducts(List<Product> productsList);
         Product GetProductById(int productId);
         string GetProductNameById(int productId);
+        List<ProductTypeEnum> GetAllProductsTypes();
         double GetProductAmmount(int clientId, Product product);
         Product GetProductByClosestName(string productName);
+        int GetUniqueId();
     }
 }
