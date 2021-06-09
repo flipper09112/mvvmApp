@@ -94,7 +94,8 @@ namespace tabApp
 
         protected override void OnDestroy()
         {
-            StopService(foregroundIntent);
+            if(foregroundIntent != null)
+                StopService(foregroundIntent);
             base.OnDestroy();
         }
 
