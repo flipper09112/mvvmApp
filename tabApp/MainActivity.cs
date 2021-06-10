@@ -279,6 +279,12 @@ namespace tabApp
         {
         }
 
+        public void LoadingView(bool visible)
+        {
+            _indeterminateBar.Indeterminate = true;
+            _indeterminateBar.Visibility = visible ? ViewStates.Visible : ViewStates.Invisible;
+        }
+
         #region ForeGroundService
         public void StartForegroundServiceCompat<T>(Bundle args = null) where T : Service
         {

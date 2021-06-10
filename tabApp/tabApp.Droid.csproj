@@ -86,12 +86,14 @@
     <Compile Include="Services\Implementations\Native\ForegroundService.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="UI\Adapters\CakesTotalOrderAdapter.cs" />
+    <Compile Include="UI\Adapters\EditClient\EditListSelectableAdapter.cs" />
     <Compile Include="UI\Adapters\Global\PriceTableAdapter.cs" />
     <Compile Include="UI\Adapters\Global\PriceTableFilterAdapter.cs" />
     <Compile Include="UI\Adapters\Global\ProductsTypesListAdapter.cs" />
     <Compile Include="UI\Adapters\Global\SelectClientRadiosAdapter.cs" />
     <Compile Include="UI\Adapters\Home\HomePageOrdersListAdapter.cs" />
     <Compile Include="UI\Adapters\Home\HomePageViewPagerAdapter.cs" />
+    <Compile Include="UI\Adapters\Home\LongPressPopPupAdapter.cs" />
     <Compile Include="UI\Adapters\Home\NotificationsListAdapter.cs" />
     <Compile Include="UI\Adapters\OtherOptions\Notifications\CreateNoficationGridAdapter.cs" />
     <Compile Include="UI\Adapters\OtherOptions\PrintAccountSpinnerAdapter.cs" />
@@ -136,6 +138,8 @@
     <Compile Include="UI\Fragments\Home\ViewPager\HomePageOrdersFragment.cs" />
     <Compile Include="UI\Fragments\Snooze\SnoozeFragment.cs" />
     <Compile Include="UI\ViewHolders\AddItemReportViewHolder.cs" />
+    <Compile Include="UI\ViewHolders\EditProfileListItemViewHolder.cs" />
+    <Compile Include="UI\ViewHolders\ItemRadioViewHolder.cs" />
     <Compile Include="UI\ViewHolders\ItemReportViewHolder.cs" />
     <Compile Include="UI\ViewHolders\NotificationItemViewHolder.cs" />
     <Compile Include="UI\ViewHolders\EditProfileItemViewHolder.cs" />
@@ -218,6 +222,9 @@
   <ItemGroup>
     <PackageReference Include="Com.Airbnb.Android.Lottie">
       <Version>3.0.6</Version>
+    </PackageReference>
+    <PackageReference Include="Glide.Xamarin">
+      <Version>4.1.1</Version>
     </PackageReference>
     <PackageReference Include="Karamunting.Android.Sorbh.KdGaugeView">
       <Version>1.0.0</Version>
@@ -783,6 +790,34 @@
     <AndroidResource Include="Resources\layout\AddProductFragment.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\EditProfileListItem.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\ItemRadio.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\dialog_choice.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\choice_item.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\PopUpLoadingView.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\loading.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>

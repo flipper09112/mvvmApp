@@ -21,6 +21,7 @@ namespace tabApp.UI.ViewHolders
         private Client client;
 
         public Action<Client> Click; 
+        public Action<Client> LongClick;
 
         public ClientViewHolder(View itemView) : base(itemView)
         {
@@ -30,6 +31,9 @@ namespace tabApp.UI.ViewHolders
 
             itemView.Click -= ItemViewClick;
             itemView.Click += ItemViewClick;
+
+            itemView.LongClick -= ItemViewLongClick;
+            itemView.LongClick += ItemViewLongClick;
         }
 
         internal void Bind(Client client)
@@ -72,6 +76,11 @@ namespace tabApp.UI.ViewHolders
         private void ItemViewClick(object sender, EventArgs e)
         {
             Click?.Invoke(client);
+        }
+
+        private void ItemViewLongClick(object sender, View.LongClickEventArgs e)
+        {
+            LongClick?.Invoke(client);
         }
     }
 }

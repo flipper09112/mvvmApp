@@ -8,11 +8,14 @@ using Android.Support.V7.Widget;
 using Android.Support.V7.Widget.Helper;
 using Android.Views;
 using Android.Widget;
+using Com.Bumptech.Glide;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using tabApp.Core;
 using tabApp.Core.ViewModels;
 using tabApp.UI.Adapters;
@@ -30,6 +33,9 @@ namespace tabApp.UI
         private TabLayout _tabLayout;
         private ClientsListAdapter _clientsAdapter;
         private HomePageViewPagerAdapter _viewPagerAdapter;
+        private AlertDialog _longPressPopUp;
+        private GridView _popUpGv;
+        private ImageView _loadingImagePopUp;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -59,7 +65,7 @@ namespace tabApp.UI
         {
             _activity.ShowToolbar();
 
-            _clientsAdapter = new ClientsListAdapter(ViewModel.ClientsList, ViewModel.ShowClientPage);
+            _clientsAdapter = new ClientsListAdapter(ViewModel.ClientsList, ViewModel.ShowClientPage, ViewModel.LongClickClient);
             _clientsList.SetAdapter(_clientsAdapter);
             _viewPagerAdapter.TabsOptions = ViewModel.TabsOptions;
             _viewPagerAdapter.NotifyDataSetChanged();
@@ -87,12 +93,52 @@ namespace tabApp.UI
         {
             ViewModel.PropertyChanged += ViewModelPropertyChanged;
             ViewModel.DeleteClientEvent += DeleteClientEvent;
+            ViewModel.ShowOptionsLongPress += ShowOptionsLongPress;
         }
 
         public override void CleanBindings()
         {
             ViewModel.PropertyChanged -= ViewModelPropertyChanged;
             ViewModel.DeleteClientEvent -= DeleteClientEvent;
+            ViewModel.ShowOptionsLongPress -= ShowOptionsLongPress;
+        }
+
+        private void ShowOptionsLongPress(object sender, EventArgs e)
+        {
+            _longPressPopUp = new AlertDialog.Builder(Context)
+                                                        .SetView(GetChoiceView())
+                                                        .Create();
+
+            _longPressPopUp.Show();
+        }
+
+        private View GetChoiceView()
+        {
+            View view = LayoutInflater.From(Context).Inflate(Resource.Layout.dialog_choice, null);
+            _popUpGv = (GridView)view.FindViewById(Resource.Id.gv_choice);
+
+            _loadingImagePopUp = view.FindViewById<ImageView>(Resource.Id.custom_loading_imageView);
+            Glide.With(Context)
+                    .Load(Resource.Drawable.loading)
+                    .Into(_loadingImagePopUp);
+
+            //GridView data source, directly loaded from strings.xml
+            List<LongPressItem> data = ViewModel.LongPressItemsList;
+
+            //Custom adapter
+            LongPressPopPupAdapter adapter;
+            //Judgment type, load data source settings Adapter
+            adapter = new LongPressPopPupAdapter(data, CloseLongPressPopUp);
+            _popUpGv.Adapter = adapter;
+            //Set the default selection
+            //adapter.(eventSelected);
+
+            return view;
+        }
+
+        private void CloseLongPressPopUp()
+        {
+            _longPressPopUp?.Dismiss();
         }
 
         private void DeleteClientEvent(object sender, EventArgs e)
