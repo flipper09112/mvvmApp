@@ -118,6 +118,18 @@ namespace tabApp.Core.Services.Implementations.DB
             database.InsertWithChildren(client);
         }
 
+        public void InsertClient(Client newClient, Regist regist)
+        {
+            database.Insert(newClient.Address);
+            database.InsertAll(newClient.DetailsList);
+            database.InsertWithChildren(newClient);
+
+            newClient.SetNewRegist(regist);
+            database.Insert(regist);
+            database.UpdateWithChildren(newClient);
+            database.Update(newClient);
+        }
+
         public void InsertNotification(Notification notification)
         {
             database.CreateTable<Notification>();
@@ -188,9 +200,13 @@ namespace tabApp.Core.Services.Implementations.DB
         {
             client.LastChangeDate = DateTime.Now;
             CheckDailyOrders(client);
-            client.SetNewRegist(regist);
-            database.Insert(regist);
-            database.UpdateWithChildren(client);
+
+            if(regist != null)
+            {
+                client.SetNewRegist(regist);
+                database.Insert(regist);
+                database.UpdateWithChildren(client);
+            }
 
             database.Update(client);
         }

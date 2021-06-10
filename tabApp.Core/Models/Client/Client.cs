@@ -134,6 +134,12 @@ namespace tabApp.Core.Models
             ExtraValueToPay = v;
         }
 
+        internal void UpdatePaymentType(string newValue)
+        {
+            PaymentTypeEnum newPaymentType = (PaymentTypeEnum)Enum.Parse(typeof(PaymentTypeEnum), newValue);
+            PaymentType = newPaymentType;
+        }
+
         internal void UpdateDailyOrder(DailyOrder dailyOrder, DayOfWeek day)
         {
             switch (day)
@@ -217,6 +223,7 @@ namespace tabApp.Core.Models
             SabDailyOrder.AllItems.Clear(); 
             DomDailyOrder.AllItems.Clear(); 
         }
+
     }
 
     public enum PaymentTypeEnum

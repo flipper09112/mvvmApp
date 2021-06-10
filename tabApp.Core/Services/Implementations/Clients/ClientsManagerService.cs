@@ -188,5 +188,37 @@ namespace tabApp.Core.Services.Implementations.Clients
                 count++;
             }
         }
+
+        public List<string> GetAllPaymentsTypes()
+        {
+            List<string> paymentTypes = new List<string>();
+
+            foreach(Client client in ClientsList)
+            {
+                if (paymentTypes.Contains(client.PaymentType.ToString())) continue;
+
+                paymentTypes.Add(client.PaymentType.ToString());
+            }
+
+            return paymentTypes;
+        }
+
+        public int GetNewId()
+        {
+            int newId = 0;
+
+            foreach (Client client in ClientsList)
+            {
+                if (client.Id > newId) newId = client.Id;
+            }
+
+            return newId + 1;
+        }
+
+        public void AddNewClient(Client newClient)
+        {
+            ClientsList.Add(newClient);
+            _clientsList = ClientsList.OrderBy(item => item.Position).ToList<Client>();
+        }
     }
 }

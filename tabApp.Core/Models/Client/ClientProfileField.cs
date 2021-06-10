@@ -18,4 +18,9 @@ namespace tabApp.Core.Models
         public string Type { get; internal set; }
         public Product Product { get; internal set; }
     }
+
+    public class ClientProfileListField : ClientProfileField
+    {
+        public List<string> ValueList { get; internal set; }
+    }
 }

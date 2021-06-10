@@ -165,7 +165,7 @@ namespace tabApp.Core.Services.Implementations.Orders
         {
             double ammount = 0;
 
-            foreach(var item in dailyOrder.AllItems)
+            foreach(var item in dailyOrder.AllItems ?? new List<DailyOrderDetails>())
             {
                 Product product = _productsManagerService.GetProductById(item.ProductId);
 

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using tabApp.Core.Models;
 using tabApp.Core.Models.Notifications;
 using tabApp.Core.Services.Implementations.Clients;
+using tabApp.Core.Services.Implementations.DB;
 using tabApp.Core.Services.Interfaces.Clients;
 using tabApp.Core.Services.Interfaces.Dialogs;
 using tabApp.Core.Services.Interfaces.Notifications;
@@ -28,12 +29,16 @@ namespace tabApp.Core
         private readonly IProductsManagerService _productsManagerService;
         private readonly IDialogService _dialogService;
         private readonly INotificationsManagerService _notificationsManagerService;
-
+        private readonly IDataBaseManagerService _dataBaseManagerService;
 
         public EventHandler DeleteClientEvent;
+        public EventHandler ShowOptionsLongPress;
         public MvxAsyncCommand<Client> ShowClientPage { get; private set; }
+        public MvxCommand<Client> LongClickClient { get; private set; }
         public MvxCommand<int> DeleteClientCommand { get; private set; }
         public MvxCommand<int> StopDailysClientCommand { get; private set; }
+        public MvxCommand AddNewClientBeforeCommand { get; private set; }
+        public MvxCommand AddNewClientAfterCommand { get; private set; }
 
         public HomeViewModel(IMvxNavigationService navigationService, 
                             IClientsManagerService clientsManagerService,
@@ -42,7 +47,8 @@ namespace tabApp.Core
                             IOrdersManagerService ordersManagerService,
                             IProductsManagerService productsManagerService,
                             IDialogService dialogService,
-                            INotificationsManagerService notificationsManagerService)
+                            INotificationsManagerService notificationsManagerService,
+                            IDataBaseManagerService dataBaseManagerService)
         {
             _clientsManagerService = clientsManagerService;
             _navigationService = navigationService;
@@ -52,10 +58,117 @@ namespace tabApp.Core
             _productsManagerService = productsManagerService;
             _dialogService = dialogService;
             _notificationsManagerService = notificationsManagerService;
+            _dataBaseManagerService = dataBaseManagerService;
 
             ShowClientPage = new MvxAsyncCommand<Client>(ShowClientPageAction);
             DeleteClientCommand = new MvxCommand<int>(DeleteClient);
             StopDailysClientCommand = new MvxCommand<int>(StopDailysClient);
+            LongClickClient = new MvxCommand<Client>(LongClickClientAction);
+            AddNewClientBeforeCommand = new MvxCommand(AddNewClientBefore);
+            AddNewClientAfterCommand = new MvxCommand(AddNewClientAfter);
+        }
+
+        private async void AddNewClientAfter()
+        {
+            var newClient = AddNewTemplateClient(AddClientsTypesEnum.After);
+
+            _chooseClientService.SelectClient(newClient);
+            await _navigationService.Navigate<EditClientViewModel>();
+        }
+
+        private async void AddNewClientBefore()
+        {
+            var newClient = AddNewTemplateClient(AddClientsTypesEnum.Before);
+
+            _chooseClientService.SelectClient(newClient);
+            await _navigationService.Navigate<EditClientViewModel>();
+        }
+
+        private void FixNewClientPositions(AddClientsTypesEnum addClientsType)
+        {
+            int pos = _clientsManagerService.ClientsList.IndexOf(_clientSelectedLongPress);
+            if (pos == -1) return;
+
+            List<Client> list;
+            if (addClientsType == AddClientsTypesEnum.Before)
+            {
+                list = _clientsManagerService.ClientsList.GetRange(pos, _clientsManagerService.ClientsList.Count - pos);
+            }
+            else if (addClientsType == AddClientsTypesEnum.After)
+            {
+                list = _clientsManagerService.ClientsList.GetRange(pos + 1, _clientsManagerService.ClientsList.Count - pos - 1);
+            }
+            else
+            {
+                list = null;
+            }
+            
+            foreach(Client client in list)
+            {
+                client.Position = client.Position + 1;
+                _dataBaseManagerService.SaveClient(client, regist: null);
+            }
+        }
+
+        private Client AddNewTemplateClient(AddClientsTypesEnum addClientsType)
+        {
+            var newClient = new Client()
+            {
+                Id = _clientsManagerService.GetNewId(),
+                Position = addClientsType == AddClientsTypesEnum.Before ? _clientSelectedLongPress.Position : _clientSelectedLongPress.Position + 1,
+                Name = "Default",
+                SubName = "Sem alcunha definida",
+                Address = new Address()
+                {
+                    AddressDesc = "Sem morada definida",
+                    NumberDoor = 0,
+                    Coordenadas = "null"
+                },
+                PaymentDate = DateTime.Today,
+                PaymentType = PaymentTypeEnum.Diario,
+                Active = true,
+                ExtraValueToPay = 0,
+                DailyOrders = CreateEmptyDailyyOrder(),
+                PhoneNumber = "Sem numero",
+                LastChangeDate = DateTime.Today,
+                DetailsList = new List<Regist>(),
+                ExtraOrdersList = new List<ExtraOrder>()
+            };
+
+            FixNewClientPositions(addClientsType);
+            _clientsManagerService.AddNewClient(newClient);
+            _dataBaseManagerService.InsertClient(
+                newClient, 
+                new Regist() { 
+                    DetailRegistDay = DateTime.Today,
+                    Info = "Criação da ficha do cliente",
+                    DetailType = DetailTypeEnum.NewClient
+                }
+            );
+
+            return newClient;
+        }
+
+        private List<DailyOrder> CreateEmptyDailyyOrder()
+        {
+            var dailyOrder = new List<DailyOrder>();
+
+            foreach (DayOfWeek dayOfWeek in (DayOfWeek[])Enum.GetValues(typeof(DayOfWeek)))
+            {
+                dailyOrder.Add(new DailyOrder()
+                {
+                    AllItems = new List<DailyOrderDetails>(),
+                    DayOfWeek = dayOfWeek
+                });
+            }
+
+            return dailyOrder;
+        }
+
+        private void LongClickClientAction(Client client)
+        {
+            _clientSelectedLongPress = client;
+            ShowOptionsLongPress?.Invoke(null, null);
         }
 
         private async void StopDailysClient(int arg)
@@ -117,7 +230,7 @@ namespace tabApp.Core
                 return _clientsManagerService.ClientsList;
             }
         }
-
+        
         private List<SecondaryOptions> _tabsOptions;
         public List<SecondaryOptions> TabsOptions
         {
@@ -132,9 +245,40 @@ namespace tabApp.Core
             }
         }
 
+        private List<LongPressItem> _longPressItemsList;
+        private Client _clientSelectedLongPress;
+
+        public List<LongPressItem> LongPressItemsList
+        {
+            get
+            {
+                return _longPressItemsList;
+            }
+            set
+            {
+                _longPressItemsList = value;
+            }
+        }
+
         public override void Appearing()
         {
             TabsOptions = GetSecondaryOptions();
+            LongPressItemsList = GetLongPressItemsList();
+        }
+
+        private List<LongPressItem> GetLongPressItemsList()
+        {
+            var longPressItemsList = new List<LongPressItem>();
+            longPressItemsList.Add(new LongPressItem() { 
+                Name = "Adicionar Cliente\n(posição anterior)",
+                Command = AddNewClientBeforeCommand
+            }); 
+            longPressItemsList.Add(new LongPressItem()
+            {
+                Name = "Adicionar Cliente\n(posição seguinte)",
+                Command = AddNewClientAfterCommand
+            });
+            return longPressItemsList;
         }
 
         private List<SecondaryOptions> GetSecondaryOptions()
@@ -179,6 +323,18 @@ namespace tabApp.Core
         {
             return _clientsManagerService.ClientsList.Find(item => item.Id == clientId);
         }
+    }
+
+    public enum AddClientsTypesEnum
+    {
+        After,
+        Before
+    }
+
+    public class LongPressItem
+    {
+        public string Name { get; set; }
+        public MvxCommand Command { get; set; }
     }
 
     public class SecondaryOptions

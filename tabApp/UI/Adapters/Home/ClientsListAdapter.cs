@@ -19,11 +19,13 @@ namespace tabApp.UI.Adapters
     {
         public List<Client> ClientsList;
         private MvxAsyncCommand<Client> showClientPage;
+        private MvxCommand<Client> longClickClient;
 
-        public ClientsListAdapter(List<Client> clientsList, MvxAsyncCommand<Client> showClientPage)
+        public ClientsListAdapter(List<Client> clientsList, MvxAsyncCommand<Client> showClientPage, MvxCommand<Client> longClickClient)
         {
             this.ClientsList = clientsList;
             this.showClientPage = showClientPage;
+            this.longClickClient = longClickClient;
         }
 
         public override int ItemCount => ClientsList?.Count ?? 0;
@@ -33,6 +35,7 @@ namespace tabApp.UI.Adapters
             ClientViewHolder clientVH = holder as ClientViewHolder;
             clientVH.Bind(ClientsList[holder.AdapterPosition]);
             clientVH.Click = ClickClient;
+            clientVH.LongClick = LongClickClient;
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
@@ -43,7 +46,11 @@ namespace tabApp.UI.Adapters
 
         private void ClickClient(Client clienSelected)
         {
-            showClientPage.Execute(clienSelected);
+            showClientPage?.Execute(clienSelected);
+        }
+        private void LongClickClient(Client clienSelected)
+        {
+            longClickClient?.Execute(clienSelected);
         }
 
     }
