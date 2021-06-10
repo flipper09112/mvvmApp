@@ -25,10 +25,13 @@ namespace tabApp.UI.Fragments.Snooze
         private MainActivity _activity;
         private KdGaugeView _speedometer;
         private RecyclerView _todayOrdersList;
+        private AndroidX.RecyclerView.Widget.RecyclerView _notificationList;
         private ImageView _withoutOrders;
+        private ImageView _withoutNotifications;
         private List<(Client Client, ExtraOrder ExtraOrder)> _orders;
         private HomePageOrdersListAdapter _adapter;
         private bool _running;
+        private NotificationsListAdapter _notificationsAdapter;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -38,9 +41,11 @@ namespace tabApp.UI.Fragments.Snooze
 
             _speedometer = view.FindViewById<KdGaugeView>(Resource.Id.speedometer);
             _todayOrdersList = view.FindViewById<RecyclerView>(Resource.Id.todayOrdersList);
+            _notificationList = view.FindViewById<AndroidX.RecyclerView.Widget.RecyclerView>(Resource.Id.notificationList);
             _withoutOrders = view.FindViewById<ImageView>(Resource.Id.withoutOrders);
+            _withoutNotifications = view.FindViewById<ImageView>(Resource.Id.withoutNotifications);
 
-            
+
             var layoutManager = new LinearLayoutManager(Context);
             _todayOrdersList.SetLayoutManager(layoutManager);
 
@@ -48,7 +53,6 @@ namespace tabApp.UI.Fragments.Snooze
         }
         public override void CleanBindings()
         {
-            //_activity.StopRequestCurrentLocationLoopUpdates();
             _activity.LocationEvent -= LocationEvent;
         }
 
@@ -76,11 +80,24 @@ namespace tabApp.UI.Fragments.Snooze
                 _adapter = new HomePageOrdersListAdapter(_orders, ViewModel);
                 _todayOrdersList.SetAdapter(_adapter);
             }
+
+            if (ViewModel.NotificationsList?.Count == 0)
+            {
+                _withoutNotifications.Visibility = ViewStates.Visible;
+                _notificationList.Visibility = ViewStates.Invisible;
+            }
+            else
+            {
+                _withoutNotifications.Visibility = ViewStates.Invisible;
+                _notificationList.Visibility = ViewStates.Visible;
+
+                _notificationsAdapter = new NotificationsListAdapter(ViewModel.NotificationsList, ViewModel);
+                _notificationList.SetAdapter(_notificationsAdapter);
+            }
         }
 
         public override void SetupBindings()
         {
-           // _activity.RequestCurrentLocationLoopUpdates();
             _activity.LocationEvent += LocationEvent;
         }
 
