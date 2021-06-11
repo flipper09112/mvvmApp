@@ -267,6 +267,11 @@ namespace tabApp.Core.Services.Implementations.DB
             database.UpdateWithChildren(regist);
         }
 
+        public void UpdateOrder(ExtraOrder regist)
+        {
+            database.Update(regist);
+        }
+
         public void UpdateClientFromBluetooth(Client client)
         {
             database.Update(client);

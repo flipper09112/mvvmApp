@@ -20,6 +20,7 @@ namespace tabApp.Core.Services.Implementations.DB
         void UpdateClientFromBluetooth(Client client);
         void SaveClient(Client client, Regist regist);
         void SaveClient(Client clientSelected, ExtraOrder order);
+        void UpdateOrder(ExtraOrder regist);
         void SaveAllDocs();
         void RemoveClient(Client client);
         void RemoveClient(int id);
