@@ -43,5 +43,10 @@ namespace tabApp.UI.Fragments.Home.ViewPager
 
             return view;
         }
+
+        internal void UpdateOrdersList()
+        {
+            adapter.NotifyDataSetChanged();
+        }
     }
 }

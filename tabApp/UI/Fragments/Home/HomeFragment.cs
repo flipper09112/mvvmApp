@@ -94,6 +94,7 @@ namespace tabApp.UI
             ViewModel.PropertyChanged += ViewModelPropertyChanged;
             ViewModel.DeleteClientEvent += DeleteClientEvent;
             ViewModel.ShowOptionsLongPress += ShowOptionsLongPress;
+            ViewModel.UpdateOrderList += UpdateOrderList;
         }
 
         public override void CleanBindings()
@@ -101,6 +102,12 @@ namespace tabApp.UI
             ViewModel.PropertyChanged -= ViewModelPropertyChanged;
             ViewModel.DeleteClientEvent -= DeleteClientEvent;
             ViewModel.ShowOptionsLongPress -= ShowOptionsLongPress;
+            ViewModel.UpdateOrderList -= UpdateOrderList;
+        }
+
+        private void UpdateOrderList(object sender, EventArgs e)
+        {
+            _viewPagerAdapter.UpdateOrdersList();
         }
 
         private void ShowOptionsLongPress(object sender, EventArgs e)

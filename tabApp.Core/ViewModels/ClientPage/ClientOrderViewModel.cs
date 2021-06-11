@@ -50,7 +50,6 @@ namespace tabApp.Core.ViewModels
 
         private bool CanSaveNewOrder()
         {
-            return true;
             if (Client.ExtraOrdersList.Find(item => item.OrderDay.Date == DateSelected.Date) != null)
                 return false;
 
