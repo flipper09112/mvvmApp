@@ -46,6 +46,7 @@ namespace tabApp.Core.Models
         public DateTime OrderRegistDay { get; set; }
         public bool StoreOrder { get; set; }
         public bool IsTotal { get; set; }
+        public bool? AmmountedAdded { get; set; }
 
         [Ignore]
         public bool HasNotify { get; set; }

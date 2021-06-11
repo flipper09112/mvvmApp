@@ -2,6 +2,7 @@
 
 using Android.Support.V4.App;
 using Android.Views;
+using System;
 using System.Collections.Generic;
 using tabApp.Core;
 using tabApp.UI.Fragments.Home.ViewPager;
@@ -40,6 +41,11 @@ namespace tabApp.UI.Adapters.Home
         public override void DestroyItem(View container, int position, Java.Lang.Object @object)
         {
             base.DestroyItem(container, position, @object);
+        }
+
+        internal void UpdateOrdersList()
+        {
+            encomenda.UpdateOrdersList();
         }
     }
 }

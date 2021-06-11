@@ -22,6 +22,7 @@ namespace tabApp.UI.Fragments.ClientPage
         private MainActivity _activity;
         private TextView _calendarLabel;
         private Button _saveButton;
+        private Button _selectDayOrder;
         private Button _addProductButton;
         private RecyclerView _productsRecyclerView;
         private View _noItems;
@@ -35,6 +36,7 @@ namespace tabApp.UI.Fragments.ClientPage
 
             _calendarLabel = view.FindViewById<TextView>(Resource.Id.calendarLabel);
             _saveButton = view.FindViewById<Button>(Resource.Id.saveButton);
+            _selectDayOrder = view.FindViewById<Button>(Resource.Id.selectDayOrder);
             _addProductButton = view.FindViewById<Button>(Resource.Id.addProductButton);
             _productsRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.productsRecyclerView);
             _noItems = view.FindViewById<View>(Resource.Id.noItems);
@@ -50,6 +52,7 @@ namespace tabApp.UI.Fragments.ClientPage
             _addProductButton.Click -= AddProductButtonClick;
             _saveButton.Click -= SaveButtonClick;
             ViewModel.GoBack2Times -= GoBack2Times;
+            _selectDayOrder.Click -= SelectDayOrderClick;
         }
 
         public override void SetUI()
@@ -71,6 +74,12 @@ namespace tabApp.UI.Fragments.ClientPage
             _saveButton.Click += SaveButtonClick;
             ViewModel.SaveRegistCommand.CanExecuteChanged += SaveRegistCommandCanExecuteChanged;
             ViewModel.GoBack2Times += GoBack2Times;
+            _selectDayOrder.Click += SelectDayOrderClick;
+        }
+
+        private void SelectDayOrderClick(object sender, EventArgs e)
+        {
+            ViewModel.SelectDayCommand.Execute();
         }
 
         private void GoBack2Times(object sender, EventArgs e)
@@ -105,6 +114,7 @@ namespace tabApp.UI.Fragments.ClientPage
         {
             switch(e.PropertyName)
             {
+                case nameof(ViewModel.DateSelectedDailyOrder):
                 case nameof(ViewModel.DateSelected):
                     SetUI();
                     break;

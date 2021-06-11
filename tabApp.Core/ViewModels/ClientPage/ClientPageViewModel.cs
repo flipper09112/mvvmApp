@@ -51,7 +51,8 @@ namespace tabApp.Core.ViewModels
         public MvxCommand ShowExtraOptionsCommand;
         public MvxCommand<ExtraOrder> CancelOrderCommand;
         public MvxCommand ShoeEditPageCommand;
-        public MvxCommand ShowDatePickerDialogCommand;
+        public MvxCommand<ExtraOrder> AddExtraFromOrderCommand;
+        public MvxCommand ShowDatePickerDialogCommand; 
 
         public ClientPageViewModel(IGetSpinnerDatesService getSpinnerDatesService, 
                                    IChooseClientService chooseClientService,
@@ -98,6 +99,7 @@ namespace tabApp.Core.ViewModels
             ShowDailyOrdersDetailsCommand = new MvxCommand(ShowDailyOrdersDetails);
             ShowExtraOptionsCommand = new MvxCommand(ShowExtraOptions);
             CancelOrderCommand = new MvxCommand<ExtraOrder>(CancelOrder);
+            AddExtraFromOrderCommand = new MvxCommand<ExtraOrder>(AddExtraFromOrder);
             ShoeEditPageCommand = new MvxCommand(ShoeEditPage);
             ShowDatePickerDialogCommand = new MvxCommand(ShowDatePickerDialog);
         }
@@ -143,6 +145,55 @@ namespace tabApp.Core.ViewModels
 
 
         #region Actions
+
+        private void AddExtraFromOrder(ExtraOrder order)
+        {
+            _dialogService.ShowConfirmDialog("Confirmar a adicao do extra desta encomenda", "Sim", AddOrderExtra, "Não", order);
+        }
+
+        private void AddOrderExtra(object obj)
+        {
+            IsBusy = true;
+            var extraOrder = (ExtraOrder)obj;
+
+            Regist regist;
+            if (!extraOrder.IsTotal)
+            {
+                var ammount = _ordersManagerService.GetValue(extraOrder.Id, extraOrder.AllItems);
+                Client.AddExtra(ammount);
+                extraOrder.AmmountedAdded = true;
+
+                regist = new Regist()
+                {
+                    DetailRegistDay = DateTime.Today,
+                    Info = "Adicionado um extra de " + ammount.ToString("C") + " referente a uma encomenda de dia " + extraOrder.OrderDay.ToString("dd/MM/yyyy"),
+                    ClientId = extraOrder.Id,
+                    DetailType = DetailTypeEnum.AddExtra
+                };
+            }
+            else
+            {
+                var orderAmmount = _ordersManagerService.GetValue(extraOrder.Id, extraOrder.AllItems);
+                var dayAmmount = _ordersManagerService.GetValue(extraOrder.Id, _clientsManagerService.GetTodayDailyOrder(Client, extraOrder.OrderDay.DayOfWeek));
+                var ammount = orderAmmount - dayAmmount; 
+                Client.AddExtra(ammount);
+                extraOrder.AmmountedAdded = true;
+
+                regist = new Regist()
+                {
+                    DetailRegistDay = DateTime.Today,
+                    Info = "Adicionado um extra de " + ammount.ToString("C") + " (removido o valor do dia " + dayAmmount.ToString("C") + ") referente a uma encomenda de dia " + extraOrder.OrderDay.ToString("dd/MM/yyyy"),
+                    ClientId = extraOrder.Id,
+                    DetailType = DetailTypeEnum.AddExtra
+                };
+            }
+
+            _dataBaseManagerService.SaveClient(Client, regist);
+            _dataBaseManagerService.UpdateOrder(extraOrder);
+            _dialogService.ShowSuccessChangeSnackBar("Adicionado extra com sucesso");
+            RaisePropertyChanged(nameof(AddOrderExtra));
+            IsBusy = false;
+        }
 
         private void CancelOrder(ExtraOrder order)
         {

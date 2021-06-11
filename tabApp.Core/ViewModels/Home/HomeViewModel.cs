@@ -32,13 +32,16 @@ namespace tabApp.Core
         private readonly IDataBaseManagerService _dataBaseManagerService;
 
         public EventHandler DeleteClientEvent;
-        public EventHandler ShowOptionsLongPress;
+        public EventHandler UpdateOrderList;
+        public EventHandler ShowOptionsLongPress; 
         public MvxAsyncCommand<Client> ShowClientPage { get; private set; }
         public MvxCommand<Client> LongClickClient { get; private set; }
         public MvxCommand<int> DeleteClientCommand { get; private set; }
         public MvxCommand<int> StopDailysClientCommand { get; private set; }
         public MvxCommand AddNewClientBeforeCommand { get; private set; }
         public MvxCommand AddNewClientAfterCommand { get; private set; }
+
+        public MvxCommand<ExtraOrder> AddExtraFromOrderCommand { get; private set; }
 
         public HomeViewModel(IMvxNavigationService navigationService, 
                             IClientsManagerService clientsManagerService,
@@ -66,6 +69,56 @@ namespace tabApp.Core
             LongClickClient = new MvxCommand<Client>(LongClickClientAction);
             AddNewClientBeforeCommand = new MvxCommand(AddNewClientBefore);
             AddNewClientAfterCommand = new MvxCommand(AddNewClientAfter);
+            AddExtraFromOrderCommand = new MvxCommand<ExtraOrder>(AddExtraFromOrder);
+        }
+
+        private void AddExtraFromOrder(ExtraOrder order)
+        {
+            _dialogService.ShowConfirmDialog("Confirmar a adicao do extra desta encomenda", "Sim", AddOrderExtra, "Não", order);
+        }
+        private void AddOrderExtra(object obj)
+        {
+            IsBusy = true;
+            var extraOrder = (ExtraOrder)obj;
+            Client client = _clientsManagerService.ClientsList.Find(cli => cli.Id == extraOrder.ClientId);
+
+            Regist regist;
+            if (!extraOrder.IsTotal)
+            {
+                var ammount = _ordersManagerService.GetValue(extraOrder.Id, extraOrder.AllItems);
+                client.AddExtra(ammount);
+                extraOrder.AmmountedAdded = true;
+
+                regist = new Regist()
+                {
+                    DetailRegistDay = DateTime.Today,
+                    Info = "Adicionado um extra de " + ammount.ToString("C") + " referente a uma encomenda de dia " + extraOrder.OrderDay.ToString("dd/MM/yyyy"),
+                    ClientId = extraOrder.Id,
+                    DetailType = DetailTypeEnum.AddExtra
+                };
+            }
+            else
+            {
+                var orderAmmount = _ordersManagerService.GetValue(extraOrder.Id, extraOrder.AllItems);
+                var dayAmmount = _ordersManagerService.GetValue(extraOrder.Id, _clientsManagerService.GetTodayDailyOrder(client, extraOrder.OrderDay.DayOfWeek));
+                var ammount = orderAmmount - dayAmmount;
+                client.AddExtra(ammount);
+                extraOrder.AmmountedAdded = true;
+
+                regist = new Regist()
+                {
+                    DetailRegistDay = DateTime.Today,
+                    Info = "Adicionado um extra de " + ammount.ToString("C") + " (removido o valor do dia " + dayAmmount.ToString("C") + ") referente a uma encomenda de dia " + extraOrder.OrderDay.ToString("dd/MM/yyyy"),
+                    ClientId = extraOrder.Id,
+                    DetailType = DetailTypeEnum.AddExtra
+                };
+            }
+
+            _dataBaseManagerService.SaveClient(client, regist);
+            _dataBaseManagerService.UpdateOrder(extraOrder);
+            _dialogService.ShowSuccessChangeSnackBar("Adicionado extra com sucesso");
+            UpdateOrderList?.Invoke(null, null);
+            IsBusy = false;
         }
 
         private async void AddNewClientAfter()

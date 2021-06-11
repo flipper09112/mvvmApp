@@ -85,6 +85,16 @@
         app:layout_constraintStart_toEndOf="@+id/divider2"
         app:layout_constraintTop_toBottomOf="@+id/divider3" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/notificationList"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/divider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider3" />
+
     <ImageView
         android:id="@+id/withoutOrders"
         android:layout_width="80dp"
@@ -94,6 +104,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/divider8"
         app:layout_constraintStart_toEndOf="@+id/divider2"
+        app:layout_constraintTop_toBottomOf="@+id/divider3" />
+
+    <ImageView
+        android:id="@+id/withoutNotifications"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/ic_cancel_order"
+        android:tint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/divider"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider3" />
 
     <View
@@ -118,6 +139,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/divider2"
         app:layout_constraintTop_toTopOf="parent"
-         />
+        />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/ic_delivery"
+        android:tint="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/divider3"
+        app:layout_constraintEnd_toStartOf="@+id/divider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

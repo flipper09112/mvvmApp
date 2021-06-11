@@ -27,8 +27,9 @@ namespace tabApp.Core.ViewModels.ClientPage
         private bool _firstTime = true;
 
         public MvxCommand ShowCalendarPickerCommand;
-        public MvxCommand SaveRegistCommand;
+        public MvxCommand SaveRegistCommand; 
         public MvxCommand AddProductCommand;
+        public MvxCommand SelectDayCommand;
 
         public EventHandler GoBack2Times;
 
@@ -47,7 +48,29 @@ namespace tabApp.Core.ViewModels.ClientPage
 
             ShowCalendarPickerCommand = new MvxCommand(ShowCalendarPicker);
             AddProductCommand = new MvxCommand(AddProduct);
+            SelectDayCommand = new MvxCommand(SelectDay);
             SaveRegistCommand = new MvxCommand(SaveRegist, CanSaveRegist);
+        }
+
+        private void SelectDay()
+        {
+            _dialogService.ShowDatePickerDialog(ChooseDateAction);
+        }
+
+        private void ChooseDateAction(DateTime date)
+        {
+            _itemsList.Clear();
+            foreach (var item in ClientHelper.GetDailyOrder(date.DayOfWeek, _chooseClientService.ClientSelected).AllItems)
+            {
+                Product prod = _productsManagerService.GetProductById(item.ProductId);
+                _itemsList.Add(new ProductAmmount()
+                {
+                    Product = prod,
+                    Ammount = item.Ammount
+                });
+            }
+
+            DateSelectedDailyOrder = date;
         }
 
         private async void AddProduct()
@@ -120,6 +143,20 @@ namespace tabApp.Core.ViewModels.ClientPage
             {
                 _dateSelected = value;
                 RaisePropertyChanged(nameof(DateSelected));
+            }
+        }
+
+        public DateTime _dateSelectedDailyOrder = DateTime.Today;
+        public DateTime DateSelectedDailyOrder
+        {
+            get
+            {
+                return _dateSelectedDailyOrder;
+            }
+            set
+            {
+                _dateSelectedDailyOrder = value;
+                RaisePropertyChanged(nameof(DateSelectedDailyOrder));
             }
         }
 

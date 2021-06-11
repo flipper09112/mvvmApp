@@ -3,6 +3,7 @@ using Android.Content;
 using Android.Icu.Text;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.Design.Widget;
 using Android.Text;
 using Android.Views;
 using Android.Widget;
@@ -115,5 +116,13 @@ namespace tabApp.Services.Implementations
 
         }
 
+        public void ShowSuccessChangeSnackBar(string info)
+        {
+            var top = Mvx.Resolve<IMvxAndroidCurrentTopActivity>();
+            var act = top.Activity;
+
+            Android.Views.View activityRootView = act.FindViewById(Android.Resource.Id.Content);
+            Snackbar.Make(activityRootView, info, Snackbar.LengthLong).Show();
+        }
     }
 }

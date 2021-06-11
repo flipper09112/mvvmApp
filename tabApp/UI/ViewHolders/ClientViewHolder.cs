@@ -5,11 +5,14 @@ using Android.Runtime;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using AndroidX.CardView.Widget;
+using Plugin.CurrentActivity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using tabApp.Core.Models;
+using CardView = AndroidX.CardView.Widget.CardView;
 
 namespace tabApp.UI.ViewHolders
 {
@@ -18,16 +21,20 @@ namespace tabApp.UI.ViewHolders
         private CardView _card;
         private TextView _clientName;
         private TextView _clientDesc;
+        private ImageView _phoneIcon;
         private Client client;
 
         public Action<Client> Click; 
         public Action<Client> LongClick;
+        private ImageView _locationIcon;
 
         public ClientViewHolder(View itemView) : base(itemView)
         {
             _card = itemView.FindViewById<CardView>(Resource.Id.card);
             _clientName = itemView.FindViewById<TextView>(Resource.Id.clientName);
             _clientDesc = itemView.FindViewById<TextView>(Resource.Id.clientDesc);
+            _phoneIcon = itemView.FindViewById<ImageView>(Resource.Id.phoneIcon);
+            _locationIcon = itemView.FindViewById<ImageView>(Resource.Id.locationIcon);
 
             itemView.Click -= ItemViewClick;
             itemView.Click += ItemViewClick;
@@ -44,6 +51,38 @@ namespace tabApp.UI.ViewHolders
             _clientDesc.Text = "Id: " + client.Id + "\nMorada" + client.Address.AddressDesc;
 
             SetColorBackground();
+
+            SetIcons();
+        }
+
+        private void SetIcons()
+        {
+            if(client.PhoneNumber == null || client.PhoneNumber.Equals("") || client.PhoneNumber.Equals("Sem numero"))
+            {
+                _phoneIcon.SetImageResource(Resource.Drawable.ic_no_phone);
+                _phoneIcon.SetColorFilter(client.Active ? GetColor(Resource.Color.red) : GetColor(Resource.Color.black));
+            }
+            else
+            {
+                 _phoneIcon.SetImageResource(Resource.Drawable.ic_has_phone);
+                _phoneIcon.SetColorFilter(client.PaymentType == PaymentTypeEnum.Semanal ? GetColor(Resource.Color.green) : GetColor(Resource.Color.black));
+            }
+
+            if (client.Address.Coordenadas == null || client.Address.Coordenadas.Equals("null"))
+            {
+                _locationIcon.SetImageResource(Resource.Drawable.ic_no_location);
+                _locationIcon.SetColorFilter(client.Active ? GetColor(Resource.Color.red) : GetColor(Resource.Color.black));
+            }
+            else
+            {
+                _locationIcon.SetImageResource(Resource.Drawable.ic_client_location);
+                _locationIcon.SetColorFilter(client.PaymentType == PaymentTypeEnum.Semanal ? GetColor(Resource.Color.green) : GetColor(Resource.Color.black));
+            }
+        }
+
+        private Android.Graphics.Color GetColor(int color)
+        {
+            return CrossCurrentActivity.Current.AppContext.Resources.GetColor(color);
         }
 
         private void SetColorBackground()
