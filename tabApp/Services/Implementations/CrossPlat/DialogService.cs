@@ -121,8 +121,14 @@ namespace tabApp.Services.Implementations
             var top = Mvx.Resolve<IMvxAndroidCurrentTopActivity>();
             var act = top.Activity;
 
-            Android.Views.View activityRootView = act.FindViewById(Android.Resource.Id.Content);
-            Snackbar.Make(activityRootView, info, Snackbar.LengthLong).Show();
+            try {
+
+                Android.Views.View activityRootView = act.FindViewById(Android.Resource.Id.Content);
+                Snackbar.Make(activityRootView, info, Snackbar.LengthLong).Show();
+            } catch (Exception e)
+            {
+                Toast.MakeText(act, info, ToastLength.Long);
+            }
         }
     }
 }

@@ -27,7 +27,7 @@ namespace tabApp.Core.Services.Implementations.DB
         private IFileService _fileService;
         private INotificationsManagerService _notificationsManagerService;
 
-        private SQLiteConnection database;
+        public SQLiteConnection Database { get; set; }
         static object locker = new object();
         private ISQLiteService _sQLiteService;
 
@@ -48,34 +48,34 @@ namespace tabApp.Core.Services.Implementations.DB
 
         private void CheckDataBaseCreated(bool deleteTables)
         {
-            if (database != null) return;
+            if (Database != null) return;
 
             try
             {
-                database = _sQLiteService.Connection();
+                Database = _sQLiteService.Connection();
 
                 if (deleteTables) 
                 {
-                    database.DropTable<Address>();
-                    database.DropTable<Regist>();
-                    database.DropTable<Client>();
-                    database.DropTable<DailyOrder>();
-                    database.DropTable<Product>();
-                    database.DropTable<ReSaleValues>();
-                    database.DropTable<DailyOrderDetails>();
-                    database.DropTable<ExtraOrder>();
-                    database.DropTable<Notification>();
+                    Database.DropTable<Address>();
+                    Database.DropTable<Regist>();
+                    Database.DropTable<Client>();
+                    Database.DropTable<DailyOrder>();
+                    Database.DropTable<Product>();
+                    Database.DropTable<ReSaleValues>();
+                    Database.DropTable<DailyOrderDetails>();
+                    Database.DropTable<ExtraOrder>();
+                    Database.DropTable<Notification>();
                 }
                 
-                database.CreateTable<Regist>();
-                database.CreateTable<Address>();
-                database.CreateTable<DailyOrder>();
-                database.CreateTable<Client>();
-                database.CreateTable<Product>();
-                database.CreateTable<ReSaleValues>();
-                database.CreateTable<DailyOrderDetails>();
-                database.CreateTable<ExtraOrder>();
-                database.CreateTable<Notification>();
+                Database.CreateTable<Regist>();
+                Database.CreateTable<Address>();
+                Database.CreateTable<DailyOrder>();
+                Database.CreateTable<Client>();
+                Database.CreateTable<Product>();
+                Database.CreateTable<ReSaleValues>();
+                Database.CreateTable<DailyOrderDetails>();
+                Database.CreateTable<ExtraOrder>();
+                Database.CreateTable<Notification>();
 
             } catch (NotSupportedException e) {
                 Debug.WriteLine(e.Message);
@@ -105,35 +105,35 @@ namespace tabApp.Core.Services.Implementations.DB
 
         public void InsertNewProduct(Product product)
         {
-            database.InsertAll(product.ReSaleValues);
-            database.InsertWithChildren(product);
+            Database.InsertAll(product.ReSaleValues);
+            Database.InsertWithChildren(product);
         }
 
         public void InsertClient(Client client)
         {
             CheckDataBaseCreated(false);
-            database.Insert(client.Address);
-            database.InsertAll(client.DetailsList);
-            database.Insert(client.DailyOrders);
-            database.InsertWithChildren(client);
+            Database.Insert(client.Address);
+            Database.InsertAll(client.DetailsList);
+            Database.Insert(client.DailyOrders);
+            Database.InsertWithChildren(client);
         }
 
         public void InsertClient(Client newClient, Regist regist)
         {
-            database.Insert(newClient.Address);
-            database.InsertAll(newClient.DetailsList);
-            database.InsertWithChildren(newClient);
+            Database.Insert(newClient.Address);
+            Database.InsertAll(newClient.DetailsList);
+            Database.InsertWithChildren(newClient);
 
             newClient.SetNewRegist(regist);
-            database.Insert(regist);
-            database.UpdateWithChildren(newClient);
-            database.Update(newClient);
+            Database.Insert(regist);
+            Database.UpdateWithChildren(newClient);
+            Database.Update(newClient);
         }
 
         public void InsertNotification(Notification notification)
         {
-            database.CreateTable<Notification>();
-            database.Insert(notification);
+            Database.CreateTable<Notification>();
+            Database.Insert(notification);
         }
 
         public void InsertAllDataFromXls(List<Client> clients, List<Product> products)
@@ -141,33 +141,33 @@ namespace tabApp.Core.Services.Implementations.DB
             CheckDataBaseCreated(true);
             foreach (Client cliente in clients)
             {
-                database.Insert(cliente.Address);
-                database.InsertAll(cliente.DetailsList);
+                Database.Insert(cliente.Address);
+                Database.InsertAll(cliente.DetailsList);
 
                 //DailyOrder
-                database.InsertAll(cliente.SegDailyOrder.AllItems);
-                database.InsertWithChildren(cliente.SegDailyOrder);
-                database.InsertAll(cliente.TerDailyOrder.AllItems);
-                database.InsertWithChildren(cliente.TerDailyOrder);
-                database.InsertAll(cliente.QuaDailyOrder.AllItems);
-                database.InsertWithChildren(cliente.QuaDailyOrder);
-                database.InsertAll(cliente.QuiDailyOrder.AllItems);
-                database.InsertWithChildren(cliente.QuiDailyOrder);
-                database.InsertAll(cliente.SexDailyOrder.AllItems);
-                database.InsertWithChildren(cliente.SexDailyOrder);
-                database.InsertAll(cliente.SabDailyOrder.AllItems);
-                database.InsertWithChildren(cliente.SabDailyOrder);
-                database.InsertAll(cliente.DomDailyOrder.AllItems);
-                database.InsertWithChildren(cliente.DomDailyOrder);
+                Database.InsertAll(cliente.SegDailyOrder.AllItems);
+                Database.InsertWithChildren(cliente.SegDailyOrder);
+                Database.InsertAll(cliente.TerDailyOrder.AllItems);
+                Database.InsertWithChildren(cliente.TerDailyOrder);
+                Database.InsertAll(cliente.QuaDailyOrder.AllItems);
+                Database.InsertWithChildren(cliente.QuaDailyOrder);
+                Database.InsertAll(cliente.QuiDailyOrder.AllItems);
+                Database.InsertWithChildren(cliente.QuiDailyOrder);
+                Database.InsertAll(cliente.SexDailyOrder.AllItems);
+                Database.InsertWithChildren(cliente.SexDailyOrder);
+                Database.InsertAll(cliente.SabDailyOrder.AllItems);
+                Database.InsertWithChildren(cliente.SabDailyOrder);
+                Database.InsertAll(cliente.DomDailyOrder.AllItems);
+                Database.InsertWithChildren(cliente.DomDailyOrder);
 
                 //Extra orders
                 foreach (ExtraOrder extraOrder in cliente.ExtraOrdersList)
                 {
-                    database.InsertAll(extraOrder.AllItems);
-                    database.InsertWithChildren(extraOrder);
+                    Database.InsertAll(extraOrder.AllItems);
+                    Database.InsertWithChildren(extraOrder);
                 }
 
-                database.InsertWithChildren(cliente);
+                Database.InsertWithChildren(cliente);
             }
             InsertAllProducts(products);
         }
@@ -176,8 +176,8 @@ namespace tabApp.Core.Services.Implementations.DB
         {
             foreach (Product product in products)
             {
-                database.InsertAll(product.ReSaleValues);
-                database.InsertWithChildren(product);
+                Database.InsertAll(product.ReSaleValues);
+                Database.InsertWithChildren(product);
             }
         }
 
@@ -204,11 +204,11 @@ namespace tabApp.Core.Services.Implementations.DB
             if(regist != null)
             {
                 client.SetNewRegist(regist);
-                database.Insert(regist);
-                database.UpdateWithChildren(client);
+                Database.Insert(regist);
+                Database.UpdateWithChildren(client);
             }
 
-            database.Update(client);
+            Database.Update(client);
         }
 
         private void CheckDailyOrders(Client client)
@@ -217,10 +217,10 @@ namespace tabApp.Core.Services.Implementations.DB
             {
                 if (dailyOrder.Id == 0)
                 {
-                    database.Insert(dailyOrder);
-                    database.UpdateWithChildren(client);
-                    database.InsertAll(dailyOrder.AllItems);
-                    database.UpdateWithChildren(dailyOrder);
+                    Database.Insert(dailyOrder);
+                    Database.UpdateWithChildren(client);
+                    Database.InsertAll(dailyOrder.AllItems);
+                    Database.UpdateWithChildren(dailyOrder);
                 }
                 else
                 {
@@ -229,26 +229,26 @@ namespace tabApp.Core.Services.Implementations.DB
                     {
                         if(dailyOrderDetails.Id == 0 && dailyOrderDetails.Ammount != 0)
                         {
-                            database.Insert(dailyOrderDetails);
-                            database.UpdateWithChildren(dailyOrder);
+                            Database.Insert(dailyOrderDetails);
+                            Database.UpdateWithChildren(dailyOrder);
                         }
                         else
                         {
                             if (dailyOrderDetails.Ammount == 0)
                             {
                                 itemsToRemove.Add(dailyOrderDetails);
-                                database.Delete(dailyOrderDetails);
+                                Database.Delete(dailyOrderDetails);
                             }
                             else
                             {
-                                database.Update(dailyOrderDetails);
+                                Database.Update(dailyOrderDetails);
                             }
                         }
                     }
                     if(dailyOrder.AllItems.Count == 0)
                     {
-                        var daily = database.GetWithChildren<DailyOrder>(dailyOrder.Id, true);
-                        daily.AllItems.ForEach(item => database.Delete(item));
+                        var daily = Database.GetWithChildren<DailyOrder>(dailyOrder.Id, true);
+                        daily.AllItems.ForEach(item => Database.Delete(item));
                     }
                     else
                     {
@@ -261,27 +261,27 @@ namespace tabApp.Core.Services.Implementations.DB
         public void SaveClient(Client client, ExtraOrder regist)
         {
             client.LastChangeDate = DateTime.Now;
-            database.Insert(regist);
-            database.UpdateWithChildren(client);
-            database.InsertAll(regist.AllItems);
-            database.UpdateWithChildren(regist);
+            Database.Insert(regist);
+            Database.UpdateWithChildren(client);
+            Database.InsertAll(regist.AllItems);
+            Database.UpdateWithChildren(regist);
         }
 
         public void UpdateOrder(ExtraOrder regist)
         {
-            database.Update(regist);
+            Database.Update(regist);
         }
 
         public void UpdateClientFromBluetooth(Client client)
         {
-            database.Update(client);
-            database.Update(client.Address);
+            Database.Update(client);
+            Database.Update(client.Address);
 
            // foreach(ExtraOrder extraOrder in )
 
             Client oldClient = _clientsManagerService.ClientsList.Find(item => item.Id == client.Id);
             int pos = _clientsManagerService.ClientsList.IndexOf(oldClient);
-            _clientsManagerService.ClientsList[pos] = database.GetWithChildren<Client>(client.Id, true);
+            _clientsManagerService.ClientsList[pos] = Database.GetWithChildren<Client>(client.Id, true);
         }
 
         #endregion
@@ -291,7 +291,7 @@ namespace tabApp.Core.Services.Implementations.DB
         {
             lock (locker)
             {
-                return database.GetAllWithChildren<Client>(recursive: true);
+                return Database.GetAllWithChildren<Client>(recursive: true);
                 // return (from c in database.Table<Client>() select c).ToList();
             }
         }
@@ -300,7 +300,7 @@ namespace tabApp.Core.Services.Implementations.DB
         {
             lock (locker)
             {
-                return database.GetAllWithChildren<Product>();
+                return Database.GetAllWithChildren<Product>();
                 // return (from c in database.Table<Client>() select c).ToList();
             }
         }
@@ -309,7 +309,7 @@ namespace tabApp.Core.Services.Implementations.DB
         {
             try
             {
-                return database.GetAllWithChildren<Notification>();
+                return Database.GetAllWithChildren<Notification>();
             } catch(Exception e)
             {
                 return new List<Notification>();
@@ -321,20 +321,20 @@ namespace tabApp.Core.Services.Implementations.DB
         #region Delete
         public void RemoveClient(int id)
         {
-            database.Delete<Client>(id);
+            Database.Delete<Client>(id);
         }
 
         public void RemoveClient(Client client)
         {
-            database.Delete<Client>(client.Id);
+            Database.Delete<Client>(client.Id);
         }
 
         public void RemoveExtraOrder(Client client, ExtraOrder obj, Regist regist)
         {
-            obj.AllItems.ForEach(item => database.Delete<DailyOrderDetails>(item.Id));
-            database.Delete<ExtraOrder>(obj.Id);
-            database.Insert(regist);
-            database.UpdateWithChildren(client);
+            obj.AllItems.ForEach(item => Database.Delete<DailyOrderDetails>(item.Id));
+            Database.Delete<ExtraOrder>(obj.Id);
+            Database.Insert(regist);
+            Database.UpdateWithChildren(client);
         }
 
 

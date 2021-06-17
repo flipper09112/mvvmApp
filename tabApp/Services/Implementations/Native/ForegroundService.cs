@@ -209,7 +209,7 @@ namespace tabApp.Services.Implementations.Native
             Log.Debug(logTag, "Service has been terminated");
 
             // Stop getting updates from the location manager:
-            LocMgr.RemoveUpdates(this);
+            LocMgr?.RemoveUpdates(this);
         }
 
     }

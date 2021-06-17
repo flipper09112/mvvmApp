@@ -95,7 +95,11 @@ namespace tabApp
         protected override void OnDestroy()
         {
             if(foregroundIntent != null)
+            {
                 StopService(foregroundIntent);
+                foregroundIntent = null;
+            }
+            ViewModel.StopCounting();
             base.OnDestroy();
         }
 
@@ -288,6 +292,8 @@ namespace tabApp
         #region ForeGroundService
         public void StartForegroundServiceCompat<T>(Bundle args = null) where T : Service
         {
+            if (foregroundIntent != null) return;
+
             foregroundIntent = new Intent(this, typeof(T));
             if (args != null)
             {
