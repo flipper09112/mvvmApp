@@ -90,6 +90,11 @@ namespace tabApp.Core.ViewModels
             UpdateUiHomePage?.Invoke(null, null);
         }
 
+        public void CloseDBConnection()
+        {
+            _dataBaseService.Database.Dispose();
+        }
+
         private async void ShowClosestClient((double lat, double lgt) coord)
         {
             IsBusy = true;
@@ -124,6 +129,10 @@ namespace tabApp.Core.ViewModels
         public void StarCounting()
         {
             _inativityTimerService.Start();
+        }
+        public void StopCounting()
+        {
+            _inativityTimerService.Stop();
         }
 
         public void RestartSwatch()

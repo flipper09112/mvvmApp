@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using SQLite;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using tabApp.Core.Models;
 using tabApp.Core.Models.Notifications;
@@ -7,6 +8,8 @@ namespace tabApp.Core.Services.Implementations.DB
 {
     public interface IDataBaseManagerService
     {
+        SQLiteConnection Database { get; set; }
+
         List<Client> GetClients();
         List<Product> GetProducts();
         List<Notification> GetNotifications();
