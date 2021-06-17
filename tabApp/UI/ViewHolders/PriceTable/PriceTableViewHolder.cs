@@ -5,6 +5,7 @@ using Android.Runtime;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using MvvmCross.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,16 +33,29 @@ namespace tabApp.UI.ViewHolders
             Resource.Color.teal,
             Resource.Color.navy,
         };
+        private Product _product;
+        private MvxCommand<Product> _command;
+
         public PriceTableViewHolder(View itemView) : base(itemView)
         {
             _card = itemView.FindViewById<CardView>(Resource.Id.card);
             _productImage = itemView.FindViewById<ImageView>(Resource.Id.productImage);
             _productName = itemView.FindViewById<TextView>(Resource.Id.productName);
             _priceLabel = itemView.FindViewById<TextView>(Resource.Id.priceLabel);
+
+            _card.LongClick -= CardLongClick;
+            _card.LongClick += CardLongClick;
         }
 
-        internal void Bind(Product product, bool hasFilter, Client clientFilter)
+        private void CardLongClick(object sender, View.LongClickEventArgs e)
         {
+            _command?.Execute(_product);
+        }
+
+        internal void Bind(Product product, bool hasFilter, Client clientFilter, MvvmCross.Commands.MvxCommand<Product> longPressCommand)
+        {
+            _product = product;
+            _command = longPressCommand;
             _productName.Text = product.Name;
 
             if (product.Unity)

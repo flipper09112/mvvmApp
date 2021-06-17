@@ -125,6 +125,7 @@
     <Compile Include="UI\Fragments\Global\Other\AppOtherOptionsFragment.cs" />
     <Compile Include="UI\Fragments\Global\Other\ReportFragment.cs" />
     <Compile Include="UI\Fragments\Global\PriceTable\AddProductFragment.cs" />
+    <Compile Include="UI\Fragments\Global\PriceTable\EditProductFragment.cs" />
     <Compile Include="UI\Fragments\Global\PriceTable\PriceTableConfigurationFragment.cs" />
     <Compile Include="UI\Fragments\Global\PriceTable\PriceTableFilterFragment.cs" />
     <Compile Include="UI\Fragments\Global\PriceTable\PriceTableFragment.cs" />
@@ -833,6 +834,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_no_location.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\EditProductFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
