@@ -118,16 +118,28 @@ namespace tabApp.Services.Implementations
 
         public void ShowSuccessChangeSnackBar(string info)
         {
-            var top = Mvx.Resolve<IMvxAndroidCurrentTopActivity>();
-            var act = top.Activity;
+           
 
             try {
+
+                var top = Mvx.Resolve<IMvxAndroidCurrentTopActivity>();
+                var act = top.Activity;
 
                 Android.Views.View activityRootView = act.FindViewById(Android.Resource.Id.Content);
                 Snackbar.Make(activityRootView, info, Snackbar.LengthLong).Show();
             } catch (Exception e)
             {
-                Toast.MakeText(act, info, ToastLength.Long);
+                try
+                {
+                    var top = Mvx.Resolve<IMvxAndroidCurrentTopActivity>();
+                    var act = top.Activity;
+
+                    Toast.MakeText(act, info, ToastLength.Long);
+
+                } catch(Exception ex)
+                {
+
+                }
             }
         }
     }
