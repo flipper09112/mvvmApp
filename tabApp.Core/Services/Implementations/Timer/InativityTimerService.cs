@@ -13,7 +13,7 @@ namespace tabApp.Core.Services.Implementations.Timer
     {
         private IMvxNavigationService _navigationService;
         
-        private TimeSpan SessionDuration = TimeSpan.FromMinutes(/*5*/1);
+        private TimeSpan SessionDuration = TimeSpan.FromMinutes(5);
         private Stopwatch stopWatch = new Stopwatch();
         private bool alreadyStarted;
 

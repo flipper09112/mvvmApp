@@ -26,7 +26,7 @@ namespace tabApp.UI.ViewHolders
         private TextView _extraOrderTotal;
         private Button _addExtraButton;
         private HomeViewModel _viewModel;
-        private ExtraOrder _extraOrder;
+        private (Client Client, ExtraOrder ExtraOrder) _extraOrder;
 
         public HomePageOrderViewHolder(View itemView) : base(itemView)
         {
@@ -40,7 +40,7 @@ namespace tabApp.UI.ViewHolders
         internal void Bind((Client Client, ExtraOrder ExtraOrder) extraOrder, Core.HomeViewModel viewModel)
         {
             _viewModel = viewModel;
-            _extraOrder = extraOrder.ExtraOrder;
+            _extraOrder = extraOrder;
 
             _orderTitle.Text = "Encomenda para o cliente '"+ extraOrder.Client.Name + "'\nId: " + extraOrder.Client.Id;
             _orderAddress.Text = extraOrder.Client.Address.AddressDesc;
@@ -59,7 +59,7 @@ namespace tabApp.UI.ViewHolders
 
         private void AddExtraButtonClick(object sender, EventArgs e)
         {
-            _viewModel.AddExtraFromOrderCommand.Execute(_extraOrder);
+            _viewModel.AddExtraFromOrderCommand.Execute(_extraOrder.ExtraOrder);
         }
 
         internal void Bind((Client Client, ExtraOrder ExtraOrder) extraOrder, GlobalOrderViewModel viewModel)

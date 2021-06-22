@@ -13,12 +13,14 @@ namespace tabApp.UI.Adapters.Home
     {
         public List<SecondaryOptions> TabsOptions;
         private HomePageOrdersFragment encomenda;
+        private FragmentManager _fm;
 
         public override int Count => TabsOptions?.Count ?? 0;
         public HomeViewModel ViewModel { get; internal set; }
 
         public HomePageViewPagerAdapter(Android.Support.V4.App.FragmentManager fm) : base(fm)
         {
+            _fm = fm;
         }
 
         public override Android.Support.V4.App.Fragment GetItem(int position)
@@ -45,7 +47,22 @@ namespace tabApp.UI.Adapters.Home
 
         internal void UpdateOrdersList()
         {
-            encomenda.UpdateOrdersList();
+            if(encomenda == null)
+            {
+                var fragments = _fm.Fragments;
+                foreach (Fragment fragment in fragments)
+                {
+                    if (fragment is HomePageOrdersFragment homePageOrdersFragment)
+                    {
+                        homePageOrdersFragment.UpdateOrdersList();
+                        return;
+                    }
+                }
+            }
+            else
+            {
+                encomenda?.UpdateOrdersList();
+            }
         }
     }
 }
