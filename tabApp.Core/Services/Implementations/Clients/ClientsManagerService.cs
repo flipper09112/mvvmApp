@@ -220,5 +220,10 @@ namespace tabApp.Core.Services.Implementations.Clients
             ClientsList.Add(newClient);
             _clientsList = ClientsList.OrderBy(item => item.Position).ToList<Client>();
         }
+
+        public Client GetClientById(int clientId)
+        {
+            return ClientsList.Find(cli => cli.Id == clientId);
+        }
     }
 }

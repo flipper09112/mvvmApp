@@ -184,6 +184,16 @@ namespace tabApp.Core.Services.Implementations.DB
         #endregion
 
         #region Updates
+
+        public void SaveProduct(Product productSelected)
+        {
+            Database.Update(productSelected);
+            foreach(ReSaleValues reSaleValues in productSelected.ReSaleValues) 
+            {
+                Database.Update(reSaleValues);
+            }
+        }
+
         public void SaveClient(Client client, string toRegist)
         {
             Regist regist = new Regist()

@@ -21,6 +21,7 @@ namespace tabApp.Core.Services.Interfaces.Clients
         ExtraOrder HasOrderThisDate(Client client, DateTime dateTime);
         bool ClientHasExtraOrderThisDay(Client clientSelected, DateTime dateSelected);
         DailyOrder GetTodayDailyOrder(Client client, DayOfWeek day);
+        Client GetClientById(int clientId);
         void ReplaceClientModel(Client client);
         List<string> GetAllPaymentsTypes();
         int GetNewId();

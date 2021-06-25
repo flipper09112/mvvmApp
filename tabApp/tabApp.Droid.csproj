@@ -87,6 +87,7 @@
     <Compile Include="Setup.cs" />
     <Compile Include="UI\Adapters\CakesTotalOrderAdapter.cs" />
     <Compile Include="UI\Adapters\EditClient\EditListSelectableAdapter.cs" />
+    <Compile Include="UI\Adapters\Global\EditProductAdapter.cs" />
     <Compile Include="UI\Adapters\Global\PriceTableAdapter.cs" />
     <Compile Include="UI\Adapters\Global\PriceTableFilterAdapter.cs" />
     <Compile Include="UI\Adapters\Global\ProductsTypesListAdapter.cs" />
@@ -148,6 +149,7 @@
     <Compile Include="UI\ViewHolders\IndividualCakeOrderItemViewHolder.cs" />
     <Compile Include="UI\ViewHolders\OrderViewHolder.cs" />
     <Compile Include="UI\ViewHolders\PriceTable\ClientRadioViewHolder.cs" />
+    <Compile Include="UI\ViewHolders\PriceTable\EditProductItemViewHolder.cs" />
     <Compile Include="UI\ViewHolders\PriceTable\PriceTableViewHolder.cs" />
     <Compile Include="UI\ViewHolders\PriceTable\ProductTypeViewHolder.cs" />
     <Compile Include="UI\ViewHolders\PriceTable\SelectClientFilterViewHolder.cs" />
