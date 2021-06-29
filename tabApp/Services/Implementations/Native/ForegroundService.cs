@@ -12,6 +12,7 @@ using AndroidX.Core.Content;
 using MvvmCross;
 using System;
 using System.Collections.Generic;
+using tabApp.Core.Services.Interfaces.Notifications;
 using tabApp.Core.Services.Interfaces.Orders;
 using tabApp.Helpers;
 using static Android.App.ActivityManager;
@@ -56,7 +57,10 @@ namespace tabApp.Services.Implementations.Native
 
             _checkClosestOrderRunning = true;
             var ordersManagerService = Mvx.Resolve<IOrdersManagerService>();
+            var notificationsManagerService = Mvx.Resolve<INotificationsManagerService>();
             double distance;
+
+            //check orders
             foreach (var order in ordersManagerService.TodayOrders)
             {
                 if (!order.Client.Address.Coordenadas.Equals("null") && order.Client.Address.Coordenadas != null) {
@@ -68,7 +72,45 @@ namespace tabApp.Services.Implementations.Native
                     }
                 }
             }
+
+            //check notifications
+            foreach (var not in notificationsManagerService.TodayNotifications)
+            {
+                if (!not.Latitude.Equals(string.Empty) && not.Longitude.Equals(string.Empty))
+                {
+                    distance = GetDistance(not.Latitude, not.Longitude, location);
+                    Log.Debug(logTag, $"Distancia Notification is {distance.ToString("N2")}");
+                    if (distance < 80)
+                    {
+                        NotifyNotification(not);
+                    }
+                }
+            }
+
             _checkClosestOrderRunning = false;
+        }
+
+        private void NotifyNotification(Core.Models.Notifications.Notification not)
+        {
+            if (_notificationHelper == null)
+                _notificationHelper = new NotificationHelper(ApplicationContext);
+
+            if (!not.HasNotify)
+            {
+                not.HasNotify = true;
+                _notificationHelper.Notify(not.NotificationId, not.ClientId.ToString(), not.Info);
+            }
+        }
+
+        private double GetDistance(string latitude, string longitude, Location location)
+        {
+            var d1 = double.Parse(latitude) * (Math.PI / 180.0);
+            var num1 = double.Parse(longitude) * (Math.PI / 180.0);
+            var d2 = location.Latitude * (Math.PI / 180.0);
+            var num2 = location.Longitude * (Math.PI / 180.0) - num1;
+            var d3 = Math.Pow(Math.Sin((d2 - d1) / 2.0), 2.0) + Math.Cos(d1) * Math.Cos(d2) * Math.Pow(Math.Sin(num2 / 2.0), 2.0);
+
+            return 6376500.0 * (2.0 * Math.Atan2(Math.Sqrt(d3), Math.Sqrt(1.0 - d3)));
         }
 
         private double GetDistance(Core.Models.Address address, Location location)
