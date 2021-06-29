@@ -78,7 +78,7 @@ namespace tabApp.Core.Services.Implementations.Orders
                             foreach(var item in extraorder.AllItems)
                             {
                                 Product p = _productsManagerService.GetProductById(item.ProductId);
-                                if (p.ProductType == ProductTypeEnum.PastelariaIndividual)
+                                if (p.ProductType == ProductTypeEnum.PastelariaIndividual || p.ProductType == ProductTypeEnum.SemiFrioIndividual)
                                 {
                                     products.Add((p.Name, (int)item.Ammount));
                                 }
@@ -89,7 +89,8 @@ namespace tabApp.Core.Services.Implementations.Orders
                     foreach (var item in ClientHelper.GetDailyOrder(DateTime.Today.AddDays(1).DayOfWeek, client).AllItems)
                     {
                         Product p = _productsManagerService.GetProductById(item.ProductId);
-                        if (_productsManagerService.GetProductById(item.ProductId).ProductType == ProductTypeEnum.PastelariaIndividual)
+                        if (_productsManagerService.GetProductById(item.ProductId).ProductType == ProductTypeEnum.PastelariaIndividual ||
+                           _productsManagerService.GetProductById(item.ProductId).ProductType == ProductTypeEnum.SemiFrioIndividual)
                         {
                             products.Add((p.Name, (int)item.Ammount));
                         }

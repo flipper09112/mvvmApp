@@ -54,6 +54,7 @@ namespace tabApp.Core.Models
         Tartes,
         Tortas,
         Outros,
+        Embalados,
         None
     }
 }
