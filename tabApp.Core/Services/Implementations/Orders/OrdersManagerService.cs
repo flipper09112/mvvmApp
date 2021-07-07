@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using tabApp.Core.Helpers;
 using tabApp.Core.Models;
 using tabApp.Core.Models.GlobalOrder;
@@ -29,15 +30,31 @@ namespace tabApp.Core.Services.Implementations.Orders
             {
                 List<(Client Client, ExtraOrder ExtraOrder)> orders = new List<(Client Client, ExtraOrder ExtraOrder)>();
 
-                foreach(var client in _clientsManagerService?.ClientsList ?? new List<Client>())
+                try
                 {
-                    foreach(var extraorder in client.ExtraOrdersList)
+                    foreach (var client in _clientsManagerService?.ClientsList ?? new List<Client>())
                     {
-                        if(extraorder.OrderDay.Date == DateTime.Today && !extraorder.StoreOrder)
-                            orders.Add((client, extraorder));
+                        foreach (var extraorder in client.ExtraOrdersList)
+                        {
+                            if (extraorder.OrderDay.Date == DateTime.Today && !extraorder.StoreOrder)
+                                orders.Add((client, extraorder));
+                        }
                     }
+                    return orders;
+
+                } catch (InvalidOperationException e)
+                {
+                    Thread.Sleep(2000);
+                    foreach (var client in _clientsManagerService?.ClientsList ?? new List<Client>())
+                    {
+                        foreach (var extraorder in client.ExtraOrdersList)
+                        {
+                            if (extraorder.OrderDay.Date == DateTime.Today && !extraorder.StoreOrder)
+                                orders.Add((client, extraorder));
+                        }
+                    }
+                    return orders;
                 }
-                return orders;
             }
         }
         public List<(Client Client, ExtraOrder ExtraOrder)> TomorrowOrders

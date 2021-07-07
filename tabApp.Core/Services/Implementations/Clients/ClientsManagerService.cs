@@ -69,7 +69,7 @@ namespace tabApp.Core.Services.Implementations.Clients
             };
 
             client.SetPaymentDate(dateSelected, payExtra);
-            client.SetNewRegist(regist);
+            //client.SetNewRegist(regist);
 
             return regist;
         }
