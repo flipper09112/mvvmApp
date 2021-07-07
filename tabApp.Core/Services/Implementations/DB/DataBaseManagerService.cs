@@ -184,6 +184,16 @@ namespace tabApp.Core.Services.Implementations.DB
         #endregion
 
         #region Updates
+
+        public void SaveProduct(Product productSelected)
+        {
+            Database.Update(productSelected);
+            foreach(ReSaleValues reSaleValues in productSelected.ReSaleValues) 
+            {
+                Database.Update(reSaleValues);
+            }
+        }
+
         public void SaveClient(Client client, string toRegist)
         {
             Regist regist = new Regist()
@@ -274,14 +284,62 @@ namespace tabApp.Core.Services.Implementations.DB
 
         public void UpdateClientFromBluetooth(Client client)
         {
+            Client oldClient = _clientsManagerService.ClientsList.Find(item => item.Id == client.Id);
+
             Database.Update(client);
             Database.Update(client.Address);
 
-           // foreach(ExtraOrder extraOrder in )
+            UpdateRegists(client, oldClient);
+            UpdateNewOrders(client, oldClient);
+            //falta o update das quantidades diarias
 
-            Client oldClient = _clientsManagerService.ClientsList.Find(item => item.Id == client.Id);
             int pos = _clientsManagerService.ClientsList.IndexOf(oldClient);
             _clientsManagerService.ClientsList[pos] = Database.GetWithChildren<Client>(client.Id, true);
+        }
+
+        private void UpdateNewOrders(Client client, Client oldClient)
+        {
+            foreach (ExtraOrder extraOrder in client.ExtraOrdersList)
+            {
+                var oldItem = oldClient.ExtraOrdersList.Find(item => item.Id == extraOrder.Id);
+                if (oldItem == default(ExtraOrder))
+                {
+                    extraOrder.Id = 0;
+
+                    Database.Insert(extraOrder);
+                    Database.UpdateWithChildren(client);
+                    extraOrder.AllItems.ForEach(item => {
+                        item.ExtraOrderId = 0;
+                        item.Id = 0;
+                    });
+                    Database.InsertAll(extraOrder.AllItems);
+                    Database.UpdateWithChildren(extraOrder);
+                }
+                else
+                {
+                    //ignore
+                    //item already exist
+                }
+            }
+        }
+
+        private void UpdateRegists(Client client, Client oldClient)
+        {
+            foreach (Regist regist in client.DetailsList)
+            {
+                var oldItem = oldClient.DetailsList.Find(item => item.Id == regist.Id);
+                if (oldItem == default(Regist))
+                {
+                    regist.Id = 0;
+
+                    Database.Insert(regist);
+                }
+                else
+                {
+                    //ignore
+                    //item already exist
+                }
+            }
         }
 
         #endregion

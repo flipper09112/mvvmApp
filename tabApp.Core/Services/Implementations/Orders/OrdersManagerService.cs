@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using tabApp.Core.Helpers;
 using tabApp.Core.Models;
 using tabApp.Core.Models.GlobalOrder;
@@ -29,15 +30,31 @@ namespace tabApp.Core.Services.Implementations.Orders
             {
                 List<(Client Client, ExtraOrder ExtraOrder)> orders = new List<(Client Client, ExtraOrder ExtraOrder)>();
 
-                foreach(var client in _clientsManagerService?.ClientsList ?? new List<Client>())
+                try
                 {
-                    foreach(var extraorder in client.ExtraOrdersList)
+                    foreach (var client in _clientsManagerService?.ClientsList ?? new List<Client>())
                     {
-                        if(extraorder.OrderDay.Date == DateTime.Today && !extraorder.StoreOrder)
-                            orders.Add((client, extraorder));
+                        foreach (var extraorder in client.ExtraOrdersList)
+                        {
+                            if (extraorder.OrderDay.Date == DateTime.Today && !extraorder.StoreOrder)
+                                orders.Add((client, extraorder));
+                        }
                     }
+                    return orders;
+
+                } catch (InvalidOperationException e)
+                {
+                    Thread.Sleep(2000);
+                    foreach (var client in _clientsManagerService?.ClientsList ?? new List<Client>())
+                    {
+                        foreach (var extraorder in client.ExtraOrdersList)
+                        {
+                            if (extraorder.OrderDay.Date == DateTime.Today && !extraorder.StoreOrder)
+                                orders.Add((client, extraorder));
+                        }
+                    }
+                    return orders;
                 }
-                return orders;
             }
         }
         public List<(Client Client, ExtraOrder ExtraOrder)> TomorrowOrders
@@ -78,7 +95,7 @@ namespace tabApp.Core.Services.Implementations.Orders
                             foreach(var item in extraorder.AllItems)
                             {
                                 Product p = _productsManagerService.GetProductById(item.ProductId);
-                                if (p.ProductType == ProductTypeEnum.PastelariaIndividual)
+                                if (p.ProductType == ProductTypeEnum.PastelariaIndividual || p.ProductType == ProductTypeEnum.SemiFrioIndividual)
                                 {
                                     products.Add((p.Name, (int)item.Ammount));
                                 }
@@ -89,7 +106,8 @@ namespace tabApp.Core.Services.Implementations.Orders
                     foreach (var item in ClientHelper.GetDailyOrder(DateTime.Today.AddDays(1).DayOfWeek, client).AllItems)
                     {
                         Product p = _productsManagerService.GetProductById(item.ProductId);
-                        if (_productsManagerService.GetProductById(item.ProductId).ProductType == ProductTypeEnum.PastelariaIndividual)
+                        if (_productsManagerService.GetProductById(item.ProductId).ProductType == ProductTypeEnum.PastelariaIndividual ||
+                           _productsManagerService.GetProductById(item.ProductId).ProductType == ProductTypeEnum.SemiFrioIndividual)
                         {
                             products.Add((p.Name, (int)item.Ammount));
                         }

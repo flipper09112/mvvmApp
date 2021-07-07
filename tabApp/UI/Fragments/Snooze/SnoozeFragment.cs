@@ -44,7 +44,9 @@ namespace tabApp.UI.Fragments.Snooze
             _notificationList = view.FindViewById<AndroidX.RecyclerView.Widget.RecyclerView>(Resource.Id.notificationList);
             _withoutOrders = view.FindViewById<ImageView>(Resource.Id.withoutOrders);
             _withoutNotifications = view.FindViewById<ImageView>(Resource.Id.withoutNotifications);
-
+           
+            var layoutManager2 = new AndroidX.RecyclerView.Widget.LinearLayoutManager(Context);
+            _notificationList.SetLayoutManager(layoutManager2);
 
             var layoutManager = new LinearLayoutManager(Context);
             _todayOrdersList.SetLayoutManager(layoutManager);

@@ -16,23 +16,44 @@ namespace tabApp.Core.ViewModels.Global
         private IProductsManagerService _productsManagerService;
         private IMvxNavigationService _navigationService;
         private IPriceTableFilterService _priceTableFilterService;
+        private IChooseProductService _chooseProductService;
+
+        public EventHandler ShowLongPressOptions;
 
         public MvxCommand ShowPriceTableFilterCommand;
         public MvxCommand ShowPriceTableConfigurationCommand;
-
+        public MvxCommand<Product> LongPressCommand;
+        public MvxCommand EditProductCommand;
+        
         public bool HasFilter => _priceTableFilterService.HasFilter;
         public Client ClientFilter => _priceTableFilterService.ClientSelected;
 
+        public List<LongPressItem> LongPressItemsList { get; set; }
         public PriceTableViewModel(IProductsManagerService productsManagerService,
                                    IMvxNavigationService navigationService,
-                                   IPriceTableFilterService priceTableFilterService)
+                                   IPriceTableFilterService priceTableFilterService,
+                                   IChooseProductService chooseProductService)
         {
             _productsManagerService = productsManagerService;
             _navigationService = navigationService;
             _priceTableFilterService = priceTableFilterService;
+            _chooseProductService = chooseProductService;
 
             ShowPriceTableFilterCommand = new MvxCommand(ShowPriceTableFilter);
             ShowPriceTableConfigurationCommand = new MvxCommand(ShowPriceTableConfiguration);
+            LongPressCommand = new MvxCommand<Product>(LongPress);
+            EditProductCommand = new MvxCommand(EditProduct);
+        }
+
+        private async void EditProduct()
+        {
+            await _navigationService.Navigate<EditProductViewModel>();
+        }
+
+        private void LongPress(Product product)
+        {
+            _chooseProductService.SelectProduct(product);
+            ShowLongPressOptions?.Invoke(null, null);
         }
 
         private async void ShowPriceTableConfiguration()
@@ -71,6 +92,9 @@ namespace tabApp.Core.ViewModels.Global
                 RaisePropertyChanged(nameof(SearchProduct));
             }
         }
+
+        public Product ProductSelected { get; private set; }
+
         public bool ContainsInsensitive(string source, string search)
         {
             return (new CultureInfo("pt-PT").CompareInfo).IndexOf(source, search, CompareOptions.IgnoreCase | CompareOptions.IgnoreNonSpace) >= 0;
@@ -78,6 +102,19 @@ namespace tabApp.Core.ViewModels.Global
 
         public override void Appearing()
         {
+            LongPressItemsList = GetLongPressItems();
+        }
+
+        private List<LongPressItem> GetLongPressItems()
+        {
+            var items = new List<LongPressItem>();
+
+            items.Add(new LongPressItem() { 
+                Name = "Editar valores",
+                Command = EditProductCommand
+            });
+
+            return items;
         }
 
         public override void DisAppearing()

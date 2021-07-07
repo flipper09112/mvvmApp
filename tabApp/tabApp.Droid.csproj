@@ -87,6 +87,7 @@
     <Compile Include="Setup.cs" />
     <Compile Include="UI\Adapters\CakesTotalOrderAdapter.cs" />
     <Compile Include="UI\Adapters\EditClient\EditListSelectableAdapter.cs" />
+    <Compile Include="UI\Adapters\Global\EditProductAdapter.cs" />
     <Compile Include="UI\Adapters\Global\PriceTableAdapter.cs" />
     <Compile Include="UI\Adapters\Global\PriceTableFilterAdapter.cs" />
     <Compile Include="UI\Adapters\Global\ProductsTypesListAdapter.cs" />
@@ -125,6 +126,7 @@
     <Compile Include="UI\Fragments\Global\Other\AppOtherOptionsFragment.cs" />
     <Compile Include="UI\Fragments\Global\Other\ReportFragment.cs" />
     <Compile Include="UI\Fragments\Global\PriceTable\AddProductFragment.cs" />
+    <Compile Include="UI\Fragments\Global\PriceTable\EditProductFragment.cs" />
     <Compile Include="UI\Fragments\Global\PriceTable\PriceTableConfigurationFragment.cs" />
     <Compile Include="UI\Fragments\Global\PriceTable\PriceTableFilterFragment.cs" />
     <Compile Include="UI\Fragments\Global\PriceTable\PriceTableFragment.cs" />
@@ -147,6 +149,7 @@
     <Compile Include="UI\ViewHolders\IndividualCakeOrderItemViewHolder.cs" />
     <Compile Include="UI\ViewHolders\OrderViewHolder.cs" />
     <Compile Include="UI\ViewHolders\PriceTable\ClientRadioViewHolder.cs" />
+    <Compile Include="UI\ViewHolders\PriceTable\EditProductItemViewHolder.cs" />
     <Compile Include="UI\ViewHolders\PriceTable\PriceTableViewHolder.cs" />
     <Compile Include="UI\ViewHolders\PriceTable\ProductTypeViewHolder.cs" />
     <Compile Include="UI\ViewHolders\PriceTable\SelectClientFilterViewHolder.cs" />
@@ -833,6 +836,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_no_location.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\EditProductFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>

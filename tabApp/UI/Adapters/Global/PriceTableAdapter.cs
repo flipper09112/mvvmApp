@@ -31,7 +31,7 @@ namespace tabApp.UI.Adapters.Global
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
             PriceTableViewHolder vh = holder as PriceTableViewHolder;
-            vh.Bind(AllProducts[holder.AdapterPosition], _viewModel.HasFilter, _viewModel.ClientFilter);
+            vh.Bind(AllProducts[holder.AdapterPosition], _viewModel.HasFilter, _viewModel.ClientFilter, _viewModel.LongPressCommand);
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)

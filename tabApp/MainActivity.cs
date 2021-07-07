@@ -90,6 +90,15 @@ namespace tabApp
             if(!IsServiceRunning(typeof(ForegroundService)))
                 StartForegroundServiceCompat<ForegroundService>();
             base.OnResume();
+
+            ViewModel.RestartSwatch();
+        }
+
+        protected override void OnPause()
+        {
+            base.OnPause();
+
+            ViewModel.StopCounting();
         }
 
         protected override void OnDestroy()

@@ -22,6 +22,9 @@ namespace tabApp.Core.Models.Notifications
         public string Latitude { get; set; }
         public string Longitude { get; set; }
 
+        [Ignore]
+        public bool HasNotify { get; set; }
+
     }
 
     public enum NotificationTypeEnum

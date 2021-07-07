@@ -69,7 +69,7 @@ namespace tabApp.Core.Services.Implementations.Clients
             };
 
             client.SetPaymentDate(dateSelected, payExtra);
-            client.SetNewRegist(regist);
+            //client.SetNewRegist(regist);
 
             return regist;
         }
@@ -219,6 +219,11 @@ namespace tabApp.Core.Services.Implementations.Clients
         {
             ClientsList.Add(newClient);
             _clientsList = ClientsList.OrderBy(item => item.Position).ToList<Client>();
+        }
+
+        public Client GetClientById(int clientId)
+        {
+            return ClientsList.Find(cli => cli.Id == clientId);
         }
     }
 }
