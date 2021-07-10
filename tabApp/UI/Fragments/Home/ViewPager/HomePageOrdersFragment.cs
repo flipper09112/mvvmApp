@@ -16,37 +16,68 @@ namespace tabApp.UI.Fragments.Home.ViewPager
 {
     public class HomePageOrdersFragment : Android.Support.V4.App.Fragment
     {
-        private OrdersPage ordersPage;
+        public OrdersPage OrdersPage;
         private HomeViewModel ViewModel;
         private HomePageOrdersListAdapter adapter;
+        private View emptyLayout;
         private RecyclerView recycler;
 
         public HomePageOrdersFragment(Core.OrdersPage ordersPage, Core.HomeViewModel viewModel)
         {
-            this.ordersPage = ordersPage;
+            this.OrdersPage = ordersPage;
             this.ViewModel = viewModel;
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            if (ordersPage.Value.Count == 0)
-                return inflater.Inflate(Resource.Layout.EmptyListItems, container, false);
+            View view = inflater.Inflate(Resource.Layout.HomePageOrdersFragment, container, false);
 
-            View view = inflater.Inflate(Resource.Layout.RecyclerViewLayout, container, false);
+            emptyLayout = view.FindViewById(Resource.Id.emptyLayout);
+            recycler = view.FindViewById<RecyclerView>(Resource.Id.listView);
 
-            adapter = new HomePageOrdersListAdapter(ordersPage, ViewModel);
-            recycler = view.FindViewById<RecyclerView>(Resource.Id.recyclerView);
+            adapter = new HomePageOrdersListAdapter(OrdersPage, ViewModel);
             var layoutManager = new LinearLayoutManager(Context);
 
             recycler.SetLayoutManager(layoutManager);
             recycler.SetAdapter(adapter);
 
+            UpdateUI();
+
             return view;
         }
 
-        internal void UpdateOrdersList()
+        private void UpdateUI()
         {
-            adapter.NotifyDataSetChanged();
+            if (OrdersPage.Value.Count == 0)
+            {
+                emptyLayout.Visibility = ViewStates.Visible;
+                recycler.Visibility = ViewStates.Invisible;
+            }
+            else
+            {
+                emptyLayout.Visibility = ViewStates.Invisible;
+                recycler.Visibility = ViewStates.Visible;
+            }
+        }
+
+        internal void UpdateOrdersList(bool setNewAdapter = false)
+        {
+            if(setNewAdapter)
+            {
+                SetNewAdapter();
+            }
+            else
+            {
+                adapter?.NotifyDataSetChanged();
+            }
+
+            UpdateUI();
+        }
+
+        private void SetNewAdapter()
+        {
+            adapter = new HomePageOrdersListAdapter(OrdersPage, ViewModel); 
+            recycler.SetAdapter(adapter);
         }
     }
 }

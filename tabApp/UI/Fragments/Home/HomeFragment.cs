@@ -143,6 +143,12 @@ namespace tabApp.UI
             return view;
         }
 
+        internal void UpdateAllLists()
+        {
+            _viewPagerAdapter.TabsOptions = ViewModel.GetTabsOptions();
+            _viewPagerAdapter?.UpdateAllLists();
+        }
+
         private void CloseLongPressPopUp()
         {
             _longPressPopUp?.Dismiss();

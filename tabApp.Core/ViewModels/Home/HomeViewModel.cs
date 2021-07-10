@@ -121,6 +121,12 @@ namespace tabApp.Core
             IsBusy = false;
         }
 
+        public List<SecondaryOptions> GetTabsOptions()
+        {
+            TabsOptions = GetSecondaryOptions();
+            return TabsOptions;
+        }
+
         private async void AddNewClientAfter()
         {
             var newClient = AddNewTemplateClient(AddClientsTypesEnum.After);

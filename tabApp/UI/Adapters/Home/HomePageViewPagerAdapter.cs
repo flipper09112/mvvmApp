@@ -40,10 +40,6 @@ namespace tabApp.UI.Adapters.Home
             }
             return null;
         }
-        public override void DestroyItem(View container, int position, Java.Lang.Object @object)
-        {
-            base.DestroyItem(container, position, @object);
-        }
 
         internal void UpdateOrdersList()
         {
@@ -62,6 +58,26 @@ namespace tabApp.UI.Adapters.Home
             else
             {
                 encomenda?.UpdateOrdersList();
+            }
+        }
+
+        internal void UpdateAllLists()
+        {
+            var fragments = _fm.Fragments;
+            foreach (Fragment fragment in fragments)
+            {
+                if (fragment is HomePageOrdersFragment homePageOrdersFragment)
+                {
+                    int position = TabsOptions.FindIndex(tab => tab.Name.Equals("Encomendas"));
+                    homePageOrdersFragment.OrdersPage = (OrdersPage)TabsOptions[position];
+                    homePageOrdersFragment.UpdateOrdersList(true);
+                }
+                if (fragment is HomeNotificationsFragment homeNotificationsFragment)
+                {
+                    int position = TabsOptions.FindIndex(tab => tab is NotificationsPage);
+                    homeNotificationsFragment.NotificationData = TabsOptions[position] as NotificationsPage;
+                    homeNotificationsFragment.UpdateNotificationsList(true);
+                }
             }
         }
     }

@@ -29,9 +29,11 @@ namespace tabApp.UI.Fragments.Snooze
         private ImageView _withoutOrders;
         private ImageView _withoutNotifications;
         private List<(Client Client, ExtraOrder ExtraOrder)> _orders;
+        private List<Core.Models.Notifications.Notification> _notifications;
         private HomePageOrdersListAdapter _adapter;
         private bool _running;
         private NotificationsListAdapter _notificationsAdapter;
+        private bool _runningNot;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -68,8 +70,9 @@ namespace tabApp.UI.Fragments.Snooze
         private void SetAdapter()
         {
             _orders = ViewModel.TodayOrders;
+            _notifications = ViewModel.NotificationsList;
 
-            if(_orders.Count == 0)
+            if (_orders.Count == 0)
             {
                 _withoutOrders.Visibility = ViewStates.Visible;
                 _todayOrdersList.Visibility = ViewStates.Invisible;
@@ -108,6 +111,33 @@ namespace tabApp.UI.Fragments.Snooze
             _speedometer.SetSpeed(obj.Speed * 3.6f);
 
             SetClosestOrder(obj);
+            SetClosestNotification(obj);
+        }
+
+        private void SetClosestNotification(Location obj)
+        {
+            if (_runningNot) return;
+            _runningNot = true;
+            if (_notifications == null || _notifications.Count == 0) return;
+
+            Dictionary<Core.Models.Notifications.Notification, double> distances = new Dictionary<Core.Models.Notifications.Notification, double>();
+
+            foreach (var item in _notifications)
+            {
+                if (item.Latitude.Equals("null") || item.Latitude != null) continue;
+
+                double distance = Math.Sqrt(Math.Pow(double.Parse(item.Latitude) - obj.Latitude, 2) + Math.Pow(double.Parse(item.Longitude) - obj.Longitude, 2));
+                distances.Add(item, distance);
+            }
+
+            if (distances.Count == 0) return;
+
+            double minimumDistance = distances.Min(distance => distance.Value);
+            var closestOrder = distances.First(distance => distance.Value == minimumDistance).Key;
+
+            int pos = _notifications.IndexOf(closestOrder);
+            _notificationList.ScrollToPosition(pos);
+            _runningNot = false;
         }
 
         private void SetClosestOrder(Location obj)
@@ -132,7 +162,7 @@ namespace tabApp.UI.Fragments.Snooze
             var closestOrder = distances.First(distance => distance.Value == minimumDistance).Key;
 
             int pos = _orders.IndexOf(closestOrder);
-            _todayOrdersList.SmoothScrollToPosition(pos);
+            _todayOrdersList.ScrollToPosition(pos);
 
             _running = false;
         }

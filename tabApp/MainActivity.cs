@@ -145,6 +145,7 @@ namespace tabApp
             if (frag is HomeFragment)
             {
                 ((HomeFragment)frag).SetUI();
+                ((HomeFragment)frag).UpdateAllLists();
             }
         }
 
