@@ -25,11 +25,6 @@ namespace tabApp.Helpers
             fragmentTransaction.Commit(); // save the changes
         }
 
-        internal static void ShowNewFragment(HomeFragment homeFragment)
-        {
-
-        }
-
         /*public static void ShowFirstFragment(FragmentManager fragmentManager, MvxFragment dest)
         {
             FragmentTransaction fragmentTransaction = fragmentManager.BeginTransaction();
