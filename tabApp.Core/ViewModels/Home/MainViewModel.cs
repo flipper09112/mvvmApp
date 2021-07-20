@@ -105,6 +105,11 @@ namespace tabApp.Core.ViewModels
             IsBusy = false;
         }
 
+        public void DestroyCounting()
+        {
+            _inativityTimerService.Destroy();
+        }
+
         public override async void Appearing()
         {
             if (_alreadyStarted || _clientsManagerService?.ClientsList?.Count > 0)
@@ -120,7 +125,7 @@ namespace tabApp.Core.ViewModels
             await _dataBaseService.LoadDataBase();
             //end DB init
 
-            UpdateUiHomePage?.Invoke(null, null);
+            //UpdateUiHomePage?.Invoke(null, null);
             //IsBusy = false;
         }
         public override void DisAppearing()

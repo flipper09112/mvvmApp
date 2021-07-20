@@ -5,6 +5,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Com.Bumptech.Glide;
+using Com.Bumptech.Glide.Load.Engine;
+using Com.Bumptech.Glide.Request;
 using Java.Lang;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using System;
@@ -50,9 +52,17 @@ namespace tabApp.UI.Fragments.Home
             _activity.HideToolbar();
 
             _handler = new Handler();
-            _handler.PostDelayed(ShowHomePage, 5500);
+            _handler.PostDelayed(ShowHomePage, 6000);
 
-            Glide.With(this).Load(Resource.Drawable.gif_base).Into(_imageView);
+            RequestOptions options = new RequestOptions()
+                    .Placeholder(Resource.Drawable.gif_base_image)
+                    .InvokeDiskCacheStrategy(DiskCacheStrategy.All)
+                    .InvokePriority(Priority.High);
+
+            Glide.With(this)
+                .Load(Resource.Drawable.gif_base)
+                .Apply(options)
+                .Into(_imageView);
         }
 
         public override void SetupBindings()

@@ -45,6 +45,8 @@ namespace tabApp
         public MvxCommand<Location> LocationEventCommand;
         private int timer = 0;
         private Intent foregroundIntent;
+        private Handler _handler;
+        private bool _startForegroundServiceRunning;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -88,10 +90,22 @@ namespace tabApp
         protected override void OnResume()
         {
             if(!IsServiceRunning(typeof(ForegroundService)))
-                StartForegroundServiceCompat<ForegroundService>();
+            {
+                _handler = new Handler();
+                _handler.PostDelayed(StartForegroundService, 10000);
+            }
             base.OnResume();
 
             ViewModel.RestartSwatch();
+        }
+
+        private void StartForegroundService()
+        {
+            if(!_startForegroundServiceRunning)
+            {
+                _startForegroundServiceRunning = true;
+                StartForegroundServiceCompat<ForegroundService>();
+            }
         }
 
         protected override void OnPause()
@@ -107,8 +121,9 @@ namespace tabApp
             {
                 StopService(foregroundIntent);
                 foregroundIntent = null;
+                _startForegroundServiceRunning = false;
             }
-            ViewModel.StopCounting();
+            ViewModel.DestroyCounting();
             base.OnDestroy();
         }
 
