@@ -31,6 +31,7 @@ namespace tabApp.Core.Models.Notifications
     {
         None,
         DontPay,
-        OrderChanged
+        OrderChanged,
+        StopDailyOrder
     }
 }

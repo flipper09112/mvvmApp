@@ -9,6 +9,7 @@ using tabApp.Core.Services.Implementations.DB;
 using tabApp.Core.Services.Interfaces.Clients;
 using tabApp.Core.Services.Interfaces.DB;
 using tabApp.Core.Services.Interfaces.Dialogs;
+using tabApp.Core.Services.Interfaces.Notifications;
 
 namespace tabApp.Core.ViewModels.Home
 {
@@ -19,6 +20,7 @@ namespace tabApp.Core.ViewModels.Home
         private IDataBaseManagerService _dataBaseManagerService;
         private IAmmountToPayService _ammountToPayService;
         private IMvxNavigationService _navigationService;
+        private INotificationsManagerService _notificationsManagerService;
 
         private DateTypeEnum _dateTypeSelected;
         private DateTime _firstDayIndeterminatedDate;
@@ -38,13 +40,15 @@ namespace tabApp.Core.ViewModels.Home
                                   IDialogService dialogService,
                                   IDataBaseManagerService dataBaseManagerService,
                                   IAmmountToPayService ammountToPayService,
-                                  IMvxNavigationService navigationService)
+                                  IMvxNavigationService navigationService,
+                                  INotificationsManagerService notificationsManagerService)
         {
             _chooseClientService = chooseClientService;
             _dialogService = dialogService;
             _dataBaseManagerService = dataBaseManagerService;
             _ammountToPayService = ammountToPayService;
             _navigationService = navigationService;
+            _notificationsManagerService = notificationsManagerService;
 
             ShowCalendarPickerCommand = new MvxCommand<DateTypeEnum>(ShowCalendarPicker);
             SaveCommand = new MvxCommand(Save, CanSave);
@@ -180,6 +184,18 @@ namespace tabApp.Core.ViewModels.Home
             Client.ResetDailyOrders();
             Client.UpdatePaymentDate(FirstDayIndeterminatedDate.AddDays(-1));
 
+            var notification = new Models.Notifications.Notification() {
+                Info = "O cliente não quer mais pão até segunda ordem",
+                NotificationType = Models.Notifications.NotificationTypeEnum.StopDailyOrder,
+                AlertDay = FirstDayIndeterminatedDate,
+                ClientId = Client.Id,
+                Latitude = Client.Address.HasCoord ? Client.Address.Lat : string.Empty,
+                Longitude = Client.Address.HasCoord ? Client.Address.Lgt : string.Empty
+            };
+
+            _dataBaseManagerService.InsertNotification(notification);
+            _notificationsManagerService.AllNotifications.Add(notification);
+
             _dataBaseManagerService.SaveClient(
                 Client,
                 new Regist()
@@ -206,6 +222,36 @@ namespace tabApp.Core.ViewModels.Home
                     ClientId = Client.Id,
                     DetailType = DetailTypeEnum.Inativate
                 });
+
+            AddNotificationsDeterminatedPause();
+        }
+
+        private void AddNotificationsDeterminatedPause()
+        {
+            var notificationStart = new Models.Notifications.Notification()
+            {
+                Info = "O cliente a partir de hoje (" + FirstDayDeterminatedDate.ToString("dd/MM/yyyy") + ") até dia (" + LastDayDeterminatedDate.ToString("dd/MM/yyyy") + ") não quer pão!",
+                NotificationType = Models.Notifications.NotificationTypeEnum.StopDailyOrder,
+                AlertDay = FirstDayDeterminatedDate,
+                ClientId = Client.Id,
+                Latitude = Client.Address.HasCoord ? Client.Address.Lat : string.Empty,
+                Longitude = Client.Address.HasCoord ? Client.Address.Lgt : string.Empty
+            };
+
+            var notificationEnd = new Models.Notifications.Notification()
+            {
+                Info = "O cliente a partir de hoje recomeça a usufruir do serviço de entrega!",
+                NotificationType = Models.Notifications.NotificationTypeEnum.StopDailyOrder,
+                AlertDay = LastDayDeterminatedDate.AddDays(1),
+                ClientId = Client.Id,
+                Latitude = Client.Address.HasCoord ? Client.Address.Lat : string.Empty,
+                Longitude = Client.Address.HasCoord ? Client.Address.Lgt : string.Empty
+            };
+
+            _dataBaseManagerService.InsertNotification(notificationStart);
+            _dataBaseManagerService.InsertNotification(notificationEnd);
+            _notificationsManagerService.AllNotifications.Add(notificationStart);
+            _notificationsManagerService.AllNotifications.Add(notificationEnd);
         }
 
         public override void Appearing()

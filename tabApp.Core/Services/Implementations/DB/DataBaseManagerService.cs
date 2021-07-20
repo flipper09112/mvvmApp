@@ -93,6 +93,30 @@ namespace tabApp.Core.Services.Implementations.DB
             _clientsManagerService.SetClients(GetClients().OrderBy(item => item.Position).ToList<Client>());
             _productsManagerService.SetProducts(GetProducts());
             _notificationsManagerService.SetNotifications(GetNotifications());
+
+            //checks and saves states
+            CheckFirstDayAfterStopService();
+        }
+
+        private void CheckFirstDayAfterStopService()
+        {
+            _clientsManagerService.ClientsList.ForEach(client => { 
+                try
+                {
+                    if(client.LastDayStopService?.AddDays(1).Date == DateTime.Today)
+                    {
+                        if (!client.Active)
+                        {
+                            client.Active = true;
+                            SaveClient(client, regist: null);
+                        }
+                    }
+
+                } catch(Exception e)
+                {
+                    //cant handle date
+                }
+            });
         }
 
         public void SaveAllDocs()
@@ -218,6 +242,7 @@ namespace tabApp.Core.Services.Implementations.DB
                 Database.UpdateWithChildren(client);
             }
 
+            Database.Update(client.Address);
             Database.Update(client);
         }
 
@@ -268,13 +293,13 @@ namespace tabApp.Core.Services.Implementations.DB
             }
         }
 
-        public void SaveClient(Client client, ExtraOrder regist)
+        public void SaveClient(Client client, ExtraOrder regist2)
         {
             client.LastChangeDate = DateTime.Now;
-            Database.Insert(regist);
+            Database.Insert(regist2);
             Database.UpdateWithChildren(client);
-            Database.InsertAll(regist.AllItems);
-            Database.UpdateWithChildren(regist);
+            Database.InsertAll(regist2.AllItems);
+            Database.UpdateWithChildren(regist2);
         }
 
         public void UpdateOrder(ExtraOrder regist)
