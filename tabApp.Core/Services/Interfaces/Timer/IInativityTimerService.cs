@@ -9,5 +9,6 @@ namespace tabApp.Core.Services.Interfaces.Timer
         void Start();
         void Restart();
         void Stop();
+        void Destroy();
     }
 }

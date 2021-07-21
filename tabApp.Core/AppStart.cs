@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using tabApp.Core.ViewModels;
+using tabApp.Core.ViewModels.Main;
 
 namespace tabApp.Core
 {

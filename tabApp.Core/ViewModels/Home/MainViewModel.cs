@@ -14,6 +14,7 @@ using tabApp.Core.Services.Interfaces.Products;
 using tabApp.Core.Services.Interfaces.Timer;
 using tabApp.Core.ViewModels.Global;
 using tabApp.Core.ViewModels.Global.Other;
+using tabApp.Core.ViewModels.Main;
 
 namespace tabApp.Core.ViewModels
 {
@@ -55,7 +56,7 @@ namespace tabApp.Core.ViewModels
             _productsManagerService = productsManagerService;
             _dbService = dbService;
 
-            ShowHomePage = new MvxAsyncCommand(async () => await _navigationService.Navigate<HomeViewModel>());
+            ShowHomePage = new MvxAsyncCommand(async () => await _navigationService.Navigate<SplashViewModel>());
             SetClosestClientCommand = new MvxCommand<(double lat, double lgt)>(ShowClosestClient);
             SetFilterCommand = new MvxCommand<string>(SetFilter);
             ShowGlobalOrderPageCommand = new MvxCommand(ShowGlobalOrderPage);
@@ -104,12 +105,17 @@ namespace tabApp.Core.ViewModels
             IsBusy = false;
         }
 
+        public void DestroyCounting()
+        {
+            _inativityTimerService.Destroy();
+        }
+
         public override async void Appearing()
         {
             if (_alreadyStarted || _clientsManagerService?.ClientsList?.Count > 0)
                 return;
             _alreadyStarted = true;
-            IsBusy = true;
+            //IsBusy = true;
 
             //---------DB init-------------
            // await _dbService.StartAsync();
@@ -119,8 +125,8 @@ namespace tabApp.Core.ViewModels
             await _dataBaseService.LoadDataBase();
             //end DB init
 
-            UpdateUiHomePage?.Invoke(null, null);
-            IsBusy = false;
+            //UpdateUiHomePage?.Invoke(null, null);
+            //IsBusy = false;
         }
         public override void DisAppearing()
         {

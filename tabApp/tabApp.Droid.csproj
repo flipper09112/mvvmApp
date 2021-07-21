@@ -74,7 +74,7 @@
     <Compile Include="Helpers\FragmentHelper.cs" />
     <Compile Include="Helpers\NotificationHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
-    <Compile Include="MainActivity.cs" />
+    <Compile Include="UI\Activitys\MainActivity.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -134,6 +134,7 @@
     <Compile Include="UI\Fragments\Home\DeleteClientFragment.cs" />
     <Compile Include="UI\Fragments\Home\GlobalOrderSelectDaysFragment.cs" />
     <Compile Include="UI\Fragments\Home\InitDailyFragment.cs" />
+    <Compile Include="UI\Fragments\Home\SplahFragment.cs" />
     <Compile Include="UI\Fragments\Home\StopDailyFragment.cs" />
     <Compile Include="UI\Fragments\Home\ViewPager\HomeNotificationsFragment.cs" />
     <Compile Include="UI\Fragments\Home\ViewPager\HomePageMapFragment.cs" />
@@ -846,6 +847,17 @@
     <AndroidResource Include="Resources\layout\HomePageOrdersFragment.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\SplahFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\gif_base.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\gif_base_image.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>

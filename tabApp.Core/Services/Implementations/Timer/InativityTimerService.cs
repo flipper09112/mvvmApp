@@ -16,6 +16,8 @@ namespace tabApp.Core.Services.Implementations.Timer
         private TimeSpan SessionDuration = TimeSpan.FromMinutes(5);
         private Stopwatch stopWatch = new Stopwatch();
         private bool alreadyStarted;
+        private Task _task;
+        private bool _destroy;
 
         public InativityTimerService(IMvxNavigationService navigationService)
         {
@@ -47,7 +49,7 @@ namespace tabApp.Core.Services.Implementations.Timer
                 stopWatch.Start();
             }
 
-            Task.Run(async () => {
+            _task = Task.Run(async () => {
                 while(true)
                 {
                     if (stopWatch.IsRunning && stopWatch.Elapsed.Minutes >= SessionDuration.Minutes)
@@ -58,8 +60,20 @@ namespace tabApp.Core.Services.Implementations.Timer
                         await _navigationService.Navigate<SnoozeViewModel>();
                         return;
                     }
+
+                    if (_destroy)
+                        return;
                 }
             });
+        }
+
+        public void Destroy()
+        {
+            if (stopWatch.IsRunning)
+            {
+                stopWatch.Stop();
+            }
+            _destroy = true;
         }
 
         public void Stop()
