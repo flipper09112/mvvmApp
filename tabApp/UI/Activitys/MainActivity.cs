@@ -124,7 +124,7 @@ namespace tabApp
                 _startForegroundServiceRunning = false;
             }
             ViewModel.DestroyCounting();
-            base.OnDestroy();
+            Android.OS.Process.KillProcess(Android.OS.Process.MyPid());
         }
 
         public bool IsServiceRunning(System.Type ClassTypeof)

@@ -105,6 +105,11 @@ namespace tabApp.Core.ViewModels
             IsBusy = false;
         }
 
+        public void DisconnectDataBase()
+        {
+            _dataBaseService.Database.Close();
+        }
+
         public void DestroyCounting()
         {
             _inativityTimerService.Destroy();
