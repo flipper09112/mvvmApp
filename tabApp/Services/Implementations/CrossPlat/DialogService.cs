@@ -7,6 +7,7 @@ using Android.Support.Design.Widget;
 using Android.Text;
 using Android.Views;
 using Android.Widget;
+using Com.Bumptech.Glide;
 using MvvmCross;
 using MvvmCross.Platforms.Android;
 using MvvmCross.Platforms.Android.Core;
@@ -14,8 +15,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using tabApp.Core;
 using tabApp.Core.Services.Interfaces.Dialogs;
 using tabApp.Helpers;
+using tabApp.UI.Adapters.Home;
 
 namespace tabApp.Services.Implementations
 {
@@ -25,6 +28,7 @@ namespace tabApp.Services.Implementations
         private EditText et;
         private RadioButton addRB;
         private RadioButton subRB;
+        private AlertDialog _longPressPopUp;
 
         public void ShowConfirmDialog(string question, string confirmText, Action<bool> confirmAction)
         {
@@ -76,7 +80,7 @@ namespace tabApp.Services.Implementations
 
             DateTime today = DateTime.Today;
             DatePickerDialog dialog = new DatePickerDialog(act, OnDateSet, today.Year, today.Month - 1, today.Day);
-            dialog.DatePicker.MinDate = today.Millisecond;
+            dialog.DatePicker.MinDate = DateTimeOffset.Now.ToUnixTimeMilliseconds();
             dialog.Show();
         }
 
@@ -141,6 +145,45 @@ namespace tabApp.Services.Implementations
 
                 }
             }
+        }
+
+        public void ShowChooseOptions(List<LongPressItem> data)
+        {
+            var top = Mvx.Resolve<IMvxAndroidCurrentTopActivity>();
+            var act = top.Activity;
+
+            _longPressPopUp = new AlertDialog.Builder(act)
+                                        .SetView(GetChoiceView(act, data))
+                                        .Create();
+
+            _longPressPopUp.Show();
+        }
+
+        private View GetChoiceView(Activity act, List<LongPressItem> data)
+        {
+            View view = LayoutInflater.From(act).Inflate(Resource.Layout.dialog_choice, null);
+            var _popUpGv = (GridView)view.FindViewById(Resource.Id.gv_choice);
+
+            var _loadingImagePopUp = view.FindViewById<ImageView>(Resource.Id.custom_loading_imageView);
+            Glide.With(act)
+                    .Load(Resource.Drawable.loading)
+                    .Into(_loadingImagePopUp);
+
+            //Custom adapter
+            LongPressPopPupAdapter adapter;
+            //Judgment type, load data source settings Adapter
+            adapter = new LongPressPopPupAdapter(data, CloseLongPressPopUp);
+            _popUpGv.Adapter = adapter;
+            //Set the default selection
+            //adapter.(eventSelected);
+
+            return view;
+        }
+
+        private void CloseLongPressPopUp()
+        {
+            _longPressPopUp?.Dismiss();
+            _longPressPopUp = null;
         }
     }
 }

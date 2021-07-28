@@ -12,5 +12,6 @@ namespace tabApp.Core.Services.Interfaces.Dialogs
         void ShowInputDialog(string question, string confirmText, Action<double> confirmAction);
         void ShowDatePickerDialog(Action<DateTime> confirmAction);
         void ShowSuccessChangeSnackBar(string info);
+        void ShowChooseOptions(List<LongPressItem> data);
     }
 }

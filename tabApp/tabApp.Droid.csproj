@@ -86,6 +86,8 @@
     <Compile Include="Services\Implementations\Native\ForegroundService.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="UI\Adapters\CakesTotalOrderAdapter.cs" />
+    <Compile Include="UI\Adapters\ClientPage\CreateNotification\CreateNotificationsOtherDaysAdapterAdapter.cs" />
+    <Compile Include="UI\Adapters\ClientPage\CreateNotification\CreateNotificationsPredefinedAdapter.cs" />
     <Compile Include="UI\Adapters\EditClient\EditListSelectableAdapter.cs" />
     <Compile Include="UI\Adapters\Global\EditProductAdapter.cs" />
     <Compile Include="UI\Adapters\Global\PriceTableAdapter.cs" />
@@ -107,6 +109,7 @@
     <Compile Include="UI\Fragments\ClientPage\OtherOptions\ChangeDailyOrderFragment.cs" />
     <Compile Include="UI\Fragments\ClientPage\OtherOptions\CreateNoficationFragment.cs" />
     <Compile Include="UI\Fragments\ClientPage\OtherOptions\PrintAccountFragment.cs" />
+    <Compile Include="UI\Fragments\EditClient\CreateNotificationsFragment.cs" />
     <Compile Include="UI\Fragments\EditClient\EditClientProfileFragment.cs" />
     <Compile Include="UI\Adapters\EditClient\EditClientProfileItemsAdapter.cs" />
     <Compile Include="UI\Adapters\EditClient\EditClientViewPagerAdapter.cs" />
@@ -141,6 +144,8 @@
     <Compile Include="UI\Fragments\Home\ViewPager\HomePageOrdersFragment.cs" />
     <Compile Include="UI\Fragments\Snooze\SnoozeFragment.cs" />
     <Compile Include="UI\ViewHolders\AddItemReportViewHolder.cs" />
+    <Compile Include="UI\ViewHolders\CreateNotifications\CreateNotificationsOtherDaysViewHolder.cs" />
+    <Compile Include="UI\ViewHolders\CreateNotifications\ItemRadioViewHolderAndroidX.cs" />
     <Compile Include="UI\ViewHolders\EditProfileListItemViewHolder.cs" />
     <Compile Include="UI\ViewHolders\ItemRadioViewHolder.cs" />
     <Compile Include="UI\ViewHolders\ItemReportViewHolder.cs" />
@@ -858,6 +863,16 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\gif_base_image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\CreateNotificationsFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\ItemText.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>

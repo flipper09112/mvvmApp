@@ -12,6 +12,7 @@ using tabApp.Core.Services.Interfaces.Clients;
 using tabApp.Core.Services.Interfaces.DB;
 using tabApp.Core.Services.Interfaces.Dialogs;
 using tabApp.Core.Services.Interfaces.Products;
+using tabApp.Core.ViewModels.EditClient;
 
 namespace tabApp.Core.ViewModels
 {
@@ -26,6 +27,8 @@ namespace tabApp.Core.ViewModels
         private readonly IClientsManagerService _clientsManagerService;
 
         public MvxCommand SaveChangesCommand;
+        public MvxCommand GoBackCommand;
+        public MvxCommand ShowCreateNotificationPageCommand;
         public MvxCommand ShowSelectDaysPageCommand;
         public MvxCommand<DayOfWeek> AddProductCommand;
 
@@ -48,6 +51,19 @@ namespace tabApp.Core.ViewModels
             SaveChangesCommand = new MvxCommand(SaveChanges, CanSaveChanges);
             ShowSelectDaysPageCommand = new MvxCommand(ShowSelectDaysPage);
             AddProductCommand = new MvxCommand<DayOfWeek>(AddProduct);
+            ShowCreateNotificationPageCommand = new MvxCommand(CreateNotificationPage);
+            GoBackCommand = new MvxCommand(GoBack);
+        }
+
+        private async void GoBack()
+        {
+            await _navService.Close(this);
+        }
+
+        private async void CreateNotificationPage()
+        {
+            await _navService.Close(this);
+            await _navService.Navigate<CreateNotificationsViewModel>();
         }
 
         private async void ShowSelectDaysPage()
@@ -131,13 +147,37 @@ namespace tabApp.Core.ViewModels
             return false;
         }
 
-        private void SaveChanges()
+        private async void SaveChanges()
         {
-            SaveChangesAction();
-            _navService.Close(this);
+            var hasDailyChanges = SaveChangesAction();
+
+            if(hasDailyChanges)
+            {
+                _dialogService.ShowChooseOptions(GetOptions());
+            }
+            else
+                await _navService.Close(this);
         }
 
-        private void SaveChangesAction()
+        private List<LongPressItem> GetOptions()
+        {
+            List<LongPressItem> items = new List<LongPressItem>();
+
+            items.Add(new LongPressItem()
+            {
+                Name = "Ignorar",
+                Command = GoBackCommand
+            });
+
+            items.Add(new LongPressItem() { 
+                Name = "Criar Notificações de Aviso",
+                Command = ShowCreateNotificationPageCommand
+            });
+
+            return items;
+        }
+
+        private bool SaveChangesAction()
         {
             bool isValid = true;
             string toRegist = "";
@@ -155,7 +195,7 @@ namespace tabApp.Core.ViewModels
                     isValid = SaveRegist(item);
                 }
             }
-            if (!isValid) return;
+            if (!isValid) return false;
             foreach (var item in _adminItems)
             {
                 if (item.NewValue != null && !item.Value.Equals(item.NewValue))
@@ -164,7 +204,7 @@ namespace tabApp.Core.ViewModels
                     isValid = SaveRegist(item);
                 }
             }
-            if (!isValid) return;
+            if (!isValid) return false;
             bool hasDailyOrderCHange = false;
             double temp;
             foreach (var item in _segDailyItemsList ?? new List<ClientProfileField>())
@@ -184,7 +224,7 @@ namespace tabApp.Core.ViewModels
                     break;
                 }
             }
-            if (!isValid) return;
+            if (!isValid) return false;
             foreach (var item in _terDailyItemsList ?? new List<ClientProfileField>())
             {
                 if (item.NewValue != null && !item.Value.Equals(item.NewValue) && !item.NewValue.Equals("") && double.TryParse(item.NewValue, NumberStyles.Number, CultureInfo.InvariantCulture, out temp))
@@ -202,7 +242,7 @@ namespace tabApp.Core.ViewModels
                     break;
                 }
             }
-            if (!isValid) return;
+            if (!isValid) return false;
             foreach (var item in _quaDailyItemsList ?? new List<ClientProfileField>())
             {
                 if (item.NewValue != null && !item.Value.Equals(item.NewValue) && !item.NewValue.Equals("") && double.TryParse(item.NewValue, NumberStyles.Number, CultureInfo.InvariantCulture, out temp))
@@ -220,7 +260,7 @@ namespace tabApp.Core.ViewModels
                     break;
                 }
             }
-            if (!isValid) return;
+            if (!isValid) return false;
             foreach (var item in _quiDailyItemsList ?? new List<ClientProfileField>())
             {
                 if (item.NewValue != null && !item.Value.Equals(item.NewValue) && !item.NewValue.Equals("") && double.TryParse(item.NewValue, NumberStyles.Number, CultureInfo.InvariantCulture, out temp))
@@ -238,7 +278,7 @@ namespace tabApp.Core.ViewModels
                     break;
                 }
             }
-            if (!isValid) return;
+            if (!isValid) return false;
             foreach (var item in _sexDailyItemsList ?? new List<ClientProfileField>())
             {
                 if (item.NewValue != null && !item.Value.Equals(item.NewValue) && !item.NewValue.Equals("") && double.TryParse(item.NewValue, NumberStyles.Number, CultureInfo.InvariantCulture, out temp))
@@ -256,7 +296,7 @@ namespace tabApp.Core.ViewModels
                     break;
                 }
             }
-            if (!isValid) return;
+            if (!isValid) return false;
             foreach (var item in _sabDailyItemsList ?? new List<ClientProfileField>())
             {
                 if (item.NewValue != null && !item.Value.Equals(item.NewValue) && !item.NewValue.Equals("") && double.TryParse(item.NewValue, NumberStyles.Number, CultureInfo.InvariantCulture, out temp))
@@ -274,7 +314,7 @@ namespace tabApp.Core.ViewModels
                     break;
                 }
             }
-            if (!isValid) return;
+            if (!isValid) return false;
             foreach (var item in _domDailyItemsList ?? new List<ClientProfileField>())
             {
                 if (item.NewValue != null && !item.Value.Equals(item.NewValue) && !item.NewValue.Equals("") && double.TryParse(item.NewValue, NumberStyles.Number, CultureInfo.InvariantCulture, out temp))
@@ -292,9 +332,11 @@ namespace tabApp.Core.ViewModels
                     break;
                 }
             }
-            if (!isValid) return;
+            if (!isValid) return false;
 
             _dataBaseManagerService.SaveClient(Client, toRegist);
+
+            return hasDailyOrderCHange;
         }
 
         private bool SaveRegist(ClientProfileField item, List<ClientProfileField> dailyOrderItems = null)
