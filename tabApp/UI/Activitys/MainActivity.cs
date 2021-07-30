@@ -56,6 +56,7 @@ namespace tabApp
 
             Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             NavigationView nav_view = FindViewById<NavigationView>(Resource.Id.nav_view);
+           
             SetSupportActionBar(toolbar);
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
             SupportActionBar.SetDisplayShowHomeEnabled(true);
