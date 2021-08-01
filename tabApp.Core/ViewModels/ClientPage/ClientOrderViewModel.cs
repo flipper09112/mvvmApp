@@ -99,7 +99,7 @@ namespace tabApp.Core.ViewModels
 
         private void SelectDate()
         {
-            _dialogService.ShowDatePickerDialog(SelectDateAction);
+            _dialogService.ShowDatePickerDialog(SelectDateAction, true);
         }
 
         private void SelectDateAction(DateTime selectedDate)

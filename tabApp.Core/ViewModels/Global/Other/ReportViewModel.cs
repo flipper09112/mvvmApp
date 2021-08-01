@@ -106,7 +106,7 @@ namespace tabApp.Core.ViewModels.Global.Other
 
         private void SelectDay()
         {
-            _dialogService.ShowDatePickerDialog(SelectDate);
+            _dialogService.ShowDatePickerDialog(SelectDate, false);
         }
 
         private void SelectDate(DateTime obj)

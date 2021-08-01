@@ -50,7 +50,7 @@ namespace tabApp.Core.ViewModels.EditClient
 
         private void AddDate()
         {
-            _dialogService.ShowDatePickerDialog(AddDateToList);
+            _dialogService.ShowDatePickerDialog(AddDateToList, true);
         }
 
         private void AddDateToList(DateTime obj)
@@ -97,15 +97,32 @@ namespace tabApp.Core.ViewModels.EditClient
         {
             switch(PreDefinedAlertSelected.ItemType)
             {
+                case PreDefinedAlertItemType.TomorrowAndWeekEnd:
+                    for (int i = 1; i < 8; i++)
+                    {
+                        if (DateTime.Today.AddDays(i).DayOfWeek == DayOfWeek.Saturday ||
+                               DateTime.Today.AddDays(i).DayOfWeek == DayOfWeek.Sunday)
+                        {
+                            Notification notification = GetNotification(DateTime.Today.AddDays(i));
+                            _dataBaseManagerService.InsertNotification(notification);
+                        }
+                    }
+                    Notification notification2 = GetNotification(DateTime.Today.AddDays(1));
+                    _dataBaseManagerService.InsertNotification(notification2);
+                    return;
+                case PreDefinedAlertItemType.Tomorrow:
+                    Notification notification1 = GetNotification(DateTime.Today.AddDays(1));
+                    _dataBaseManagerService.InsertNotification(notification1);
+                    return;
                 case PreDefinedAlertItemType.OneWeek:
-                    for(int i = 0; i < 7; i++)
+                    for (int i = 1; i < 8; i++)
                     {
                         Notification notification = GetNotification(DateTime.Today.AddDays(i));
                         _dataBaseManagerService.InsertNotification(notification);
                     }
                     return;
                 case PreDefinedAlertItemType.Weekend:
-                    for (int i = 0; i < 7; i++)
+                    for (int i = 1; i < 8; i++)
                     {
                         if(DateTime.Today.AddDays(i).DayOfWeek == DayOfWeek.Saturday ||
                             DateTime.Today.AddDays(i).DayOfWeek == DayOfWeek.Sunday)
@@ -147,6 +164,18 @@ namespace tabApp.Core.ViewModels.EditClient
         {
             List<PreDefinedAlertItem> items = new List<PreDefinedAlertItem>();
 
+            items.Add(new PreDefinedAlertItem()
+            {
+                ItemName = "Amanha",
+                ItemType = PreDefinedAlertItemType.Tomorrow
+            });
+
+            items.Add(new PreDefinedAlertItem()
+            {
+                ItemName = "Amanha e Fim de semana",
+                ItemType = PreDefinedAlertItemType.TomorrowAndWeekEnd
+            });
+
             items.Add(new PreDefinedAlertItem() { 
                 ItemName = "Uma Semana",
                 ItemType = PreDefinedAlertItemType.OneWeek
@@ -176,6 +205,8 @@ namespace tabApp.Core.ViewModels.EditClient
     public enum PreDefinedAlertItemType
     {
         OneWeek,
-        Weekend
+        Weekend,
+        TomorrowAndWeekEnd,
+        Tomorrow
     }
 }

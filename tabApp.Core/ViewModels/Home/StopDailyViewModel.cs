@@ -156,7 +156,7 @@ namespace tabApp.Core.ViewModels.Home
         private void ShowCalendarPicker(DateTypeEnum dateTypeEnum)
         {
             _dateTypeSelected = dateTypeEnum;
-            _dialogService.ShowDatePickerDialog(SetDate);
+            _dialogService.ShowDatePickerDialog(SetDate, false);
         }
 
         private void SetDate(DateTime obj)

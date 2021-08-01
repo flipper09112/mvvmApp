@@ -156,8 +156,11 @@ namespace tabApp.Core.Services.Implementations.DB
 
         public void InsertNotification(Notification notification)
         {
-            Database.CreateTable<Notification>();
-            Database.Insert(notification);
+            if(!_notificationsManagerService.HasNotificationSameDaySameClient(notification))
+            {
+                Database.CreateTable<Notification>();
+                Database.Insert(notification);
+            }
         }
 
         public void InsertAllDataFromXls(List<Client> clients, List<Product> products)

@@ -54,7 +54,7 @@ namespace tabApp.Core.ViewModels.ClientPage
 
         private void SelectDay()
         {
-            _dialogService.ShowDatePickerDialog(ChooseDateAction);
+            _dialogService.ShowDatePickerDialog(ChooseDateAction, false);
         }
 
         private void ChooseDateAction(DateTime date)
@@ -124,7 +124,7 @@ namespace tabApp.Core.ViewModels.ClientPage
 
         private void ShowCalendarPicker()
         {
-            _dialogService.ShowDatePickerDialog(SetDate);
+            _dialogService.ShowDatePickerDialog(SetDate, false);
         }
 
         private void SetDate(DateTime obj)

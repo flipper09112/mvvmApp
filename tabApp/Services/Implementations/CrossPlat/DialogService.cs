@@ -71,7 +71,7 @@ namespace tabApp.Services.Implementations
             dialog.Show();
         }
 
-        public void ShowDatePickerDialog(Action<DateTime> confirmAction)
+        public void ShowDatePickerDialog(Action<DateTime> confirmAction, bool withMinDate)
         {
             var top = Mvx.Resolve<IMvxAndroidCurrentTopActivity>();
             var act = top.Activity;
@@ -80,7 +80,10 @@ namespace tabApp.Services.Implementations
 
             DateTime today = DateTime.Today;
             DatePickerDialog dialog = new DatePickerDialog(act, OnDateSet, today.Year, today.Month - 1, today.Day);
-            dialog.DatePicker.MinDate = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+            
+            if(withMinDate)
+                dialog.DatePicker.MinDate = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+
             dialog.Show();
         }
 
