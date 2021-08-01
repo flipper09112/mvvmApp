@@ -76,7 +76,7 @@ namespace tabApp.Services.Implementations.Native
             //check notifications
             foreach (var not in notificationsManagerService.TodayNotifications)
             {
-                if (!not.Latitude.Equals(string.Empty) && not.Longitude.Equals(string.Empty))
+                if (!not.Latitude.Equals(string.Empty) && !not.Longitude.Equals(string.Empty))
                 {
                     distance = GetDistance(not.Latitude, not.Longitude, location);
                     Log.Debug(logTag, $"Distancia Notification is {distance.ToString("N2")}");

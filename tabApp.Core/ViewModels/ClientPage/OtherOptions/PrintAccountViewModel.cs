@@ -38,7 +38,7 @@ namespace tabApp.Core.ViewModels.ClientPage.OtherOptions
 
         private void ShowDatePicker()
         {
-            _dialogService.ShowDatePickerDialog(SetDate);
+            _dialogService.ShowDatePickerDialog(SetDate, false);
         }
 
         private void SetDate(DateTime obj)

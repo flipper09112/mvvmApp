@@ -258,7 +258,7 @@ namespace tabApp.Core.ViewModels
 
         private void ShowDatePickerDialog()
         {
-            _dialogService.ShowDatePickerDialog(SetDateSelected);
+            _dialogService.ShowDatePickerDialog(SetDateSelected, false);
         }
 
         private void SetDateSelected(DateTime obj)

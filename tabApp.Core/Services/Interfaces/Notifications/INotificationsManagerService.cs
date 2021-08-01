@@ -11,5 +11,6 @@ namespace tabApp.Core.Services.Interfaces.Notifications
         List<Notification> TodayNotifications { get; }
 
         void SetNotifications(List<Notification> lists);
+        bool HasNotificationSameDaySameClient(Notification notification);
     }
 }

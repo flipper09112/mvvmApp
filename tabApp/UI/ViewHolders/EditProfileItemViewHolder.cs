@@ -66,7 +66,7 @@ namespace tabApp.UI.ViewHolders
 
         private void EditValueClick(object sender, EventArgs e)
         {
-            new DialogService().ShowDatePickerDialog(SetNewDate);
+            new DialogService().ShowDatePickerDialog(SetNewDate, false);
         }
 
         private void SetNewDate(DateTime obj)

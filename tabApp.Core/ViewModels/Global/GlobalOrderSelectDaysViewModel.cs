@@ -87,7 +87,7 @@ namespace tabApp.Core.ViewModels.Global
         private void SelectDate(DayType dayType)
         {
             _dayTypeSelected = dayType;
-            _dialogService.ShowDatePickerDialog(UpdateDateSelected);
+            _dialogService.ShowDatePickerDialog(UpdateDateSelected, false);
         }
 
         private void UpdateDateSelected(DateTime obj)
