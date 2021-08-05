@@ -103,16 +103,39 @@ namespace tabApp.Core.Services.Implementations.DB
             _clientsManagerService.ClientsList.ForEach(client => { 
                 try
                 {
-                    if(client.LastDayStopService?.AddDays(1).Date == DateTime.Today)
+                    if(client.LastDayStopService?.AddDays(1).Date >= DateTime.Today.Date)
                     {
                         if (!client.Active)
                         {
                             client.Active = true;
+                            client.StartDayStopService = null;
+                            client.LastDayStopService = null;
                             SaveClient(client, regist: null);
                         }
                     }
 
                 } catch(Exception e)
+                {
+                    //cant handle date
+                }
+            });
+
+            _clientsManagerService.ClientsList.ForEach(client => {
+                try
+                {
+                    if (client.StartDayStopService?.AddDays(1).Date >= DateTime.Today.Date)
+                    {
+                        if (!client.Active)
+                        {
+                            client.Active = false;
+                            client.StartDayStopService = null;
+                            client.LastDayStopService = null;
+                            SaveClient(client, regist: null);
+                        }
+                    }
+
+                }
+                catch (Exception e)
                 {
                     //cant handle date
                 }

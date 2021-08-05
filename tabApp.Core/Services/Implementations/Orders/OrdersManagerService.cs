@@ -127,7 +127,18 @@ namespace tabApp.Core.Services.Implementations.Orders
             List<ProductAmmount> items = new List<ProductAmmount>();
             foreach(var client in _clientsManagerService.ClientsList)
             {
-                if (!client.Active) continue;
+                if (!(client.LastDayStopService != null && ((DateTime)client.LastDayStopService).Date == DateTime.Today.Date))
+                {
+                    if (!client.Active)
+                        continue;
+                }
+                else
+                {
+                }
+
+                if (client.StartDayStopService != null && ((DateTime)client.StartDayStopService).Date == DateTime.Today.AddDays(1).Date)
+                    continue;
+                
                 ExtraOrder order = _clientsManagerService.HasOrderThisDate(client, dateTime);
                 if(order == null)
                 {
