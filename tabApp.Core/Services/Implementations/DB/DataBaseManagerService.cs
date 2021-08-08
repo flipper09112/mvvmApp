@@ -154,7 +154,10 @@ namespace tabApp.Core.Services.Implementations.DB
         #region Inserts
         public void InsertGlobalOrderRegist(GlobalOrderRegist globalOrderRegist)
         {
-            Database.Insert(globalOrderRegist);
+            var regist = GetGlobalOrderRegists().Find(item => item.OrderRegistDate.Date == globalOrderRegist.OrderRegistDate.Date);
+
+            if(regist != null)
+                Database.Insert(globalOrderRegist);
         }
 
         public void InsertNewProduct(Product product)
@@ -403,6 +406,13 @@ namespace tabApp.Core.Services.Implementations.DB
         #endregion
 
         #region Gets
+        public List<GlobalOrderRegist> GetGlobalOrderRegists()
+        {
+            lock (locker)
+            {
+                return Database.GetAllWithChildren<GlobalOrderRegist>();
+            }
+        }
         public List<Client> GetClients()
         {
             lock (locker)
