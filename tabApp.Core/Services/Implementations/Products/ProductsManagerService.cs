@@ -127,5 +127,62 @@ namespace tabApp.Core.Services.Implementations.Products
             }
             return max + 1;
         }
+
+        public string GetDailyOrderDesc(Client client)
+        {
+            DateTime todayDate = DateTime.Today;
+            string details = "";
+
+            if (!client.Active) return "Cliente Inativado";
+
+            if (_clientsManagerService.HasOrderThisDate(client, todayDate) is ExtraOrder extraOrder)
+            {
+                List<DailyOrderDetails> list = new List<DailyOrderDetails>();
+
+                foreach (var item in extraOrder.AllItems)
+                {
+                    list.Add(new DailyOrderDetails() { 
+                        ProductId = item.ProductId,
+                        Ammount = item.Ammount
+                    });
+                }
+
+                foreach (var item in _clientsManagerService.GetTodayDailyOrder(client, todayDate.DayOfWeek).AllItems)
+                {
+                    DailyOrderDetails dailyOrderItem = list.Find(prod => prod.ProductId == item.ProductId);
+
+                    if(dailyOrderItem != null)
+                    {
+                        dailyOrderItem.Ammount += item.Ammount;
+                    }
+                    else
+                    {
+                        list.Add(new DailyOrderDetails()
+                        {
+                            ProductId = item.ProductId,
+                            Ammount = item.Ammount
+                        });
+                    }
+                }
+
+                foreach (var item in list)
+                {
+                    Product product = GetProductById(item.ProductId);
+                    details += product.Name + " - " + (product.Unity ? item.Ammount.ToString("N0") : item.Ammount.ToString("N2")) + "\n";
+                }
+            }
+            else
+            {
+                foreach (var item in _clientsManagerService.GetTodayDailyOrder(client, todayDate.DayOfWeek).AllItems)
+                {
+                    Product product = GetProductById(item.ProductId);
+                    details += product.Name + " - " + (product.Unity ? item.Ammount.ToString("N0") : item.Ammount.ToString("N2")) + "\n";
+                }
+            }
+
+            if (details == "") return "Nenhum Produto";
+
+            return details;
+        }
     }
 }

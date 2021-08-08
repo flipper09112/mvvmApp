@@ -1,5 +1,6 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Navigation;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -45,7 +46,17 @@ namespace tabApp.Core.ViewModels.Global
 
         private void SaveAllData()
         {
+            AddTotalOrderRegist();
             _dataBaseManagerService.SaveAllDocs();
+        }
+
+        private void AddTotalOrderRegist()
+        {
+            var json = JsonConvert.SerializeObject(ProductsList);
+             _dataBaseManagerService.InsertGlobalOrderRegist(new GlobalOrderRegist() { 
+                OrderRegistDate = DateTime.Today,
+                JsonData = json
+            });
         }
 
         private List<ProductAmmount> _productsList;

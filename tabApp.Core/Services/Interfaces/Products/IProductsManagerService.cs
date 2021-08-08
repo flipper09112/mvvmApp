@@ -17,5 +17,6 @@ namespace tabApp.Core.Services.Interfaces.Products
         double GetProductAmmount(int clientId, Product product);
         Product GetProductByClosestName(string productName);
         int GetUniqueId();
+        string GetDailyOrderDesc(Client client);
     }
 }

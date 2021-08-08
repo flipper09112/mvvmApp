@@ -15,7 +15,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.25" />
 
     <View
         android:id="@+id/divider"
@@ -39,41 +40,41 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextClock
-        android:id="@+id/imageView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:textColor="@color/white"
-        android:format24Hour="EE\n\ndd/MM/yyyy\n\nHH:mm:ss"
-        android:gravity="center"
-        android:autoSizeTextType="uniform"
-        android:autoSizeMaxTextSize="40sp"
-        android:fontFamily="@font/arista_pro_bold"
-        app:layout_constraintBottom_toTopOf="@+id/divider8"
-        app:layout_constraintEnd_toStartOf="@+id/divider2"
-        app:layout_constraintStart_toEndOf="@+id/divider"
-        app:layout_constraintTop_toTopOf="parent"/>
+  <TextClock
+    android:id="@+id/imageView"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:textColor="@color/white"
+    android:format24Hour="EE\n\ndd/MM/yyyy\n\nHH:mm:ss"
+    android:gravity="center"
+    android:autoSizeTextType="uniform"
+    android:autoSizeMaxTextSize="40sp"
+    android:fontFamily="@font/arista_pro_bold"
+    app:layout_constraintBottom_toTopOf="@+id/divider8"
+    app:layout_constraintEnd_toStartOf="@+id/divider2"
+    app:layout_constraintStart_toEndOf="@+id/divider"
+    app:layout_constraintTop_toTopOf="parent"/>
 
     <in.unicodelabs.kdgaugeview.KdGaugeView
         android:id="@+id/speedometer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        app:speed_limit="120"
-        app:speed="90"
-        app:maxSpeed="220"
-        app:unitOfMeasurement="km/h"
         app:animationTime="0"
-        app:subDivisionCircleColor="@color/white"
-        app:unitOfMeasurementTextColor="@color/white"
-        app:speedLimitTextColor="@color/white"
         app:dialActiveColor="@color/white"
-        app:speedTextColor="@color/white"
         app:dialInactiveColor="@color/transparent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/divider4"
         app:layout_constraintEnd_toStartOf="@+id/divider2"
         app:layout_constraintStart_toEndOf="@+id/divider"
-        app:layout_constraintTop_toBottomOf="@+id/divider8" />
+        app:layout_constraintTop_toBottomOf="@+id/divider8"
+        app:maxSpeed="220"
+        app:speed="90"
+        app:speedLimitTextColor="@color/white"
+        app:speedTextColor="@color/white"
+        app:speed_limit="120"
+        app:subDivisionCircleColor="@color/white"
+        app:unitOfMeasurement="km/h"
+        app:unitOfMeasurementTextColor="@color/white" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/todayOrdersList"
@@ -151,5 +152,31 @@
         app:layout_constraintEnd_toStartOf="@+id/divider"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/divider4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.8" />
+
+    <include
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        layout="@layout/snoozefragmentclientcard"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/divider2"
+        app:layout_constraintStart_toEndOf="@+id/divider"
+        app:layout_constraintTop_toBottomOf="@+id/divider4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

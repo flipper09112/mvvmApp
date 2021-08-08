@@ -13,7 +13,8 @@ namespace tabApp.Core.Services.Implementations.Timer
     {
         private IMvxNavigationService _navigationService;
         
-        private TimeSpan SessionDuration = TimeSpan.FromMinutes(5);
+       private TimeSpan SessionDuration = TimeSpan.FromMinutes(5);
+        //private TimeSpan SessionDuration = TimeSpan.FromSeconds(10);
         private Stopwatch stopWatch = new Stopwatch();
         private bool alreadyStarted;
         private Task _task;
@@ -53,6 +54,7 @@ namespace tabApp.Core.Services.Implementations.Timer
                 while(true)
                 {
                     if (stopWatch.IsRunning && stopWatch.Elapsed.Minutes >= SessionDuration.Minutes)
+                    //if (stopWatch.IsRunning && stopWatch.Elapsed.Seconds >= SessionDuration.Seconds)
                     {
                         if (!alreadyStarted) return;
                         alreadyStarted = false;

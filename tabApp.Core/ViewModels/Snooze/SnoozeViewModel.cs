@@ -68,5 +68,15 @@ namespace tabApp.Core.ViewModels.Snooze
         public override void DisAppearing()
         {
         }
+
+        public Client GetClosestClient(double latitude, double longitude)
+        {
+            return _clientsManagerService.GetClosestClient(latitude, longitude);
+        }
+
+        public string GetDailyOrderDesc(Client client)
+        {
+            return _productsManagerService.GetDailyOrderDesc(client);
+        }
     }
 }

@@ -14,6 +14,7 @@ using tabApp.Core.Services.Interfaces.Products;
 using tabApp.Core.Services.Interfaces;
 using tabApp.Core.Models.Notifications;
 using tabApp.Core.Services.Interfaces.Notifications;
+using tabApp.Core.Models.GlobalOrder;
 
 namespace tabApp.Core.Services.Implementations.DB
 {
@@ -65,6 +66,7 @@ namespace tabApp.Core.Services.Implementations.DB
                     Database.DropTable<DailyOrderDetails>();
                     Database.DropTable<ExtraOrder>();
                     Database.DropTable<Notification>();
+                    Database.DropTable<GlobalOrderRegist>();
                 }
                 
                 Database.CreateTable<Regist>();
@@ -76,6 +78,7 @@ namespace tabApp.Core.Services.Implementations.DB
                 Database.CreateTable<DailyOrderDetails>();
                 Database.CreateTable<ExtraOrder>();
                 Database.CreateTable<Notification>();
+                Database.CreateTable<GlobalOrderRegist>();
 
             } catch (NotSupportedException e) {
                 Debug.WriteLine(e.Message);
@@ -149,6 +152,10 @@ namespace tabApp.Core.Services.Implementations.DB
         }
 
         #region Inserts
+        public void InsertGlobalOrderRegist(GlobalOrderRegist globalOrderRegist)
+        {
+            Database.Insert(globalOrderRegist);
+        }
 
         public void InsertNewProduct(Product product)
         {

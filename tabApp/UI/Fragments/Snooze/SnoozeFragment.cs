@@ -28,12 +28,14 @@ namespace tabApp.UI.Fragments.Snooze
         private AndroidX.RecyclerView.Widget.RecyclerView _notificationList;
         private ImageView _withoutOrders;
         private ImageView _withoutNotifications;
+        private TextView _clientNameLabel;
         private List<(Client Client, ExtraOrder ExtraOrder)> _orders;
         private List<Core.Models.Notifications.Notification> _notifications;
         private HomePageOrdersListAdapter _adapter;
         private bool _running;
         private NotificationsListAdapter _notificationsAdapter;
         private bool _runningNot;
+        private TextView _clientDailyOrderLabel;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -46,7 +48,9 @@ namespace tabApp.UI.Fragments.Snooze
             _notificationList = view.FindViewById<AndroidX.RecyclerView.Widget.RecyclerView>(Resource.Id.notificationList);
             _withoutOrders = view.FindViewById<ImageView>(Resource.Id.withoutOrders);
             _withoutNotifications = view.FindViewById<ImageView>(Resource.Id.withoutNotifications);
-           
+            _clientNameLabel = view.FindViewById<TextView>(Resource.Id.clientNameLabel);
+            _clientDailyOrderLabel = view.FindViewById<TextView>(Resource.Id.clientDailyOrderLabel);
+
             var layoutManager2 = new AndroidX.RecyclerView.Widget.LinearLayoutManager(Context);
             _notificationList.SetLayoutManager(layoutManager2);
 
@@ -112,6 +116,17 @@ namespace tabApp.UI.Fragments.Snooze
 
             SetClosestOrder(obj);
             SetClosestNotification(obj);
+            SetClosestClient(obj);
+        }
+
+        private void SetClosestClient(Location coord)
+        {
+            Client client = ViewModel.GetClosestClient(coord.Latitude, coord.Longitude);
+            if (client == null) return;
+
+            _clientNameLabel.Text = client.Name + "\nId: " + client.Id;
+            _clientDailyOrderLabel.Text = ViewModel.GetDailyOrderDesc(client);
+           
         }
 
         private void SetClosestNotification(Location obj)
