@@ -5,12 +5,14 @@ using System.Text;
 using tabApp.Core.Models;
 using tabApp.Core.Services.Interfaces.Clients;
 using tabApp.Core.Services.Interfaces.DB;
+using tabApp.Core.Services.Interfaces.Products;
 
 namespace tabApp.Core.Services.Implementations.Clients
 {
     public class ClientsManagerService : IClientsManagerService
     {
         private List<Client> _clientsList;
+
         public List<Client> ClientsList => _clientsList;
 
         public List<Client> ClientsUpdatedToday {

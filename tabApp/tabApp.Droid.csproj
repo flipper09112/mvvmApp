@@ -90,6 +90,7 @@
     <Compile Include="UI\Adapters\ClientPage\CreateNotification\CreateNotificationsPredefinedAdapter.cs" />
     <Compile Include="UI\Adapters\EditClient\EditListSelectableAdapter.cs" />
     <Compile Include="UI\Adapters\Global\EditProductAdapter.cs" />
+    <Compile Include="UI\Adapters\Global\HomeFinancialsProductsAdapter.cs" />
     <Compile Include="UI\Adapters\Global\PriceTableAdapter.cs" />
     <Compile Include="UI\Adapters\Global\PriceTableFilterAdapter.cs" />
     <Compile Include="UI\Adapters\Global\ProductsTypesListAdapter.cs" />
@@ -127,6 +128,7 @@
     <Compile Include="UI\Fragments\Global\GlobalOrderFragment.cs" />
     <Compile Include="UI\Fragments\EditClient\SelectDaysPageFragment.cs" />
     <Compile Include="UI\Fragments\Global\Other\AppOtherOptionsFragment.cs" />
+    <Compile Include="UI\Fragments\Global\Other\HomeFinancialsFragment.cs" />
     <Compile Include="UI\Fragments\Global\Other\ReportFragment.cs" />
     <Compile Include="UI\Fragments\Global\PriceTable\AddProductFragment.cs" />
     <Compile Include="UI\Fragments\Global\PriceTable\EditProductFragment.cs" />
@@ -147,6 +149,7 @@
     <Compile Include="UI\ViewHolders\CreateNotifications\CreateNotificationsOtherDaysViewHolder.cs" />
     <Compile Include="UI\ViewHolders\CreateNotifications\ItemRadioViewHolderAndroidX.cs" />
     <Compile Include="UI\ViewHolders\EditProfileListItemViewHolder.cs" />
+    <Compile Include="UI\ViewHolders\HomeFinancialsProductsViewHolder.cs" />
     <Compile Include="UI\ViewHolders\ItemRadioViewHolder.cs" />
     <Compile Include="UI\ViewHolders\ItemReportViewHolder.cs" />
     <Compile Include="UI\ViewHolders\NotificationItemViewHolder.cs" />
@@ -871,6 +874,22 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\ItemText.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_finances.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\HomeFinancialsFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_stats.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\SnoozeFragmentClientCard.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

@@ -14,6 +14,7 @@ using tabApp.Core.Services.Interfaces.Products;
 using tabApp.Core.Services.Interfaces;
 using tabApp.Core.Models.Notifications;
 using tabApp.Core.Services.Interfaces.Notifications;
+using tabApp.Core.Models.GlobalOrder;
 
 namespace tabApp.Core.Services.Implementations.DB
 {
@@ -65,6 +66,7 @@ namespace tabApp.Core.Services.Implementations.DB
                     Database.DropTable<DailyOrderDetails>();
                     Database.DropTable<ExtraOrder>();
                     Database.DropTable<Notification>();
+                    Database.DropTable<GlobalOrderRegist>();
                 }
                 
                 Database.CreateTable<Regist>();
@@ -76,6 +78,7 @@ namespace tabApp.Core.Services.Implementations.DB
                 Database.CreateTable<DailyOrderDetails>();
                 Database.CreateTable<ExtraOrder>();
                 Database.CreateTable<Notification>();
+                Database.CreateTable<GlobalOrderRegist>();
 
             } catch (NotSupportedException e) {
                 Debug.WriteLine(e.Message);
@@ -103,16 +106,39 @@ namespace tabApp.Core.Services.Implementations.DB
             _clientsManagerService.ClientsList.ForEach(client => { 
                 try
                 {
-                    if(client.LastDayStopService?.AddDays(1).Date == DateTime.Today)
+                    if(client.LastDayStopService?.AddDays(1).Date >= DateTime.Today.Date)
                     {
                         if (!client.Active)
                         {
                             client.Active = true;
+                            client.StartDayStopService = null;
+                            client.LastDayStopService = null;
                             SaveClient(client, regist: null);
                         }
                     }
 
                 } catch(Exception e)
+                {
+                    //cant handle date
+                }
+            });
+
+            _clientsManagerService.ClientsList.ForEach(client => {
+                try
+                {
+                    if (client.StartDayStopService?.AddDays(1).Date >= DateTime.Today.Date)
+                    {
+                        if (!client.Active)
+                        {
+                            client.Active = false;
+                            client.StartDayStopService = null;
+                            client.LastDayStopService = null;
+                            SaveClient(client, regist: null);
+                        }
+                    }
+
+                }
+                catch (Exception e)
                 {
                     //cant handle date
                 }
@@ -126,6 +152,13 @@ namespace tabApp.Core.Services.Implementations.DB
         }
 
         #region Inserts
+        public void InsertGlobalOrderRegist(GlobalOrderRegist globalOrderRegist)
+        {
+            var regist = GetGlobalOrderRegists().Find(item => item.OrderRegistDate.Date == globalOrderRegist.OrderRegistDate.Date);
+
+            if(regist != null)
+                Database.Insert(globalOrderRegist);
+        }
 
         public void InsertNewProduct(Product product)
         {
@@ -373,6 +406,13 @@ namespace tabApp.Core.Services.Implementations.DB
         #endregion
 
         #region Gets
+        public List<GlobalOrderRegist> GetGlobalOrderRegists()
+        {
+            lock (locker)
+            {
+                return Database.GetAllWithChildren<GlobalOrderRegist>();
+            }
+        }
         public List<Client> GetClients()
         {
             lock (locker)

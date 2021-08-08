@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using tabApp.Core.Models;
+using tabApp.Core.Models.GlobalOrder;
 using tabApp.Core.Models.Notifications;
 
 namespace tabApp.Core.Services.Implementations.DB
@@ -32,5 +33,6 @@ namespace tabApp.Core.Services.Implementations.DB
         void InsertNotification(Notification notification);
         void InsertNewProduct(Product product);
         void InsertClient(Client newClient, Regist regist);
+        void InsertGlobalOrderRegist(GlobalOrderRegist globalOrderRegist);
     }
 }

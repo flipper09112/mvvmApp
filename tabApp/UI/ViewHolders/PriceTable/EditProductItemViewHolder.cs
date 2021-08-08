@@ -9,6 +9,7 @@ using AndroidX.RecyclerView.Widget;
 using MvvmCross.Commands;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using tabApp.Core.Models;
@@ -22,6 +23,7 @@ namespace tabApp.UI.ViewHolders.PriceTable
         private ImageView _icon;
         private TextView _editLabel;
         private EditText _editValue;
+        private double _value;
         private int _clientId;
 
         public MvxCommand<(int ClientId, string newValue)> ChangeValueCommand { get; internal set; }
@@ -38,11 +40,16 @@ namespace tabApp.UI.ViewHolders.PriceTable
 
         private void EditValueTextChanged(object sender, TextChangedEventArgs e)
         {
-            ChangeValueCommand?.Execute((_clientId, _editValue.Text.Replace(",", ".")));
+            double newAmmount = -1;
+            var parsed = double.TryParse(_editValue.Text.Replace(",", "."), NumberStyles.Number, CultureInfo.InvariantCulture, out newAmmount);
+
+            if (newAmmount != _value)
+                ChangeValueCommand?.Execute((_clientId, _editValue.Text.Replace(",", ".")));
         }
 
         internal void Bind(double value, bool pvp, string clientName = "", int clientId = -1)
         {
+            _value = value;
             _clientId = clientId;
 
             _icon.SetImageResource(ImageHelper.GetImageResource(context, "ic_money"));

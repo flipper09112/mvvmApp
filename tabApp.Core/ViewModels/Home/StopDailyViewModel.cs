@@ -211,7 +211,8 @@ namespace tabApp.Core.ViewModels.Home
         {
             double total = _ammountToPayService.CalculateBetweenDates(Client, FirstDayDeterminatedDate, LastDayDeterminatedDate);
             Client.AddExtra(-1 * total);
-            Client.UpdateActive(false);
+            if(FirstDayDeterminatedDate.Date == DateTime.Today.AddDays(1).Date)
+                Client.UpdateActive(false);
             Client.StartDayStopService = FirstDayDeterminatedDate;
             Client.LastDayStopService = LastDayDeterminatedDate;
             _dataBaseManagerService.SaveClient(Client,

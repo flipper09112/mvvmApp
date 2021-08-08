@@ -37,6 +37,16 @@ namespace tabApp.Core.ViewModels.Global.PriceTable
             _newValuesList = new List<(int ClientId, double newValue)>();
         }
 
+        public double GetValue(int clientId, double productSelected)
+        {
+            var newValue = _newValuesList.Find(item => item.ClientId == clientId);
+
+            if (newValue.ClientId == 0)
+                return productSelected;
+            else
+                return newValue.newValue;
+        }
+
         private void SaveNewValue((int ClientId, string newValue) newValue)
         {
             var value = _newValuesList.Find(item => item.ClientId == newValue.ClientId);
@@ -56,6 +66,7 @@ namespace tabApp.Core.ViewModels.Global.PriceTable
                 if (parsed)
                     _newValuesList[pos] = (value.ClientId, newAmmount);
             }
+            RaisePropertyChanged(nameof(SaveChangesCommand));
             SaveChangesCommand.RaiseCanExecuteChanged();
         }
 

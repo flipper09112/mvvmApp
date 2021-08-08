@@ -28,12 +28,14 @@ namespace tabApp.UI.Fragments.Snooze
         private AndroidX.RecyclerView.Widget.RecyclerView _notificationList;
         private ImageView _withoutOrders;
         private ImageView _withoutNotifications;
+        private TextView _clientNameLabel;
         private List<(Client Client, ExtraOrder ExtraOrder)> _orders;
         private List<Core.Models.Notifications.Notification> _notifications;
         private HomePageOrdersListAdapter _adapter;
         private bool _running;
         private NotificationsListAdapter _notificationsAdapter;
         private bool _runningNot;
+        private TextView _clientDailyOrderLabel;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -46,7 +48,9 @@ namespace tabApp.UI.Fragments.Snooze
             _notificationList = view.FindViewById<AndroidX.RecyclerView.Widget.RecyclerView>(Resource.Id.notificationList);
             _withoutOrders = view.FindViewById<ImageView>(Resource.Id.withoutOrders);
             _withoutNotifications = view.FindViewById<ImageView>(Resource.Id.withoutNotifications);
-           
+            _clientNameLabel = view.FindViewById<TextView>(Resource.Id.clientNameLabel);
+            _clientDailyOrderLabel = view.FindViewById<TextView>(Resource.Id.clientDailyOrderLabel);
+
             var layoutManager2 = new AndroidX.RecyclerView.Widget.LinearLayoutManager(Context);
             _notificationList.SetLayoutManager(layoutManager2);
 
@@ -112,6 +116,17 @@ namespace tabApp.UI.Fragments.Snooze
 
             SetClosestOrder(obj);
             SetClosestNotification(obj);
+            SetClosestClient(obj);
+        }
+
+        private void SetClosestClient(Location coord)
+        {
+            Client client = ViewModel.GetClosestClient(coord.Latitude, coord.Longitude);
+            if (client == null) return;
+
+            _clientNameLabel.Text = client.Name + " (" + client.Id + " )";
+            _clientDailyOrderLabel.Text = ViewModel.GetDailyOrderDesc(client);
+           
         }
 
         private void SetClosestNotification(Location obj)
@@ -124,7 +139,7 @@ namespace tabApp.UI.Fragments.Snooze
 
             foreach (var item in _notifications)
             {
-                if (item.Latitude.Equals("null") || item.Latitude != null) continue;
+                if (item.Latitude.Equals("null") || item.Latitude == null) continue;
 
                 double distance = Math.Sqrt(Math.Pow(double.Parse(item.Latitude) - obj.Latitude, 2) + Math.Pow(double.Parse(item.Longitude) - obj.Longitude, 2));
                 distances.Add(item, distance);
@@ -136,7 +151,7 @@ namespace tabApp.UI.Fragments.Snooze
             var closestOrder = distances.First(distance => distance.Value == minimumDistance).Key;
 
             int pos = _notifications.IndexOf(closestOrder);
-            _notificationList.ScrollToPosition(pos);
+            _notificationList.SmoothScrollToPosition(pos);
             _runningNot = false;
         }
 
@@ -150,19 +165,22 @@ namespace tabApp.UI.Fragments.Snooze
 
             foreach (var item in _orders)
             {
-                if (item.Client.Address.Coordenadas.Equals("null") || item.Client.Address.Coordenadas != null) continue;
+                if (item.Client.Address.Coordenadas.Equals("null") || item.Client.Address.Coordenadas == null) continue;
 
                 double distance = Math.Sqrt(Math.Pow(double.Parse(item.Client.Address.Lat) - obj.Latitude, 2) + Math.Pow(double.Parse(item.Client.Address.Lgt) - obj.Longitude, 2));
                 distances.Add(item, distance);
             }
 
-            if (distances.Count == 0) return;
+            if (distances.Count == 0) {
+                _running = false;
+                return;
+            }
 
             double minimumDistance = distances.Min(distance => distance.Value);
             var closestOrder = distances.First(distance => distance.Value == minimumDistance).Key;
 
             int pos = _orders.IndexOf(closestOrder);
-            _todayOrdersList.ScrollToPosition(pos);
+            _todayOrdersList.SmoothScrollToPosition(pos);
 
             _running = false;
         }

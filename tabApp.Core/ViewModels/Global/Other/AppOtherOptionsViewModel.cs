@@ -14,13 +14,27 @@ namespace tabApp.Core.ViewModels.Global.Other
         public List<Option> Options { get; set; }
 
         public MvxCommand ShowReportCommand;
+        public MvxCommand ShowNotificationsCommand;
+        public MvxCommand ShowFinancialsPageCommand;
         public AppOtherOptionsViewModel(IMvxNavigationService navigationService)
         {
             _navigationService = navigationService;
 
             ShowReportCommand = new MvxCommand(ShowReport);
+            ShowNotificationsCommand = new MvxCommand(ShowNotifications);
+            ShowFinancialsPageCommand = new MvxCommand(ShowFinancialsPage);
 
             CreateListOptions();
+        }
+
+        private async void ShowFinancialsPage()
+        {
+            await _navigationService.Navigate<HomeFinancialsViewModel>();
+        }
+
+        private async void ShowNotifications()
+        {
+            //await _navigationService.Navigate<NotificationsDashBoardViewModel>();
         }
 
         private async void ShowReport()
@@ -32,6 +46,8 @@ namespace tabApp.Core.ViewModels.Global.Other
         {
             if (Options == null) Options = new List<Option>();
             Options.Add(new Option(ShowReportCommand, "Report", "ic_pdf"));
+            Options.Add(new Option(ShowNotificationsCommand, "Ver notificações", "ic_notification_other"));
+            Options.Add(new Option(ShowFinancialsPageCommand, "Finanças", "ic_finances"));
         }
 
         public override void Appearing()
