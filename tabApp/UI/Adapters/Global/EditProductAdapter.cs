@@ -34,9 +34,9 @@ namespace tabApp.UI.Adapters.Global
             {
                 editProductItemViewHolder.ChangeValueCommand = viewModel.ChangeValueCommand;
                 if (position == 0)
-                    editProductItemViewHolder.Bind(productSelected.PVP, true);
+                    editProductItemViewHolder.Bind(viewModel.GetValue(-1, productSelected.PVP), true);
                 else
-                    editProductItemViewHolder.Bind(productSelected.ReSaleValues[position - 1].Value,
+                    editProductItemViewHolder.Bind(viewModel.GetValue(productSelected.ReSaleValues[position - 1].ClientId, productSelected.ReSaleValues[position - 1].Value),
                                                    false, 
                                                    viewModel.GetClientName(productSelected.ReSaleValues[position - 1].ClientId),
                                                    productSelected.ReSaleValues[position - 1].ClientId);

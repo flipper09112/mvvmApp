@@ -60,6 +60,7 @@ namespace tabApp.UI.Fragments.Global.PriceTable
         {
             ViewModel.GoBack += GoBack;
             ViewModel.SaveChangesCommand.CanExecuteChanged += SaveChangesCommandCanExecuteChanged;
+            ViewModel.PropertyChanged += ViewModelPropertyChanged;
             _saveButton.Click += SaveButtonClick;
         }
 
@@ -67,7 +68,13 @@ namespace tabApp.UI.Fragments.Global.PriceTable
         {
             ViewModel.GoBack -= GoBack;
             ViewModel.SaveChangesCommand.CanExecuteChanged -= SaveChangesCommandCanExecuteChanged;
+            ViewModel.PropertyChanged -= ViewModelPropertyChanged;
             _saveButton.Click -= SaveButtonClick;
+        }
+
+        private void ViewModelPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            SetUI();
         }
 
         private void SaveButtonClick(object sender, EventArgs e)
