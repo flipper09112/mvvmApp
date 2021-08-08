@@ -132,6 +132,7 @@ namespace tabApp.Core.Services.Implementations.Products
         {
             DateTime todayDate = DateTime.Today;
             string details = "";
+            bool first = true;
 
             if (!client.Active) return "Cliente Inativado";
 
@@ -168,7 +169,8 @@ namespace tabApp.Core.Services.Implementations.Products
                 foreach (var item in list)
                 {
                     Product product = GetProductById(item.ProductId);
-                    details += product.Name + " - " + (product.Unity ? item.Ammount.ToString("N0") : item.Ammount.ToString("N2")) + "\n";
+                    details += first ? "" : "\n" + product.Name + " - " + (product.Unity ? item.Ammount.ToString("N0") : item.Ammount.ToString("N2"));
+                    first = false;
                 }
             }
             else
@@ -176,7 +178,8 @@ namespace tabApp.Core.Services.Implementations.Products
                 foreach (var item in _clientsManagerService.GetTodayDailyOrder(client, todayDate.DayOfWeek).AllItems)
                 {
                     Product product = GetProductById(item.ProductId);
-                    details += product.Name + " - " + (product.Unity ? item.Ammount.ToString("N0") : item.Ammount.ToString("N2")) + "\n";
+                    details += first ? "" : "\n" + product.Name + " - " + (product.Unity ? item.Ammount.ToString("N0") : item.Ammount.ToString("N2"));
+                    first = false;
                 }
             }
 

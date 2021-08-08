@@ -124,7 +124,7 @@ namespace tabApp.UI.Fragments.Snooze
             Client client = ViewModel.GetClosestClient(coord.Latitude, coord.Longitude);
             if (client == null) return;
 
-            _clientNameLabel.Text = client.Name + "\nId: " + client.Id;
+            _clientNameLabel.Text = client.Name + " (" + client.Id + " )";
             _clientDailyOrderLabel.Text = ViewModel.GetDailyOrderDesc(client);
            
         }
