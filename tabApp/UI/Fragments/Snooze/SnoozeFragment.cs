@@ -139,7 +139,7 @@ namespace tabApp.UI.Fragments.Snooze
 
             foreach (var item in _notifications)
             {
-                if (item.Latitude.Equals("null") || item.Latitude != null) continue;
+                if (item.Latitude.Equals("null") || item.Latitude == null) continue;
 
                 double distance = Math.Sqrt(Math.Pow(double.Parse(item.Latitude) - obj.Latitude, 2) + Math.Pow(double.Parse(item.Longitude) - obj.Longitude, 2));
                 distances.Add(item, distance);
@@ -151,7 +151,7 @@ namespace tabApp.UI.Fragments.Snooze
             var closestOrder = distances.First(distance => distance.Value == minimumDistance).Key;
 
             int pos = _notifications.IndexOf(closestOrder);
-            _notificationList.ScrollToPosition(pos);
+            _notificationList.SmoothScrollToPosition(pos);
             _runningNot = false;
         }
 
@@ -165,19 +165,22 @@ namespace tabApp.UI.Fragments.Snooze
 
             foreach (var item in _orders)
             {
-                if (item.Client.Address.Coordenadas.Equals("null") || item.Client.Address.Coordenadas != null) continue;
+                if (item.Client.Address.Coordenadas.Equals("null") || item.Client.Address.Coordenadas == null) continue;
 
                 double distance = Math.Sqrt(Math.Pow(double.Parse(item.Client.Address.Lat) - obj.Latitude, 2) + Math.Pow(double.Parse(item.Client.Address.Lgt) - obj.Longitude, 2));
                 distances.Add(item, distance);
             }
 
-            if (distances.Count == 0) return;
+            if (distances.Count == 0) {
+                _running = false;
+                return;
+            }
 
             double minimumDistance = distances.Min(distance => distance.Value);
             var closestOrder = distances.First(distance => distance.Value == minimumDistance).Key;
 
             int pos = _orders.IndexOf(closestOrder);
-            _todayOrdersList.ScrollToPosition(pos);
+            _todayOrdersList.SmoothScrollToPosition(pos);
 
             _running = false;
         }
