@@ -164,7 +164,7 @@ namespace tabApp.Core.Services.Implementations.Orders
             {
                 var listItem = items.Find(item => item.Product.Id == dailyItem.ProductId);
                 Product productModel = _productsManagerService.GetProductById(dailyItem.ProductId);
-                if (productModel.ProductType == ProductTypeEnum.PastelariaIndividual)
+                if (productModel.ProductType == ProductTypeEnum.PastelariaIndividual || productModel.ProductType == ProductTypeEnum.SemiFrioIndividual)
                     continue;
 
                 if (/*!productModel.Unity*/ productModel.ProductType == ProductTypeEnum.None)
