@@ -34,5 +34,6 @@ namespace tabApp.Core.Services.Implementations.DB
         void InsertNewProduct(Product product);
         void InsertClient(Client newClient, Regist regist);
         void InsertGlobalOrderRegist(GlobalOrderRegist globalOrderRegist);
+        void UpdateTotalOrderRegist(GlobalOrderRegist totalOrder);
     }
 }

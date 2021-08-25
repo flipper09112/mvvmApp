@@ -118,6 +118,10 @@ namespace tabApp.Core
             _dataBaseManagerService.UpdateOrder(extraOrder);
             _dialogService.ShowSuccessChangeSnackBar("Adicionado extra com sucesso");
             UpdateOrderList?.Invoke(null, null);
+
+            _chooseClientService.SelectClient(_clientsManagerService.GetClientById(extraOrder.ClientId));
+            RaisePropertyChanged(nameof(AddOrderExtra));
+
             IsBusy = false;
         }
 
@@ -232,7 +236,7 @@ namespace tabApp.Core
 
         private async void StopDailysClient(int arg)
         {
-            _chooseClientService.SelectClient(_clientsManagerService.ClientsList[arg]);
+            _chooseClientService.SelectClient(ClientsList[arg]);
             if(_clientsManagerService.ClientsList[arg].Active)
             {
                 await _navigationService.Navigate<StopDailyViewModel>();
@@ -393,7 +397,14 @@ namespace tabApp.Core
     public class LongPressItem
     {
         public string Name { get; set; }
+        public LongPressItemType Type { get; set; }
         public MvxCommand Command { get; set; }
+    }
+
+    public enum LongPressItemType
+    {
+        Sell, 
+        Buy
     }
 
     public class SecondaryOptions

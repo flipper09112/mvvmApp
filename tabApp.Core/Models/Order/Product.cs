@@ -17,6 +17,9 @@ namespace tabApp.Core.Models
         public bool Unity { get; set; }
         public ProductTypeEnum ProductType { get; set; }
         public double PVP { get; set; }
+        public double CostProduct { get; set; }
+        public double Discount { get; set; }
+        public int Iva { get; set; }
 
         [OneToMany]
         public List<ReSaleValues> ReSaleValues { get; set; }
@@ -24,6 +27,29 @@ namespace tabApp.Core.Models
         public Product()
         {
             ReSaleValues = new List<ReSaleValues>();
+        }
+
+        internal double GetCostValueWithIva()
+        {
+            if (Discount == null || Discount == 0)
+                return CostProduct + (CostProduct * Iva * 0.01);
+            else
+            {
+                var cost = CostProduct - (CostProduct * Discount * 0.01);
+                return cost + (cost * Iva * 0.01);
+            }
+        }
+
+        internal bool HasCostInfo()
+        {
+            if (CostProduct == null || CostProduct == 0)
+                return false;
+            return true;
+        }
+
+        internal double GetCostValueWithoutIva()
+        {
+            return CostProduct;
         }
     }
 

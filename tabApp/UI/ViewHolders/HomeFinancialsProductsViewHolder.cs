@@ -30,12 +30,14 @@ namespace tabApp.UI.ViewHolders
             _productAmmount = itemView.FindViewById<EditText>(Resource.Id.productAmmount);
         }
 
-        internal void Bind(ProductAmmount product, bool withoutMargins)
+        internal void Bind(ProductAmmount product, bool withoutMargins, bool editableList)
         {
             this.product = product;
             SetupEditText();
             _productName.Text = product.Product.Name;
             _productAmmount.Text = product.Product.Unity ? product.Ammount.ToString("N0") : product.Ammount.ToString("N2");
+
+            _productAmmount.Enabled = editableList;
 
             if (withoutMargins)
             {

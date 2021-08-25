@@ -71,7 +71,7 @@ namespace tabApp.Services.Implementations
             dialog.Show();
         }
 
-        public void ShowDatePickerDialog(Action<DateTime> confirmAction, bool withMinDate)
+        public void ShowDatePickerDialog(Action<DateTime> confirmAction, bool withMinDate, DateTime? minDate = null, DateTime? maxDate = null)
         {
             var top = Mvx.Resolve<IMvxAndroidCurrentTopActivity>();
             var act = top.Activity;
@@ -81,8 +81,13 @@ namespace tabApp.Services.Implementations
             DateTime today = DateTime.Today;
             DatePickerDialog dialog = new DatePickerDialog(act, OnDateSet, today.Year, today.Month - 1, today.Day);
             
-            if(withMinDate)
+            if(withMinDate && minDate == null)
                 dialog.DatePicker.MinDate = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+            else if(minDate != null)
+                dialog.DatePicker.MinDate = new DateTimeOffset(((DateTime)minDate)).ToUnixTimeMilliseconds();
+
+            if(maxDate != null)
+                dialog.DatePicker.MaxDate = new DateTimeOffset(((DateTime)maxDate)).ToUnixTimeMilliseconds();
 
             dialog.Show();
         }
@@ -187,6 +192,22 @@ namespace tabApp.Services.Implementations
         {
             _longPressPopUp?.Dismiss();
             _longPressPopUp = null;
+        }
+
+        public void Show(string v1, string v2)
+        {
+            var top = Mvx.Resolve<IMvxAndroidCurrentTopActivity>();
+            var act = top.Activity;
+
+            Android.App.AlertDialog.Builder alert = new Android.App.AlertDialog.Builder(act);
+            alert.SetTitle(v1);
+            alert.SetMessage(v2);
+            alert.SetPositiveButton("OK", (senderAlert, args) =>
+            {
+            });
+
+            Dialog dialog = alert.Create();
+            dialog.Show();
         }
     }
 }

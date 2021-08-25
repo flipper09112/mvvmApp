@@ -90,11 +90,13 @@
     <Compile Include="UI\Adapters\ClientPage\CreateNotification\CreateNotificationsPredefinedAdapter.cs" />
     <Compile Include="UI\Adapters\EditClient\EditListSelectableAdapter.cs" />
     <Compile Include="UI\Adapters\Global\EditProductAdapter.cs" />
+    <Compile Include="UI\Adapters\Global\EditProductCostAdapter.cs" />
     <Compile Include="UI\Adapters\Global\HomeFinancialsProductsAdapter.cs" />
     <Compile Include="UI\Adapters\Global\PriceTableAdapter.cs" />
     <Compile Include="UI\Adapters\Global\PriceTableFilterAdapter.cs" />
     <Compile Include="UI\Adapters\Global\ProductsTypesListAdapter.cs" />
     <Compile Include="UI\Adapters\Global\SelectClientRadiosAdapter.cs" />
+    <Compile Include="UI\Adapters\Global\WeekFinancialsAdapter.cs" />
     <Compile Include="UI\Adapters\Home\HomePageOrdersListAdapter.cs" />
     <Compile Include="UI\Adapters\Home\HomePageViewPagerAdapter.cs" />
     <Compile Include="UI\Adapters\Home\LongPressPopPupAdapter.cs" />
@@ -128,9 +130,12 @@
     <Compile Include="UI\Fragments\Global\GlobalOrderFragment.cs" />
     <Compile Include="UI\Fragments\EditClient\SelectDaysPageFragment.cs" />
     <Compile Include="UI\Fragments\Global\Other\AppOtherOptionsFragment.cs" />
-    <Compile Include="UI\Fragments\Global\Other\HomeFinancialsFragment.cs" />
+    <Compile Include="UI\Fragments\Global\Other\Finance\HomeFinancialsFragment.cs" />
+    <Compile Include="UI\Fragments\Global\Other\Finance\StatsFragment.cs" />
+    <Compile Include="UI\Fragments\Global\Other\Finance\WeekFinancialsFragment.cs" />
     <Compile Include="UI\Fragments\Global\Other\ReportFragment.cs" />
     <Compile Include="UI\Fragments\Global\PriceTable\AddProductFragment.cs" />
+    <Compile Include="UI\Fragments\Global\PriceTable\EditProductCostValuesFragment.cs" />
     <Compile Include="UI\Fragments\Global\PriceTable\EditProductFragment.cs" />
     <Compile Include="UI\Fragments\Global\PriceTable\PriceTableConfigurationFragment.cs" />
     <Compile Include="UI\Fragments\Global\PriceTable\PriceTableFilterFragment.cs" />
@@ -158,6 +163,7 @@
     <Compile Include="UI\ViewHolders\IndividualCakeOrderItemViewHolder.cs" />
     <Compile Include="UI\ViewHolders\OrderViewHolder.cs" />
     <Compile Include="UI\ViewHolders\PriceTable\ClientRadioViewHolder.cs" />
+    <Compile Include="UI\ViewHolders\PriceTable\EditProductCostItemViewHolder.cs" />
     <Compile Include="UI\ViewHolders\PriceTable\EditProductItemViewHolder.cs" />
     <Compile Include="UI\ViewHolders\PriceTable\PriceTableViewHolder.cs" />
     <Compile Include="UI\ViewHolders\PriceTable\ProductTypeViewHolder.cs" />
@@ -179,6 +185,7 @@
     <Compile Include="UI\ViewHolders\DetailViewHolder.cs" />
     <Compile Include="UI\ViewHolders\EmptyListViewHolder.cs" />
     <Compile Include="UI\ViewHolders\SimpleProductViewHolder.cs" />
+    <Compile Include="UI\ViewHolders\WeekFinancialsItemViewHolder.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\Lotties\sending-bt-data.json" />
@@ -238,8 +245,14 @@
     <PackageReference Include="Glide.Xamarin">
       <Version>4.1.1</Version>
     </PackageReference>
+    <PackageReference Include="Karamunting.Android.Lecho.HelloCharts">
+      <Version>1.5.8</Version>
+    </PackageReference>
     <PackageReference Include="Karamunting.Android.Sorbh.KdGaugeView">
       <Version>1.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microcharts">
+      <Version>0.9.5.9</Version>
     </PackageReference>
     <PackageReference Include="Plugin.CurrentActivity">
       <Version>2.1.0.4</Version>
@@ -890,6 +903,26 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\SnoozeFragmentClientCard.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\StatsFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\WeekFinancialsFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\EditProductCostValuesFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\WeekFinancialsItem.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

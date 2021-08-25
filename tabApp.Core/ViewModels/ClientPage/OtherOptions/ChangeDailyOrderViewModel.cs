@@ -3,6 +3,7 @@ using MvvmCross.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using tabApp.Core.Models;
 using tabApp.Core.Services.Implementations.Clients;
 using tabApp.Core.Services.Implementations.DB;
@@ -10,6 +11,7 @@ using tabApp.Core.Services.Interfaces.Clients;
 using tabApp.Core.Services.Interfaces.DB;
 using tabApp.Core.Services.Interfaces.Dialogs;
 using tabApp.Core.Services.Interfaces.Products;
+using tabApp.Core.ViewModels.EditClient;
 
 namespace tabApp.Core.ViewModels.ClientPage.OtherOptions
 {
@@ -26,7 +28,9 @@ namespace tabApp.Core.ViewModels.ClientPage.OtherOptions
         public MvxCommand ShowSelectDaysPageCommand;
         public MvxCommand<DayOfWeek> AddProductCommand;
         public MvxCommand SaveChangesCommand;
-        public MvxCommand DatePickerDialogCommand;
+        public MvxCommand DatePickerDialogCommand; 
+        public MvxCommand GoBackCommand;
+        public MvxCommand ShowCreateNotificationPageCommand;
 
         public EventHandler GoBack2Times;
 
@@ -49,7 +53,22 @@ namespace tabApp.Core.ViewModels.ClientPage.OtherOptions
             ShowSelectDaysPageCommand = new MvxCommand(ShowSelectDaysPage);
             DatePickerDialogCommand = new MvxCommand(DatePickerDialog);
             AddProductCommand = new MvxCommand<DayOfWeek>(AddProduct);
-            SaveChangesCommand = new MvxCommand(SaveChanges, CanSaveChanges);
+            SaveChangesCommand = new MvxCommand(SaveChangesDialog, CanSaveChanges);
+            GoBackCommand = new MvxCommand(GoBackAction);
+            ShowCreateNotificationPageCommand = new MvxCommand(CreateNotificationPageAsync);
+        }
+
+        private async void CreateNotificationPageAsync()
+        {
+            SaveChanges();
+            GoBack2Times?.Invoke(null, null);
+            await _navService.Navigate<CreateNotificationsViewModel>();
+        }
+
+        private void GoBackAction()
+        {
+            SaveChanges();
+            GoBack2Times?.Invoke(null, null);
         }
 
         private void DatePickerDialog()
@@ -117,6 +136,31 @@ namespace tabApp.Core.ViewModels.ClientPage.OtherOptions
             if (_domDailyItem)
                 return true;
             return false;
+        }
+
+
+        private void SaveChangesDialog()
+        {
+            _dialogService.ShowChooseOptions(GetOptions());
+        }
+
+        private List<LongPressItem> GetOptions()
+        {
+            List<LongPressItem> items = new List<LongPressItem>();
+
+            items.Add(new LongPressItem()
+            {
+                Name = "Ignorar",
+                Command = GoBackCommand
+            });
+
+            items.Add(new LongPressItem()
+            {
+                Name = "Criar Notificações de Aviso",
+                Command = ShowCreateNotificationPageCommand
+            });
+
+            return items;
         }
 
         private void SaveChanges()
@@ -253,7 +297,7 @@ namespace tabApp.Core.ViewModels.ClientPage.OtherOptions
             if (!isValid) return;
 
             _dataBaseManagerService.SaveClient(Client, toRegist);
-            GoBack2Times?.Invoke(null, null);
+            //GoBack2Times?.Invoke(null, null);
         }
 
         private void UpdateClient()

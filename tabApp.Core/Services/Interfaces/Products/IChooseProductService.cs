@@ -8,6 +8,7 @@ namespace tabApp.Core.Services.Implementations.Products
     public interface IChooseProductService
     {
         Product Product { get; }
+        EditTypeEnum EditType { get; set; }
         void SelectProduct(Product product);
     }
 }

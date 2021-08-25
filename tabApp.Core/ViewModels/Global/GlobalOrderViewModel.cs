@@ -52,11 +52,33 @@ namespace tabApp.Core.ViewModels.Global
 
         private void AddTotalOrderRegist()
         {
-            var json = JsonConvert.SerializeObject(ProductsList);
+            List<ProductAmmount> list;
+            if (_globalOrderFilterService.IsActive)
+                list = _globalOrderFilterService.ProductsListCompleted;
+            else
+            {
+                list = _ordersManagerService.GetTotalOrderWithoutFilter(DateTime.Today.AddDays(1));
+            }
+
+            SetValuesFromUser(list);
+
+            var json = JsonConvert.SerializeObject(list);
              _dataBaseManagerService.InsertGlobalOrderRegist(new GlobalOrderRegist() { 
-                OrderRegistDate = DateTime.Today,
+                OrderRegistDate = DateTime.Today.AddDays(1),
                 JsonData = json
             });
+        }
+
+        private void SetValuesFromUser(List<ProductAmmount> list)
+        {
+            foreach(var item in list)
+            {
+                var productUpdated = ProductsList.Find(prod => prod.Product.Id == item.Product.Id);
+
+                if (productUpdated != null) {
+                    item.Ammount = productUpdated.Ammount;
+                }
+            }
         }
 
         private List<ProductAmmount> _productsList;

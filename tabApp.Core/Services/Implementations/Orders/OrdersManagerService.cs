@@ -122,6 +122,45 @@ namespace tabApp.Core.Services.Implementations.Orders
             }
         }
 
+
+        public List<ProductAmmount> GetTotalOrderWithoutFilter(DateTime dateTime)
+        {
+            List<ProductAmmount> items = new List<ProductAmmount>();
+            foreach (var client in _clientsManagerService.ClientsList)
+            {
+                if (!(client.LastDayStopService != null && ((DateTime)client.LastDayStopService).Date == DateTime.Today.Date))
+                {
+                    if (!client.Active)
+                        continue;
+                }
+                else
+                {
+                }
+
+                if (client.StartDayStopService != null && ((DateTime)client.StartDayStopService).Date == DateTime.Today.AddDays(1).Date)
+                    continue;
+
+                ExtraOrder order = _clientsManagerService.HasOrderThisDate(client, dateTime);
+                if (order == null)
+                {
+                    AddProductAmmountToListWithoutFilter(items, ClientHelper.GetDailyOrder(dateTime.DayOfWeek, client).AllItems);
+                }
+                else
+                {
+                    if (order.IsTotal)
+                    {
+                        AddProductAmmountToListWithoutFilter(items, order.AllItems);
+                    }
+                    else
+                    {
+                        AddProductAmmountToListWithoutFilter(items, order.AllItems);
+                        AddProductAmmountToListWithoutFilter(items, ClientHelper.GetDailyOrder(dateTime.DayOfWeek, client).AllItems);
+                    }
+                }
+            }
+            return items;
+        }
+
         public List<ProductAmmount> GetTotalOrder(DateTime dateTime)
         {
             List<ProductAmmount> items = new List<ProductAmmount>();
@@ -158,13 +197,43 @@ namespace tabApp.Core.Services.Implementations.Orders
             return items;
         }
 
+        private void AddProductAmmountToListWithoutFilter(List<ProductAmmount> items, List<DailyOrderDetails> allItems)
+        {
+            foreach (var dailyItem in allItems)
+            {
+                var listItem = items.Find(item => item.Product.Id == dailyItem.ProductId);
+                Product productModel = _productsManagerService.GetProductById(dailyItem.ProductId);
+                
+                if (/*!productModel.Unity*/ productModel.ProductType == ProductTypeEnum.None)
+                {
+                    items.Add(new ProductAmmount()
+                    {
+                        Product = productModel,
+                        Ammount = dailyItem.Ammount
+                    });
+                }
+                else if (listItem == null)
+                {
+                    items.Add(new ProductAmmount()
+                    {
+                        Product = productModel,
+                        Ammount = dailyItem.Ammount
+                    });
+                }
+                else
+                {
+                    listItem.Ammount += dailyItem.Ammount;
+                }
+            }
+        }
+
         private void AddProductAmmountToList(List<ProductAmmount> items, List<DailyOrderDetails> allItems)
         {
             foreach (var dailyItem in allItems)
             {
                 var listItem = items.Find(item => item.Product.Id == dailyItem.ProductId);
                 Product productModel = _productsManagerService.GetProductById(dailyItem.ProductId);
-                if (productModel.ProductType == ProductTypeEnum.PastelariaIndividual)
+                if (productModel.ProductType == ProductTypeEnum.PastelariaIndividual || productModel.ProductType == ProductTypeEnum.SemiFrioIndividual)
                     continue;
 
                 if (/*!productModel.Unity*/ productModel.ProductType == ProductTypeEnum.None)
@@ -295,6 +364,37 @@ namespace tabApp.Core.Services.Implementations.Orders
                 foreach (DateTime day in EachDay(startDate, endDate))
                 {
                     AddProductAmmountToList(items, ClientHelper.GetDailyOrder(day.DayOfWeek, client).AllItems);
+                }
+            }
+
+            return items;
+        }
+
+        public List<ProductAmmount> GetTotalOrderWithoutFilter(DateTime startDate, DateTime endDate)
+        { List<ProductAmmount> items = new List<ProductAmmount>();
+
+            foreach (var client in _clientsManagerService.ClientsList) {
+
+                if (!client.Active) continue;
+
+                ExtraOrder order = _clientsManagerService.HasOrderThisDate(client, startDate);
+
+                if(order != null)
+                {
+                    if (order.IsTotal)
+                    {
+                        AddProductAmmountToListWithoutFilter(items, order.AllItems);
+                        continue;
+                    }
+                    else
+                    {
+                        AddProductAmmountToListWithoutFilter(items, order.AllItems);
+                    }
+                }
+
+                foreach (DateTime day in EachDay(startDate, endDate))
+                {
+                    AddProductAmmountToListWithoutFilter(items, ClientHelper.GetDailyOrder(day.DayOfWeek, client).AllItems);
                 }
             }
 

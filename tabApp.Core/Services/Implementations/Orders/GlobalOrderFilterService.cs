@@ -11,5 +11,6 @@ namespace tabApp.Core.Services.Implementations.Orders
         public bool IsActive { get ; set ; }
 
         public List<ProductAmmount> ProductsList { get; set; }
+        public List<ProductAmmount> ProductsListCompleted { get; set; }
     }
 }
