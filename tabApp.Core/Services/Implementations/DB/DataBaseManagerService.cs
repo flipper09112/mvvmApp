@@ -15,6 +15,7 @@ using tabApp.Core.Services.Interfaces;
 using tabApp.Core.Models.Notifications;
 using tabApp.Core.Services.Interfaces.Notifications;
 using tabApp.Core.Models.GlobalOrder;
+using tabApp.Core.Services.Interfaces.Orders;
 
 namespace tabApp.Core.Services.Implementations.DB
 {
@@ -27,6 +28,7 @@ namespace tabApp.Core.Services.Implementations.DB
         private IFirebaseService _firebaseService;
         private IFileService _fileService;
         private INotificationsManagerService _notificationsManagerService;
+        private IGlobalOrdersPastManagerService _globalOrdersPastManagerService;
 
         public SQLiteConnection Database { get; set; }
         static object locker = new object();
@@ -37,7 +39,8 @@ namespace tabApp.Core.Services.Implementations.DB
                                       IProductsManagerService productsManagerService,
                                       IFileService fileService,
                                       IFirebaseService firebaseService,
-                                      INotificationsManagerService notificationsManagerService)
+                                      INotificationsManagerService notificationsManagerService,
+                                      IGlobalOrdersPastManagerService globalOrdersPastManagerService)
         {
             _sQLiteService = sQLiteService;
             _clientsManagerService = clientsManagerService;
@@ -45,6 +48,7 @@ namespace tabApp.Core.Services.Implementations.DB
             _firebaseService = firebaseService;
             _fileService = fileService;
             _notificationsManagerService = notificationsManagerService;
+            _globalOrdersPastManagerService = globalOrdersPastManagerService;
         }
 
         private void CheckDataBaseCreated(bool deleteTables)
@@ -96,6 +100,7 @@ namespace tabApp.Core.Services.Implementations.DB
             _clientsManagerService.SetClients(GetClients().OrderBy(item => item.Position).ToList<Client>());
             _productsManagerService.SetProducts(GetProducts());
             _notificationsManagerService.SetNotifications(GetNotifications());
+            _globalOrdersPastManagerService.SetGlobalOrders(GetGlobalOrderRegists());
 
             //checks and saves states
             CheckFirstDayAfterStopService();
@@ -156,7 +161,7 @@ namespace tabApp.Core.Services.Implementations.DB
         {
             var regist = GetGlobalOrderRegists().Find(item => item.OrderRegistDate.Date == globalOrderRegist.OrderRegistDate.Date);
 
-            if(regist != null)
+            if(regist == null)
                 Database.Insert(globalOrderRegist);
         }
 
@@ -244,7 +249,10 @@ namespace tabApp.Core.Services.Implementations.DB
         #endregion
 
         #region Updates
-
+        public void UpdateTotalOrderRegist(GlobalOrderRegist totalOrder)
+        {
+            Database.Update(totalOrder);
+        }
         public void SaveProduct(Product productSelected)
         {
             Database.Update(productSelected);

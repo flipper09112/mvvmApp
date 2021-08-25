@@ -9,5 +9,6 @@ namespace tabApp.Core.Services.Interfaces.Orders
     {
         bool IsActive { get; set; }
         List<ProductAmmount> ProductsList { get; set; }
+        List<ProductAmmount> ProductsListCompleted { get; set; }
     }
 }

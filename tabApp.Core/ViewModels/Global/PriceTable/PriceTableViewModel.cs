@@ -22,9 +22,10 @@ namespace tabApp.Core.ViewModels.Global
 
         public MvxCommand ShowPriceTableFilterCommand;
         public MvxCommand ShowPriceTableConfigurationCommand;
-        public MvxCommand<Product> LongPressCommand;
+        public MvxCommand<Product> LongPressCommand; 
         public MvxCommand EditProductCommand;
-        
+        public MvxCommand EditProductBuyCommand;
+
         public bool HasFilter => _priceTableFilterService.HasFilter;
         public Client ClientFilter => _priceTableFilterService.ClientSelected;
 
@@ -43,10 +44,18 @@ namespace tabApp.Core.ViewModels.Global
             ShowPriceTableConfigurationCommand = new MvxCommand(ShowPriceTableConfiguration);
             LongPressCommand = new MvxCommand<Product>(LongPress);
             EditProductCommand = new MvxCommand(EditProduct);
+            EditProductBuyCommand = new MvxCommand(EditProductBuy);
+        }
+
+        private async void EditProductBuy()
+        {
+            _chooseProductService.EditType = EditTypeEnum.Buy;
+            await _navigationService.Navigate<EditProductCostValuesViewModel>();
         }
 
         private async void EditProduct()
         {
+            _chooseProductService.EditType = EditTypeEnum.Sell;
             await _navigationService.Navigate<EditProductViewModel>();
         }
 
@@ -110,8 +119,14 @@ namespace tabApp.Core.ViewModels.Global
             var items = new List<LongPressItem>();
 
             items.Add(new LongPressItem() { 
-                Name = "Editar valores",
+                Name = "Editar valores (Venda)",
                 Command = EditProductCommand
+            });
+
+            items.Add(new LongPressItem()
+            {
+                Name = "Editar valores (Compra)",
+                Command = EditProductBuyCommand
             });
 
             return items;

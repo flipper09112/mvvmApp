@@ -397,7 +397,14 @@ namespace tabApp.Core
     public class LongPressItem
     {
         public string Name { get; set; }
+        public LongPressItemType Type { get; set; }
         public MvxCommand Command { get; set; }
+    }
+
+    public enum LongPressItemType
+    {
+        Sell, 
+        Buy
     }
 
     public class SecondaryOptions

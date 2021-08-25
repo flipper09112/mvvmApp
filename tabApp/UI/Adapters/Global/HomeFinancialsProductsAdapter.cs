@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using tabApp.Core.Models;
+using tabApp.Core.ViewModels.Global.Other;
 using tabApp.UI.ViewHolders;
 
 namespace tabApp.UI.Adapters.Global
@@ -17,10 +18,13 @@ namespace tabApp.UI.Adapters.Global
     public class HomeFinancialsProductsAdapter : RecyclerView.Adapter
     {
         private List<ProductAmmount> productsList;
+        private HomeFinancialsViewModel viewModel;
+        private bool editableList => viewModel.EditableList;
 
-        public HomeFinancialsProductsAdapter(List<ProductAmmount> productsList)
+        public HomeFinancialsProductsAdapter(List<ProductAmmount> productsList, HomeFinancialsViewModel viewModel)
         {
             this.productsList = productsList;
+            this.viewModel = viewModel;
         }
 
         public override int ItemCount => productsList?.Count ?? 0;
@@ -30,7 +34,7 @@ namespace tabApp.UI.Adapters.Global
             if (holder is HomeFinancialsProductsViewHolder)
             {
                 var vh = holder as HomeFinancialsProductsViewHolder;
-                vh.Bind(productsList[holder.AdapterPosition], true);
+                vh.Bind(productsList[holder.AdapterPosition], true, editableList);
             }
         }
 

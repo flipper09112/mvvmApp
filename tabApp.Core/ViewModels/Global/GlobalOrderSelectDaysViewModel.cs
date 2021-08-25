@@ -51,6 +51,7 @@ namespace tabApp.Core.ViewModels.Global
             {
                 _globalOrderFilterService.IsActive = true;
                 _globalOrderFilterService.ProductsList = _ordersManagerService.GetTotalOrder(FirstDay, LastDay);
+                _globalOrderFilterService.ProductsListCompleted = _ordersManagerService.GetTotalOrderWithoutFilter(FirstDay, LastDay);
             }
             IsBusy = false;
         }
