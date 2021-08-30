@@ -27,7 +27,6 @@ namespace tabApp.Core.ViewModels
         private readonly IInativityTimerService _inativityTimerService;
         private readonly IDataBaseManagerService _dataBaseService;
         private readonly IProductsManagerService _productsManagerService;
-        private readonly IDBService _dbService;
 
         public MvxCommand<(double lat, double lgt)> SetClosestClientCommand { get; private set; }
         public MvxAsyncCommand ShowHomePage { get; private set; }
@@ -44,8 +43,7 @@ namespace tabApp.Core.ViewModels
         public MainViewModel(IMvxNavigationService navigationService,
                              IChooseClientService chooseClientService, IClientsManagerService clientsManagerService,
                              IClientsListFilterService clientsListFilterService, IInativityTimerService inativityTimerService,
-                             IDataBaseManagerService clientsDataBaseService, IProductsManagerService productsManagerService,
-                             IDBService dbService)
+                             IDataBaseManagerService clientsDataBaseService, IProductsManagerService productsManagerService)
         {
             _navigationService = navigationService;
             _chooseClientService = chooseClientService;
@@ -54,7 +52,6 @@ namespace tabApp.Core.ViewModels
             _inativityTimerService = inativityTimerService;
             _dataBaseService = clientsDataBaseService;
             _productsManagerService = productsManagerService;
-            _dbService = dbService;
 
             ShowHomePage = new MvxAsyncCommand(async () => await _navigationService.Navigate<SplashViewModel>());
             SetClosestClientCommand = new MvxCommand<(double lat, double lgt)>(ShowClosestClient);
