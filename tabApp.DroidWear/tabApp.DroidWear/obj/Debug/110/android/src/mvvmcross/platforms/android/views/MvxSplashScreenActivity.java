@@ -26,14 +26,6 @@ public abstract class MvxSplashScreenActivity
 	}
 
 
-	public MvxSplashScreenActivity (int p0)
-	{
-		super (p0);
-		if (getClass () == MvxSplashScreenActivity.class)
-			mono.android.TypeManager.Activate ("MvvmCross.Platforms.Android.Views.MvxSplashScreenActivity, MvvmCross", "System.Int32, mscorlib", this, new java.lang.Object[] { p0 });
-	}
-
-
 	public void onCreate (android.os.Bundle p0)
 	{
 		n_onCreate (p0);

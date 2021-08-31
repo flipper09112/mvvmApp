@@ -29,14 +29,6 @@ public class MvxFragment
 	}
 
 
-	public MvxFragment (int p0)
-	{
-		super (p0);
-		if (getClass () == MvxFragment.class)
-			mono.android.TypeManager.Activate ("MvvmCross.Platforms.Android.Views.Fragments.MvxFragment, MvvmCross", "System.Int32, mscorlib", this, new java.lang.Object[] { p0 });
-	}
-
-
 	public void onCreate (android.os.Bundle p0)
 	{
 		n_onCreate (p0);

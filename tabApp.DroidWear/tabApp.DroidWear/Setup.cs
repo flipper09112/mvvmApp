@@ -13,7 +13,7 @@ using tabApp.Core;
 
 namespace tabApp.DroidWear
 {
-    internal class Setup : MvxAppCompatSetup<App>
+    public class Setup : MvxAppCompatSetup<App>
     {
 
         /// <summary>

@@ -28,14 +28,6 @@ public abstract class MvxTabsFragmentActivity
 	}
 
 
-	public MvxTabsFragmentActivity (int p0)
-	{
-		super (p0);
-		if (getClass () == MvxTabsFragmentActivity.class)
-			mono.android.TypeManager.Activate ("MvvmCross.Platforms.Android.Views.MvxTabsFragmentActivity, MvvmCross", "System.Int32, mscorlib", this, new java.lang.Object[] { p0 });
-	}
-
-
 	public void onCreate (android.os.Bundle p0)
 	{
 		n_onCreate (p0);

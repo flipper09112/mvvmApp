@@ -84,6 +84,10 @@
               "target": "Package",
               "version": "[5.0.0, )"
             },
+            "Xamarin.Essentials": {
+              "target": "Package",
+              "version": "[1.7.0, )"
+            },
             "itext7": {
               "target": "Package",
               "version": "[7.1.15, )"
@@ -149,7 +153,7 @@
           "dependencies": {
             "MvvmCross": {
               "target": "Package",
-              "version": "[8.0.2, )"
+              "version": "[6.4.1, )"
             },
             "MvvmCross.Droid.Support.V7.AppCompat": {
               "target": "Package",

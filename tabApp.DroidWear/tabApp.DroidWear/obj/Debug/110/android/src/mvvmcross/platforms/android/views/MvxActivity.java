@@ -12,7 +12,7 @@ public abstract class MvxActivity
 		__md_methods = 
 			"n_setContentView:(I)V:GetSetContentView_IHandler\n" +
 			"n_attachBaseContext:(Landroid/content/Context;)V:GetAttachBaseContext_Landroid_content_Context_Handler\n" +
-			"n_onAttachFragment:(Landroidx/fragment/app/Fragment;)V:GetOnAttachFragment_Landroidx_fragment_app_Fragment_Handler\n" +
+			"n_onAttachFragment:(Landroid/app/Fragment;)V:GetOnAttachFragment_Landroid_app_Fragment_Handler\n" +
 			"n_onCreate:(Landroid/os/Bundle;)V:GetOnCreate_Landroid_os_Bundle_Handler\n" +
 			"n_onDestroy:()V:GetOnDestroyHandler\n" +
 			"n_onStart:()V:GetOnStartHandler\n" +
@@ -32,14 +32,6 @@ public abstract class MvxActivity
 	}
 
 
-	public MvxActivity (int p0)
-	{
-		super (p0);
-		if (getClass () == MvxActivity.class)
-			mono.android.TypeManager.Activate ("MvvmCross.Platforms.Android.Views.MvxActivity, MvvmCross", "System.Int32, mscorlib", this, new java.lang.Object[] { p0 });
-	}
-
-
 	public void setContentView (int p0)
 	{
 		n_setContentView (p0);
@@ -56,12 +48,12 @@ public abstract class MvxActivity
 	private native void n_attachBaseContext (android.content.Context p0);
 
 
-	public void onAttachFragment (androidx.fragment.app.Fragment p0)
+	public void onAttachFragment (android.app.Fragment p0)
 	{
 		n_onAttachFragment (p0);
 	}
 
-	private native void n_onAttachFragment (androidx.fragment.app.Fragment p0);
+	private native void n_onAttachFragment (android.app.Fragment p0);
 
 
 	public void onCreate (android.os.Bundle p0)

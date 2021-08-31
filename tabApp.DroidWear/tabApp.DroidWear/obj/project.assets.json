@@ -160,25 +160,8 @@
           "lib/netstandard1.6/Microsoft.Extensions.DependencyModel.dll": {}
         }
       },
-      "Microsoft.Extensions.Logging.Abstractions/5.0.0": {
+      "MvvmCross/6.4.1": {
         "type": "package",
-        "compile": {
-          "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll": {}
-        }
-      },
-      "MvvmCross/8.0.2": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Extensions.Logging.Abstractions": "5.0.0",
-          "Xamarin.AndroidX.AppCompat": "1.3.0",
-          "Xamarin.AndroidX.Fragment": "1.3.5",
-          "Xamarin.AndroidX.Preference": "1.1.1.8",
-          "Xamarin.AndroidX.ViewPager": "1.0.0.7",
-          "Xamarin.Google.Android.Material": "1.4.0"
-        },
         "frameworkAssemblies": [
           "Java.Interop"
         ],
@@ -578,6 +561,15 @@
         },
         "runtime": {
           "lib/netstandard2.0/System.Memory.dll": {}
+        }
+      },
+      "System.Numerics.Vectors/4.5.0": {
+        "type": "package",
+        "compile": {
+          "ref/MonoAndroid10/_._": {}
+        },
+        "runtime": {
+          "lib/MonoAndroid10/_._": {}
         }
       },
       "System.Reflection.TypeExtensions/4.1.0": {
@@ -1345,6 +1337,26 @@
           "buildTransitive/monoandroid90/Xamarin.AndroidX.AsyncLayoutInflater.targets": {}
         }
       },
+      "Xamarin.AndroidX.Browser/1.3.0.5": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.AndroidX.Annotation": "1.1.0.9",
+          "Xamarin.AndroidX.Core": "1.3.2.3",
+          "Xamarin.Google.Guava.ListenableFuture": "1.0.0.2"
+        },
+        "frameworkAssemblies": [
+          "Java.Interop"
+        ],
+        "compile": {
+          "lib/monoandroid90/Xamarin.AndroidX.Browser.dll": {}
+        },
+        "runtime": {
+          "lib/monoandroid90/Xamarin.AndroidX.Browser.dll": {}
+        },
+        "build": {
+          "buildTransitive/monoandroid9.0/Xamarin.AndroidX.Browser.targets": {}
+        }
+      },
       "Xamarin.AndroidX.CardView/1.0.0.9": {
         "type": "package",
         "dependencies": {
@@ -2041,29 +2053,6 @@
           "buildTransitive/monoandroid90/Xamarin.AndroidX.PercentLayout.targets": {}
         }
       },
-      "Xamarin.AndroidX.Preference/1.1.1.8": {
-        "type": "package",
-        "dependencies": {
-          "Xamarin.AndroidX.Annotation": "1.1.0.9",
-          "Xamarin.AndroidX.AppCompat": "1.2.0.7",
-          "Xamarin.AndroidX.Collection": "1.1.0.7",
-          "Xamarin.AndroidX.Core": "1.3.2.3",
-          "Xamarin.AndroidX.Fragment": "1.3.0.1",
-          "Xamarin.AndroidX.RecyclerView": "1.1.0.8"
-        },
-        "frameworkAssemblies": [
-          "Java.Interop"
-        ],
-        "compile": {
-          "lib/monoandroid90/Xamarin.AndroidX.Preference.dll": {}
-        },
-        "runtime": {
-          "lib/monoandroid90/Xamarin.AndroidX.Preference.dll": {}
-        },
-        "build": {
-          "buildTransitive/monoandroid9.0/Xamarin.AndroidX.Preference.targets": {}
-        }
-      },
       "Xamarin.AndroidX.Print/1.0.0.8": {
         "type": "package",
         "dependencies": {
@@ -2401,6 +2390,22 @@
           "build/_._": {}
         }
       },
+      "Xamarin.Essentials/1.7.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Numerics.Vectors": "4.5.0",
+          "Xamarin.AndroidX.Browser": "[1.3.0.5, 1.4.0)"
+        },
+        "frameworkAssemblies": [
+          "Java.Interop"
+        ],
+        "compile": {
+          "lib/monoandroid10.0/Xamarin.Essentials.dll": {}
+        },
+        "runtime": {
+          "lib/monoandroid10.0/Xamarin.Essentials.dll": {}
+        }
+      },
       "Xamarin.Google.Android.Material/1.4.0.2": {
         "type": "package",
         "dependencies": {
@@ -2439,6 +2444,21 @@
           "buildTransitive/monoandroid90/Xamarin.Google.Android.Material.targets": {}
         }
       },
+      "Xamarin.Google.Guava.ListenableFuture/1.0.0.2": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "Java.Interop"
+        ],
+        "compile": {
+          "lib/monoandroid50/Xamarin.Google.Guava.ListenableFuture.dll": {}
+        },
+        "runtime": {
+          "lib/monoandroid50/Xamarin.Google.Guava.ListenableFuture.dll": {}
+        },
+        "build": {
+          "buildTransitive/monoandroid50/Xamarin.Google.Guava.ListenableFuture.targets": {}
+        }
+      },
       "tabApp.Core/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
@@ -2451,6 +2471,7 @@
           "Spire.XLS": "11.3.4",
           "System.Formats.Asn1": "5.0.0",
           "System.Security.Cryptography.Xml": "5.0.0",
+          "Xamarin.Essentials": "1.7.0",
           "itext7": "7.1.15",
           "sqlite-net-pcl": "1.7.335"
         },
@@ -2693,44 +2714,26 @@
         "microsoft.extensions.dependencymodel.nuspec"
       ]
     },
-    "Microsoft.Extensions.Logging.Abstractions/5.0.0": {
-      "sha512": "NxP6ahFcBnnSfwNBi2KH2Oz8Xl5Sm2krjId/jRR3I7teFphwiUoUeZPwTNA21EX+5PtjqmyAvKaOeBXcJjcH/w==",
+    "MvvmCross/6.4.1": {
+      "sha512": "SvV1SKvNnFwVDg1r2BWI4x1bXXzqNj2OsbEEw8W/Mvw2AbfzG9xIjOO6HBbtxVxM6vc3riWUcO5vvSiBeTeuTA==",
       "type": "package",
-      "path": "microsoft.extensions.logging.abstractions/5.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "Icon.png",
-        "LICENSE.TXT",
-        "THIRD-PARTY-NOTICES.TXT",
-        "lib/net461/Microsoft.Extensions.Logging.Abstractions.dll",
-        "lib/net461/Microsoft.Extensions.Logging.Abstractions.xml",
-        "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll",
-        "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.xml",
-        "microsoft.extensions.logging.abstractions.5.0.0.nupkg.sha512",
-        "microsoft.extensions.logging.abstractions.nuspec",
-        "useSharedDesignerContext.txt",
-        "version.txt"
-      ]
-    },
-    "MvvmCross/8.0.2": {
-      "sha512": "WsAKYGpLA0pkK5fVuQGGtYi4KmLKph4VUeknPJDUQHerPxQVlEyKg+4kaht010/mogIZUScBPmAfl4jFZstz8w==",
-      "type": "package",
-      "path": "mvvmcross/8.0.2",
+      "path": "mvvmcross/6.4.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE",
-        "icon.png",
         "lib/monoandroid10.0/MvvmCross.dll",
         "lib/monoandroid10.0/MvvmCross.pdb",
         "lib/monoandroid10.0/MvvmCross.xml",
+        "lib/monoandroid90/MvvmCross.dll",
+        "lib/monoandroid90/MvvmCross.pdb",
+        "lib/monoandroid90/MvvmCross.xml",
         "lib/net461/MvvmCross.dll",
         "lib/net461/MvvmCross.pdb",
         "lib/net461/MvvmCross.xml",
-        "lib/netcoreapp3.1/MvvmCross.dll",
-        "lib/netcoreapp3.1/MvvmCross.pdb",
-        "lib/netcoreapp3.1/MvvmCross.xml",
+        "lib/netcoreapp2.1/MvvmCross.dll",
+        "lib/netcoreapp2.1/MvvmCross.pdb",
+        "lib/netcoreapp2.1/MvvmCross.xml",
         "lib/netstandard2.0/MvvmCross.dll",
         "lib/netstandard2.0/MvvmCross.pdb",
         "lib/netstandard2.0/MvvmCross.xml",
@@ -2753,7 +2756,7 @@
         "lib/xamarinwatchos10/MvvmCross.dll",
         "lib/xamarinwatchos10/MvvmCross.pdb",
         "lib/xamarinwatchos10/MvvmCross.xml",
-        "mvvmcross.8.0.2.nupkg.sha512",
+        "mvvmcross.6.4.1.nupkg.sha512",
         "mvvmcross.nuspec",
         "readme.txt"
       ]
@@ -3869,6 +3872,53 @@
         "ref/netcoreapp2.1/_._",
         "system.memory.4.5.3.nupkg.sha512",
         "system.memory.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "System.Numerics.Vectors/4.5.0": {
+      "sha512": "QQTlPTl06J/iiDbJCiepZ4H//BVraReU4O4EoRw1U02H5TLUIT7xn3GnDp9AXPSlJUDyFs4uWjWafNX6WrAojQ==",
+      "type": "package",
+      "path": "system.numerics.vectors/4.5.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net46/System.Numerics.Vectors.dll",
+        "lib/net46/System.Numerics.Vectors.xml",
+        "lib/netcoreapp2.0/_._",
+        "lib/netstandard1.0/System.Numerics.Vectors.dll",
+        "lib/netstandard1.0/System.Numerics.Vectors.xml",
+        "lib/netstandard2.0/System.Numerics.Vectors.dll",
+        "lib/netstandard2.0/System.Numerics.Vectors.xml",
+        "lib/portable-net45+win8+wp8+wpa81/System.Numerics.Vectors.dll",
+        "lib/portable-net45+win8+wp8+wpa81/System.Numerics.Vectors.xml",
+        "lib/uap10.0.16299/_._",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/net45/System.Numerics.Vectors.dll",
+        "ref/net45/System.Numerics.Vectors.xml",
+        "ref/net46/System.Numerics.Vectors.dll",
+        "ref/net46/System.Numerics.Vectors.xml",
+        "ref/netcoreapp2.0/_._",
+        "ref/netstandard1.0/System.Numerics.Vectors.dll",
+        "ref/netstandard1.0/System.Numerics.Vectors.xml",
+        "ref/netstandard2.0/System.Numerics.Vectors.dll",
+        "ref/netstandard2.0/System.Numerics.Vectors.xml",
+        "ref/uap10.0.16299/_._",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "system.numerics.vectors.4.5.0.nupkg.sha512",
+        "system.numerics.vectors.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
@@ -5186,6 +5236,23 @@
         "xamarin.androidx.asynclayoutinflater.nuspec"
       ]
     },
+    "Xamarin.AndroidX.Browser/1.3.0.5": {
+      "sha512": "3dH03Bku3D3uJmJWggE8FVYrqYZPTghHKM8F4TKsTpiV03000C0lQQsZQph1f7Zj4ejmet9U+MA4uMAja/TxKg==",
+      "type": "package",
+      "path": "xamarin.androidx.browser/1.3.0.5",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "aar/androidx.browser.browser.aar",
+        "build/monoandroid9.0/Xamarin.AndroidX.Browser.targets",
+        "buildTransitive/monoandroid9.0/Xamarin.AndroidX.Browser.targets",
+        "lib/monoandroid90/Xamarin.AndroidX.Browser.dll",
+        "lib/monoandroid90/Xamarin.AndroidX.Browser.pdb",
+        "xamarin.androidx.browser.1.3.0.5.nupkg.sha512",
+        "xamarin.androidx.browser.nuspec"
+      ]
+    },
     "Xamarin.AndroidX.CardView/1.0.0.9": {
       "sha512": "x1IBrBywJrggVDIQ4+WsiHHtMZ+qpigg3CCWwDE4wCOTls1wIRk/eJsqLl2oCy+SUAacpo1TkyKYgPogBesZsA==",
       "type": "package",
@@ -5820,24 +5887,6 @@
         "xamarin.androidx.percentlayout.nuspec"
       ]
     },
-    "Xamarin.AndroidX.Preference/1.1.1.8": {
-      "sha512": "9ITq7W1aAgYXVxxLFwwbdAx1dbUlyxdHDTCP9xS9H81WwlvpnThixxvs5tlSbBiTAf721yPypccSPORkK/905g==",
-      "type": "package",
-      "path": "xamarin.androidx.preference/1.1.1.8",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE.md",
-        "aar/androidx.preference.preference.aar",
-        "build/monoandroid9.0/Xamarin.AndroidX.Preference.targets",
-        "buildTransitive/monoandroid9.0/Xamarin.AndroidX.Preference.targets",
-        "lib/monoandroid90/Xamarin.AndroidX.Preference.dll",
-        "lib/monoandroid90/Xamarin.AndroidX.Preference.pdb",
-        "proguard/proguard.txt",
-        "xamarin.androidx.preference.1.1.1.8.nupkg.sha512",
-        "xamarin.androidx.preference.nuspec"
-      ]
-    },
     "Xamarin.AndroidX.Print/1.0.0.8": {
       "sha512": "cPA8snNV26sUgw1pyFJCZtqNACHK1ftLn+Lv5UE6ZvEIfR6DjBu3O0SbM0RkY9E622AQ7OatYfSsXDCD1GaoxA==",
       "type": "package",
@@ -6142,6 +6191,48 @@
         "xamarin.build.download.nuspec"
       ]
     },
+    "Xamarin.Essentials/1.7.0": {
+      "sha512": "xfUJNxtfMC05VBej7fVUg6Zd9VwM2kqW9LH0tcrSA6IsBTl0EsIGkYUOz1BoKT2rseWW8o3kTi5WH/yZV4GgJw==",
+      "type": "package",
+      "path": "xamarin.essentials/1.7.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "icon.png",
+        "lib/monoandroid10.0/Xamarin.Essentials.dll",
+        "lib/monoandroid10.0/Xamarin.Essentials.pdb",
+        "lib/monoandroid10.0/Xamarin.Essentials.xml",
+        "lib/netstandard1.0/Xamarin.Essentials.dll",
+        "lib/netstandard1.0/Xamarin.Essentials.pdb",
+        "lib/netstandard1.0/Xamarin.Essentials.xml",
+        "lib/netstandard2.0/Xamarin.Essentials.dll",
+        "lib/netstandard2.0/Xamarin.Essentials.pdb",
+        "lib/netstandard2.0/Xamarin.Essentials.xml",
+        "lib/tizen40/Xamarin.Essentials.dll",
+        "lib/tizen40/Xamarin.Essentials.pdb",
+        "lib/tizen40/Xamarin.Essentials.xml",
+        "lib/uap10.0.16299/Xamarin.Essentials.dll",
+        "lib/uap10.0.16299/Xamarin.Essentials.pdb",
+        "lib/uap10.0.16299/Xamarin.Essentials.pri",
+        "lib/uap10.0.16299/Xamarin.Essentials.xml",
+        "lib/xamarinios10/Xamarin.Essentials.dll",
+        "lib/xamarinios10/Xamarin.Essentials.pdb",
+        "lib/xamarinios10/Xamarin.Essentials.xml",
+        "lib/xamarinmac20/Xamarin.Essentials.dll",
+        "lib/xamarinmac20/Xamarin.Essentials.pdb",
+        "lib/xamarinmac20/Xamarin.Essentials.xml",
+        "lib/xamarintvos10/Xamarin.Essentials.dll",
+        "lib/xamarintvos10/Xamarin.Essentials.pdb",
+        "lib/xamarintvos10/Xamarin.Essentials.xml",
+        "lib/xamarinwatchos10/Xamarin.Essentials.dll",
+        "lib/xamarinwatchos10/Xamarin.Essentials.pdb",
+        "lib/xamarinwatchos10/Xamarin.Essentials.xml",
+        "readme.txt",
+        "xamarin.essentials.1.7.0.nupkg.sha512",
+        "xamarin.essentials.nuspec"
+      ]
+    },
     "Xamarin.Google.Android.Material/1.4.0.2": {
       "sha512": "2dH8pSYjlVmZk8E64E6/hZzsoTcubsH1DHLMYpnsXnteqVuFU42uG5pIuJZIOcLxgKX/QjLdMzth6/w+Oje8sQ==",
       "type": "package",
@@ -6166,6 +6257,23 @@
         "xamarin.google.android.material.nuspec"
       ]
     },
+    "Xamarin.Google.Guava.ListenableFuture/1.0.0.2": {
+      "sha512": "qmkNS5p4eRoDjQM/6VyRaX6lFCNYCiMvFVRj3nfOzt/+AuqTqAhRqIcAYeWLtUxdfDOC72yLSfWKeLiPIuYz0A==",
+      "type": "package",
+      "path": "xamarin.google.guava.listenablefuture/1.0.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "THIRD-PARTY-NOTICES.txt",
+        "build/monoandroid50/Xamarin.Google.Guava.ListenableFuture.targets",
+        "build/monoandroid50/guava-listenablefuture.jar",
+        "buildTransitive/monoandroid50/Xamarin.Google.Guava.ListenableFuture.targets",
+        "buildTransitive/monoandroid50/guava-listenablefuture.jar",
+        "lib/monoandroid50/Xamarin.Google.Guava.ListenableFuture.dll",
+        "xamarin.google.guava.listenablefuture.1.0.0.2.nupkg.sha512",
+        "xamarin.google.guava.listenablefuture.nuspec"
+      ]
+    },
     "tabApp.Core/1.0.0": {
       "type": "project",
       "path": "../../tabApp.Core/tabApp.Core.csproj",
@@ -6174,7 +6282,7 @@
   },
   "projectFileDependencyGroups": {
     "MonoAndroid,Version=v11.0": [
-      "MvvmCross >= 8.0.2",
+      "MvvmCross >= 6.4.1",
       "MvvmCross.Droid.Support.V7.AppCompat >= 6.2.3",
       "Xamarin.Android.Support.Compat >= 28.0.0.3",
       "Xamarin.Android.Support.v7.AppCompat >= 27.0.2.1",
@@ -6236,7 +6344,7 @@
         "dependencies": {
           "MvvmCross": {
             "target": "Package",
-            "version": "[8.0.2, )"
+            "version": "[6.4.1, )"
           },
           "MvvmCross.Droid.Support.V7.AppCompat": {
             "target": "Package",

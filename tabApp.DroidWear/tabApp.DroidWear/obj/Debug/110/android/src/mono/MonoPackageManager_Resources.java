@@ -21,7 +21,6 @@ public class MonoPackageManager_Resources {
 		"Microcharts.Droid.dll",
 		"Microsoft.DotNet.PlatformAbstractions.dll",
 		"Microsoft.Extensions.DependencyModel.dll",
-		"Microsoft.Extensions.Logging.Abstractions.dll",
 		"MvvmCross.dll",
 		"MvvmCross.Droid.Support.Core.UI.dll",
 		"MvvmCross.Droid.Support.Design.dll",
@@ -74,6 +73,7 @@ public class MonoPackageManager_Resources {
 		"Xamarin.AndroidX.Arch.Core.Common.dll",
 		"Xamarin.AndroidX.Arch.Core.Runtime.dll",
 		"Xamarin.AndroidX.AsyncLayoutInflater.dll",
+		"Xamarin.AndroidX.Browser.dll",
 		"Xamarin.AndroidX.CardView.dll",
 		"Xamarin.AndroidX.Collection.dll",
 		"Xamarin.AndroidX.ConstraintLayout.Core.dll",
@@ -100,7 +100,6 @@ public class MonoPackageManager_Resources {
 		"Xamarin.AndroidX.Media.dll",
 		"Xamarin.AndroidX.MultiDex.dll",
 		"Xamarin.AndroidX.PercentLayout.dll",
-		"Xamarin.AndroidX.Preference.dll",
 		"Xamarin.AndroidX.Print.dll",
 		"Xamarin.AndroidX.RecyclerView.dll",
 		"Xamarin.AndroidX.SavedState.dll",
@@ -114,7 +113,9 @@ public class MonoPackageManager_Resources {
 		"Xamarin.AndroidX.ViewPager.dll",
 		"Xamarin.AndroidX.ViewPager2.dll",
 		"Xamarin.AndroidX.Wear.dll",
+		"Xamarin.Essentials.dll",
 		"Xamarin.Google.Android.Material.dll",
+		"Xamarin.Google.Guava.ListenableFuture.dll",
 	};
 	public static String[] Dependencies = new String[]{
 	};

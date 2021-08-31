@@ -8,30 +8,30 @@ package androidx.media;
 
 public final class R {
 	public static final class color {
-		public static final int notification_material_background_media_default_color = 0x7f0600f0;
-		public static final int primary_text_default_material_dark = 0x7f0600f9;
-		public static final int secondary_text_default_material_dark = 0x7f060104;
+		public static final int notification_material_background_media_default_color = 0x7f0600f4;
+		public static final int primary_text_default_material_dark = 0x7f0600fc;
+		public static final int secondary_text_default_material_dark = 0x7f060107;
 	}
 	public static final class id {
 		public static final int action0 = 0x7f0a0032;
 		public static final int action_divider = 0x7f0a003f;
-		public static final int cancel_action = 0x7f0a006a;
-		public static final int chronometer = 0x7f0a0079;
-		public static final int end_padder = 0x7f0a00b8;
-		public static final int icon = 0x7f0a00db;
-		public static final int info = 0x7f0a00e4;
-		public static final int line1 = 0x7f0a00f0;
-		public static final int line3 = 0x7f0a00f1;
-		public static final int media_actions = 0x7f0a010c;
-		public static final int media_controller_compat_view_tag = 0x7f0a010d;
-		public static final int notification_main_column = 0x7f0a0141;
-		public static final int notification_main_column_container = 0x7f0a0142;
-		public static final int right_side = 0x7f0a0160;
+		public static final int cancel_action = 0x7f0a006f;
+		public static final int chronometer = 0x7f0a007e;
+		public static final int end_padder = 0x7f0a00bd;
+		public static final int icon = 0x7f0a00e0;
+		public static final int info = 0x7f0a00e8;
+		public static final int line1 = 0x7f0a00f4;
+		public static final int line3 = 0x7f0a00f5;
+		public static final int media_actions = 0x7f0a0110;
+		public static final int media_controller_compat_view_tag = 0x7f0a0111;
+		public static final int notification_main_column = 0x7f0a0145;
+		public static final int notification_main_column_container = 0x7f0a0146;
+		public static final int right_side = 0x7f0a0163;
 		public static final int status_bar_latest_event_content = 0x7f0a01a2;
-		public static final int text = 0x7f0a01bb;
-		public static final int text2 = 0x7f0a01bc;
-		public static final int time = 0x7f0a01cb;
-		public static final int title = 0x7f0a01cc;
+		public static final int text = 0x7f0a01ba;
+		public static final int text2 = 0x7f0a01bb;
+		public static final int time = 0x7f0a01ca;
+		public static final int title = 0x7f0a01cb;
 	}
 	public static final class integer {
 		public static final int cancel_button_image_alpha = 0x7f0b0008;
@@ -48,10 +48,10 @@ public final class R {
 		public static final int notification_template_media_custom = 0x7f0d006f;
 	}
 	public static final class style {
-		public static final int TextAppearance_Compat_Notification_Info_Media = 0x7f11018d;
-		public static final int TextAppearance_Compat_Notification_Line2_Media = 0x7f11018f;
-		public static final int TextAppearance_Compat_Notification_Media = 0x7f110190;
-		public static final int TextAppearance_Compat_Notification_Time_Media = 0x7f110192;
-		public static final int TextAppearance_Compat_Notification_Title_Media = 0x7f110194;
+		public static final int TextAppearance_Compat_Notification_Info_Media = 0x7f11016e;
+		public static final int TextAppearance_Compat_Notification_Line2_Media = 0x7f110170;
+		public static final int TextAppearance_Compat_Notification_Media = 0x7f110171;
+		public static final int TextAppearance_Compat_Notification_Time_Media = 0x7f110173;
+		public static final int TextAppearance_Compat_Notification_Title_Media = 0x7f110175;
 	}
 }

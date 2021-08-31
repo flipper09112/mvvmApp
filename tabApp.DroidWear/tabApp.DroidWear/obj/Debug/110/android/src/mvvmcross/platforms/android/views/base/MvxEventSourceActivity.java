@@ -2,7 +2,7 @@ package mvvmcross.platforms.android.views.base;
 
 
 public abstract class MvxEventSourceActivity
-	extends androidx.appcompat.app.AppCompatActivity
+	extends android.app.Activity
 	implements
 		mono.android.IGCUserPeer
 {
@@ -31,14 +31,6 @@ public abstract class MvxEventSourceActivity
 		super ();
 		if (getClass () == MvxEventSourceActivity.class)
 			mono.android.TypeManager.Activate ("MvvmCross.Platforms.Android.Views.Base.MvxEventSourceActivity, MvvmCross", "", this, new java.lang.Object[] {  });
-	}
-
-
-	public MvxEventSourceActivity (int p0)
-	{
-		super (p0);
-		if (getClass () == MvxEventSourceActivity.class)
-			mono.android.TypeManager.Activate ("MvvmCross.Platforms.Android.Views.Base.MvxEventSourceActivity, MvvmCross", "System.Int32, mscorlib", this, new java.lang.Object[] { p0 });
 	}
 
 

@@ -29,14 +29,6 @@ public abstract class MvxDialogFragment
 	}
 
 
-	public MvxDialogFragment (int p0)
-	{
-		super (p0);
-		if (getClass () == MvxDialogFragment.class)
-			mono.android.TypeManager.Activate ("MvvmCross.Platforms.Android.Views.Fragments.MvxDialogFragment, MvvmCross", "System.Int32, mscorlib", this, new java.lang.Object[] { p0 });
-	}
-
-
 	public void onCreate (android.os.Bundle p0)
 	{
 		n_onCreate (p0);

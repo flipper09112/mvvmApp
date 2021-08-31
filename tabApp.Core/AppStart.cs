@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using tabApp.Core.ViewModels;
 using tabApp.Core.ViewModels.Main;
+using tabApp.Core.ViewModelsWear;
+using Xamarin.Essentials;
 
 namespace tabApp.Core
 {
@@ -22,6 +24,11 @@ namespace tabApp.Core
 
         protected override Task NavigateToFirstViewModel(object hint = null)
         {
+            if (DeviceInfo.Idiom == DeviceIdiom.Watch)
+            {
+                return _navigationService.Navigate<MainViewModelWear>();
+            }
+
             return _navigationService.Navigate<MainViewModel>();
         }
     }

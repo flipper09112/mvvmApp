@@ -22,14 +22,6 @@ public abstract class MvxActivity_1
 			mono.android.TypeManager.Activate ("MvvmCross.Platforms.Android.Views.MvxActivity`1, MvvmCross", "", this, new java.lang.Object[] {  });
 	}
 
-
-	public MvxActivity_1 (int p0)
-	{
-		super (p0);
-		if (getClass () == MvxActivity_1.class)
-			mono.android.TypeManager.Activate ("MvvmCross.Platforms.Android.Views.MvxActivity`1, MvvmCross", "System.Int32, mscorlib", this, new java.lang.Object[] { p0 });
-	}
-
 	private java.util.ArrayList refList;
 	public void monodroidAddReference (java.lang.Object obj)
 	{
