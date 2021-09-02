@@ -4,6 +4,81 @@ tabapp.droidwear.MainActivity;crc64b1d696ea99261930.MainActivity
 tabApp.DroidWear.MainApplication, tabApp.DroidWear;crc64b1d696ea99261930.MainApplication
 tabApp.DroidWear.MainApplication;crc64b1d696ea99261930.MainApplication
 tabapp.droidwear.MainApplication;crc64b1d696ea99261930.MainApplication
+tabApp.DroidWear.UI.Activities.Errors.NoDatabaseActivity, tabApp.DroidWear;crc645857470ab21e0295.NoDatabaseActivity
+tabApp.DroidWear.UI.Activities.Errors.NoDatabaseActivity;crc645857470ab21e0295.NoDatabaseActivity
+tabapp.droidwear.ui.activities.errors.NoDatabaseActivity;crc645857470ab21e0295.NoDatabaseActivity
+Com.Airbnb.Lottie.LottieAnimationView+ImageAssetDelegateImpl, Lottie.Android;com.airbnb.lottie.LottieAnimationView_ImageAssetDelegateImpl
+Com.Airbnb.Lottie.LottieAnimationView.ImageAssetDelegateImpl;com.airbnb.lottie.LottieAnimationView_ImageAssetDelegateImpl
+com.airbnb.lottie.LottieAnimationView_ImageAssetDelegateImpl;com.airbnb.lottie.LottieAnimationView_ImageAssetDelegateImpl
+Com.Airbnb.Lottie.LottieComposition+Factory+ActionCompositionLoaded, Lottie.Android;com.airbnb.lottie.LottieComposition$Factory_ActionCompositionLoaded
+Com.Airbnb.Lottie.LottieComposition.Factory.ActionCompositionLoaded;com.airbnb.lottie.LottieComposition$Factory_ActionCompositionLoaded
+com.airbnb.lottie.LottieComposition$Factory_ActionCompositionLoaded;com.airbnb.lottie.LottieComposition$Factory_ActionCompositionLoaded
+Com.Airbnb.Lottie.ICancellable, Lottie.Android;com.airbnb.lottie.Cancellable
+Com.Airbnb.Lottie.ICancellable;com.airbnb.lottie.Cancellable
+com.airbnb.lottie.Cancellable;com.airbnb.lottie.Cancellable
+Com.Airbnb.Lottie.IImageAssetDelegate, Lottie.Android;com.airbnb.lottie.ImageAssetDelegate
+Com.Airbnb.Lottie.IImageAssetDelegate;com.airbnb.lottie.ImageAssetDelegate
+com.airbnb.lottie.ImageAssetDelegate;com.airbnb.lottie.ImageAssetDelegate
+Com.Airbnb.Lottie.ILottieListener, Lottie.Android;com.airbnb.lottie.LottieListener
+Com.Airbnb.Lottie.ILottieListener;com.airbnb.lottie.LottieListener
+com.airbnb.lottie.LottieListener;com.airbnb.lottie.LottieListener
+Com.Airbnb.Lottie.ILottieListenerImplementor, Lottie.Android;mono.com.airbnb.lottie.LottieListenerImplementor
+Com.Airbnb.Lottie.ILottieListenerImplementor;mono.com.airbnb.lottie.LottieListenerImplementor
+mono.com.airbnb.lottie.LottieListenerImplementor;mono.com.airbnb.lottie.LottieListenerImplementor
+Com.Airbnb.Lottie.ILottieLogger, Lottie.Android;com.airbnb.lottie.LottieLogger
+Com.Airbnb.Lottie.ILottieLogger;com.airbnb.lottie.LottieLogger
+com.airbnb.lottie.LottieLogger;com.airbnb.lottie.LottieLogger
+Com.Airbnb.Lottie.ILottieOnCompositionLoadedListener, Lottie.Android;com.airbnb.lottie.LottieOnCompositionLoadedListener
+Com.Airbnb.Lottie.ILottieOnCompositionLoadedListener;com.airbnb.lottie.LottieOnCompositionLoadedListener
+com.airbnb.lottie.LottieOnCompositionLoadedListener;com.airbnb.lottie.LottieOnCompositionLoadedListener
+Com.Airbnb.Lottie.ILottieOnCompositionLoadedListenerImplementor, Lottie.Android;mono.com.airbnb.lottie.LottieOnCompositionLoadedListenerImplementor
+Com.Airbnb.Lottie.ILottieOnCompositionLoadedListenerImplementor;mono.com.airbnb.lottie.LottieOnCompositionLoadedListenerImplementor
+mono.com.airbnb.lottie.LottieOnCompositionLoadedListenerImplementor;mono.com.airbnb.lottie.LottieOnCompositionLoadedListenerImplementor
+Com.Airbnb.Lottie.IOnCompositionLoadedListener, Lottie.Android;com.airbnb.lottie.OnCompositionLoadedListener
+Com.Airbnb.Lottie.IOnCompositionLoadedListener;com.airbnb.lottie.OnCompositionLoadedListener
+com.airbnb.lottie.OnCompositionLoadedListener;com.airbnb.lottie.OnCompositionLoadedListener
+Com.Airbnb.Lottie.IOnCompositionLoadedListenerImplementor, Lottie.Android;mono.com.airbnb.lottie.OnCompositionLoadedListenerImplementor
+Com.Airbnb.Lottie.IOnCompositionLoadedListenerImplementor;mono.com.airbnb.lottie.OnCompositionLoadedListenerImplementor
+mono.com.airbnb.lottie.OnCompositionLoadedListenerImplementor;mono.com.airbnb.lottie.OnCompositionLoadedListenerImplementor
+Com.Airbnb.Lottie.LottieDrawable+IRepeatMode, Lottie.Android;com.airbnb.lottie.LottieDrawable$RepeatMode
+Com.Airbnb.Lottie.LottieDrawable.IRepeatMode;com.airbnb.lottie.LottieDrawable$RepeatMode
+com.airbnb.lottie.LottieDrawable$RepeatMode;com.airbnb.lottie.LottieDrawable$RepeatMode
+Com.Airbnb.Lottie.PerformanceTracker+IFrameListener, Lottie.Android;com.airbnb.lottie.PerformanceTracker$FrameListener
+Com.Airbnb.Lottie.PerformanceTracker.IFrameListener;com.airbnb.lottie.PerformanceTracker$FrameListener
+com.airbnb.lottie.PerformanceTracker$FrameListener;com.airbnb.lottie.PerformanceTracker$FrameListener
+Com.Airbnb.Lottie.PerformanceTracker+IFrameListenerImplementor, Lottie.Android;mono.com.airbnb.lottie.PerformanceTracker_FrameListenerImplementor
+Com.Airbnb.Lottie.PerformanceTracker.IFrameListenerImplementor;mono.com.airbnb.lottie.PerformanceTracker_FrameListenerImplementor
+mono.com.airbnb.lottie.PerformanceTracker_FrameListenerImplementor;mono.com.airbnb.lottie.PerformanceTracker_FrameListenerImplementor
+Com.Airbnb.Lottie.Value.ISimpleLottieValueCallback, Lottie.Android;com.airbnb.lottie.value.SimpleLottieValueCallback
+Com.Airbnb.Lottie.Value.ISimpleLottieValueCallback;com.airbnb.lottie.value.SimpleLottieValueCallback
+com.airbnb.lottie.value.SimpleLottieValueCallback;com.airbnb.lottie.value.SimpleLottieValueCallback
+Com.Airbnb.Lottie.Network.ILottieFetchResult, Lottie.Android;com.airbnb.lottie.network.LottieFetchResult
+Com.Airbnb.Lottie.Network.ILottieFetchResult;com.airbnb.lottie.network.LottieFetchResult
+com.airbnb.lottie.network.LottieFetchResult;com.airbnb.lottie.network.LottieFetchResult
+Com.Airbnb.Lottie.Network.ILottieNetworkCacheProvider, Lottie.Android;com.airbnb.lottie.network.LottieNetworkCacheProvider
+Com.Airbnb.Lottie.Network.ILottieNetworkCacheProvider;com.airbnb.lottie.network.LottieNetworkCacheProvider
+com.airbnb.lottie.network.LottieNetworkCacheProvider;com.airbnb.lottie.network.LottieNetworkCacheProvider
+Com.Airbnb.Lottie.Network.ILottieNetworkFetcher, Lottie.Android;com.airbnb.lottie.network.LottieNetworkFetcher
+Com.Airbnb.Lottie.Network.ILottieNetworkFetcher;com.airbnb.lottie.network.LottieNetworkFetcher
+com.airbnb.lottie.network.LottieNetworkFetcher;com.airbnb.lottie.network.LottieNetworkFetcher
+Com.Airbnb.Lottie.Model.IKeyPathElement, Lottie.Android;com.airbnb.lottie.model.KeyPathElement
+Com.Airbnb.Lottie.Model.IKeyPathElement;com.airbnb.lottie.model.KeyPathElement
+com.airbnb.lottie.model.KeyPathElement;com.airbnb.lottie.model.KeyPathElement
+Com.Airbnb.Lottie.Model.Content.IContentModel, Lottie.Android;com.airbnb.lottie.model.content.ContentModel
+Com.Airbnb.Lottie.Model.Content.IContentModel;com.airbnb.lottie.model.content.ContentModel
+com.airbnb.lottie.model.content.ContentModel;com.airbnb.lottie.model.content.ContentModel
+Com.Airbnb.Lottie.Animation.Content.IContent, Lottie.Android;com.airbnb.lottie.animation.content.Content
+Com.Airbnb.Lottie.Animation.Content.IContent;com.airbnb.lottie.animation.content.Content
+com.airbnb.lottie.animation.content.Content;com.airbnb.lottie.animation.content.Content
+Com.Airbnb.Lottie.Animation.Content.IDrawingContent, Lottie.Android;com.airbnb.lottie.animation.content.DrawingContent
+Com.Airbnb.Lottie.Animation.Content.IDrawingContent;com.airbnb.lottie.animation.content.DrawingContent
+com.airbnb.lottie.animation.content.DrawingContent;com.airbnb.lottie.animation.content.DrawingContent
+Com.Airbnb.Lottie.Animation.Content.IKeyPathElementContent, Lottie.Android;com.airbnb.lottie.animation.content.KeyPathElementContent
+Com.Airbnb.Lottie.Animation.Content.IKeyPathElementContent;com.airbnb.lottie.animation.content.KeyPathElementContent
+com.airbnb.lottie.animation.content.KeyPathElementContent;com.airbnb.lottie.animation.content.KeyPathElementContent
+Com.Airbnb.Lottie.Animation.Content.IModifierContent, Lottie.Android;com.airbnb.lottie.animation.content.ModifierContent
+Com.Airbnb.Lottie.Animation.Content.IModifierContent;com.airbnb.lottie.animation.content.ModifierContent
+com.airbnb.lottie.animation.content.ModifierContent;com.airbnb.lottie.animation.content.ModifierContent
 Microcharts.Droid.ChartView, Microcharts.Droid;crc64e9f97cf19b8286a9.ChartView
 Microcharts.Droid.ChartView;crc64e9f97cf19b8286a9.ChartView
 microcharts.droid.ChartView;crc64e9f97cf19b8286a9.ChartView
@@ -1453,9 +1528,6 @@ androidx.slidingpanelayout.widget.SlidingPaneLayout$PanelSlideListener;androidx.
 AndroidX.SlidingPaneLayout.Widget.SlidingPaneLayout+IPanelSlideListenerImplementor, Xamarin.AndroidX.SlidingPaneLayout;mono.androidx.slidingpanelayout.widget.SlidingPaneLayout_PanelSlideListenerImplementor
 AndroidX.SlidingPaneLayout.Widget.SlidingPaneLayout.IPanelSlideListenerImplementor;mono.androidx.slidingpanelayout.widget.SlidingPaneLayout_PanelSlideListenerImplementor
 mono.androidx.slidingpanelayout.widget.SlidingPaneLayout_PanelSlideListenerImplementor;mono.androidx.slidingpanelayout.widget.SlidingPaneLayout_PanelSlideListenerImplementor
-AndroidX.SwipeRefreshLayout.Widget.CircularProgressDrawable+IProgressDrawableSize, Xamarin.AndroidX.SwipeRefreshLayout;androidx.swiperefreshlayout.widget.CircularProgressDrawable$ProgressDrawableSize
-AndroidX.SwipeRefreshLayout.Widget.CircularProgressDrawable.IProgressDrawableSize;androidx.swiperefreshlayout.widget.CircularProgressDrawable$ProgressDrawableSize
-androidx.swiperefreshlayout.widget.CircularProgressDrawable$ProgressDrawableSize;androidx.swiperefreshlayout.widget.CircularProgressDrawable$ProgressDrawableSize
 AndroidX.SwipeRefreshLayout.Widget.SwipeRefreshLayout+IOnChildScrollUpCallback, Xamarin.AndroidX.SwipeRefreshLayout;androidx.swiperefreshlayout.widget.SwipeRefreshLayout$OnChildScrollUpCallback
 AndroidX.SwipeRefreshLayout.Widget.SwipeRefreshLayout.IOnChildScrollUpCallback;androidx.swiperefreshlayout.widget.SwipeRefreshLayout$OnChildScrollUpCallback
 androidx.swiperefreshlayout.widget.SwipeRefreshLayout$OnChildScrollUpCallback;androidx.swiperefreshlayout.widget.SwipeRefreshLayout$OnChildScrollUpCallback
@@ -1465,6 +1537,9 @@ androidx.swiperefreshlayout.widget.SwipeRefreshLayout$OnRefreshListener;androidx
 AndroidX.SwipeRefreshLayout.Widget.SwipeRefreshLayout+IOnRefreshListenerImplementor, Xamarin.AndroidX.SwipeRefreshLayout;mono.androidx.swiperefreshlayout.widget.SwipeRefreshLayout_OnRefreshListenerImplementor
 AndroidX.SwipeRefreshLayout.Widget.SwipeRefreshLayout.IOnRefreshListenerImplementor;mono.androidx.swiperefreshlayout.widget.SwipeRefreshLayout_OnRefreshListenerImplementor
 mono.androidx.swiperefreshlayout.widget.SwipeRefreshLayout_OnRefreshListenerImplementor;mono.androidx.swiperefreshlayout.widget.SwipeRefreshLayout_OnRefreshListenerImplementor
+AndroidX.SwipeRefreshLayout.Widget.CircularProgressDrawable+IProgressDrawableSize, Xamarin.AndroidX.SwipeRefreshLayout;androidx.swiperefreshlayout.widget.CircularProgressDrawable$ProgressDrawableSize
+AndroidX.SwipeRefreshLayout.Widget.CircularProgressDrawable.IProgressDrawableSize;androidx.swiperefreshlayout.widget.CircularProgressDrawable$ProgressDrawableSize
+androidx.swiperefreshlayout.widget.CircularProgressDrawable$ProgressDrawableSize;androidx.swiperefreshlayout.widget.CircularProgressDrawable$ProgressDrawableSize
 AndroidX.Transitions.FloatArrayEvaluator, Xamarin.AndroidX.Transition;crc64a25b61d9f8ee364f.FloatArrayEvaluator
 AndroidX.Transitions.FloatArrayEvaluator;crc64a25b61d9f8ee364f.FloatArrayEvaluator
 androidx.transitions.FloatArrayEvaluator;crc64a25b61d9f8ee364f.FloatArrayEvaluator

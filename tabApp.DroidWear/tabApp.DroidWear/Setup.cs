@@ -10,6 +10,11 @@ using MvvmCross.Platforms.Android.Presenters;
 using System.Collections.Generic;
 using System.Reflection;
 using tabApp.Core;
+using tabApp.Core.Services.Interfaces;
+using tabApp.Core.Services.Interfaces.Bluetooth;
+using tabApp.Core.Services.Interfaces.DB;
+using tabApp.Core.Services.Interfaces.Dialogs;
+using tabApp.DroidWear.Services.Implementations;
 
 namespace tabApp.DroidWear
 {
@@ -28,6 +33,11 @@ namespace tabApp.DroidWear
         protected override void InitializePlatformServices()
         {
             base.InitializePlatformServices();
+
+            Mvx.LazyConstructAndRegisterSingleton<IFileService, FileService>();
+            Mvx.LazyConstructAndRegisterSingleton<IDialogService, DialogService>();
+            //Mvx.LazyConstructAndRegisterSingleton<IBluetoothService, BluetoothService>();
+            Mvx.LazyConstructAndRegisterSingleton<ISQLiteService, SQLiteService>();
         }
 
         protected override IMvxAndroidViewPresenter CreateViewPresenter()

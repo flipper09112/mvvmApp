@@ -26,7 +26,8 @@ namespace tabApp.Core
         {
             if (DeviceInfo.Idiom == DeviceIdiom.Watch)
             {
-                return _navigationService.Navigate<MainViewModelWear>();
+                return Task.FromResult(true);
+                //return _navigationService.Navigate<MainViewModelWear>();
             }
 
             return _navigationService.Navigate<MainViewModel>();
