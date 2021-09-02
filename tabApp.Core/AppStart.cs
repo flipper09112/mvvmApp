@@ -29,8 +29,8 @@ namespace tabApp.Core
                 return Task.FromResult(true);
                 //return _navigationService.Navigate<MainViewModelWear>();
             }
-
-            return _navigationService.Navigate<MainViewModel>();
+            return Task.FromResult(true);
+           // return _navigationService.Navigate<MainViewModel>();
         }
     }
 }
