@@ -1,4 +1,5 @@
 ﻿using SQLite;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using tabApp.Core.Models;
@@ -19,7 +20,7 @@ namespace tabApp.Core.Services.Implementations.DB
         void InsertAllProducts(List<Product> products);
         void InsertAllDataFromXls(List<Client> clientsList, List<Product> productsList);
 
-        Task LoadDataBase();
+        Task LoadDataBase(EventHandler updatePercentageDownloadEvent = null);
         void SaveClient(Client client, string toRegist);
         void UpdateClientFromBluetooth(Client client);
         void SaveClient(Client client, Regist regist);
