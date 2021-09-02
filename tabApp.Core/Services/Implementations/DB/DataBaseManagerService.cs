@@ -89,11 +89,11 @@ namespace tabApp.Core.Services.Implementations.DB
             }
         }
 
-        public async Task LoadDataBase()
+        public async Task LoadDataBase(EventHandler updatePercentageDownloadEvent = null)
         {
             if (!_fileService.HasFile(DataBaseName))
             {
-                _fileService.SaveFile(DataBaseName, await _firebaseService.GetUrlDownload(DataBaseName));
+                _fileService.SaveFile(DataBaseName, await _firebaseService.GetUrlDownload(DataBaseName, updatePercentageDownloadEvent));
             }
 
             CheckDataBaseCreated(false);
