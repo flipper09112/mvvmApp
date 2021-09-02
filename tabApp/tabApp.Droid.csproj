@@ -127,6 +127,7 @@
     <Compile Include="UI\Fragments\EditClient\EditDailyOrdersFragment.cs" />
     <Compile Include="UI\Fragments\Global\Bt\BtIncomingFragment.cs" />
     <Compile Include="UI\Fragments\Global\Bt\BtOutcomingFragment.cs" />
+    <Compile Include="UI\Fragments\Global\DatabaseManagerPageFragment.cs" />
     <Compile Include="UI\Fragments\Global\GlobalOrderFragment.cs" />
     <Compile Include="UI\Fragments\EditClient\SelectDaysPageFragment.cs" />
     <Compile Include="UI\Fragments\Global\Other\AppOtherOptionsFragment.cs" />
@@ -928,6 +929,20 @@
     <AndroidResource Include="Resources\layout\WeekFinancialsItem.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_database.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\DatabaseManagerPageFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_database_delete.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_database_send.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>

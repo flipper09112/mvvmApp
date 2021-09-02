@@ -31,6 +31,7 @@ namespace tabApp.Core.Services.Implementations.DB
         void RemoveClient(Client client);
         void RemoveClient(int id);
         void RemoveExtraOrder(Client client, ExtraOrder obj, Regist regist);
+        void ReloadDB();
         void InsertNotification(Notification notification);
         void InsertNewProduct(Product product);
         void InsertClient(Client newClient, Regist regist);

@@ -21,7 +21,7 @@ namespace tabApp.Core.Services.Implementations.DB
 {
     public class DataBaseManagerService : IDataBaseManagerService
     {
-        private readonly string DataBaseName = "MyContacts.db3";
+        public static readonly string DataBaseName = "MyContacts.db3";
 
         private IClientsManagerService _clientsManagerService;
         private IProductsManagerService _productsManagerService;
@@ -49,6 +49,11 @@ namespace tabApp.Core.Services.Implementations.DB
             _fileService = fileService;
             _notificationsManagerService = notificationsManagerService;
             _globalOrdersPastManagerService = globalOrdersPastManagerService;
+        }
+
+        public void ReloadDB()
+        {
+            Database = _sQLiteService.Connection();
         }
 
         private void CheckDataBaseCreated(bool deleteTables)
@@ -93,6 +98,7 @@ namespace tabApp.Core.Services.Implementations.DB
         {
             if (!_fileService.HasFile(DataBaseName))
             {
+                Database = null;
                 _fileService.SaveFile(DataBaseName, await _firebaseService.GetUrlDownload(DataBaseName, updatePercentageDownloadEvent));
             }
 

@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using tabApp.Core.Services.Implementations.DB;
 using tabApp.Core.Services.Interfaces;
 
 namespace tabApp.Services
@@ -47,6 +48,11 @@ namespace tabApp.Services
         {
             try
             {
+                if(fileName == DataBaseManagerService.DataBaseName)
+                {
+
+                }
+
                 File f = new File(externalFileParent, fileName);
                 if (!f.Exists())
                     f.CreateNewFile();
@@ -72,6 +78,15 @@ namespace tabApp.Services
                 e.PrintStackTrace();
             }
             return null;
+        }
+
+        public void DeleteFile(string dataBaseName)
+        {
+            File file = new File(externalFileParent, dataBaseName);
+            if (file.Exists())
+            {
+                file.Delete();
+            }
         }
     }
 }

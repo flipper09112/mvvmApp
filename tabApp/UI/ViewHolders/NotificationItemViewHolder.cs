@@ -30,7 +30,7 @@ namespace tabApp.UI.ViewHolders
 
         internal void Bind(Notification notification, Client notificationClient)
         {
-            _cardTitle.Text = "Cliente \"" + notificationClient.Name + "\"\nId: " + notificationClient.Id;
+            _cardTitle.Text = "Cliente \"" + notificationClient?.Name + "\"\nId: " + notificationClient?.Id;
             _info.Text = notification.Info;
             _dateLabel.Text = notification.AlertDay.ToString("dd/MM/yyyy");
         }
