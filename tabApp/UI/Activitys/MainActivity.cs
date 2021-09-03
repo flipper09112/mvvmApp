@@ -4,6 +4,7 @@ using Android;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
+using Android.Content.Res;
 using Android.Locations;
 using Android.OS;
 using Android.Runtime;
@@ -127,6 +128,7 @@ namespace tabApp
             ViewModel.DestroyCounting();
             Android.OS.Process.KillProcess(Android.OS.Process.MyPid());
         }
+
 
         public bool IsServiceRunning(System.Type ClassTypeof)
         {

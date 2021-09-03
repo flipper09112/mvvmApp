@@ -21,6 +21,7 @@ namespace tabApp.UI.Adapters
         private TextView _productName;
         private LinearLayout _layout;
         private EditText _productAmmount;
+        private Action<bool> _hideButtons;
         private ProductAmmount product;
 
         public MvxCommand SaveButtonCanChange { get; internal set; }
@@ -30,10 +31,19 @@ namespace tabApp.UI.Adapters
             _productName = itemView.FindViewById<TextView>(Resource.Id.productName);
             _layout = itemView.FindViewById<LinearLayout>(Resource.Id.layout);
             _productAmmount = itemView.FindViewById<EditText>(Resource.Id.productAmmount);
+
+            _productAmmount.FocusChange -= ProductAmmountFocusChange;
+            _productAmmount.FocusChange += ProductAmmountFocusChange;
         }
 
-        internal void Bind(ProductAmmount product, bool withoutMargins)
+        private void ProductAmmountFocusChange(object sender, View.FocusChangeEventArgs e)
         {
+            //_hideButtons?.Invoke(e.HasFocus);
+        }
+
+        internal void Bind(ProductAmmount product, bool withoutMargins, Action<bool> hideButtons)
+        {
+            _hideButtons = hideButtons;
             this.product = product;
             SetupEditText();
             _productName.Text = product.Product.Name;
