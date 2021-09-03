@@ -31,7 +31,7 @@ namespace tabApp.Core.Services.Implementations.Notifications
         {
             var todayItems = AllNotifications?.FindAll(item => item.AlertDay.Date == DateTime.Today);
 
-            return todayItems.OrderBy(item => _clientsManagerService.GetClientById(item.ClientId).Position).ToList<Notification>();
+            return todayItems?.OrderBy(item => _clientsManagerService.GetClientById(item.ClientId).Position).ToList<Notification>();
         }
 
         public void SetNotifications(List<Notification> lists)

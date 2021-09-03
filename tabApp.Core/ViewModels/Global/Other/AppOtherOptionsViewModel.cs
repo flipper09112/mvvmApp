@@ -14,8 +14,9 @@ namespace tabApp.Core.ViewModels.Global.Other
         public List<Option> Options { get; set; }
 
         public MvxCommand ShowReportCommand;
-        public MvxCommand ShowNotificationsCommand;
+        public MvxCommand ShowNotificationsCommand; 
         public MvxCommand ShowFinancialsPageCommand;
+        public MvxCommand ShowDatabaseManagerPageCommand;
         public AppOtherOptionsViewModel(IMvxNavigationService navigationService)
         {
             _navigationService = navigationService;
@@ -23,8 +24,14 @@ namespace tabApp.Core.ViewModels.Global.Other
             ShowReportCommand = new MvxCommand(ShowReport);
             ShowNotificationsCommand = new MvxCommand(ShowNotifications);
             ShowFinancialsPageCommand = new MvxCommand(ShowFinancialsPage);
+            ShowDatabaseManagerPageCommand = new MvxCommand(ShowDatabaseManagerPage);
 
             CreateListOptions();
+        }
+
+        private async void ShowDatabaseManagerPage()
+        {
+            await _navigationService.Navigate<DatabaseManagerPageViewModel>();
         }
 
         private async void ShowFinancialsPage()
@@ -48,6 +55,7 @@ namespace tabApp.Core.ViewModels.Global.Other
             Options.Add(new Option(ShowReportCommand, "Report", "ic_pdf"));
             Options.Add(new Option(ShowNotificationsCommand, "Ver notificações", "ic_notification_other"));
             Options.Add(new Option(ShowFinancialsPageCommand, "Finanças", "ic_finances"));
+            Options.Add(new Option(ShowDatabaseManagerPageCommand, "DataBase Manage", "ic_database"));
         }
 
         public override void Appearing()

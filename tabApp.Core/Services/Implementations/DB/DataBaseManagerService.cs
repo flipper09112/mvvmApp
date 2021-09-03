@@ -16,12 +16,13 @@ using tabApp.Core.Models.Notifications;
 using tabApp.Core.Services.Interfaces.Notifications;
 using tabApp.Core.Models.GlobalOrder;
 using tabApp.Core.Services.Interfaces.Orders;
+using tabApp.Core.Helpers;
 
 namespace tabApp.Core.Services.Implementations.DB
 {
     public class DataBaseManagerService : IDataBaseManagerService
     {
-        private readonly string DataBaseName = "MyContacts.db3";
+        public static readonly string DataBaseName = "MyContacts.db3";
 
         private IClientsManagerService _clientsManagerService;
         private IProductsManagerService _productsManagerService;
@@ -49,6 +50,11 @@ namespace tabApp.Core.Services.Implementations.DB
             _fileService = fileService;
             _notificationsManagerService = notificationsManagerService;
             _globalOrdersPastManagerService = globalOrdersPastManagerService;
+        }
+
+        public void ReloadDB()
+        {
+            Database = _sQLiteService.Connection();
         }
 
         private void CheckDataBaseCreated(bool deleteTables)
@@ -93,7 +99,9 @@ namespace tabApp.Core.Services.Implementations.DB
         {
             if (!_fileService.HasFile(DataBaseName))
             {
+                Database = null;
                 _fileService.SaveFile(DataBaseName, await _firebaseService.GetUrlDownload(DataBaseName, updatePercentageDownloadEvent));
+                SecureStorageHelper.SaveKeyAsync(SecureStorageHelper.DatabaseDateDownloadKey, DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
             }
 
             CheckDataBaseCreated(false);
@@ -111,7 +119,7 @@ namespace tabApp.Core.Services.Implementations.DB
             _clientsManagerService.ClientsList.ForEach(client => { 
                 try
                 {
-                    if(client.LastDayStopService?.AddDays(1).Date >= DateTime.Today.Date)
+                    if(client.LastDayStopService?.Date <= DateTime.Today.AddDays(1).Date)
                     {
                         if (!client.Active)
                         {

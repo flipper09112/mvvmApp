@@ -139,7 +139,7 @@ namespace tabApp.UI.Fragments.Snooze
 
             foreach (var item in _notifications)
             {
-                if (item.Latitude.Equals("null") || item.Latitude == null) continue;
+                if (item.Latitude.Equals("null") || item.Latitude == null || item.Latitude.Equals("")) continue;
 
                 double distance = Math.Sqrt(Math.Pow(double.Parse(item.Latitude) - obj.Latitude, 2) + Math.Pow(double.Parse(item.Longitude) - obj.Longitude, 2));
                 distances.Add(item, distance);
