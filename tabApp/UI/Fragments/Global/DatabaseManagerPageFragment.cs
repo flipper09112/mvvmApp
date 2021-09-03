@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using tabApp.Core.Helpers;
 using tabApp.Core.ViewModels;
 using tabApp.Core.ViewModels.Global.Other;
 
@@ -21,6 +22,7 @@ namespace tabApp.UI.Fragments.Global
         private MainActivity _activity;
         private CardView _sendDbCard;
         private CardView _restoreDbCard;
+        private TextView _databaseDate;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -30,12 +32,14 @@ namespace tabApp.UI.Fragments.Global
 
             _sendDbCard = view.FindViewById<CardView>(Resource.Id.sendDbCard);
             _restoreDbCard = view.FindViewById<CardView>(Resource.Id.restoreDbCard);
+            _databaseDate = view.FindViewById<TextView>(Resource.Id.databaseDate);
 
             return view;
         }
 
-        public override void SetUI()
+        public override async void SetUI()
         {
+            _databaseDate.Text = await SecureStorageHelper.GetKeyAsync(SecureStorageHelper.DatabaseDateDownloadKey);
         }
 
         public override void SetupBindings()

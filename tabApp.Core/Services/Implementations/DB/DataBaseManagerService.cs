@@ -16,6 +16,7 @@ using tabApp.Core.Models.Notifications;
 using tabApp.Core.Services.Interfaces.Notifications;
 using tabApp.Core.Models.GlobalOrder;
 using tabApp.Core.Services.Interfaces.Orders;
+using tabApp.Core.Helpers;
 
 namespace tabApp.Core.Services.Implementations.DB
 {
@@ -100,6 +101,7 @@ namespace tabApp.Core.Services.Implementations.DB
             {
                 Database = null;
                 _fileService.SaveFile(DataBaseName, await _firebaseService.GetUrlDownload(DataBaseName, updatePercentageDownloadEvent));
+                SecureStorageHelper.SaveKeyAsync(SecureStorageHelper.DatabaseDateDownloadKey, DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
             }
 
             CheckDataBaseCreated(false);
@@ -117,7 +119,7 @@ namespace tabApp.Core.Services.Implementations.DB
             _clientsManagerService.ClientsList.ForEach(client => { 
                 try
                 {
-                    if(client.LastDayStopService?.AddDays(1).Date >= DateTime.Today.Date)
+                    if(client.LastDayStopService?.Date <= DateTime.Today.AddDays(1).Date)
                     {
                         if (!client.Active)
                         {
