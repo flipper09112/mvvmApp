@@ -13,6 +13,7 @@ using tabApp.Core.Services.Interfaces.DB;
 using tabApp.Core.Services.Interfaces.Products;
 using tabApp.Core.Services.Interfaces.Timer;
 using tabApp.Core.ViewModels.Global;
+using tabApp.Core.ViewModels.Global.MonthBills;
 using tabApp.Core.ViewModels.Global.Other;
 using tabApp.Core.ViewModels.Main;
 
@@ -34,6 +35,7 @@ namespace tabApp.Core.ViewModels
         public MvxCommand ShowPriceTableCommand { get; private set; }
         public MvxCommand SyncronizeCommand { get; private set; }
         public MvxCommand OtherOptionsCommand { get; private set; }
+        public MvxCommand MonthBillsCommand { get; private set; }
         public MvxCommand<string> SetFilterCommand { get; set; }
 
         public EventHandler UpdateUiHomePage;
@@ -59,7 +61,13 @@ namespace tabApp.Core.ViewModels
             ShowGlobalOrderPageCommand = new MvxCommand(ShowGlobalOrderPage);
             ShowPriceTableCommand = new MvxCommand(ShowPriceTable);
             SyncronizeCommand = new MvxCommand(Syncronize);
+            MonthBillsCommand = new MvxCommand(MonthBills);
             OtherOptionsCommand = new MvxCommand(OtherOptionsCommandAction);
+        }
+
+        private async void MonthBills()
+        {
+            await _navigationService.Navigate<MonthBillsHomeViewModel>();
         }
 
         private async void OtherOptionsCommandAction()

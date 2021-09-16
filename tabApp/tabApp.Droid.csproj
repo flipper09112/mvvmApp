@@ -73,6 +73,7 @@
     <Compile Include="Helpers\DecimalDigitsInputFilter.cs" />
     <Compile Include="Helpers\FragmentHelper.cs" />
     <Compile Include="Helpers\NotificationHelper.cs" />
+    <Compile Include="Helpers\PrinterHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="UI\Activitys\MainActivity.cs" />
     <Compile Include="MainApplication.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="UI\Adapters\Global\EditProductAdapter.cs" />
     <Compile Include="UI\Adapters\Global\EditProductCostAdapter.cs" />
     <Compile Include="UI\Adapters\Global\HomeFinancialsProductsAdapter.cs" />
+    <Compile Include="UI\Adapters\Global\MonthBillsClientsAdapter.cs" />
     <Compile Include="UI\Adapters\Global\PriceTableAdapter.cs" />
     <Compile Include="UI\Adapters\Global\PriceTableFilterAdapter.cs" />
     <Compile Include="UI\Adapters\Global\ProductsTypesListAdapter.cs" />
@@ -130,6 +132,7 @@
     <Compile Include="UI\Fragments\Global\DatabaseManagerPageFragment.cs" />
     <Compile Include="UI\Fragments\Global\GlobalOrderFragment.cs" />
     <Compile Include="UI\Fragments\EditClient\SelectDaysPageFragment.cs" />
+    <Compile Include="UI\Fragments\Global\MonthBills\MonthBillsHomeFragment.cs" />
     <Compile Include="UI\Fragments\Global\Other\AppOtherOptionsFragment.cs" />
     <Compile Include="UI\Fragments\Global\Other\Finance\HomeFinancialsFragment.cs" />
     <Compile Include="UI\Fragments\Global\Other\Finance\StatsFragment.cs" />
@@ -158,6 +161,7 @@
     <Compile Include="UI\ViewHolders\HomeFinancialsProductsViewHolder.cs" />
     <Compile Include="UI\ViewHolders\ItemRadioViewHolder.cs" />
     <Compile Include="UI\ViewHolders\ItemReportViewHolder.cs" />
+    <Compile Include="UI\ViewHolders\MonthBillsClientsViewHolder.cs" />
     <Compile Include="UI\ViewHolders\NotificationItemViewHolder.cs" />
     <Compile Include="UI\ViewHolders\EditProfileItemViewHolder.cs" />
     <Compile Include="UI\ViewHolders\HomePageOrderViewHolder.cs" />
@@ -946,6 +950,22 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_black_arrow.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\MonthBillsHomeFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\MonthBillsClients.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\car_logo_bmp.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\logo_240.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>

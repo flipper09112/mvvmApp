@@ -226,6 +226,12 @@ namespace tabApp
                 return true;
             }
 
+            if (id == Resource.Id.mouthBills)
+            {
+                ViewModel.MonthBillsCommand.Execute(null);
+                return true;
+            }
+
             return base.OnOptionsItemSelected(menuItem);
         }
         public override bool OnOptionsItemSelected(IMenuItem item)
@@ -335,7 +341,7 @@ namespace tabApp
             }
             else
             {*/
-                this.StartService(foregroundIntent);
+                this.StartService(foregroundIntent); 
             /*}*/
         }
         #endregion

@@ -18,6 +18,8 @@ namespace tabApp.Core.Services.Implementations.Bluetooth
     public class BluetoothService : IBluetoothService
     {
         private string UIID = "00001101-0000-1000-8000-00805f9b34fb";
+        private BluetoothSocket _bluetoothSocket;
+
         public BluetoothServerSocket ServerSocket { get; private set; }
         public BluetoothSocket Socket { get; private set; }
 
@@ -49,7 +51,7 @@ namespace tabApp.Core.Services.Implementations.Bluetooth
         {
             using (BluetoothAdapter bluetoothAdapter = BluetoothAdapter.DefaultAdapter)
             {
-                BluetoothDevice device = GetDevice(bluetoothAdapter, BTDefaultDevice); //TODO
+                BluetoothDevice device = GetDevice(bluetoothAdapter, BTDefaultDevice);
                 try
                 {
                     using (BluetoothSocket bluetoothSocket = device?.
@@ -67,6 +69,16 @@ namespace tabApp.Core.Services.Implementations.Bluetooth
                     throw exp;
                 }
             }
+        }
+        public async Task SendDataAsync(string preview, string pairedDevicesSelected)
+        {
+            byte[] buffer = Encoding.UTF8.GetBytes(preview);
+            await _bluetoothSocket?.OutputStream.WriteAsync(buffer, 0, buffer.Length);
+        }
+
+        public async Task SendDataAsync(byte[] preview, string pairedDevicesSelected)
+        {
+            await _bluetoothSocket?.OutputStream.WriteAsync(preview, 0, preview.Length);
         }
 
         private BluetoothDevice GetDevice(BluetoothAdapter bluetoothAdapter, string bTDefaultDevice)
@@ -140,6 +152,37 @@ namespace tabApp.Core.Services.Implementations.Bluetooth
 
                 act.StartService(service);
             }
+        }
+
+        public void Connect(string pairedDevicesSelected)
+        {
+            using (BluetoothAdapter bluetoothAdapter = BluetoothAdapter.DefaultAdapter)
+            {
+                BluetoothDevice device = GetDevice(bluetoothAdapter, pairedDevicesSelected);
+                try
+                {
+                    _bluetoothSocket = device?.
+                        CreateRfcommSocketToServiceRecord(
+                        UUID.FromString(UIID));
+
+                    _bluetoothSocket?.Connect();
+                    
+                }
+                catch (Exception exp)
+                {
+                    throw exp;
+                }
+            }
+        }
+
+        public void SendData(byte slice, string pairedDevicesSelected)
+        {
+            _bluetoothSocket?.OutputStream.WriteByte(slice);
+        }
+
+        public void DisConnect(string pairedDevicesSelected)
+        {
+            _bluetoothSocket?.Close();
         }
     }
 }
