@@ -50,6 +50,10 @@
               "target": "Package",
               "version": "[6.1.0, )"
             },
+            "BarcodeLib": {
+              "target": "Package",
+              "version": "[2.4.0, )"
+            },
             "FirebaseStorage.net": {
               "target": "Package",
               "version": "[1.0.3, )"

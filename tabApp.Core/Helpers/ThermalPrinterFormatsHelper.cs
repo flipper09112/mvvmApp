@@ -24,7 +24,6 @@ namespace tabApp.Core.Helpers
         {
             return mFormat;
         }
-
         public ThermalPrinterFormatsHelper Bold()
         {
             // Apply bold:
@@ -69,6 +68,11 @@ namespace tabApp.Core.Helpers
         public static byte[] CenterAlign()
         {
             return new byte[] { 0x1B, (byte)'a', 0x01 };
+        }
+
+        public static byte[] DoubleHeightAndWidth()
+        {
+            return new byte[] { 0x1B, 0x21, 0x20 };
         }
     }
 }

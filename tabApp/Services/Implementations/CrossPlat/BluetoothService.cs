@@ -72,6 +72,7 @@ namespace tabApp.Core.Services.Implementations.Bluetooth
         }
         public async Task SendDataAsync(string preview, string pairedDevicesSelected)
         {
+            
             byte[] buffer = Encoding.UTF8.GetBytes(preview);
             await _bluetoothSocket?.OutputStream.WriteAsync(buffer, 0, buffer.Length);
         }

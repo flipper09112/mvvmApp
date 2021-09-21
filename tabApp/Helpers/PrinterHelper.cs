@@ -44,5 +44,12 @@ namespace tabApp.Helpers
 
             return pixels;
         }
+
+        internal static int[,] GetLogo(Android.Graphics.Bitmap bitmap)
+        {
+            int[,] pixels = GetPixelsSlow(bitmap);
+
+            return pixels;
+        }
     }
 }
