@@ -4,6 +4,7 @@ using Android;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
+using Android.Content.Res;
 using Android.Locations;
 using Android.OS;
 using Android.Runtime;
@@ -128,6 +129,7 @@ namespace tabApp
             Android.OS.Process.KillProcess(Android.OS.Process.MyPid());
         }
 
+
         public bool IsServiceRunning(System.Type ClassTypeof)
         {
             ActivityManager manager = (ActivityManager)ApplicationContext.GetSystemService(ActivityService);
@@ -221,6 +223,12 @@ namespace tabApp
             if (id == Resource.Id.otherOptions)
             {
                 ViewModel.OtherOptionsCommand.Execute(null);
+                return true;
+            }
+
+            if (id == Resource.Id.mouthBills)
+            {
+                ViewModel.MonthBillsCommand.Execute(null);
                 return true;
             }
 
@@ -333,7 +341,7 @@ namespace tabApp
             }
             else
             {*/
-                this.StartService(foregroundIntent);
+                this.StartService(foregroundIntent); 
             /*}*/
         }
         #endregion

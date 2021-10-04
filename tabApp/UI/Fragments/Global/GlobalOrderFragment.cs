@@ -1,9 +1,11 @@
 ﻿using Android.App;
 using Android.Content;
+using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.V7.Widget;
 using Android.Views;
+using Android.Views.InputMethods;
 using Android.Widget;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using System;
@@ -29,6 +31,7 @@ namespace tabApp.UI.Fragments.Global
         private Button _addProduct;
         private View _noOrdersItems;
         private View _noCakesOrdersItems;
+        private ImageView _arrowIcon;
         private MainActivity _activity;
         private ProductsAmmountListAdapter _mainAdapter;
         private HomePageOrdersListAdapter _orderAdapter;
@@ -47,24 +50,34 @@ namespace tabApp.UI.Fragments.Global
             _addProduct = view.FindViewById<Button>(Resource.Id.addProduct);
             _noOrdersItems = view.FindViewById<View>(Resource.Id.noOrdersItems);
             _noCakesOrdersItems = view.FindViewById<View>(Resource.Id.noCakesOrdersItems);
+            _arrowIcon = view.FindViewById<ImageView>(Resource.Id.arrowIcon); 
 
-            _activity = ParentActivity as MainActivity;
+             _activity = ParentActivity as MainActivity;
 
             _mainRecyclerView.SetLayoutManager(new LinearLayoutManager(Context));
             _cakesRecyclerView.SetLayoutManager(new LinearLayoutManager(Context));
             _ordersRecyclerView.SetLayoutManager(new LinearLayoutManager(Context));
 
-
             return view;
         }
+
         public override void CleanBindings()
         {
             ViewModel.PropertyChanged -= ViewModelPropertyChanged;
             _sendOrder.Click -= SendOrderClick;
             _setMoreOrdersDays.Click -= SetMoreOrdersDaysClick;
+            _arrowIcon.Click -= ArrowIconClick;
 
             _activity.ShowMenu();
             _activity.ShowToolbar();
+        }
+
+        public override void SetupBindings()
+        {
+            ViewModel.PropertyChanged += ViewModelPropertyChanged;
+            _sendOrder.Click += SendOrderClick;
+            _setMoreOrdersDays.Click += SetMoreOrdersDaysClick;
+            _arrowIcon.Click += ArrowIconClick;
         }
 
         public override void SetUI()
@@ -85,11 +98,13 @@ namespace tabApp.UI.Fragments.Global
             _noCakesOrdersItems.Visibility = ViewModel.CakesClients?.Count == 0 ? ViewStates.Visible : ViewStates.Invisible;
         }
 
-        public override void SetupBindings()
+        private void ArrowIconClick(object sender, EventArgs e)
         {
-            ViewModel.PropertyChanged += ViewModelPropertyChanged;
-            _sendOrder.Click += SendOrderClick;
-            _setMoreOrdersDays.Click += SetMoreOrdersDaysClick;
+            _otherOptions.Visibility = _otherOptions.Visibility == ViewStates.Gone ? ViewStates.Visible : ViewStates.Gone;
+            _sendOrder.Visibility = _sendOrder.Visibility == ViewStates.Gone ? ViewStates.Visible : ViewStates.Gone;
+            _setMoreOrdersDays.Visibility = _setMoreOrdersDays.Visibility == ViewStates.Gone ? ViewStates.Visible : ViewStates.Gone;
+            _addProduct.Visibility = _addProduct.Visibility == ViewStates.Gone ? ViewStates.Visible : ViewStates.Gone;
+            _arrowIcon.Rotation = _arrowIcon.Rotation == 180 ? 0 : 180; 
         }
 
         private void SetMoreOrdersDaysClick(object sender, EventArgs e)

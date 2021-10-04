@@ -21,10 +21,12 @@ namespace tabApp.UI.Adapters
         private List<ProductAmmount> orderProducts;
         private MvxCommand saveNewOrderCommand;
         private int _itemCount;
+        private Action<bool> _hideButtons;
         private bool _withoutMargin;
 
-        public ProductsAmmountListAdapter(List<ProductAmmount> orderProducts, MvvmCross.Commands.MvxCommand saveNewOrderCommand, bool withoutMargin = false)
+        public ProductsAmmountListAdapter(List<ProductAmmount> orderProducts, MvvmCross.Commands.MvxCommand saveNewOrderCommand, bool withoutMargin = false, Action<bool> hideButtons = null)
         {
+            _hideButtons = hideButtons;
             _withoutMargin = withoutMargin;
             this.orderProducts = orderProducts;
             this.saveNewOrderCommand = saveNewOrderCommand;
@@ -42,7 +44,7 @@ namespace tabApp.UI.Adapters
             if (holder is ProductsOrderListViewHolder)
             {
                 var vh = holder as ProductsOrderListViewHolder;
-                vh.Bind(orderProducts[holder.AdapterPosition], _withoutMargin);
+                vh.Bind(orderProducts[holder.AdapterPosition], _withoutMargin, _hideButtons);
                 vh.SaveButtonCanChange = saveNewOrderCommand;
             }
         }

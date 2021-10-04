@@ -23,5 +23,10 @@ namespace tabApp.Core.Services.Interfaces.Bluetooth
         void StartServerSocket(Action disableLottie, Action errorLottie, Action finishedLottie, Action<List<Client>> receiveNewClientsData);
         void StopServerSocket();
         void InitSynchronizeData(Action connectedLottie, Action errorLottie, Action finishedLottie, Action IncrementProgressiveBar);
+        Task SendDataAsync(byte[] vs, string pairedDevicesSelected);
+        Task SendDataAsync(string vs, string pairedDevicesSelected);
+        void Connect(string pairedDevicesSelected);
+        void SendData(byte slice, string pairedDevicesSelected);
+        void DisConnect(string pairedDevicesSelected);
     }
 }

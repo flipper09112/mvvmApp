@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <SelectedDevice>HUAWEI AGS2-W09</SelectedDevice>
+    <SelectedDevice>tablet_m-dpi_10_1in_q_10_0_-_api_29_1</SelectedDevice>
     <DefaultDevice>tablet_m-dpi_10_1in_q_10_0_-_api_29_1</DefaultDevice>
     <AndroidDesignerPreferredTheme>AppTheme</AndroidDesignerPreferredTheme>
     <AndroidDesignerPreferredDevice>10.1in WXGA %28Tablet%29</AndroidDesignerPreferredDevice>
-    <ActiveDebugProfile>HUAWEI AGS2-W09</ActiveDebugProfile>
+    <ActiveDebugProfile>tablet_m-dpi_10_1in_q_10_0_-_api_29_1</ActiveDebugProfile>
   </PropertyGroup>
 </Project>
