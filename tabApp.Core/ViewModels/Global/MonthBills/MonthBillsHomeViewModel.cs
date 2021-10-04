@@ -38,8 +38,6 @@ namespace tabApp.Core.ViewModels.Global.MonthBills
             int count = 0;
             foreach(var cli in MonthClients)
             {
-                if (count == 3)
-                    return;
                 count++;
                 if(cli.Selected)
                     await PrintBill(cli.Data);
