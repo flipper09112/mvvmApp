@@ -40,6 +40,8 @@ namespace tabApp.Core
         public MvxCommand<int> StopDailysClientCommand { get; private set; }
         public MvxCommand AddNewClientBeforeCommand { get; private set; }
         public MvxCommand AddNewClientAfterCommand { get; private set; }
+        public MvxCommand ShowRemainingProductsCommand { get; private set; }
+        
 
         public MvxCommand<ExtraOrder> AddExtraFromOrderCommand { get; private set; }
 
@@ -70,6 +72,12 @@ namespace tabApp.Core
             AddNewClientBeforeCommand = new MvxCommand(AddNewClientBefore);
             AddNewClientAfterCommand = new MvxCommand(AddNewClientAfter);
             AddExtraFromOrderCommand = new MvxCommand<ExtraOrder>(AddExtraFromOrder);
+            ShowRemainingProductsCommand = new MvxCommand(ShowRemainingProducts);
+        }
+
+        private void ShowRemainingProducts()
+        {
+            _dialogService.Show("Produtos necessários", GetRemainingProducts(_clientSelectedLongPress));
         }
 
         private void AddExtraFromOrder(ExtraOrder order)
@@ -341,6 +349,11 @@ namespace tabApp.Core
                 Name = "Adicionar Cliente\n(posição seguinte)",
                 Command = AddNewClientAfterCommand
             });
+            longPressItemsList.Add(new LongPressItem()
+            {
+                Name = "Produtos necessários",
+                Command = ShowRemainingProductsCommand
+            });
             return longPressItemsList;
         }
 
@@ -372,6 +385,19 @@ namespace tabApp.Core
             string txt = "";
             Client client = _clientsManagerService.GetClosestClient(latitude, longitude);
 
+            var list = _ordersManagerService.GetTotalOrderFromClient(client, DateTime.Today);
+
+            foreach (var item in list)
+            {
+                txt += item.Product.Name + " - " + item.Ammount.ToString("N2") + "\n";
+            }
+
+            return txt;
+        }
+
+        public string GetRemainingProducts(Client client)
+        {
+            string txt = "";
             var list = _ordersManagerService.GetTotalOrderFromClient(client, DateTime.Today);
 
             foreach (var item in list)

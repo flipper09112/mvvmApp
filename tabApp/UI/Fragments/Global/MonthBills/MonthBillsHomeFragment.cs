@@ -35,6 +35,7 @@ namespace tabApp.UI.Fragments.Global.MonthBills
         private RecyclerView _clientsRv;
         private CardView _printButton;
         private Spinner _spinner;
+        private CheckBox _checkBox;
         private PrintAccountSpinnerAdapter _spinnerAdapter;
         private MonthBillsClientsAdapter _adapter;
 
@@ -47,7 +48,8 @@ namespace tabApp.UI.Fragments.Global.MonthBills
             _clientsRv = view.FindViewById<RecyclerView>(Resource.Id.clientsRv);
             _printButton = view.FindViewById<CardView>(Resource.Id.printButton); 
             _spinner = view.FindViewById<Spinner>(Resource.Id.spinner);
-
+            _checkBox = view.FindViewById<CheckBox>(Resource.Id.checkBox);
+            
             _clientsRv.SetLayoutManager(new LinearLayoutManager(Context));
             return view;
         }
@@ -78,8 +80,9 @@ namespace tabApp.UI.Fragments.Global.MonthBills
         {
             _printButton.Click += PrintButtonClick;
             _spinner.ItemSelected += SpinnerItemSelected;
+            _checkBox.CheckedChange += CheckBoxCheckedChange;
 
-            if(ViewModel.PrintLogo == null)
+            if (ViewModel.PrintLogo == null)
                 ViewModel.PrintLogo += PrintLogo;
 
             if (ViewModel.PrintBarCode == null)
@@ -95,6 +98,20 @@ namespace tabApp.UI.Fragments.Global.MonthBills
             _spinner.ItemSelected -= SpinnerItemSelected;
             //ViewModel.PrintLogo -= PrintLogo;
             //ViewModel.PrintPrice -= PrintPrice;
+            _checkBox.CheckedChange -= CheckBoxCheckedChange;
+        }
+
+        private void CheckBoxCheckedChange(object sender, CompoundButton.CheckedChangeEventArgs e)
+        {
+            if(e.IsChecked)
+            {
+                ViewModel.MonthClients.ForEach(item => item.Selected = true);
+            }
+            else
+            {
+                ViewModel.MonthClients.ForEach(item => item.Selected = false);
+            }
+            _adapter.NotifyDataSetChanged();
         }
 
         private async Task<bool> PrintPrice(double price)

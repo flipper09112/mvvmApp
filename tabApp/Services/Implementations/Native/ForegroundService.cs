@@ -12,8 +12,10 @@ using AndroidX.Core.Content;
 using MvvmCross;
 using System;
 using System.Collections.Generic;
+using tabApp.Core.Models;
 using tabApp.Core.Services.Interfaces.Notifications;
 using tabApp.Core.Services.Interfaces.Orders;
+using tabApp.Core.Services.Interfaces.Products;
 using tabApp.Helpers;
 using static Android.App.ActivityManager;
 
@@ -132,8 +134,20 @@ namespace tabApp.Services.Implementations.Native
             if(!order.ExtraOrder.HasNotify)
             {
                 order.ExtraOrder.HasNotify = true;
-                _notificationHelper.Notify(order.ExtraOrder.Id, order.Client.Name, "Encomenda\nCliente ID: " + order.Client.Id);
+                _notificationHelper.Notify(order.ExtraOrder.Id, order.Client.Name, GetOrderDesc(order.ExtraOrder));
             }
+        }
+        private string GetOrderDesc(ExtraOrder obj)
+        {
+            var productsManagerService = Mvx.Resolve<IProductsManagerService>();
+
+            string details = "";
+            foreach (var item in obj.AllItems)
+            {
+                Product product = productsManagerService.GetProductById(item.ProductId);
+                details += product.Name + " - " + (product.Unity ? item.Ammount.ToString("N0") : item.Ammount.ToString("N2")) + "\n";
+            }
+            return details;
         }
 
         public void OnProviderDisabled(string provider)
