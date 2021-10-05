@@ -33,6 +33,7 @@ namespace tabApp.Core
 
         public EventHandler DeleteClientEvent;
         public EventHandler UpdateOrderList;
+        public EventHandler UpdateAllTabs;
         public EventHandler ShowOptionsLongPress; 
         public MvxAsyncCommand<Client> ShowClientPage { get; private set; }
         public MvxCommand<Client> LongClickClient { get; private set; }
@@ -335,6 +336,12 @@ namespace tabApp.Core
         {
             TabsOptions = GetSecondaryOptions();
             LongPressItemsList = GetLongPressItemsList();
+
+            if(_dataBaseManagerService.DBRestored)
+            {
+                _dataBaseManagerService.DBRestored = false;
+                UpdateAllTabs?.Invoke(null, null);
+            }
         }
 
         private List<LongPressItem> GetLongPressItemsList()

@@ -95,6 +95,7 @@ namespace tabApp.UI
             ViewModel.DeleteClientEvent += DeleteClientEvent;
             ViewModel.ShowOptionsLongPress += ShowOptionsLongPress;
             ViewModel.UpdateOrderList += UpdateOrderList;
+            ViewModel.UpdateAllTabs += UpdateAllTabs;
         }
 
         public override void CleanBindings()
@@ -103,6 +104,14 @@ namespace tabApp.UI
             ViewModel.DeleteClientEvent -= DeleteClientEvent;
             ViewModel.ShowOptionsLongPress -= ShowOptionsLongPress;
             ViewModel.UpdateOrderList -= UpdateOrderList;
+            ViewModel.UpdateAllTabs -= UpdateAllTabs;
+        }
+
+        private void UpdateAllTabs(object sender, EventArgs e)
+        {
+            _viewPagerAdapter = new HomePageViewPagerAdapter(ChildFragmentManager);
+            _viewPagerAdapter.ViewModel = ViewModel;
+            _homeViewPager.Adapter = _viewPagerAdapter;
         }
 
         private void UpdateOrderList(object sender, EventArgs e)

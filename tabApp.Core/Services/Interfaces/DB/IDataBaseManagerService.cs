@@ -11,6 +11,7 @@ namespace tabApp.Core.Services.Implementations.DB
     public interface IDataBaseManagerService
     {
         SQLiteConnection Database { get; set; }
+        bool DBRestored { get; set; }
 
         List<Client> GetClients();
         List<Product> GetProducts();
@@ -37,5 +38,6 @@ namespace tabApp.Core.Services.Implementations.DB
         void InsertClient(Client newClient, Regist regist);
         void InsertGlobalOrderRegist(GlobalOrderRegist globalOrderRegist);
         void UpdateTotalOrderRegist(GlobalOrderRegist totalOrder);
+        void RemoveProduct(Product prod);
     }
 }

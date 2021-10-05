@@ -32,6 +32,8 @@ namespace tabApp.Core.Services.Implementations.DB
         private IGlobalOrdersPastManagerService _globalOrdersPastManagerService;
 
         public SQLiteConnection Database { get; set; }
+        public bool DBRestored { get; set; }
+
         static object locker = new object();
         private ISQLiteService _sQLiteService;
 
@@ -477,6 +479,11 @@ namespace tabApp.Core.Services.Implementations.DB
             Database.Delete<ExtraOrder>(obj.Id);
             Database.Insert(regist);
             Database.UpdateWithChildren(client);
+        }
+
+        public void RemoveProduct(Product prod)
+        {
+            Database.Delete<Product>(prod.Id);
         }
 
 

@@ -33,6 +33,7 @@ namespace tabApp.Core.ViewModels.Global.Other
             IsBusy = true;
             _fileService.DeleteFile(DataBaseManagerService.DataBaseName);
             await _dataBaseManagerService.LoadDataBase(UpdateDownloadPercentage);
+            _dataBaseManagerService.DBRestored = true;
             GoBack2Times?.Invoke(null, null);
             IsBusy = false;
         }

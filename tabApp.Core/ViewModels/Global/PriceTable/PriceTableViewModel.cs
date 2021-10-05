@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using tabApp.Core.Models;
+using tabApp.Core.Services.Implementations.DB;
 using tabApp.Core.Services.Implementations.Products;
+using tabApp.Core.Services.Interfaces.Dialogs;
 using tabApp.Core.Services.Interfaces.Products;
 using tabApp.Core.ViewModels.Global.PriceTable;
 
@@ -17,7 +19,8 @@ namespace tabApp.Core.ViewModels.Global
         private IMvxNavigationService _navigationService;
         private IPriceTableFilterService _priceTableFilterService;
         private IChooseProductService _chooseProductService;
-
+        private IDialogService _dialogService;
+        private IDataBaseManagerService _dataBaseManagerService;
         public EventHandler ShowLongPressOptions;
 
         public MvxCommand ShowPriceTableFilterCommand;
@@ -25,7 +28,8 @@ namespace tabApp.Core.ViewModels.Global
         public MvxCommand<Product> LongPressCommand; 
         public MvxCommand EditProductCommand;
         public MvxCommand EditProductBuyCommand;
-
+        public MvxCommand DeleteProductCommand;
+        
         public bool HasFilter => _priceTableFilterService.HasFilter;
         public Client ClientFilter => _priceTableFilterService.ClientSelected;
 
@@ -33,18 +37,36 @@ namespace tabApp.Core.ViewModels.Global
         public PriceTableViewModel(IProductsManagerService productsManagerService,
                                    IMvxNavigationService navigationService,
                                    IPriceTableFilterService priceTableFilterService,
-                                   IChooseProductService chooseProductService)
+                                   IChooseProductService chooseProductService,
+                                   IDialogService dialogService,
+                                   IDataBaseManagerService dataBaseManagerService)
         {
             _productsManagerService = productsManagerService;
             _navigationService = navigationService;
             _priceTableFilterService = priceTableFilterService;
             _chooseProductService = chooseProductService;
+            _dialogService = dialogService;
+            _dataBaseManagerService = dataBaseManagerService;
 
             ShowPriceTableFilterCommand = new MvxCommand(ShowPriceTableFilter);
             ShowPriceTableConfigurationCommand = new MvxCommand(ShowPriceTableConfiguration);
             LongPressCommand = new MvxCommand<Product>(LongPress);
             EditProductCommand = new MvxCommand(EditProduct);
             EditProductBuyCommand = new MvxCommand(EditProductBuy);
+            DeleteProductCommand = new MvxCommand(DeleteProduct);
+        }
+
+        private void DeleteProduct()
+        {
+            _dialogService.ShowConfirmDialog("Pretende eliminar o produto?", "Sim", ConfirmDeleteProduct, "Nao", _chooseProductService.Product);
+        }
+
+        private void ConfirmDeleteProduct(object obj)
+        {
+            Product prod = (Product)obj;
+            _dataBaseManagerService.RemoveProduct(prod);
+            _productsManagerService.ProductsList.Remove(prod);
+            RaisePropertyChanged("DeleteProduct");
         }
 
         private async void EditProductBuy()
@@ -127,6 +149,12 @@ namespace tabApp.Core.ViewModels.Global
             {
                 Name = "Editar valores (Compra)",
                 Command = EditProductBuyCommand
+            });
+
+            items.Add(new LongPressItem()
+            {
+                Name = "Apagar produto",
+                Command = DeleteProductCommand
             });
 
             return items;
