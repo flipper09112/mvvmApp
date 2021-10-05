@@ -58,6 +58,11 @@
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
     <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
     <AndroidErrorOnCustomJavaObject>false</AndroidErrorOnCustomJavaObject>
+    <AotAssemblies>false</AotAssemblies>
+    <EnableLLVM>false</EnableLLVM>
+    <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
+    <BundleAssemblies>false</BundleAssemblies>
+    <AndroidSupportedAbis />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android.Export" />
@@ -972,6 +977,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\logo_300.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\NotificationPopPup.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
