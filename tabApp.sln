@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tabApp.Core", "tabApp.Core\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tabApp.DroidWear", "tabApp.DroidWear\tabApp.DroidWear\tabApp.DroidWear.csproj", "{B31074B6-2F7D-4765-ADEF-921094C5B6F8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tabApp.DroidClients", "tabApp.DroidClients\tabApp.DroidClients.csproj", "{97C2389B-B20D-4D52-A140-A8E0A114660A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,12 @@ Global
 		{B31074B6-2F7D-4765-ADEF-921094C5B6F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B31074B6-2F7D-4765-ADEF-921094C5B6F8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B31074B6-2F7D-4765-ADEF-921094C5B6F8}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{97C2389B-B20D-4D52-A140-A8E0A114660A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97C2389B-B20D-4D52-A140-A8E0A114660A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97C2389B-B20D-4D52-A140-A8E0A114660A}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{97C2389B-B20D-4D52-A140-A8E0A114660A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97C2389B-B20D-4D52-A140-A8E0A114660A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97C2389B-B20D-4D52-A140-A8E0A114660A}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

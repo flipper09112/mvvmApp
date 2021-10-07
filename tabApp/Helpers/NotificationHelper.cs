@@ -100,7 +100,6 @@ namespace tabApp.Helpers
 
             AlertDialog.Builder alert = new AlertDialog.Builder(act);
             alert.SetView(Resource.Layout.NotificationPopPup);
-            alert.SetCancelable(false);
             
             _dialog = alert.Create();
             _dialog.Show();
