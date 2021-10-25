@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using tabApp.Core.ViewModels;
+using tabApp.Core.ViewModelsClient.Catalog;
 using tabApp.Core.ViewModelsClient.Info;
 
 namespace tabApp.Core.ViewModelsClient
@@ -30,13 +31,13 @@ namespace tabApp.Core.ViewModelsClient
             await _navigationService.Navigate<InfoViewModel>();
         }
 
-        private void ShowCatalog()
+        private async void ShowCatalog()
         {
+            await _navigationService.Navigate<CatalogViewModel>();
         }
 
         public override void Appearing()
         {
-           
             HomepageItems = GetItems();
         }
 

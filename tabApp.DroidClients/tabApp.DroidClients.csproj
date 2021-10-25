@@ -71,10 +71,13 @@
     <Compile Include="Services\Implementations\FileService.cs" />
     <Compile Include="Services\Implementations\SQLiteService.cs" />
     <Compile Include="Setup.cs" />
+    <Compile Include="UI\Adapters\CatalogAdapter.cs" />
     <Compile Include="UI\Adapters\HomepageAdapter.cs" />
     <Compile Include="UI\Bases\BaseFragment.cs" />
+    <Compile Include="UI\Fragments\Catalog\CatalogFragment.cs" />
     <Compile Include="UI\Fragments\HomepageFragment.cs" />
     <Compile Include="UI\Fragments\Info\InfoFragment.cs" />
+    <Compile Include="UI\ViewHolders\CatalogItemViewHolder.cs" />
     <Compile Include="UI\ViewHolders\HomepageItemViewHolder.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -206,6 +209,23 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_call_default.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\button_layout.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\CatalogFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_bread.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_cake.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_flour.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

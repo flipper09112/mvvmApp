@@ -20,6 +20,7 @@ namespace tabApp.DroidClients
     public class MainActivity : MvxAppCompatActivity<HomePageViewModel>
     {
         private ProgressBar _indeterminateBar;
+        private FrameLayout _container;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -30,11 +31,17 @@ namespace tabApp.DroidClients
             Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolbar);
             _indeterminateBar = FindViewById<ProgressBar>(Resource.Id.indeterminateBar);
+            _container = FindViewById<FrameLayout>(Resource.Id.fragmentContainer);
 
             ViewModel.PropertyChanged -= ViewModelPropertyChanged;
             ViewModel.PropertyChanged += ViewModelPropertyChanged;
 
             _indeterminateBar.Visibility = ViewModel.IsBusy ? ViewStates.Visible : ViewStates.Invisible;
+
+            if (SupportFragmentManager.FindFragmentById(Resource.Id.fragmentContainer) == null)
+            {
+                ViewModel.ShowHomePageCommand.Execute();
+            }
         }
 
         private void ViewModelPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

@@ -641,3 +641,11 @@ C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\res\dr
 C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\res\drawable\button_call_clicked.xml
 C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\res\drawable\button_call_default.xml
 C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\android\src\crc6487812edc773d59ec\InfoFragment.java
+C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\res\layout\button_layout.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\res\layout\catalogfragment.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\android\src\crc6454520a5450c2e05b\CatalogItemViewHolder.java
+C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\android\src\crc64b84dadbf4acaf435\CatalogFragment.java
+C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\android\src\crc64e5449d453cea33de\CatalogAdapter.java
+C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\res\drawable\ic_bread.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\res\drawable\ic_cake.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\res\drawable\ic_flour.xml

@@ -5,6 +5,7 @@ using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using AndroidX.AppCompat.Widget;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using System;
 using System.Collections.Generic;
@@ -21,8 +22,8 @@ namespace tabApp.DroidClients.UI.Fragments.Info
     public class InfoFragment : BaseFragment<InfoViewModel>
     {
         private MainActivity _activity;
-        private Button _button_manuela;
-        private Button _button_filipe;
+        private AppCompatButton _button_manuela;
+        private AppCompatButton _button_filipe;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -30,8 +31,8 @@ namespace tabApp.DroidClients.UI.Fragments.Info
 
             _activity = ParentActivity as MainActivity;
 
-            _button_manuela = view.FindViewById<Button>(Resource.Id.button_manuela);
-            _button_filipe = view.FindViewById<Button>(Resource.Id.button_filipe);
+            _button_manuela = view.FindViewById<AppCompatButton>(Resource.Id.button_manuela);
+            _button_filipe = view.FindViewById<AppCompatButton>(Resource.Id.button_filipe);
 
             return view;
         }
