@@ -73,5 +73,10 @@ namespace tabApp.DroidWear.Services.Implementations
             }
             return null;
         }
+
+        public void DeleteFile(string dataBaseName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

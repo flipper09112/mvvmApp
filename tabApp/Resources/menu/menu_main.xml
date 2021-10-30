@@ -7,11 +7,18 @@
         android:title="@string/action_settings"
         app:showAsAction="never" />
 
+  <item
+        android:id="@+id/openDoor"
+        android:orderInCategory="100"
+		    android:icon="@drawable/ic_gate"
+        app:showAsAction="ifRoom" />
+
 	<item
         android:id="@+id/getClosestClient"
         android:orderInCategory="100"
-		android:icon="@drawable/ic_gps"
+		    android:icon="@drawable/ic_gps"
         app:showAsAction="ifRoom" />
+
 
 	<item
         android:id="@+id/action_search"

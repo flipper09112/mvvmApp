@@ -262,6 +262,26 @@ namespace tabApp
                 return true;
             }
 
+            if (id == Resource.Id.openDoor)
+            {
+                Intent intent = PackageManager.GetLaunchIntentForPackage("com.companyname.opendoorapp");
+                if (intent != null)
+                {
+                    // We found the activity now start the activity
+                    intent.AddFlags(ActivityFlags.NewTask);
+                    StartActivity(intent);
+                }
+                else
+                {
+                    // Bring user to the market or let them choose an app?
+                    intent = new Intent(Intent.ActionView);
+                    intent.AddFlags(ActivityFlags.NewTask);
+                    intent.SetData(Android.Net.Uri.Parse("https://play.google.com/store/apps/details?id=com.companyname.opendoorapp"));
+                    StartActivity(intent);
+                }
+                return true;
+            }
+
             return base.OnOptionsItemSelected(item);
         }
         #endregion

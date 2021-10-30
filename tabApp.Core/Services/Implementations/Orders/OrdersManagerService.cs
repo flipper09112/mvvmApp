@@ -141,6 +141,7 @@ namespace tabApp.Core.Services.Implementations.Orders
                     continue;
 
                 ExtraOrder order = _clientsManagerService.HasOrderThisDate(client, dateTime);
+                if (order?.StoreOrder ?? false) order = null;
                 if (order == null)
                 {
                     AddProductAmmountToListWithoutFilter(items, ClientHelper.GetDailyOrder(dateTime.DayOfWeek, client).AllItems);
@@ -179,7 +180,9 @@ namespace tabApp.Core.Services.Implementations.Orders
                     continue;
                 
                 ExtraOrder order = _clientsManagerService.HasOrderThisDate(client, dateTime);
-                if(order == null)
+                if (order?.StoreOrder ?? false) order = null;
+                
+                if (order == null)
                 {
                     AddProductAmmountToList(items, ClientHelper.GetDailyOrder(dateTime.DayOfWeek, client).AllItems);
                 } else
@@ -313,6 +316,9 @@ namespace tabApp.Core.Services.Implementations.Orders
             {
                 if (!client.Active) continue;
                 ExtraOrder order = _clientsManagerService.HasOrderThisDate(client, dateTime);
+
+                if (order?.StoreOrder ?? false) order = null;
+
                 if (order == null)
                 {
                     AddProductAmmountToList(items, ClientHelper.GetDailyOrder(dateTime.DayOfWeek, client).AllItems);
@@ -348,7 +354,9 @@ namespace tabApp.Core.Services.Implementations.Orders
 
                 ExtraOrder order = _clientsManagerService.HasOrderThisDate(client, startDate);
 
-                if(order != null)
+                if (order?.StoreOrder ?? false) order = null;
+
+                if (order != null)
                 {
                     if (order.IsTotal)
                     {
@@ -378,8 +386,9 @@ namespace tabApp.Core.Services.Implementations.Orders
                 if (!client.Active) continue;
 
                 ExtraOrder order = _clientsManagerService.HasOrderThisDate(client, startDate);
+                if (order?.StoreOrder ?? false) order = null;
 
-                if(order != null)
+                if (order != null)
                 {
                     if (order.IsTotal)
                     {
