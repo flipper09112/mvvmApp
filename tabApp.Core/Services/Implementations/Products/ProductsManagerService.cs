@@ -28,7 +28,8 @@ namespace tabApp.Core.Services.Implementations.Products
                 foreach (var item in _productsList[0].ReSaleValues ?? new List<ReSaleValues>())
                 {
                     var cli = _clientsManagerService.ClientsList.Find(client => client.Id == item.ClientId);
-                    clients.Add(cli);
+                    if(cli != null)
+                        clients.Add(cli);
                 }
                 return clients;
             }
