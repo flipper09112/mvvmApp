@@ -161,6 +161,7 @@
     <Compile Include="UI\Fragments\Home\ViewPager\HomeNotificationsFragment.cs" />
     <Compile Include="UI\Fragments\Home\ViewPager\HomePageMapFragment.cs" />
     <Compile Include="UI\Fragments\Home\ViewPager\HomePageOrdersFragment.cs" />
+    <Compile Include="UI\Fragments\Login\LoginFragment.cs" />
     <Compile Include="UI\Fragments\Snooze\SnoozeFragment.cs" />
     <Compile Include="UI\ViewHolders\AddItemReportViewHolder.cs" />
     <Compile Include="UI\ViewHolders\CreateNotifications\CreateNotificationsOtherDaysViewHolder.cs" />
@@ -994,6 +995,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_gate.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\LoginFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>

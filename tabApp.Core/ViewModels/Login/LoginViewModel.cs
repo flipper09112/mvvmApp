@@ -17,7 +17,33 @@ namespace tabApp.Core.ViewModels.Login
         {
             _navigationService = navigationService;
 
-            ShowHomePage = new MvxCommand(ShowHome);
+            ShowHomePage = new MvxCommand(ShowHome, CanShowHome);
+        }
+        public string username;
+        public string Username
+        {
+            get => username;
+            set
+            {
+                username = value;
+                ShowHomePage.RaiseCanExecuteChanged();
+            }
+        }
+
+        public string password;
+        public string Password
+        {
+            get => password;
+            set
+            {
+                password = value;
+                ShowHomePage.RaiseCanExecuteChanged();
+            }
+        }
+
+        private bool CanShowHome()
+        {
+            return Username == "admin" && Password == "1234!";
         }
 
         private async void ShowHome()

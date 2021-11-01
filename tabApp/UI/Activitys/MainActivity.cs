@@ -333,10 +333,6 @@ namespace tabApp
             base.OnUserInteraction();
         }
 
-        private void OrderNotification()
-        {
-        }
-
         public void LoadingView(bool visible)
         {
             _indeterminateBar.Indeterminate = true;
