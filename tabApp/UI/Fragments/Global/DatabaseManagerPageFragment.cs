@@ -39,7 +39,7 @@ namespace tabApp.UI.Fragments.Global
 
         public override async void SetUI()
         {
-            _databaseDate.Text = await SecureStorageHelper.GetKeyAsync(SecureStorageHelper.DatabaseDateDownloadKey);
+            _databaseDate.Text = await SecureStorageHelper.GetKeyAsync(SecureStorageHelper.DatabaseDateDownloadKey) ?? "Sem data registada";
         }
 
         public override void SetupBindings()
