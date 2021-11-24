@@ -12,12 +12,15 @@ using AndroidX.Core.Content;
 using MvvmCross;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using tabApp.Core.Models;
 using tabApp.Core.Services.Interfaces.Notifications;
 using tabApp.Core.Services.Interfaces.Orders;
 using tabApp.Core.Services.Interfaces.Products;
 using tabApp.Helpers;
+using Xamarin.Essentials;
 using static Android.App.ActivityManager;
+using Location = Android.Locations.Location;
 
 namespace tabApp.Services.Implementations.Native
 {
@@ -254,9 +257,30 @@ namespace tabApp.Services.Implementations.Native
             Log.Debug(logTag, "Now sending location updates");
         }
 
-        private void CheckPermissions()
+        private async void CheckPermissions()
         {
-            //TODO
+            var status = await Permissions.CheckStatusAsync<Permissions.LocationAlways>();
+
+            if (status != PermissionStatus.Granted)
+            {
+                await Task.Delay(10000);
+                status = await Permissions.RequestAsync<Permissions.LocationAlways>();
+
+                if (status != PermissionStatus.Granted) return;
+
+                var locationCriteria = new Criteria();
+
+                locationCriteria.Accuracy = Accuracy.Coarse;
+                locationCriteria.PowerRequirement = Power.NoRequirement;
+                var locationProvider = LocMgr.GetBestProvider(locationCriteria, true);
+                Log.Debug(logTag, string.Format("You are about to get location updates via {0}", locationProvider));
+
+                // Get an initial fix on location
+                if (locationProvider != null)
+                    LocMgr.RequestLocationUpdates(locationProvider, 500, 0, this);
+
+                Log.Debug(logTag, "Now sending location updates");
+            }
         }
 
         public override void OnDestroy()
