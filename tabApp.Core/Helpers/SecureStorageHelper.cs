@@ -9,6 +9,8 @@ namespace tabApp.Core.Helpers
     public static class SecureStorageHelper
     {
         public static string DatabaseDateDownloadKey = "DatabaseDateDownloadKey";
+        public static string HasLoginKey = "LoginKey";
+        public static string HasLoginYesValue = "HasLoginTrue";
 
         public static async Task SaveKeyAsync(string key, string value)
         {
@@ -27,7 +29,7 @@ namespace tabApp.Core.Helpers
             try
             {
                 var oauthToken = await SecureStorage.GetAsync(key);
-                return oauthToken ?? "Sem data registada";
+                return oauthToken;
             }
             catch (Exception ex)
             {

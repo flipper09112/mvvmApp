@@ -3,6 +3,9 @@ using MvvmCross.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using tabApp.Core.Helpers;
+using tabApp.Core.ViewModels.Login;
 
 namespace tabApp.Core.ViewModels.Main
 {
@@ -21,7 +24,21 @@ namespace tabApp.Core.ViewModels.Main
 
         private async void ShowHome()
         {
-            await _navigationService.Navigate<HomeViewModel>();
+            bool hasLogin = await HasLoginAsync();
+            if(hasLogin)
+                await _navigationService.Navigate<HomeViewModel>();
+            else
+                await _navigationService.Navigate<LoginViewModel>();
+        }
+
+        private async Task<bool> HasLoginAsync()
+        {
+            string data = await SecureStorageHelper.GetKeyAsync(SecureStorageHelper.HasLoginKey);
+
+            if (data == SecureStorageHelper.HasLoginYesValue)
+                return true;
+
+            return false;
         }
 
         public override void Appearing()
