@@ -215,7 +215,11 @@ namespace tabApp.Core.ViewModels
             foreach(var item in obj.AllItems)
             {
                 Product product = _productsManagerService.GetProductById(item.ProductId);
-                details += product.Name + " - " + (product.Unity ? item.Ammount.ToString("N0") : item.Ammount.ToString("N2")) + "\n";
+
+                if (product == null)
+                    details += "Produto nao encontrado - " + item.Ammount.ToString("N3") + "\n";
+                else
+                    details += product.Name + " - " + (product.Unity ? item.Ammount.ToString("N0") : item.Ammount.ToString("N2")) + "\n";
             }
             return details;
         }

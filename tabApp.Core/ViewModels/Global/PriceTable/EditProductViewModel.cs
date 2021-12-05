@@ -103,7 +103,7 @@ namespace tabApp.Core.ViewModels.Global.PriceTable
 
         public string GetClientName(int clientId)
         {
-            return _clientsManagerService.GetClientById(clientId).Name;
+            return _clientsManagerService.GetClientById(clientId)?.Name ?? "None";
         }
     }
 }

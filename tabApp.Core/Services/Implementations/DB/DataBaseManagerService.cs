@@ -114,6 +114,28 @@ namespace tabApp.Core.Services.Implementations.DB
 
             //checks and saves states
             CheckFirstDayAfterStopService();
+
+            //check resales values clients deletes
+            CheckReSalesValuesClientsDeleted();
+        }
+
+        private void CheckReSalesValuesClientsDeleted()
+        {
+            var resales = Database.GetAllWithChildren<ReSaleValues>();
+
+            var hasDeletedClient = resales.Any(item => !_clientsManagerService.ClientsList.Any(client => client.Id == item.ClientId));
+
+            if(hasDeletedClient)
+            {
+                resales.ForEach(item => { 
+                    if(!_clientsManagerService.ClientsList.Any(client => client.Id == item.ClientId))
+                    {
+                        Database.Delete(item);
+                    }
+                });
+
+                _productsManagerService.SetProducts(GetProducts());
+            }
         }
 
         private void CheckFirstDayAfterStopService()
