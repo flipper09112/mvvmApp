@@ -17,6 +17,7 @@ using tabApp.Core.Services.Interfaces.Notifications;
 using tabApp.Core.Models.GlobalOrder;
 using tabApp.Core.Services.Interfaces.Orders;
 using tabApp.Core.Helpers;
+using tabApp.Core.Services.Interfaces.Deliverys;
 
 namespace tabApp.Core.Services.Implementations.DB
 {
@@ -30,6 +31,7 @@ namespace tabApp.Core.Services.Implementations.DB
         private IFileService _fileService;
         private INotificationsManagerService _notificationsManagerService;
         private IGlobalOrdersPastManagerService _globalOrdersPastManagerService;
+        private IDeliverysManagerService _deliverysManagerService;
 
         public SQLiteConnection Database { get; set; }
         public bool DBRestored { get; set; }
@@ -43,7 +45,8 @@ namespace tabApp.Core.Services.Implementations.DB
                                       IFileService fileService,
                                       IFirebaseService firebaseService,
                                       INotificationsManagerService notificationsManagerService,
-                                      IGlobalOrdersPastManagerService globalOrdersPastManagerService)
+                                      IGlobalOrdersPastManagerService globalOrdersPastManagerService,
+                                      IDeliverysManagerService deliverysManagerService)
         {
             _sQLiteService = sQLiteService;
             _clientsManagerService = clientsManagerService;
@@ -52,6 +55,7 @@ namespace tabApp.Core.Services.Implementations.DB
             _fileService = fileService;
             _notificationsManagerService = notificationsManagerService;
             _globalOrdersPastManagerService = globalOrdersPastManagerService;
+            _deliverysManagerService = deliverysManagerService;
         }
 
         public void ReloadDB()
@@ -79,6 +83,7 @@ namespace tabApp.Core.Services.Implementations.DB
                     Database.DropTable<ExtraOrder>();
                     Database.DropTable<Notification>();
                     Database.DropTable<GlobalOrderRegist>();
+                    Database.DropTable<Delivery>();
                 }
                 
                 Database.CreateTable<Regist>();
@@ -91,6 +96,7 @@ namespace tabApp.Core.Services.Implementations.DB
                 Database.CreateTable<ExtraOrder>();
                 Database.CreateTable<Notification>();
                 Database.CreateTable<GlobalOrderRegist>();
+                Database.CreateTable<Delivery>();
 
             } catch (NotSupportedException e) {
                 Debug.WriteLine(e.Message);
@@ -106,8 +112,11 @@ namespace tabApp.Core.Services.Implementations.DB
                 SecureStorageHelper.SaveKeyAsync(SecureStorageHelper.DatabaseDateDownloadKey, DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
             }
 
+            var deliveryId = await SecureStorageHelper.GetKeyAsync(SecureStorageHelper.DeliveryId) ?? "1";
+            
             CheckDataBaseCreated(false);
-            _clientsManagerService.SetClients(GetClients().OrderBy(item => item.Position).ToList<Client>());
+            _clientsManagerService.SetClients(GetClients().OrderBy(item => item.Position).ToList<Client>(), deliveryId);
+            _deliverysManagerService.SetDeliverys(GetDelivery());
             _productsManagerService.SetProducts(GetProducts());
             _notificationsManagerService.SetNotifications(GetNotifications());
             _globalOrdersPastManagerService.SetGlobalOrders(GetGlobalOrderRegists());
@@ -459,6 +468,14 @@ namespace tabApp.Core.Services.Implementations.DB
             {
                 return Database.GetAllWithChildren<Client>(recursive: true);
                 // return (from c in database.Table<Client>() select c).ToList();
+            }
+        }
+
+        private List<Delivery> GetDelivery()
+        {
+            lock (locker)
+            {
+                return Database.GetAllWithChildren<Delivery>(recursive: true);
             }
         }
 

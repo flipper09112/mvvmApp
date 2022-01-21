@@ -9,8 +9,9 @@ namespace tabApp.Core.Services.Interfaces.Clients
     {
         List<Client> ClientsList { get; }
         List<Client> ClientsUpdatedToday { get; }
+        string DeliveryId { get; set; }
 
-        void SetClients(List<Client> clientsList);
+        void SetClients(List<Client> clientsList, string deliveryId);
         void SetNewOrder(int clientId, ExtraOrder extraOrder);
         void SetNewRegist(int clientId, Regist detail);
         Regist SetPayment(Client client, DateTime dateSelected, bool payExtra, double value);

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using tabApp.Core.Helpers;
 using tabApp.Core.Models;
 using tabApp.Core.Models.Notifications;
 using tabApp.Core.Services.Implementations.Clients;
@@ -294,12 +295,18 @@ namespace tabApp.Core
         {
             get
             {
-                if(_clientsListFilterService.HasFilter)
+                List<Client> clients;
+                if (_clientsManagerService.DeliveryId == SecureStorageHelper.DeliveryIdAdmin)
+                    clients = _clientsManagerService.ClientsList;
+                else
+                    clients = _clientsManagerService.ClientsList?.FindAll(item => item.DeliveryId.ToString() == _clientsManagerService.DeliveryId);
+
+                if (_clientsListFilterService.HasFilter)
                 {
-                    return _clientsListFilterService.FilterClients(_clientsManagerService.ClientsList);
+                    return _clientsListFilterService.FilterClients(clients);
                 }
 
-                return _clientsManagerService.ClientsList;
+                return clients;
             }
         }
         
@@ -367,11 +374,22 @@ namespace tabApp.Core
         private List<SecondaryOptions> GetSecondaryOptions()
         {
             List<SecondaryOptions> items = new List<SecondaryOptions>();
-            items.Add(new OrdersPage("Encomendas", _ordersManagerService.TodayOrders));
-            items.Add(new NotificationsPage("Notificações", _notificationsManagerService.TodayNotifications));
+            items.Add(new OrdersPage("Encomendas", _ordersManagerService.TodayOrders.FindAll(item => ApplyDeliveryFilter(item.Client.Delivery))));
+            items.Add(new NotificationsPage("Notificações",
+                _notificationsManagerService.TodayNotifications.FindAll(item => ApplyDeliveryFilter(_clientsManagerService.GetClientById(item.ClientId).Delivery))));
             items.Add(new SecondaryOptions("Localização"));
             return items;
         }
+
+        private bool ApplyDeliveryFilter(Delivery delivery)
+        {
+            if (_clientsManagerService.DeliveryId == SecureStorageHelper.DeliveryIdAdmin)
+                return true;
+
+            else
+                return _clientsManagerService.DeliveryId == delivery.DeliveryId.ToString();
+        }
+
         public string GetOrderDesc(ExtraOrder obj)
         {
             string details = "";
@@ -405,7 +423,7 @@ namespace tabApp.Core
         public string GetRemainingProducts(Client client)
         {
             string txt = "";
-            var list = _ordersManagerService.GetTotalOrderFromClient(client, DateTime.Today);
+            var list = _ordersManagerService.GetTotalOrderFromClient(client, DateTime.Today, ClientsList);
 
             foreach (var item in list)
             {

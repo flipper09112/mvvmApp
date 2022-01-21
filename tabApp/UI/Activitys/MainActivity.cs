@@ -239,6 +239,7 @@ namespace tabApp
             int id = item.ItemId;
             if (id == Resource.Id.action_settings)
             {
+                ViewModel.ShowSettingsCommand.Execute();
                 return true;
             }
             if (id == Resource.Id.getClosestClient)

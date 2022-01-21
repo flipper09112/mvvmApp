@@ -305,14 +305,19 @@ namespace tabApp.Core.Services.Implementations.Orders
             return weekValue;
         }
 
-        public List<ProductAmmount> GetTotalOrderFromClient(Client fromClient, DateTime dateTime)
+        public List<ProductAmmount> GetTotalOrderFromClient(Client fromClient, DateTime dateTime, List<Client> filterClientsList = null)
         {
             List<ProductAmmount> items = new List<ProductAmmount>();
             if (_clientsManagerService.ClientsList == null) return items;
 
-            int position = _clientsManagerService.ClientsList.IndexOf(fromClient) == -1 ? 0 : _clientsManagerService.ClientsList.IndexOf(fromClient);
+            int position;
 
-            foreach (var client in _clientsManagerService.ClientsList.Skip(position))
+            if(filterClientsList == null)
+                position = _clientsManagerService.ClientsList.IndexOf(fromClient) == -1 ? 0 : _clientsManagerService.ClientsList.IndexOf(fromClient);
+            else
+                position = filterClientsList.IndexOf(fromClient) == -1 ? 0 : filterClientsList.IndexOf(fromClient);
+
+            foreach (var client in filterClientsList?.Skip(position) ?? _clientsManagerService.ClientsList.Skip(position))
             {
                 if (!client.Active) continue;
                 ExtraOrder order = _clientsManagerService.HasOrderThisDate(client, dateTime);
