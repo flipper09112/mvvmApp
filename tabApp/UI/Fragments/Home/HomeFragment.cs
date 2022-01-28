@@ -69,6 +69,7 @@ namespace tabApp.UI
             _clientsList.SetAdapter(_clientsAdapter);
             _viewPagerAdapter.TabsOptions = ViewModel.TabsOptions;
             _viewPagerAdapter.NotifyDataSetChanged();
+            _viewPagerAdapter.UpdateAllLists();
             SetupTabLayout();
 
             if(ViewModel.ClientSelected != null)

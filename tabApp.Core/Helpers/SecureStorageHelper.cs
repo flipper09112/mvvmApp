@@ -9,7 +9,12 @@ namespace tabApp.Core.Helpers
     public static class SecureStorageHelper
     {
         public static string DatabaseDateDownloadKey = "DatabaseDateDownloadKey";
+
         public static string HasLoginKey = "LoginKey";
+
+        public static string DeliveryId = "DeliveryId";
+        public static string DeliveryIdAdmin = "DeliveryIdAdmin";
+
         public static string HasLoginYesValue = "HasLoginTrue";
 
         public static async Task SaveKeyAsync(string key, string value)

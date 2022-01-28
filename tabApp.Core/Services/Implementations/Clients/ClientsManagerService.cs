@@ -11,15 +11,27 @@ namespace tabApp.Core.Services.Implementations.Clients
 {
     public class ClientsManagerService : IClientsManagerService
     {
+        private string _deliveryId;
+        public string DeliveryId 
+        {
+            get => _deliveryId;
+            set
+            {
+                _deliveryId = value;
+            }
+        }
+
         private List<Client> _clientsList;
 
         public List<Client> ClientsList => _clientsList;
+        //public List<Client> ClientsList => _clientsList?.FindAll(item => item.DeliveryId.ToString() == _deliveryId);
 
         public List<Client> ClientsUpdatedToday {
             get
             {
                 List<Client> clients = new List<Client>();
                 ClientsList.ForEach(item => {
+                    //if (item.LastChangeDate.Date == DateTime.Today.AddDays(-1)) //Debug reasons
                     if (item.LastChangeDate.Date == DateTime.Today)
                         clients.Add(item);
                 });
@@ -30,8 +42,9 @@ namespace tabApp.Core.Services.Implementations.Clients
         {
         }
 
-        public void SetClients(List<Client> clientsList)
+        public void SetClients(List<Client> clientsList, string deliveryId)
         {
+            _deliveryId = deliveryId;
             _clientsList = clientsList;
 
             foreach(Client cli in _clientsList)

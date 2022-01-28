@@ -10,6 +10,7 @@ using tabApp.Core.Services.Implementations.Clients;
 using tabApp.Core.Services.Implementations.DB;
 using tabApp.Core.Services.Interfaces.Clients;
 using tabApp.Core.Services.Interfaces.DB;
+using tabApp.Core.Services.Interfaces.Deliverys;
 using tabApp.Core.Services.Interfaces.Dialogs;
 using tabApp.Core.Services.Interfaces.Products;
 using tabApp.Core.ViewModels.EditClient;
@@ -25,6 +26,7 @@ namespace tabApp.Core.ViewModels
         protected readonly IProductsManagerService _productsManagerService;
         protected readonly IAddProductToOrderService _addProductToOrderService;
         private readonly IClientsManagerService _clientsManagerService;
+        private readonly IDeliverysManagerService _deliverysManagerService;
 
         public MvxCommand SaveChangesCommand;
         public MvxCommand GoBackCommand;
@@ -38,7 +40,8 @@ namespace tabApp.Core.ViewModels
                                    IMvxNavigationService navService,
                                    IProductsManagerService productsManagerService, 
                                    IAddProductToOrderService addProductToOrderService,
-                                   IClientsManagerService clientsManagerService)
+                                   IClientsManagerService clientsManagerService,
+                                   IDeliverysManagerService deliverysManagerService)
         {
             _chooseClientService = chooseClientService;
             _dialogService = dialogService;
@@ -47,6 +50,7 @@ namespace tabApp.Core.ViewModels
             _productsManagerService = productsManagerService;
             _addProductToOrderService = addProductToOrderService;
             _clientsManagerService = clientsManagerService;
+            _deliverysManagerService = deliverysManagerService;
 
             SaveChangesCommand = new MvxCommand(SaveChanges, CanSaveChanges);
             ShowSelectDaysPageCommand = new MvxCommand(ShowSelectDaysPage);
@@ -362,6 +366,9 @@ namespace tabApp.Core.ViewModels
                         break;
                     case nameof(Client.ExtraValueToPay):
                         Client.UpdateExtraValueToPay(double.Parse(item.NewValue));
+                        break;
+                    case nameof(Client.Delivery):
+                        Client.UpdateDelivery(_deliverysManagerService.GetDeliveryByNameAndId(item.NewValue));
                         break;
                     case nameof(SegDailyItemsList):
                         Client.UpdateDailyOrder(GetnewDailyOrder(dailyOrderItems, DayOfWeek.Monday), DayOfWeek.Monday);
@@ -765,6 +772,17 @@ namespace tabApp.Core.ViewModels
                 Value = Client.PaymentType.ToString(),
                 ValueList = _clientsManagerService.GetAllPaymentsTypes(),
                 Type = nameof(Client.PaymentType),
+                RefreshSaveCommand = SaveChangesCommand
+            });
+
+            items.Add(new ClientProfileListField()
+            {
+                IsDouble = true,
+                IconName = "ic_money",
+                Name = "Distribuidor",
+                Value = Client.Delivery.DeliveryName + " (" + Client.Delivery.DeliveryId + ")",
+                ValueList = _deliverysManagerService.GetListNamesAndId(),
+                Type = nameof(Client.Delivery),
                 RefreshSaveCommand = SaveChangesCommand
             });
 

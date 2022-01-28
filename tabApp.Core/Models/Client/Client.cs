@@ -19,6 +19,12 @@ namespace tabApp.Core.Models
         public string Name { get; set; }
         public string SubName { get; set; }
 
+        [ManyToOne]
+        public Delivery Delivery { get; set; }
+
+        [ForeignKey(typeof(Delivery))]
+        public int DeliveryId { get; set; }
+
         [OneToOne]
         public Address Address { get; set; }
 
@@ -224,6 +230,11 @@ namespace tabApp.Core.Models
             DomDailyOrder.AllItems.Clear(); 
         }
 
+        internal void UpdateDelivery(Delivery delivery)
+        {
+            Delivery = delivery;
+            DeliveryId = delivery.DeliveryId;
+        }
     }
 
     public enum PaymentTypeEnum
@@ -234,6 +245,15 @@ namespace tabApp.Core.Models
         Loja,
         JuntaDias,
         None
+    }
+
+    [Table("Delivery")]
+    [Serializable]
+    public class Delivery
+    {
+        [PrimaryKey, AutoIncrement]
+        public int DeliveryId { get; set; }
+        public string DeliveryName { get; set; }
     }
 
     [Table("Address")]

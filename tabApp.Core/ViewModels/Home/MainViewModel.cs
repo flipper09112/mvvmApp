@@ -37,6 +37,7 @@ namespace tabApp.Core.ViewModels
         public MvxCommand OtherOptionsCommand { get; private set; }
         public MvxCommand MonthBillsCommand { get; private set; }
         public MvxCommand<string> SetFilterCommand { get; set; }
+        public MvxCommand ShowSettingsCommand { get; set; }
 
         public EventHandler UpdateUiHomePage;
 
@@ -63,6 +64,7 @@ namespace tabApp.Core.ViewModels
             SyncronizeCommand = new MvxCommand(Syncronize);
             MonthBillsCommand = new MvxCommand(MonthBills);
             OtherOptionsCommand = new MvxCommand(OtherOptionsCommandAction);
+            ShowSettingsCommand = new MvxCommand(ShowSettingsPage);
         }
 
         private async void MonthBills()
@@ -88,6 +90,11 @@ namespace tabApp.Core.ViewModels
         private async void ShowGlobalOrderPage()
         {
             await _navigationService.Navigate<GlobalOrderViewModel>();
+        }
+
+        private async void ShowSettingsPage()
+        {
+            await _navigationService.Navigate<SettingsViewModel>();
         }
 
         private void SetFilter(string obj)

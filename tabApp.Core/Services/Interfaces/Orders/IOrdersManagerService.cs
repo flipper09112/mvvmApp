@@ -17,7 +17,7 @@ namespace tabApp.Core.Services.Interfaces.Orders
         double WeekAmmount(Client client);
         List<ProductAmmount> GetTotalOrder(DateTime dateTime);
         List<ProductAmmount> GetTotalOrder(DateTime startDate, DateTime endDate);
-        List<ProductAmmount> GetTotalOrderFromClient(Client client, DateTime dayOfWeek);
+        List<ProductAmmount> GetTotalOrderFromClient(Client client, DateTime dayOfWeek, List<Client> filterClientsList = null);
         List<ProductAmmount> GetTotalOrderWithoutFilter(DateTime dateSelected);
         List<ProductAmmount> GetTotalOrderWithoutFilter(DateTime firstDay, DateTime lastDay);
     }

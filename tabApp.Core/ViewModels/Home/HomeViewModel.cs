@@ -5,11 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using tabApp.Core.Helpers;
 using tabApp.Core.Models;
 using tabApp.Core.Models.Notifications;
 using tabApp.Core.Services.Implementations.Clients;
 using tabApp.Core.Services.Implementations.DB;
 using tabApp.Core.Services.Interfaces.Clients;
+using tabApp.Core.Services.Interfaces.Deliverys;
 using tabApp.Core.Services.Interfaces.Dialogs;
 using tabApp.Core.Services.Interfaces.Notifications;
 using tabApp.Core.Services.Interfaces.Orders;
@@ -30,7 +32,7 @@ namespace tabApp.Core
         private readonly IDialogService _dialogService;
         private readonly INotificationsManagerService _notificationsManagerService;
         private readonly IDataBaseManagerService _dataBaseManagerService;
-
+        private readonly IDeliverysManagerService _deliverysManagerService;
         public EventHandler DeleteClientEvent;
         public EventHandler UpdateOrderList;
         public EventHandler UpdateAllTabs;
@@ -42,8 +44,8 @@ namespace tabApp.Core
         public MvxCommand AddNewClientBeforeCommand { get; private set; }
         public MvxCommand AddNewClientAfterCommand { get; private set; }
         public MvxCommand ShowRemainingProductsCommand { get; private set; }
+        public MvxCommand ShowRemainingProductsTomorrowCommand { get; private set; }
         
-
         public MvxCommand<ExtraOrder> AddExtraFromOrderCommand { get; private set; }
 
         public HomeViewModel(IMvxNavigationService navigationService, 
@@ -54,7 +56,8 @@ namespace tabApp.Core
                             IProductsManagerService productsManagerService,
                             IDialogService dialogService,
                             INotificationsManagerService notificationsManagerService,
-                            IDataBaseManagerService dataBaseManagerService)
+                            IDataBaseManagerService dataBaseManagerService,
+                            IDeliverysManagerService deliverysManagerService)
         {
             _clientsManagerService = clientsManagerService;
             _navigationService = navigationService;
@@ -65,6 +68,7 @@ namespace tabApp.Core
             _dialogService = dialogService;
             _notificationsManagerService = notificationsManagerService;
             _dataBaseManagerService = dataBaseManagerService;
+            _deliverysManagerService = deliverysManagerService;
 
             ShowClientPage = new MvxAsyncCommand<Client>(ShowClientPageAction);
             DeleteClientCommand = new MvxCommand<int>(DeleteClient);
@@ -74,6 +78,12 @@ namespace tabApp.Core
             AddNewClientAfterCommand = new MvxCommand(AddNewClientAfter);
             AddExtraFromOrderCommand = new MvxCommand<ExtraOrder>(AddExtraFromOrder);
             ShowRemainingProductsCommand = new MvxCommand(ShowRemainingProducts);
+            ShowRemainingProductsTomorrowCommand = new MvxCommand(ShowRemainingProductsTomorrow);
+        }
+        
+        private void ShowRemainingProductsTomorrow()
+        {
+            _dialogService.Show("Produtos necessários (dia seguinte)", GetRemainingProducts(_clientSelectedLongPress, DateTime.Today.AddDays(1)));
         }
 
         private void ShowRemainingProducts()
@@ -204,7 +214,8 @@ namespace tabApp.Core
                 PhoneNumber = "Sem numero",
                 LastChangeDate = DateTime.Today,
                 DetailsList = new List<Regist>(),
-                ExtraOrdersList = new List<ExtraOrder>()
+                ExtraOrdersList = new List<ExtraOrder>(),
+                Delivery = _deliverysManagerService.Deliveries[0]
             };
 
             FixNewClientPositions(addClientsType);
@@ -294,12 +305,18 @@ namespace tabApp.Core
         {
             get
             {
-                if(_clientsListFilterService.HasFilter)
+                List<Client> clients;
+                if (_clientsManagerService.DeliveryId == SecureStorageHelper.DeliveryIdAdmin)
+                    clients = _clientsManagerService.ClientsList;
+                else
+                    clients = _clientsManagerService.ClientsList?.FindAll(item => item.DeliveryId.ToString() == _clientsManagerService.DeliveryId);
+
+                if (_clientsListFilterService.HasFilter)
                 {
-                    return _clientsListFilterService.FilterClients(_clientsManagerService.ClientsList);
+                    return _clientsListFilterService.FilterClients(clients);
                 }
 
-                return _clientsManagerService.ClientsList;
+                return clients;
             }
         }
         
@@ -361,17 +378,33 @@ namespace tabApp.Core
                 Name = "Produtos necessários",
                 Command = ShowRemainingProductsCommand
             });
+            longPressItemsList.Add(new LongPressItem()
+            {
+                Name = "Produtos necessários\n(Dia seguinte)",
+                Command = ShowRemainingProductsTomorrowCommand
+            });
             return longPressItemsList;
         }
 
         private List<SecondaryOptions> GetSecondaryOptions()
         {
             List<SecondaryOptions> items = new List<SecondaryOptions>();
-            items.Add(new OrdersPage("Encomendas", _ordersManagerService.TodayOrders));
-            items.Add(new NotificationsPage("Notificações", _notificationsManagerService.TodayNotifications));
+            items.Add(new OrdersPage("Encomendas", _ordersManagerService.TodayOrders.FindAll(item => ApplyDeliveryFilter(item.Client.Delivery))));
+            items.Add(new NotificationsPage("Notificações",
+                _notificationsManagerService.TodayNotifications.FindAll(item => ApplyDeliveryFilter(_clientsManagerService.GetClientById(item.ClientId).Delivery))));
             items.Add(new SecondaryOptions("Localização"));
             return items;
         }
+
+        private bool ApplyDeliveryFilter(Delivery delivery)
+        {
+            if (_clientsManagerService.DeliveryId == SecureStorageHelper.DeliveryIdAdmin)
+                return true;
+
+            else
+                return _clientsManagerService.DeliveryId == delivery.DeliveryId.ToString();
+        }
+
         public string GetOrderDesc(ExtraOrder obj)
         {
             string details = "";
@@ -402,10 +435,10 @@ namespace tabApp.Core
             return txt;
         }
 
-        public string GetRemainingProducts(Client client)
+        public string GetRemainingProducts(Client client, DateTime? date = null)
         {
             string txt = "";
-            var list = _ordersManagerService.GetTotalOrderFromClient(client, DateTime.Today);
+            var list = _ordersManagerService.GetTotalOrderFromClient(client, date ?? DateTime.Today, ClientsList);
 
             foreach (var item in list)
             {

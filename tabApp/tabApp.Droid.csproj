@@ -111,6 +111,7 @@
     <Compile Include="UI\Adapters\Home\HomePageViewPagerAdapter.cs" />
     <Compile Include="UI\Adapters\Home\LongPressPopPupAdapter.cs" />
     <Compile Include="UI\Adapters\Home\NotificationsListAdapter.cs" />
+    <Compile Include="UI\Adapters\Main\SettingsAdapter.cs" />
     <Compile Include="UI\Adapters\OtherOptions\Notifications\CreateNoficationGridAdapter.cs" />
     <Compile Include="UI\Adapters\OtherOptions\PrintAccountSpinnerAdapter.cs" />
     <Compile Include="UI\Adapters\OtherOptions\PrintPreviewAdapter.cs" />
@@ -162,6 +163,7 @@
     <Compile Include="UI\Fragments\Home\ViewPager\HomePageMapFragment.cs" />
     <Compile Include="UI\Fragments\Home\ViewPager\HomePageOrdersFragment.cs" />
     <Compile Include="UI\Fragments\Login\LoginFragment.cs" />
+    <Compile Include="UI\Fragments\Main\SettingsFragment.cs" />
     <Compile Include="UI\Fragments\Snooze\SnoozeFragment.cs" />
     <Compile Include="UI\ViewHolders\AddItemReportViewHolder.cs" />
     <Compile Include="UI\ViewHolders\CreateNotifications\CreateNotificationsOtherDaysViewHolder.cs" />
@@ -198,6 +200,8 @@
     <Compile Include="UI\ViewHolders\DailyOrderProductViewHolder.cs" />
     <Compile Include="UI\ViewHolders\DetailViewHolder.cs" />
     <Compile Include="UI\ViewHolders\EmptyListViewHolder.cs" />
+    <Compile Include="UI\ViewHolders\Settings\SettingItemTitleViewHolder.cs" />
+    <Compile Include="UI\ViewHolders\Settings\SingleChoiceSettingItemViewHolder.cs" />
     <Compile Include="UI\ViewHolders\SimpleProductViewHolder.cs" />
     <Compile Include="UI\ViewHolders\WeekFinancialsItemViewHolder.cs" />
   </ItemGroup>
@@ -998,6 +1002,24 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\LoginFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\SettingsFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\SingleChoiceSettingItem.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_delivery_motorbike.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\SettingItemTitle.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
