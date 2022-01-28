@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <SelectedDevice>Samsung SM-T510</SelectedDevice>
-    <DefaultDevice>android_wear_square_pie_9_0_-_api_28</DefaultDevice>
+    <SelectedDevice>tablet_m-dpi_10_1in_q_10_0_-_api_29_1</SelectedDevice>
+    <DefaultDevice>tablet_m-dpi_10_1in_q_10_0_-_api_29_1</DefaultDevice>
     <AndroidDesignerPreferredTheme>AppTheme</AndroidDesignerPreferredTheme>
     <AndroidDesignerPreferredDevice>10.1in WXGA %28Tablet%29</AndroidDesignerPreferredDevice>
-    <ActiveDebugProfile>Samsung SM-T510</ActiveDebugProfile>
+    <ActiveDebugProfile>tablet_m-dpi_10_1in_q_10_0_-_api_29_1</ActiveDebugProfile>
     <ProjectView>ProjectFiles</ProjectView>
   </PropertyGroup>
 </Project>
