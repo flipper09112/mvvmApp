@@ -1,5 +1,7 @@
 # Modelo de aplicação
 
+![IMG20220129041637](https://user-images.githubusercontent.com/24275714/151891938-a619fa98-c897-4092-a8ef-648ac73f495c.jpg)
+
 ## Ideia geral
 
 Trata-se de uma aplicação que digitaliza e auxilia os processos associados à distribuicao de produtos alimentares ao domicilio.
