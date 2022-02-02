@@ -27,3 +27,8 @@ Listagem de clientes (por cor para diferenciar o tipo de pagamento)
 De realçar o icone do "globo" que abre o cliente mais próximo com base na localização
 
 ![imagem](https://user-images.githubusercontent.com/24275714/151242880-c9586375-cc2b-49e3-a0a5-e5e5f0abb8a9.png)
+
+### Recibos
+Permite a emissao de recibos para impressoras témicas portáteis para facil transporte
+
+![imagem](https://user-images.githubusercontent.com/24275714/152256513-b51607ef-37bb-401f-bd5c-1ec9755b8faa.png)
