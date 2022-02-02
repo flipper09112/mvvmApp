@@ -389,9 +389,9 @@ namespace tabApp.Core
         private List<SecondaryOptions> GetSecondaryOptions()
         {
             List<SecondaryOptions> items = new List<SecondaryOptions>();
-            items.Add(new OrdersPage("Encomendas", _ordersManagerService.TodayOrders.FindAll(item => ApplyDeliveryFilter(item.Client.Delivery))));
+            items.Add(new OrdersPage("Encomendas", _ordersManagerService.TodayOrders?.FindAll(item => ApplyDeliveryFilter(item.Client.Delivery))));
             items.Add(new NotificationsPage("Notificações",
-                _notificationsManagerService.TodayNotifications.FindAll(item => ApplyDeliveryFilter(_clientsManagerService.GetClientById(item.ClientId).Delivery))));
+                _notificationsManagerService.TodayNotifications?.FindAll(item => ApplyDeliveryFilter(_clientsManagerService.GetClientById(item.ClientId).Delivery))));
             items.Add(new SecondaryOptions("Localização"));
             return items;
         }
