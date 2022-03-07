@@ -17,3 +17,10 @@ jobs:
         nuget restore
         cd tabApp
         msbuild tabApp.Droid.csproj /verbosity:normal /t:Rebuild /p:Configuration=Debug
+        
+    - name: Android Cliente
+      run: |
+        nuget restore
+        cd tabApp.DroidClients
+        msbuild tabApp.DroidClients.csproj /verbosity:normal /t:Rebuild /p:Configuration=Debug
+
