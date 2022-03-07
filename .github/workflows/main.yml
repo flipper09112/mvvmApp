@@ -1,15 +1,19 @@
-name: CI on Push and Pull Request
-on: [push, pull_request]
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+
 jobs:
   Android:
-    runs-on: macos-latest    
+    runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v1      
+    - uses: actions/checkout@v2
     - name: Android
       run: |
         nuget restore
-        msbuild tabApp/tabApp.Droid.csproj /verbosity:normal /t:Rebuild /t:PackageForAndroid /t:SignAndroidPackage /p:Configuration=Debug 
-    - uses: actions/upload-artifact@v2
-      with:
-        name: Android App
-        path: tabApp/tabApp.Droid/bin/Debug/com.tfp.blank-Signed.apk
+        cd tabApp
+        msbuild tabApp.Droid.csproj /verbosity:normal /t:Rebuild /p:Configuration=Debug
