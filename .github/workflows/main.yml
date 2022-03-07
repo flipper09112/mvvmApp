@@ -21,4 +21,9 @@ jobs:
       with:
         name: Android
         path: tabApp/bin/Debug/com.filipetorres.tabapp-Signed.apk      
+    - name: Setup App Center Cli
+      run: npm install -g appcenter-cli
+      
+    - name: Upload Android App To AppCenter
+      run: appcenter distribute release --silent --file ./tabApp/bin/Debug/com.filipetorres.tabapp-Signed.apk --app flipper09/Pad --group Collaborators --token ${{ secrets.APP_CENTER_TOKEN }}
 
