@@ -16,7 +16,7 @@ jobs:
       run: |
         nuget restore
         cd tabApp
-        msbuild tabApp.Droid.csproj /verbosity:normal /t:Rebuild /p:Configuration=Debug
+        msbuild tabApp.Droid.csproj /verbosity:normal /t:Rebuild /t:PackageForAndroid /t:SignAndroidPackage /p:Configuration=Debug 
     - uses: actions/upload-artifact@v2
       with:
         name: Android
