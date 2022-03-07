@@ -20,8 +20,10 @@ namespace tabApp.Core.Services.Implementations.Bluetooth
         private string UIID = "00001101-0000-1000-8000-00805f9b34fb";
         private BluetoothSocket _bluetoothSocket;
 
-        public BluetoothServerSocket ServerSocket { get; private set; }
-        public BluetoothSocket Socket { get; private set; }
+        //public BluetoothServerSocket ServerSocket { get; private set; }
+        public object ServerSocket { get; private set; }
+        //public BluetoothSocket Socket { get; private set; }
+        public object Socket { get; private set; }
 
         public string BTDefaultDevice => "MTP-II";
 
@@ -123,7 +125,7 @@ namespace tabApp.Core.Services.Implementations.Bluetooth
 
         public void StopServerSocket()
         {
-            ServerSocket?.Close();
+            ((BluetoothServerSocket)ServerSocket)?.Close();
             var top = Mvx.Resolve<IMvxAndroidCurrentTopActivity>();
             var act = top.Activity;
             Intent service = new Intent(act, typeof(BluetoothManagerService));

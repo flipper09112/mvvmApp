@@ -48,7 +48,7 @@ namespace tabApp.Services.Implementations.Native
         private void Connect()
         {
             var btService = Mvx.Resolve<IBluetoothService>();
-            socket = btService.Socket;
+            socket = (BluetoothSocket)btService.Socket;
 
             while (true)
             {
@@ -75,7 +75,7 @@ namespace tabApp.Services.Implementations.Native
         private void WaitConnection()
         {
             var btService = Mvx.Resolve<IBluetoothService>();
-            serverSocket = btService.ServerSocket;
+            serverSocket = (BluetoothServerSocket)btService.ServerSocket;
 
             while (true)
             {
@@ -108,7 +108,7 @@ namespace tabApp.Services.Implementations.Native
         private async System.Threading.Tasks.Task ReadDateAsync()
         {
             var btService = Mvx.Resolve<IBluetoothService>();
-            serverSocket = btService.ServerSocket;
+            serverSocket = (BluetoothServerSocket)btService.ServerSocket;
 
             while (true)
             {

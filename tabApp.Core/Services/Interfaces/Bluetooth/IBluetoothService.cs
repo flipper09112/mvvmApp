@@ -1,5 +1,4 @@
-﻿using Android.Bluetooth;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,8 +8,10 @@ namespace tabApp.Core.Services.Interfaces.Bluetooth
 {
     public interface IBluetoothService
     {
-        BluetoothServerSocket ServerSocket { get; }
-        BluetoothSocket Socket { get; }
+        //BluetoothServerSocket ServerSocket { get; }
+        object ServerSocket { get; }
+        //BluetoothSocket Socket { get; }
+        object Socket { get; }
         Action LoadingLottie { get; }
         Action ErrorLottie { get; }
         Action FinishedLottie { get; }
