@@ -44,7 +44,7 @@ namespace tabApp.Services
             return System.IO.File.ReadAllBytes(f.Path);
         }
 
-        public File SaveFile(string fileName, byte[] data, bool overwrite = false)
+        public object SaveFile(string fileName, byte[] data, bool overwrite = false)
         {
             try
             {
