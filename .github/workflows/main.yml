@@ -29,5 +29,5 @@ jobs:
       run: |
         nuget restore
         cd tabApp
-        msbuild Blank.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Debug
+        msbuild tabApp.Droid.csproj /verbosity:normal /t:Rebuild /p:Configuration=Debug
         
