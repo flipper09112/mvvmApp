@@ -1,5 +1,4 @@
-﻿using Android.Runtime;
-using Microcharts;
+﻿using Microcharts;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;

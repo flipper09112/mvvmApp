@@ -1,5 +1,4 @@
-﻿using Android.Graphics;
-using MvvmCross.Commands;
+﻿using MvvmCross.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
