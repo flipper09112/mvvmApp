@@ -70,7 +70,7 @@ namespace tabApp.Core.ViewModels
                 options.Add(new Option(PrintPageCommand, "Imprimir Conta", "ic_printer"));
                 options.Add(new Option(ShowCalculatorCommand, "Abrir Calculadora", "ic_calculator"));
                 options.Add(new Option(ChangeDailyOrdersCommand, "Alterar Quantidade", "ic_change"));
-                if(_chooseClientService.ClientSelected.PaymentType == PaymentTypeEnum.Loja)
+                if(_chooseClientService.ClientSelected.PaymentType == PaymentTypeEnum.Loja || _chooseClientService.ClientSelected.PaymentType == PaymentTypeEnum.JuntaDiasLoja)
                     options.Add(new Option(InsertNewRegistCommand, "Inserir despesa do dia", "ic_insert"));
 
                 options.Add(new Option(ShowCreateNoficationPageCommand, "Adicionar notificação", "ic_notification"));

@@ -109,6 +109,7 @@ namespace tabApp.Core.ViewModels.ClientPage.OtherOptions
                 var index = _pairedDevices.FindIndex(x => x.Equals(_bluetoothService.BTDefaultDevice));
                 if(index != null)
                 {
+                    if (_pairedDevices.Count == 0) return;
                     var item = _pairedDevices[index];
                     _pairedDevices[index] = _pairedDevices[0];
                     _pairedDevices[0] = item;
