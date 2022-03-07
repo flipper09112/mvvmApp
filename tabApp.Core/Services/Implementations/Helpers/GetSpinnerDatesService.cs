@@ -19,6 +19,7 @@ namespace tabApp.Core.Services.Implementations.Helpers
 
             switch(client.PaymentType)
             {
+                case PaymentTypeEnum.JuntaDiasLoja:
                 case PaymentTypeEnum.JuntaDias:
                 case PaymentTypeEnum.Diario:
                     DatesDailyPayment(dateTimesList);
@@ -30,6 +31,7 @@ namespace tabApp.Core.Services.Implementations.Helpers
                 case PaymentTypeEnum.Mensal:
                     DatesMensalPayment(dateTimesList);
                     break;
+                    
                 default:
                     return dateTimesList;
             }

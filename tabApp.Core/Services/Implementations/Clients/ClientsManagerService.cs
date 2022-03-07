@@ -206,16 +206,13 @@ namespace tabApp.Core.Services.Implementations.Clients
 
         public List<string> GetAllPaymentsTypes()
         {
-            List<string> paymentTypes = new List<string>();
+            var list = Enum.GetValues(typeof(PaymentTypeEnum))
+                    .Cast<PaymentTypeEnum>()
+                    .Select(v => v.ToString())
+                    .ToList();
+            list.RemoveAll(item => item == "None");
 
-            foreach(Client client in ClientsList)
-            {
-                if (paymentTypes.Contains(client.PaymentType.ToString())) continue;
-
-                paymentTypes.Add(client.PaymentType.ToString());
-            }
-
-            return paymentTypes;
+            return list;
         }
 
         public int GetNewId()

@@ -17,7 +17,7 @@ namespace tabApp.UI.Adapters.Global
 {
     public class EditProductAdapter : RecyclerView.Adapter
     {
-        public override int ItemCount => productSelected.ReSaleValues?.Count ?? 0 + 1;
+        public override int ItemCount => (productSelected.ReSaleValues?.Count ?? 0) + 1;
 
         private Product productSelected;
         private EditProductViewModel viewModel;

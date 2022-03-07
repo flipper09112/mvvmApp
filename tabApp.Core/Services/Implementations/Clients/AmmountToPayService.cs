@@ -34,9 +34,31 @@ namespace tabApp.Core.Services.Implementations.Clients
                     return CalculateJuntaDiasValue(client, payTo);
                 case PaymentTypeEnum.Loja:
                     return CalculateStoreValue(client, payTo);
+                case PaymentTypeEnum.JuntaDiasLoja:
+                    return CalculateJuntaDiasLojaValue(client, payTo);
                 default:
                     return -1;
             }
+        }
+
+        private double CalculateJuntaDiasLojaValue(Client client, DateTime payTo)
+        {
+            double ammount = 0;
+            DateTime temp = client.PaymentDate;
+            temp = temp.AddDays(1);
+            ExtraOrder order;
+
+            while ((temp - payTo.AddDays(1)).TotalDays != 0)
+            {
+                order = client.ExtraOrdersList.Find(extraorder => extraorder.OrderDay.Date == temp.Date);
+
+                if (order != null)
+                    ammount += _ordersManagerService.GetValue(client.Id, order.AllItems);
+
+                temp = temp.AddDays(1);
+            }
+
+            return ammount;
         }
 
         private double CalculateStoreValue(Client client, DateTime payTo)

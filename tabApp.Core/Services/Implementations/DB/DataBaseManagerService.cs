@@ -128,6 +128,11 @@ namespace tabApp.Core.Services.Implementations.DB
             CheckReSalesValuesClientsDeleted();
         }
 
+        public void LoadProducts()
+        {
+            _productsManagerService.SetProducts(GetProducts());
+        }
+
         private void CheckReSalesValuesClientsDeleted()
         {
             var resales = Database.GetAllWithChildren<ReSaleValues>();
@@ -231,6 +236,11 @@ namespace tabApp.Core.Services.Implementations.DB
             Database.Insert(regist);
             Database.UpdateWithChildren(newClient);
             Database.Update(newClient);
+        }
+
+        public void InsertNewReSale(ReSaleValues reSaleValues)
+        {
+            Database.Insert(reSaleValues);
         }
 
         public void InsertNotification(Notification notification)
@@ -523,6 +533,11 @@ namespace tabApp.Core.Services.Implementations.DB
         public void RemoveProduct(Product prod)
         {
             Database.Delete<Product>(prod.Id);
+        }
+
+        public void RemoveResaleValue(ReSaleValues resaleValue)
+        {
+            Database.Delete<ReSaleValues>(resaleValue.ReSaleId);
         }
 
 

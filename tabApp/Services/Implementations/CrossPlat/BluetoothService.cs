@@ -39,9 +39,9 @@ namespace tabApp.Core.Services.Implementations.Bluetooth
             List<string> item = new List<string>();
 
             BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.DefaultAdapter;
-            var pairedDevices = mBluetoothAdapter.BondedDevices;
+            var pairedDevices = mBluetoothAdapter?.BondedDevices;
 
-            foreach (BluetoothDevice bt in pairedDevices)
+            foreach (BluetoothDevice bt in pairedDevices ?? new List<BluetoothDevice>())
                 item.Add(bt.Name);
 
             return item;

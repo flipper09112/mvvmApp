@@ -362,7 +362,13 @@ namespace tabApp.Core.ViewModels
                         Client.UpdateNumberDoor(int.Parse(item.NewValue));
                         break;
                     case nameof(Client.PaymentDate):
-                        Client.UpdatePaymentDate(DateTime.Parse(item.NewValue));
+                        CultureInfo provider = CultureInfo.InvariantCulture;
+
+                        var format = "dd/MM/yyyy";
+
+                        var result = DateTime.ParseExact(item.NewValue, format, provider);
+
+                        Client.UpdatePaymentDate(result);
                         break;
                     case nameof(Client.ExtraValueToPay):
                         Client.UpdateExtraValueToPay(double.Parse(item.NewValue));
@@ -395,7 +401,14 @@ namespace tabApp.Core.ViewModels
                         Client.UpdatePhoneNumber(item.NewValue);
                         break;
                     case nameof(Client.PaymentType):
+
+                        PaymentTypeEnum newPaymentType = (PaymentTypeEnum)Enum.Parse(typeof(PaymentTypeEnum), item.NewValue);
+                        RemoveResalesValues(newPaymentType);
+
                         Client.UpdatePaymentType(item.NewValue);
+
+                        CreateResalesValues();
+                        
                         break;
                     default:
                         _dialogService.ShowConfirmDialog("Alguma coisa correu mal", "Este parametro nao foi salvo (" + nameof(item.Type) + ")", null);
@@ -406,6 +419,45 @@ namespace tabApp.Core.ViewModels
             {
                 _dialogService.ShowConfirmDialog("Alguma coisa correu mal", "Algum parametro invalido", null);
                 return false;
+            }
+        }
+
+        private void RemoveResalesValues(PaymentTypeEnum newPaymentType)
+        {
+            if(newPaymentType != PaymentTypeEnum.JuntaDiasLoja && newPaymentType != PaymentTypeEnum.Loja)
+            {
+                if (_productsManagerService.ProductsList[0].ReSaleValues.Find(reSaleValues => reSaleValues.ClientId == Client.Id) != null)
+                {
+                    foreach (var product in _productsManagerService.ProductsList)
+                    {
+                        var resaleValue = product.ReSaleValues.Find(reSaleValues => reSaleValues.ClientId == Client.Id);
+
+                        _dataBaseManagerService.RemoveResaleValue(resaleValue);
+                    }
+
+                    _dataBaseManagerService.LoadProducts();
+                }
+            }
+        }
+
+        private void CreateResalesValues()
+        {
+            if (Client.PaymentType == PaymentTypeEnum.JuntaDiasLoja || Client.PaymentType == PaymentTypeEnum.Loja)
+            {
+                if (_productsManagerService.ProductsList[0].ReSaleValues.Find(reSaleValues => reSaleValues.ClientId == Client.Id) == null)
+                {
+                    foreach (var product in _productsManagerService.ProductsList)
+                    {
+                        _dataBaseManagerService.InsertNewReSale(new ReSaleValues()
+                        {
+                            ClientId = Client.Id,
+                            ProductId = product.Id,
+                            Value = product.ReSaleValues[0].Value
+                        });
+                    }
+
+                    _dataBaseManagerService.LoadProducts();
+                }
             }
         }
 

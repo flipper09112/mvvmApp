@@ -34,10 +34,13 @@ namespace tabApp.Core.Services.Implementations.DB
         void RemoveExtraOrder(Client client, ExtraOrder obj, Regist regist);
         void ReloadDB();
         void InsertNotification(Notification notification);
+        void InsertNewReSale(ReSaleValues reSaleValues);
         void InsertNewProduct(Product product);
         void InsertClient(Client newClient, Regist regist);
         void InsertGlobalOrderRegist(GlobalOrderRegist globalOrderRegist);
         void UpdateTotalOrderRegist(GlobalOrderRegist totalOrder);
         void RemoveProduct(Product prod);
+        void LoadProducts();
+        void RemoveResaleValue(ReSaleValues resaleValue);
     }
 }
