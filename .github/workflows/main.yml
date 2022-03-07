@@ -18,6 +18,10 @@ jobs:
         cd tabApp
         msbuild tabApp.Droid.csproj /verbosity:normal /t:Rebuild /p:Configuration=Debug
         
+  Android_Cliente:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
     - name: Android Cliente
       run: |
         nuget restore
