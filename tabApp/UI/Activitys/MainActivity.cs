@@ -66,7 +66,7 @@ namespace tabApp
             IMenu menu = nav_view.Menu;
             IMenuItem tools = menu.FindItem(Resource.Id.version);
             var code = Application.Context.ApplicationContext.PackageManager.GetPackageInfo(Application.Context.ApplicationContext.PackageName, 0).VersionCode;
-            tools.SetTitle("Version: (" + code.ToString() + ")");
+            tools.SetTitle("Version code: (" + code.ToString() + ")");
 
             SetSupportActionBar(toolbar);
             SupportActionBar.SetDisplayHomeAsUpEnabled(true); 
