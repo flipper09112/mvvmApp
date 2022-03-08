@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ master ]
   workflow_dispatch:
+  
+env:
+  NUMBER: Monday
 
 jobs:
   Android:
@@ -19,6 +22,9 @@ jobs:
     
     - name: Start
       run: ls
+      
+    - name: Extract version from tag
+      uses: damienaicheh/extract-version-from-tag-action@v1.0.0
       
     - name: Update AndroidManifest.xml
       uses: damienaicheh/update-android-version-manifest-action@v1.0.0
