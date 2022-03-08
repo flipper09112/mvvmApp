@@ -12,6 +12,8 @@ jobs:
     runs-on: macos-latest
     steps:
     
+    - uses: actions/checkout@v1
+    
     - name: Start
       run: ls
       
@@ -23,7 +25,6 @@ jobs:
         version-name: '${{ env.MAJOR }}.${{ env.MINOR }}.${{ env.PATCH }}'
         print-file: true
 
-    - uses: actions/checkout@v1
     - name: Android
       run: |
         nuget restore
