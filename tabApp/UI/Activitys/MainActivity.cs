@@ -61,7 +61,12 @@ namespace tabApp
 
             Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             NavigationView nav_view = FindViewById<NavigationView>(Resource.Id.nav_view);
-           
+
+            IMenu menu = nav_view.Menu;
+            IMenuItem tools = menu.FindItem(Resource.Id.version);
+            var code = Application.Context.ApplicationContext.PackageManager.GetPackageInfo(Application.Context.ApplicationContext.PackageName, 0).VersionCode;
+            tools.SetTitle("Version: (" + code.ToString() + ")");
+
             SetSupportActionBar(toolbar);
             SupportActionBar.SetDisplayHomeAsUpEnabled(true); 
             SupportActionBar.SetDisplayShowHomeEnabled(true);
@@ -238,6 +243,7 @@ namespace tabApp
 
             return base.OnOptionsItemSelected(menuItem);
         }
+
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             int id = item.ItemId;

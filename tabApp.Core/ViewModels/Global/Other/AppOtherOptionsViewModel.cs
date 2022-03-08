@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using tabApp.Core.Models;
+using tabApp.Core.ViewModels.Global.ChangePrices;
 
 namespace tabApp.Core.ViewModels.Global.Other
 {
@@ -17,6 +18,7 @@ namespace tabApp.Core.ViewModels.Global.Other
         public MvxCommand ShowNotificationsCommand; 
         public MvxCommand ShowFinancialsPageCommand;
         public MvxCommand ShowDatabaseManagerPageCommand;
+        public MvxCommand ChangePricesPageCommand;
         public AppOtherOptionsViewModel(IMvxNavigationService navigationService)
         {
             _navigationService = navigationService;
@@ -25,8 +27,14 @@ namespace tabApp.Core.ViewModels.Global.Other
             ShowNotificationsCommand = new MvxCommand(ShowNotifications);
             ShowFinancialsPageCommand = new MvxCommand(ShowFinancialsPage);
             ShowDatabaseManagerPageCommand = new MvxCommand(ShowDatabaseManagerPage);
+            ChangePricesPageCommand = new MvxCommand(ChangePricesPage);
 
             CreateListOptions();
+        }
+
+        private async void ChangePricesPage()
+        {
+            await _navigationService.Navigate<ChangePricesViewModel>();
         }
 
         private async void ShowDatabaseManagerPage()
@@ -56,6 +64,7 @@ namespace tabApp.Core.ViewModels.Global.Other
             Options.Add(new Option(ShowNotificationsCommand, "Ver notificações", "ic_notification_other"));
             Options.Add(new Option(ShowFinancialsPageCommand, "Finanças", "ic_finances"));
             Options.Add(new Option(ShowDatabaseManagerPageCommand, "DataBase Manage", "ic_database"));
+            Options.Add(new Option(ChangePricesPageCommand, "Mudar Preços", "ic_change_price")); 
         }
 
         public override void Appearing()

@@ -243,6 +243,9 @@ namespace tabApp.Core.Services.Implementations.Clients
             DateTime temp = client.PaymentDate;
             temp = temp.AddDays(1);
 
+            if (endDate.Date < temp)
+                return client.ExtraValueToPay;
+
             while ((temp - endDate.AddDays(1)).TotalDays != 0)
             {
                 if (temp.DayOfWeek == DayOfWeek.Monday)

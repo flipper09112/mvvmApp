@@ -27,4 +27,7 @@
 	<item android:id="@+id/otherOptions"
 			android:title="Outras Opções" />
 
+  <item android:id="@+id/version"
+			android:title="1.1" />
+
 </menu>
