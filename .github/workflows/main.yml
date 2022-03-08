@@ -11,13 +11,6 @@ jobs:
   Android:
     runs-on: macos-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-      with:
-        fetch-depth: 0 # Mandatory to use the extract version from tag action
-        
-    - name: Extract version from tag
-      uses: damienaicheh/extract-version-from-tag-action@v1.0.0
 
     - name: Update AndroidManifest.xml
       uses: damienaicheh/update-android-version-manifest-action@v1.0.0
