@@ -15,7 +15,7 @@ jobs:
     - name: Update AndroidManifest.xml
       uses: damienaicheh/update-android-version-manifest-action@v1.0.0
       with:
-        android-manifest-path: './mvvmApp/tabApp/Properties//AndroidManifest.xml'
+        android-manifest-path: 'tabApp/Properties//AndroidManifest.xml'
         version-code: ${{ env.NUMBER_OF_COMMITS }}
         version-name: '${{ env.MAJOR }}.${{ env.MINOR }}.${{ env.PATCH }}'
         print-file: true
