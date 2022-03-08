@@ -18,6 +18,7 @@ using Android.Widget;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using Microsoft.AppCenter.Distribute;
 using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Droid.Support.V4;
@@ -56,7 +57,7 @@ namespace tabApp
         {
             base.OnCreate(savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
-            AppCenter.Start("090e6c4a-73b9-4ce9-ab0e-19a958a1504f", typeof(Analytics), typeof(Crashes));
+            AppCenter.Start("090e6c4a-73b9-4ce9-ab0e-19a958a1504f", typeof(Analytics), typeof(Crashes), typeof(Distribute));
             SetContentView(Resource.Layout.activity_main);
 
             Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
@@ -98,7 +99,7 @@ namespace tabApp
             Instance = this;
         }
 
-        protected override void OnResume()
+        protected override async void OnResume()
         {
             if(!IsServiceRunning(typeof(ForegroundService)))
             {
@@ -108,6 +109,9 @@ namespace tabApp
             base.OnResume();
 
             ViewModel.RestartSwatch();
+
+            bool enabled = await Distribute.IsEnabledAsync();
+            int c = 2;
         }
 
         private void StartForegroundService()
