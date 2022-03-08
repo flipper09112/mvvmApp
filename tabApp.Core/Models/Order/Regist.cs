@@ -31,6 +31,7 @@ namespace tabApp.Core.Models
         Edit,
         NewClient,
         ChangeDailyOrder,
-        Inativate
+        Inativate,
+        ChangePrices
     }
 }

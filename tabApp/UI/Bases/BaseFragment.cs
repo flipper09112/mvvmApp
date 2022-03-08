@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using tabApp.Core.ViewModels;
+using Xamarin.Essentials;
 
 namespace tabApp.UI
 {
@@ -50,8 +51,13 @@ namespace tabApp.UI
             switch(e.PropertyName)
             {
                 case "IsBusy":
-                    MainActivity mainActivity = ParentActivity as MainActivity;
-                    mainActivity.ViewModelPropertyChanged(Vm.IsBusy, e);
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                        MainActivity mainActivity = ParentActivity as MainActivity;
+
+                        mainActivity.ViewModelPropertyChanged(Vm.IsBusy, e);
+                    });
+                   
                     break;
             }
         }
