@@ -134,6 +134,7 @@ namespace tabApp
             ViewModel.RestartSwatch();
 
             bool enabled = await Distribute.IsEnabledAsync();
+
             int c = 2;
         }
 
