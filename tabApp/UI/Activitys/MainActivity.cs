@@ -60,6 +60,7 @@ namespace tabApp
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             // In this example OnReleaseAvailable is a method name in same class
             Distribute.ReleaseAvailable = OnReleaseAvailable;
+            Distribute.NoReleaseAvailable = NoReleaseAvailable;
             AppCenter.Start("090e6c4a-73b9-4ce9-ab0e-19a958a1504f", typeof(Analytics), typeof(Crashes), typeof(Distribute));
             SetContentView(Resource.Layout.activity_main);
 
@@ -102,6 +103,11 @@ namespace tabApp
             Instance = this;
         }
 
+        private void NoReleaseAvailable()
+        {
+            Toast.MakeText(this, "Sem Atualização", ToastLength.Long);
+        }
+
         private bool OnReleaseAvailable(ReleaseDetails releaseDetails)
         {
             // Look at releaseDetails public properties to get version information, release notes text or release notes URL
@@ -134,7 +140,7 @@ namespace tabApp
             ViewModel.RestartSwatch();
 
             bool enabled = await Distribute.IsEnabledAsync();
-
+            Distribute.CheckForUpdate();
             int c = 2;
         }
 
