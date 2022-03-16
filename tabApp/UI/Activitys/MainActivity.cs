@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Remoting.Contexts;
 using System.Threading.Tasks;
 using Android;
@@ -61,7 +62,9 @@ namespace tabApp
             // In this example OnReleaseAvailable is a method name in same class
             Distribute.ReleaseAvailable = OnReleaseAvailable;
             Distribute.NoReleaseAvailable = NoReleaseAvailable;
+            Distribute.SetEnabledForDebuggableBuild(true);
             AppCenter.Start("090e6c4a-73b9-4ce9-ab0e-19a958a1504f", typeof(Analytics), typeof(Crashes), typeof(Distribute));
+            Distribute.SetEnabledAsync(true);
             SetContentView(Resource.Layout.activity_main);
 
             Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
@@ -102,10 +105,24 @@ namespace tabApp
             LocationEventCommand = new MvxCommand<Location>(LocationEventCmd);
             Instance = this;
         }
+        private const int RequestCode = 5469;
+
+        private void TestPermission()
+        {
+            if (Build.VERSION.SdkInt < BuildVersionCodes.M) return;
+            if (Android.Provider.Settings.CanDrawOverlays(this)) return;
+
+            var intent = new Intent(Android.Provider.Settings.ActionManageOverlayPermission);
+            intent.SetData(Android.Net.Uri.FromParts("package", PackageName, null));
+            StartActivity(intent);
+        }
 
         private void NoReleaseAvailable()
         {
-            Toast.MakeText(this, "Sem Atualização", ToastLength.Long);
+            RunOnUiThread(() =>
+            {
+                Toast.MakeText(this, "Sem Atualização", ToastLength.Long).Show();
+            });
         }
 
         private bool OnReleaseAvailable(ReleaseDetails releaseDetails)
@@ -120,7 +137,7 @@ namespace tabApp
             var title = "Version " + versionName + " available!";
             Task answer;
 
-            Toast.MakeText(this, "Atualização", ToastLength.Long);
+            Toast.MakeText(this, "Atualização", ToastLength.Long).Show();
 
             Distribute.NotifyUpdateAction(UpdateAction.Update);
 
@@ -138,10 +155,6 @@ namespace tabApp
             base.OnResume();
 
             ViewModel.RestartSwatch();
-
-            bool enabled = await Distribute.IsEnabledAsync();
-            Distribute.CheckForUpdate();
-            int c = 2;
         }
 
         private void StartForegroundService()
@@ -273,6 +286,16 @@ namespace tabApp
             {
                 ViewModel.MonthBillsCommand.Execute(null);
                 return true;
+            }
+
+            if (id == Resource.Id.version)
+            {
+
+                var x = Android.Provider.Settings.CanDrawOverlays(this);
+
+                TestPermission();
+
+                Distribute.CheckForUpdate();
             }
 
             return base.OnOptionsItemSelected(menuItem);
