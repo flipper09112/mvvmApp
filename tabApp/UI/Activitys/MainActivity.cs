@@ -142,6 +142,7 @@ namespace tabApp
             Distribute.NotifyUpdateAction(UpdateAction.Update);
 
             // Return true if you're using your own dialog, false otherwise
+
             return true;
         }
 
