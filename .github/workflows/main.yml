@@ -31,7 +31,7 @@ jobs:
       with:
         android-manifest-path: './tabApp/Properties/AndroidManifest.xml'
         version-code: ${{ env.NUMBER_OF_COMMITS }}
-        version-name: '$1.{{ env.NUMBER_OF_COMMITS }}'
+        version-name: '1.${{ env.NUMBER_OF_COMMITS }}'
         print-file: true
 
     - name: Android
