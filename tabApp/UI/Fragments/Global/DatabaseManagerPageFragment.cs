@@ -13,6 +13,7 @@ using System.Text;
 using tabApp.Core.Helpers;
 using tabApp.Core.ViewModels;
 using tabApp.Core.ViewModels.Global.Other;
+using tabApp.Helpers;
 
 namespace tabApp.UI.Fragments.Global
 {
@@ -60,6 +61,10 @@ namespace tabApp.UI.Fragments.Global
 
         private void UpdateDownloadPercentage(object sender, EventArgs e)
         {
+            Activity.RunOnUiThread(() =>
+            {
+                this.ShowDialog("Download");
+            });
         }
 
         private void GoBack2Times(object sender, EventArgs e)

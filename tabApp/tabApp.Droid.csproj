@@ -38,7 +38,7 @@
     <WarningLevel>4</WarningLevel>
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
-    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+    <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
     <AotAssemblies>false</AotAssemblies>
     <EnableLLVM>false</EnableLLVM>
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
@@ -47,6 +47,11 @@
     <AndroidSupportedAbis>
     </AndroidSupportedAbis>
     <AndroidEnableMultiDex>false</AndroidEnableMultiDex>
+    <AndroidKeyStore>true</AndroidKeyStore>
+    <AndroidSigningKeyStore>C:\Users\Utilizador\AppData\Local\Xamarin\Mono for Android\Keystore\gestorFrota\gestorFrota.keystore</AndroidSigningKeyStore>
+    <AndroidSigningStorePass>flipper09112</AndroidSigningStorePass>
+    <AndroidSigningKeyAlias>gestorFrota</AndroidSigningKeyAlias>
+    <AndroidSigningKeyPass>flipper09112</AndroidSigningKeyPass>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -83,6 +88,7 @@
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\DecimalDigitsInputFilter.cs" />
     <Compile Include="Helpers\FragmentHelper.cs" />
+    <Compile Include="Helpers\LoadingPopPupHelper.cs" />
     <Compile Include="Helpers\NotificationHelper.cs" />
     <Compile Include="Helpers\PrinterHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
@@ -1041,6 +1047,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\ChangePricesFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\loadingDialog.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

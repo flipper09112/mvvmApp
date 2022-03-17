@@ -1,10 +1,6 @@
 name: CI
 
 on:  
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
   workflow_dispatch:
   
 env:
@@ -31,7 +27,7 @@ jobs:
       with:
         android-manifest-path: './tabApp/Properties/AndroidManifest.xml'
         version-code: ${{ env.NUMBER_OF_COMMITS }}
-        version-name: '1.${{ env.NUMBER_OF_COMMITS }}'
+        version-name: '${{ env.MAJOR }}.${{ env.MINOR }}.${{ env.PATCH }}'
         print-file: true
 
     - name: Android
