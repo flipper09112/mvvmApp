@@ -1,6 +1,10 @@
 name: CI
 
 on:  
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
   workflow_dispatch:
   
 env:
@@ -10,8 +14,7 @@ jobs:
   Android:
     runs-on: macos-latest
     steps:
-    
-    - uses: actions/checkout@v1
+
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0 # Mandatory to use the extract version from tag action
@@ -22,19 +25,23 @@ jobs:
     - name: Extract version from tag
       uses: damienaicheh/extract-version-from-tag-action@v1.0.0
       
-    - name: Update AndroidManifest.xml
+    - name: Set Android version
       uses: damienaicheh/update-android-version-manifest-action@v1.0.0
       with:
-        android-manifest-path: './tabApp/Properties/AndroidManifest.xml'
+        android-manifest-path: ./tabApp/Properties/AndroidManifest.xml
+        version-name: ${{ secrets.APP_VERSION }}
         version-code: ${{ env.NUMBER_OF_COMMITS }}
-        version-name: '${{ env.MAJOR }}.${{ env.MINOR }}.${{ env.PATCH }}'
         print-file: true
 
     - name: Android
       run: |
         nuget restore
         cd tabApp
-        msbuild tabApp.Droid.csproj /verbosity:normal /t:Rebuild /t:PackageForAndroid /t:SignAndroidPackage /p:Configuration=Debug 
+        msbuild tabApp.Droid.csproj /t:SignAndroidPackage /p:Configuration=Release /p:AndroidPackageFormat=apk /p:AndroidKeyStore=true /p:AndroidSigningKeyAlias=githubactionsxamarin /p:AndroidSigningKeyPass=${{ secrets.KEYSTORE_PASSWORD }} /p:AndroidSigningKeyStore=keystore.jks /p:AndroidSigningStorePass=${{ secrets.KEYSTORE_PASSWORD }} 
+      #run:
+       # nuget restore
+        #MSBuild /t:SignAndroidPackage /p:Configuration=Release /p:AndroidPackageFormat=apk /p:AndroidKeyStore=true /p:AndroidSigningKeyAlias=githubactionsxamarin /p:AndroidSigningKeyPass=${{ secrets.KEYSTORE_PASSWORD }} /p:AndroidSigningKeyStore=keystore.jks /p:AndroidSigningStorePass=${{ secrets.KEYSTORE_PASSWORD }} ./tabApp/tabApp.Droid.csproj
+        
     - uses: actions/upload-artifact@v2
       with:
         name: Android
@@ -43,5 +50,5 @@ jobs:
       run: npm install -g appcenter-cli
       
     - name: Upload Android App To AppCenter
-      run: appcenter distribute release --silent --file ./tabApp/bin/Debug/com.filipetorres.tabapp-Signed.apk --app flipper09/Pad --group Collaborators --token ${{ secrets.APP_CENTER_TOKEN }}
+      run: appcenter distribute release --silent --file ./tabApp/bin/Release/com.filipetorres.tabapp-Signed.apk --app flipper09/Pad --group Collaborators --token ${{ secrets.APP_CENTER_TOKEN }}
 
