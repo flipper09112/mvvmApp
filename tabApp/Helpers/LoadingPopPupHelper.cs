@@ -21,47 +21,32 @@ namespace tabApp.Helpers
         private static TextView _text2;
         private static Dialog _dialog;
 
-        public static void ShowDialog(this MvxFragment fragment, string msg)
+        public static Dialog ShowDialog(this MvxFragment fragment, string msg)
         {
             _dialog = new Dialog(fragment.Context);
             _dialog.RequestWindowFeature((int)WindowFeatures.NoTitle);
             _dialog.SetCancelable(false);
             _dialog.SetContentView(Resource.Layout.loadingDialog);
 
-            _text = (ProgressBar)_dialog.FindViewById(Resource.Id.progress_horizontal);
-            _text2 = _dialog.FindViewById<TextView>(Resource.Id.value123);
-
-            new Thread(Action).Run();
-
             _dialog.Show();
 
             Window window = _dialog.Window;
             window.SetLayout(WindowManagerLayoutParams.MatchParent, WindowManagerLayoutParams.WrapContent);
+
+            return _dialog;
         }
 
-        private static void Action()
+        public static void UpdatePercentage(this Dialog dialog, int percentage)
         {
-            int status = 0;
-            while (status < 100)
+            _text = (ProgressBar)_dialog.FindViewById(Resource.Id.progress_horizontal);
+            _text2 = _dialog.FindViewById<TextView>(Resource.Id.value123);
+
+            _text.SetProgress(percentage, true);
+            _text2.Text = percentage.ToString();
+
+            if (percentage >= 100)
             {
-                status += 1;
-
-                try
-                {
-                    Thread.Sleep(200);
-                }
-                catch (InterruptedException e)
-                {
-                    e.PrintStackTrace();
-                }
-
-                _text.SetProgress(status, true);
-                _text2.Text = status.ToString();
-
-                if (status == 100)
-                {
-                    _dialog.Dismiss();
-                }
+                _dialog.Dismiss();
             }
         }
     }
