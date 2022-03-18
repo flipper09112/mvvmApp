@@ -26,7 +26,7 @@ jobs:
       uses: damienaicheh/extract-version-from-tag-action@v1.0.0
       
     - name: Setup Android signing
-      run: (echo ${{ secrets.KEYSTORE }} | base64 --decode) > ./tabApp/tabApp/Keystore/keystore.jks
+      run: (echo ${{ secrets.KEYSTORE }} | base64 --decode) > ./tabApp/Keystore/keystore.jks
 
     - name: Set Android version
       uses: damienaicheh/update-android-version-manifest-action@v1.0.0
