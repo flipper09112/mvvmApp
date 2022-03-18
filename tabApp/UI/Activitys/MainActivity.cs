@@ -32,7 +32,9 @@ using tabApp.Helpers;
 using tabApp.Services.Implementations.Native;
 using tabApp.UI;
 using tabApp.UI.Fragments.Snooze;
+using Xamarin.Essentials;
 using ForegroundService = tabApp.Services.Implementations.Native.ForegroundService;
+using Location = Android.Locations.Location;
 
 namespace tabApp
 {
@@ -64,7 +66,7 @@ namespace tabApp
             Distribute.NoReleaseAvailable = NoReleaseAvailable;
             Distribute.SetEnabledForDebuggableBuild(true);
             AppCenter.Start("090e6c4a-73b9-4ce9-ab0e-19a958a1504f", typeof(Analytics), typeof(Crashes), typeof(Distribute));
-            Distribute.SetEnabledAsync(true);
+            //Distribute.SetEnabledAsync(true);
             SetContentView(Resource.Layout.activity_main);
 
             Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
@@ -104,6 +106,12 @@ namespace tabApp
 
             LocationEventCommand = new MvxCommand<Location>(LocationEventCmd);
             Instance = this;
+
+            Task.Run(async () =>
+            {
+                await Task.Delay(5000);
+                var status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
+            });
         }
         private const int RequestCode = 5469;
 
@@ -183,7 +191,7 @@ namespace tabApp
                 _startForegroundServiceRunning = false;
             }
             ViewModel.DestroyCounting();
-            Android.OS.Process.KillProcess(Android.OS.Process.MyPid());
+            Process.KillProcess(Process.MyPid());
         }
 
 

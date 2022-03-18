@@ -9,10 +9,12 @@ using MvvmCross.Platforms.Android.Presenters.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Handlers;
 using System.Text;
 using tabApp.Core.Helpers;
 using tabApp.Core.ViewModels;
 using tabApp.Core.ViewModels.Global.Other;
+using tabApp.Helpers;
 
 namespace tabApp.UI.Fragments.Global
 {
@@ -23,6 +25,7 @@ namespace tabApp.UI.Fragments.Global
         private CardView _sendDbCard;
         private CardView _restoreDbCard;
         private TextView _databaseDate;
+        private Dialog _dialog;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -60,6 +63,10 @@ namespace tabApp.UI.Fragments.Global
 
         private void UpdateDownloadPercentage(object sender, EventArgs e)
         {
+            Activity.RunOnUiThread(() => {
+                var eve = (HttpProgressEventArgs)e;
+                _dialog.UpdatePercentage(eve.ProgressPercentage);
+            });
         }
 
         private void GoBack2Times(object sender, EventArgs e)
@@ -68,13 +75,17 @@ namespace tabApp.UI.Fragments.Global
             _activity.SupportFragmentManager.PopBackStack();
         }
 
-    private void SendDbCardClick(object sender, EventArgs e)
+        private void SendDbCardClick(object sender, EventArgs e)
         {
             ViewModel.SendDatabaseCommand.Execute();
         }
 
         private void RestoreDbCardClick(object sender, EventArgs e)
         {
+            Activity.RunOnUiThread(() => { 
+                _dialog = this.ShowDialog("Download");
+            });
+            
             ViewModel.RestoreDatabaseCommand.Execute();
         }
     }
