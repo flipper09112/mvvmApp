@@ -48,7 +48,7 @@
     </AndroidSupportedAbis>
     <AndroidEnableMultiDex>false</AndroidEnableMultiDex>
     <AndroidKeyStore>true</AndroidKeyStore>
-    <AndroidSigningKeyStore>C:\Users\Utilizador\AppData\Local\Xamarin\Mono for Android\Keystore\gestorFrota\gestorFrota.keystore</AndroidSigningKeyStore>
+    <AndroidSigningKeyStore>C:\Users\Utilizador\source\repos\tabApp\tabApp\Keystore\gestorFrota.keystore</AndroidSigningKeyStore>
     <AndroidSigningStorePass>flipper09112</AndroidSigningStorePass>
     <AndroidSigningKeyAlias>gestorFrota</AndroidSigningKeyAlias>
     <AndroidSigningKeyPass>flipper09112</AndroidSigningKeyPass>
