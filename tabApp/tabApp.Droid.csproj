@@ -47,7 +47,7 @@
     <AndroidSupportedAbis>
     </AndroidSupportedAbis>
     <AndroidEnableMultiDex>false</AndroidEnableMultiDex>
-    <AndroidKeyStore>true</AndroidKeyStore>
+    <AndroidKeyStore>false</AndroidKeyStore>
     <AndroidSigningKeyStore>C:\Users\Utilizador\source\repos\tabApp\tabApp\Keystore\gestorFrota.keystore</AndroidSigningKeyStore>
     <AndroidSigningStorePass>flipper09112</AndroidSigningStorePass>
     <AndroidSigningKeyAlias>gestorFrota</AndroidSigningKeyAlias>
