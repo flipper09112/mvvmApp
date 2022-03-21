@@ -40,15 +40,18 @@ namespace tabApp.Core.Services.Implementations
             return null;
         }
 
-        public async Task SaveFile(string nameFile, byte[] fileBytes)
+        public async Task SaveFile(string nameFile, byte[] fileBytes, EventHandler updatePercentageUploadEvent = null)
         {
             Stream stream = new MemoryStream(fileBytes);
 
-            var task = await firebaseStorage
+            var task = firebaseStorage
                        .Child("docs")
                        .Child(nameFile)
                        .PutAsync(stream);
 
+            task.Progress.ProgressChanged += (s, e) => updatePercentageUploadEvent?.Invoke(e.Percentage, null);
+
+            await task;
         }
     }
 }

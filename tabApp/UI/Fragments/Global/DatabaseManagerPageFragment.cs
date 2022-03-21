@@ -51,6 +51,7 @@ namespace tabApp.UI.Fragments.Global
             _restoreDbCard.Click += RestoreDbCardClick;
             ViewModel.GoBack2Times += GoBack2Times;
             ViewModel.UpdateDownloadPercentage += UpdateDownloadPercentage;
+            ViewModel.UpdateUploadPercentage += UpdateUploadPercentage;
         }
 
         public override void CleanBindings()
@@ -59,6 +60,15 @@ namespace tabApp.UI.Fragments.Global
             _restoreDbCard.Click -= RestoreDbCardClick;
             ViewModel.GoBack2Times -= GoBack2Times;
             ViewModel.UpdateDownloadPercentage -= UpdateDownloadPercentage;
+            ViewModel.UpdateUploadPercentage -= UpdateUploadPercentage;
+        }
+
+        private void UpdateUploadPercentage(object sender, EventArgs e)
+        {
+            Activity.RunOnUiThread(() => {
+                var eve = (int)sender;
+                _dialog.UpdatePercentage(eve);
+            });
         }
 
         private void UpdateDownloadPercentage(object sender, EventArgs e)
@@ -77,6 +87,10 @@ namespace tabApp.UI.Fragments.Global
 
         private void SendDbCardClick(object sender, EventArgs e)
         {
+            Activity.RunOnUiThread(() => {
+                _dialog = this.ShowDialog("Upload");
+            });
+
             ViewModel.SendDatabaseCommand.Execute();
         }
 

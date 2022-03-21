@@ -8,6 +8,6 @@ namespace tabApp.Core.Services.Interfaces
     public interface IFirebaseService
     {
         Task<byte[]> GetUrlDownload(string nameFile, EventHandler updatePercentageDownloadEvent = null);
-        Task SaveFile(string nameFile, byte[] fileBytes);
+        Task SaveFile(string nameFile, byte[] fileBytes, EventHandler updatePercentageUploadEvent = null);
     }
 }

@@ -28,7 +28,7 @@ namespace tabApp.Core.Services.Implementations.DB
         void SaveClient(Client clientSelected, ExtraOrder order);
         void SaveProduct(Product productSelected);
         void UpdateOrder(ExtraOrder regist);
-        void SaveAllDocs();
+        Task SaveAllDocs(EventHandler uploadPercentageEventUpdate = null);
         void RemoveClient(Client client);
         void RemoveClient(int id);
         void RemoveExtraOrder(Client client, ExtraOrder obj, Regist regist);

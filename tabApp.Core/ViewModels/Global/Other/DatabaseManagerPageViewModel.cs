@@ -17,6 +17,7 @@ namespace tabApp.Core.ViewModels.Global.Other
 
         public EventHandler GoBack2Times;
         public EventHandler UpdateDownloadPercentage;
+        public EventHandler UpdateUploadPercentage;
 
         public DatabaseManagerPageViewModel(IDataBaseManagerService dataBaseManagerService,
                                             IFileService fileService)
@@ -38,9 +39,9 @@ namespace tabApp.Core.ViewModels.Global.Other
             IsBusy = false;
         }
 
-        private void SendDatabase()
+        private async void SendDatabase()
         {
-            _dataBaseManagerService.SaveAllDocs();
+            await _dataBaseManagerService.SaveAllDocs(UpdateUploadPercentage);
             GoBack2Times?.Invoke(null, null);
         }
 
