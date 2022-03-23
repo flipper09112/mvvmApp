@@ -65,8 +65,8 @@ namespace tabApp
             Distribute.ReleaseAvailable = OnReleaseAvailable;
             Distribute.NoReleaseAvailable = NoReleaseAvailable;
             Distribute.SetEnabledForDebuggableBuild(true);
-            AppCenter.Start("090e6c4a-73b9-4ce9-ab0e-19a958a1504f", typeof(Analytics), typeof(Crashes), typeof(Distribute));
-            //Distribute.SetEnabledAsync(true);
+            AppCenter.Start("fa087dda-335e-4445-bc8c-627c5931ceaf", typeof(Analytics), typeof(Crashes), typeof(Distribute));
+            Distribute.SetEnabledAsync(true);
             SetContentView(Resource.Layout.activity_main);
 
             Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
@@ -109,8 +109,10 @@ namespace tabApp
 
             Task.Run(async () =>
             {
-                await Task.Delay(5000);
+                await Task.Delay(10000);
                 var status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
+                await Task.Delay(10000);
+                TestPermission();
             });
         }
         private const int RequestCode = 5469;
@@ -161,6 +163,7 @@ namespace tabApp
                 _handler = new Handler();
                 _handler.PostDelayed(StartForegroundService, 10000);
             }
+
             base.OnResume();
 
             ViewModel.RestartSwatch();
@@ -299,11 +302,6 @@ namespace tabApp
 
             if (id == Resource.Id.version)
             {
-
-                var x = Android.Provider.Settings.CanDrawOverlays(this);
-
-                TestPermission();
-
                 Distribute.CheckForUpdate();
             }
 

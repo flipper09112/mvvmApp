@@ -196,10 +196,10 @@ namespace tabApp.Core.Services.Implementations.DB
             });
         }
 
-        public void SaveAllDocs()
+        public async Task SaveAllDocs(EventHandler uploadPercentageEventUpdate = null)
         {
             byte[] fileData = _fileService.GetFile(DataBaseName);
-            _firebaseService.SaveFile(DataBaseName, fileData);
+            await _firebaseService.SaveFile(DataBaseName, fileData, uploadPercentageEventUpdate);
         }
 
         #region Inserts
