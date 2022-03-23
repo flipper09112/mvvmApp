@@ -75,6 +75,21 @@ namespace tabApp.Core.Services.Implementations.Orders
             }
         }
 
+        public List<(Client Client, ExtraOrder ExtraOrder)> GetOrders(DateTime dateSelected)
+        {
+            List<(Client Client, ExtraOrder ExtraOrder)> orders = new List<(Client Client, ExtraOrder ExtraOrder)>();
+
+            foreach (var client in _clientsManagerService?.ClientsList ?? new List<Client>())
+            {
+                foreach (var extraorder in client.ExtraOrdersList)
+                {
+                    if (extraorder.OrderDay.Date == dateSelected.Date && !extraorder.StoreOrder)
+                        orders.Add((client, extraorder));
+                }
+            }
+            return orders;
+        }
+
         public List<CakeClientItem> CakesClientsTomorrow { 
             get
             {
@@ -414,5 +429,6 @@ namespace tabApp.Core.Services.Implementations.Orders
 
             return items;
         }
+
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using tabApp.Core.Models;
 using tabApp.Core.ViewModels.Global.ChangePrices;
+using tabApp.UI.Fragments.Global.Other;
 
 namespace tabApp.Core.ViewModels.Global.Other
 {
@@ -49,7 +50,7 @@ namespace tabApp.Core.ViewModels.Global.Other
 
         private async void ShowNotifications()
         {
-            //await _navigationService.Navigate<NotificationsDashBoardViewModel>();
+            await _navigationService.Navigate<NotificationsDashBoardViewModel>();
         }
 
         private async void ShowReport()

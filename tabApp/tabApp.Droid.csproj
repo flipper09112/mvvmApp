@@ -121,6 +121,8 @@
     <Compile Include="UI\Adapters\Home\LongPressPopPupAdapter.cs" />
     <Compile Include="UI\Adapters\Home\NotificationsListAdapter.cs" />
     <Compile Include="UI\Adapters\Main\SettingsAdapter.cs" />
+    <Compile Include="UI\Adapters\OtherOptions\NotificationsDashBoardAdapter.cs" />
+    <Compile Include="UI\Adapters\OtherOptions\NotificationsDashBoardSpinnerAdapter.cs" />
     <Compile Include="UI\Adapters\OtherOptions\Notifications\CreateNoficationGridAdapter.cs" />
     <Compile Include="UI\Adapters\OtherOptions\PrintAccountSpinnerAdapter.cs" />
     <Compile Include="UI\Adapters\OtherOptions\PrintPreviewAdapter.cs" />
@@ -156,6 +158,7 @@
     <Compile Include="UI\Fragments\Global\Other\Finance\HomeFinancialsFragment.cs" />
     <Compile Include="UI\Fragments\Global\Other\Finance\StatsFragment.cs" />
     <Compile Include="UI\Fragments\Global\Other\Finance\WeekFinancialsFragment.cs" />
+    <Compile Include="UI\Fragments\Global\Other\NotificationsDashBoardFragment.cs" />
     <Compile Include="UI\Fragments\Global\Other\ReportFragment.cs" />
     <Compile Include="UI\Fragments\Global\PriceTable\AddProductFragment.cs" />
     <Compile Include="UI\Fragments\Global\PriceTable\EditProductCostValuesFragment.cs" />
@@ -180,6 +183,7 @@
     <Compile Include="UI\ViewHolders\CreateNotifications\ItemRadioViewHolderAndroidX.cs" />
     <Compile Include="UI\ViewHolders\EditProfileListItemViewHolder.cs" />
     <Compile Include="UI\ViewHolders\HomeFinancialsProductsViewHolder.cs" />
+    <Compile Include="UI\ViewHolders\HomePageOrderViewHolderAndroidX.cs" />
     <Compile Include="UI\ViewHolders\ItemRadioViewHolder.cs" />
     <Compile Include="UI\ViewHolders\ItemReportViewHolder.cs" />
     <Compile Include="UI\ViewHolders\MonthBillsClientsViewHolder.cs" />
@@ -1052,6 +1056,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\loadingDialog.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\NotificationsDashBoardFragment.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
