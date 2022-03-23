@@ -65,7 +65,7 @@ namespace tabApp
             Distribute.ReleaseAvailable = OnReleaseAvailable;
             Distribute.NoReleaseAvailable = NoReleaseAvailable;
             Distribute.SetEnabledForDebuggableBuild(true);
-            AppCenter.Start("fa087dda-335e-4445-bc8c-627c5931ceaf", typeof(Analytics), typeof(Crashes), typeof(Distribute));
+            AppCenter.Start("090e6c4a-73b9-4ce9-ab0e-19a958a1504f", typeof(Analytics), typeof(Crashes), typeof(Distribute));
             Distribute.SetEnabledAsync(true);
             SetContentView(Resource.Layout.activity_main);
 
