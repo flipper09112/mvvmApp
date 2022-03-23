@@ -111,7 +111,7 @@ namespace tabApp
             Task.Run(async () =>
             {
                 await Task.Delay(10000);
-                var status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
+                var status = await Permissions.CheckStatusAsync<Permissions.LocationAlways>();
                 await Task.Delay(10000);
                 TestPermission();
             });
