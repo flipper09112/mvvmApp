@@ -59,6 +59,9 @@ namespace tabApp.UI.Fragments.Global.Other
 
         private void SelectFilter(NotificationsType notificationsType)
         {
+            if (notificationsType == NotificationsTypeSelected)
+                return;
+
             NotificationsTypeSelected = notificationsType; 
             NotificationListItems = GetList();
         }
