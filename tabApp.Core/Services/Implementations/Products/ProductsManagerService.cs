@@ -14,6 +14,7 @@ namespace tabApp.Core.Services.Implementations.Products
         private List<Product> _productsList;
 
         public List<Product> ProductsList => _productsList;
+        public PriceChangeDate LastPricesDateChange { get; private set; }
 
         public ProductsManagerService(IClientsManagerService clientsManagerService)
         {
@@ -187,6 +188,24 @@ namespace tabApp.Core.Services.Implementations.Products
             if (details == "") return "Nenhum Produto";
 
             return details;
+        }
+
+        public void SetGetPriceChangeDate(List<PriceChangeDate> priceChangeDates)
+        {
+            if (priceChangeDates == null || priceChangeDates.Count == 0)
+                LastPricesDateChange = null;
+            else
+                LastPricesDateChange = priceChangeDates[0];
+        }
+
+        public void UpdateLastPricesDateChange(DateTime date)
+        {
+            if(LastPricesDateChange == null)
+            {
+                LastPricesDateChange = new PriceChangeDate();
+            }
+
+            LastPricesDateChange.Date = date;
         }
     }
 }

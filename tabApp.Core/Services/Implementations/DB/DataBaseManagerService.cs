@@ -84,6 +84,7 @@ namespace tabApp.Core.Services.Implementations.DB
                     Database.DropTable<Notification>();
                     Database.DropTable<GlobalOrderRegist>();
                     Database.DropTable<Delivery>();
+                    Database.DropTable<PriceChangeDate>();
                 }
                 
                 Database.CreateTable<Regist>();
@@ -97,6 +98,7 @@ namespace tabApp.Core.Services.Implementations.DB
                 Database.CreateTable<Notification>();
                 Database.CreateTable<GlobalOrderRegist>();
                 Database.CreateTable<Delivery>();
+                Database.CreateTable<PriceChangeDate>();
 
             } catch (NotSupportedException e) {
                 Debug.WriteLine(e.Message);
@@ -118,6 +120,7 @@ namespace tabApp.Core.Services.Implementations.DB
             _clientsManagerService.SetClients(GetClients().OrderBy(item => item.Position).ToList<Client>(), deliveryId);
             _deliverysManagerService.SetDeliverys(GetDelivery());
             _productsManagerService.SetProducts(GetProducts());
+            _productsManagerService.SetGetPriceChangeDate(GetPriceChangeDate());
             _notificationsManagerService.SetNotifications(GetNotifications());
             _globalOrdersPastManagerService.SetGlobalOrders(GetGlobalOrderRegists());
 
@@ -306,6 +309,7 @@ namespace tabApp.Core.Services.Implementations.DB
         }
         public void SaveProduct(Product productSelected)
         {
+            productSelected.LastChangeDate = DateTime.Today.Date;
             Database.Update(productSelected);
             foreach(ReSaleValues reSaleValues in productSelected.ReSaleValues) 
             {
@@ -323,6 +327,11 @@ namespace tabApp.Core.Services.Implementations.DB
             };
             client.SetNewRegist(regist);
             SaveClient(client, regist);
+        }
+
+        public void SaveLastPricesChangeDate(PriceChangeDate lastPricesDateChange)
+        {
+            Database.Update(lastPricesDateChange);
         }
 
         public void SaveClient(Client client, Regist regist)
@@ -494,6 +503,15 @@ namespace tabApp.Core.Services.Implementations.DB
             lock (locker)
             {
                 return Database.GetAllWithChildren<Product>();
+                // return (from c in database.Table<Client>() select c).ToList();
+            }
+        }
+
+        public List<PriceChangeDate> GetPriceChangeDate()
+        {
+            lock (locker)
+            {
+                return Database.GetAllWithChildren<PriceChangeDate>();
                 // return (from c in database.Table<Client>() select c).ToList();
             }
         }

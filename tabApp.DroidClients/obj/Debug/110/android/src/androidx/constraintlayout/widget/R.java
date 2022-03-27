@@ -1214,10 +1214,10 @@ public final class R {
 		public static final int notification_template_icon_group = 0x7f0c0040;
 		public static final int notification_template_part_chronometer = 0x7f0c0044;
 		public static final int notification_template_part_time = 0x7f0c0045;
-		public static final int select_dialog_item_material = 0x7f0c0046;
-		public static final int select_dialog_multichoice_material = 0x7f0c0047;
-		public static final int select_dialog_singlechoice_material = 0x7f0c0048;
-		public static final int support_simple_spinner_dropdown_item = 0x7f0c0049;
+		public static final int select_dialog_item_material = 0x7f0c0047;
+		public static final int select_dialog_multichoice_material = 0x7f0c0048;
+		public static final int select_dialog_singlechoice_material = 0x7f0c0049;
+		public static final int support_simple_spinner_dropdown_item = 0x7f0c004a;
 	}
 	public static final class string {
 		public static final int abc_action_bar_home_description = 0x7f0f0000;

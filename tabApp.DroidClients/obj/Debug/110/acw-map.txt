@@ -28,6 +28,9 @@ tabapp.droidclients.ui.fragments.info.InfoFragment;crc6487812edc773d59ec.InfoFra
 tabApp.DroidClients.UI.Fragments.Catalog.CatalogFragment, tabApp.DroidClients;crc64b84dadbf4acaf435.CatalogFragment
 tabApp.DroidClients.UI.Fragments.Catalog.CatalogFragment;crc64b84dadbf4acaf435.CatalogFragment
 tabapp.droidclients.ui.fragments.catalog.CatalogFragment;crc64b84dadbf4acaf435.CatalogFragment
+tabApp.DroidClients.UI.Fragments.Catalog.ProductsListFragment, tabApp.DroidClients;crc64b84dadbf4acaf435.ProductsListFragment
+tabApp.DroidClients.UI.Fragments.Catalog.ProductsListFragment;crc64b84dadbf4acaf435.ProductsListFragment
+tabapp.droidclients.ui.fragments.catalog.ProductsListFragment;crc64b84dadbf4acaf435.ProductsListFragment
 tabApp.DroidClients.UI.Adapters.CatalogAdapter, tabApp.DroidClients;crc64e5449d453cea33de.CatalogAdapter
 tabApp.DroidClients.UI.Adapters.CatalogAdapter;crc64e5449d453cea33de.CatalogAdapter
 tabapp.droidclients.ui.adapters.CatalogAdapter;crc64e5449d453cea33de.CatalogAdapter

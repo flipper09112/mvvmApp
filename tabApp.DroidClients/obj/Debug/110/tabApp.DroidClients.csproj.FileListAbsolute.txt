@@ -24,7 +24,6 @@ C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\bin\Debug\com.compan
 C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\bin\Debug\com.companyname.tabapp.droidclients-Signed.apk.idsig
 C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\bin\Debug\tabApp.Core.dll
 C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\bin\Debug\tabApp.Core.pdb
-C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\tabApp.DroidClients.csproj.CopyComplete
 C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\tabApp.DroidClients.dll
 C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\tabApp.DroidClients.pdb
 C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\android\bin\com.companyname.tabapp.droidclients.apk
@@ -560,7 +559,6 @@ C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\lp\66\
 C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\lp\74\jl\files.cache
 C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\lp\97\jl\files.cache
 C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\lp\98\jl\files.cache
-C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\lp\102\jl\files.cache
 C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\res\layout\activity_splash_screen.xml
 C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\res\drawable\gif_base.gif
 C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\res\drawable\gif_base_image.png
@@ -588,15 +586,6 @@ C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\androi
 C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\android\src\mono\com\bumptech\glide\manager\ConnectivityMonitor_ConnectivityListenerImplementor.java
 C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\android\src\mono\com\bumptech\glide\manager\LifecycleListenerImplementor.java
 C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\android\src\mono\com\bumptech\glide\request\RequestListenerImplementor.java
-C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\lp\60\jl\files.cache
-C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\lp\67\jl\files.cache
-C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\lp\75\jl\files.cache
-C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\lp\81\jl\files.cache
-C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\lp\84\jl\files.cache
-C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\lp\89\jl\files.cache
-C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\lp\91\jl\files.cache
-C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\lp\99\jl\files.cache
-C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\lp\104\jl\files.cache
 C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\android\assets\Xamarin.Android.Arch.Core.Runtime.dll
 C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\android\assets\Xamarin.Android.Arch.Lifecycle.LiveData.Core.dll
 C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\android\assets\Xamarin.Android.Arch.Lifecycle.LiveData.dll
@@ -619,7 +608,6 @@ C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\androi
 C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\android\assets\Xamarin.Android.Support.ViewPager.dll
 C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\android\assets\Xamarin.AndroidX.Lifecycle.LiveData.dll
 C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\android\assets\Xamarin.AndroidX.Lifecycle.LiveData.pdb
-C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\androidx\jl\8bef1d6b-0539-4135-8694-8ad0629b066c.jar
 C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\res\layout\homepagefragment.xml
 C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\android\src\crc64729f5a32a5dadc2d\BaseFragment.java
 C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\android\src\crc64729f5a32a5dadc2d\BaseFragment_1.java
@@ -649,3 +637,17 @@ C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\androi
 C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\res\drawable\ic_bread.xml
 C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\res\drawable\ic_cake.xml
 C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\res\drawable\ic_flour.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\lp\59\jl\files.cache
+C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\lp\64\jl\files.cache
+C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\lp\73\jl\files.cache
+C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\lp\79\jl\files.cache
+C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\lp\83\jl\files.cache
+C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\lp\88\jl\files.cache
+C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\lp\90\jl\files.cache
+C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\lp\93\jl\files.cache
+C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\lp\101\jl\files.cache
+C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\lp\103\jl\files.cache
+C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\androidx\jl\05517472-fc4c-4bb4-8145-5be38ed64348.jar
+C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\res\layout\productslistfragment.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\android\src\crc64b84dadbf4acaf435\ProductsListFragment.java
+C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\tabApp.DroidClients.csproj.CopyComplete

@@ -8,7 +8,7 @@ namespace tabApp.Core.Services.Interfaces.Clients
     public interface IClientsManagerService
     {
         List<Client> ClientsList { get; }
-        List<Client> ClientsUpdatedToday { get; }
+        List<Client> GetClientsUpdatedToday(DateTime dateSelected);
         string DeliveryId { get; set; }
 
         void SetClients(List<Client> clientsList, string deliveryId);

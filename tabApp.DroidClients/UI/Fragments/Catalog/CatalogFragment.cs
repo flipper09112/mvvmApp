@@ -48,19 +48,38 @@ namespace tabApp.DroidClients.UI.Fragments.Catalog
 
         private void SetRV()
         {
-            if (_adapter != null) return;
+            if (_adapter != null)
+            {
+                ViewModelPropertyChanged(null, null);
+                return;
+            }
+
             _adapter = new CatalogAdapter(ViewModel.CatalogTypeItemsList);
             _recyclerView.SetAdapter(_adapter);
         }
 
         public override void SetupBindings()
         {
+            _activity.BackPress += OnBackPress;
             ViewModel.PropertyChanged += ViewModelPropertyChanged;
         }
 
         public override void CleanBindings()
         {
-            ViewModel.PropertyChanged += ViewModelPropertyChanged;
+            _activity.BackPress -= OnBackPress;
+            ViewModel.PropertyChanged -= ViewModelPropertyChanged;
+        }
+
+        private void OnBackPress(object sender, EventArgs e)
+        {
+            if(ViewModel.Position != 0)
+            {
+                ViewModel.GoBackMenuCommand.Execute(null);
+            }
+            else
+            {
+                _activity.SupportFragmentManager.PopBackStack();
+            }
         }
 
         private void ViewModelPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

@@ -82,5 +82,10 @@ namespace tabApp.DroidClients.Services.Implementations
                 file.Delete();
             }
         }
+
+        object IFileService.SaveFile(string fileName, byte[] data, bool overwrite)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

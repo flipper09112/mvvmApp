@@ -26,18 +26,19 @@ namespace tabApp.Core.Services.Implementations.Clients
         public List<Client> ClientsList => _clientsList;
         //public List<Client> ClientsList => _clientsList?.FindAll(item => item.DeliveryId.ToString() == _deliveryId);
 
-        public List<Client> ClientsUpdatedToday {
-            get
-            {
-                List<Client> clients = new List<Client>();
-                ClientsList.ForEach(item => {
-                    //if (item.LastChangeDate.Date == DateTime.Today.AddDays(-1)) //Debug reasons
-                    if (item.LastChangeDate.Date == DateTime.Today)
-                        clients.Add(item);
-                });
-                return clients;
-            }
+        public List<Client> GetClientsUpdatedToday(DateTime date) 
+        {
+            List<Client> clients = new List<Client>();
+
+            ClientsList.ForEach(item => {
+                //if (item.LastChangeDate.Date == DateTime.Today.AddDays(-1)) //Debug reasons
+                if (item.LastChangeDate.Date == date)
+                    clients.Add(item);
+            });
+
+            return clients;
         }
+
         public ClientsManagerService()
         {
         }

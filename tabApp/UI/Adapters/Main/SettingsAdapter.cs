@@ -36,6 +36,10 @@ namespace tabApp.UI.Adapters.Main
             {
                 settingItemTitleViewHolder.Bind((SettingItemTitle)settingsList[holder.AdapterPosition]);
             }
+            else if (holder is DateSelectSettingItemViewHolder dateSelectSettingItemVH)
+            {
+                dateSelectSettingItemVH.Bind((DateSelectSettingItem)settingsList[holder.AdapterPosition]);
+            }
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
@@ -50,6 +54,12 @@ namespace tabApp.UI.Adapters.Main
             {
                 View view = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.SettingItemTitle, parent, false);
                 return new SettingItemTitleViewHolder(view);
+            }
+
+            else if(settingsList[viewType] is DateSelectSettingItem dateSelectSetting)
+            {
+                View view = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.SingleChoiceSettingItem, parent, false);
+                return new DateSelectSettingItemViewHolder(view);
             }
 
             return null;

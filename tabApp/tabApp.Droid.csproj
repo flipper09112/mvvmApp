@@ -38,7 +38,7 @@
     <WarningLevel>4</WarningLevel>
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
-    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+    <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
     <AotAssemblies>false</AotAssemblies>
     <EnableLLVM>false</EnableLLVM>
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
@@ -214,6 +214,7 @@
     <Compile Include="UI\ViewHolders\DailyOrderProductViewHolder.cs" />
     <Compile Include="UI\ViewHolders\DetailViewHolder.cs" />
     <Compile Include="UI\ViewHolders\EmptyListViewHolder.cs" />
+    <Compile Include="UI\ViewHolders\Settings\DateSelectSettingItemViewHolder.cs" />
     <Compile Include="UI\ViewHolders\Settings\SettingItemTitleViewHolder.cs" />
     <Compile Include="UI\ViewHolders\Settings\SingleChoiceSettingItemViewHolder.cs" />
     <Compile Include="UI\ViewHolders\SimpleProductViewHolder.cs" />
@@ -1063,6 +1064,9 @@
     <AndroidResource Include="Resources\layout\NotificationsDashBoardFragment.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_price_change.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>

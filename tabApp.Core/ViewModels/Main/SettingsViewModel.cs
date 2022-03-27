@@ -5,9 +5,11 @@ using System.Text;
 using System.Windows.Input;
 using tabApp.Core.Helpers;
 using tabApp.Core.Models;
+using tabApp.Core.Services.Implementations.DB;
 using tabApp.Core.Services.Interfaces.Clients;
 using tabApp.Core.Services.Interfaces.Deliverys;
 using tabApp.Core.Services.Interfaces.Dialogs;
+using tabApp.Core.Services.Interfaces.Products;
 
 namespace tabApp.Core.ViewModels.Main
 {
@@ -16,6 +18,8 @@ namespace tabApp.Core.ViewModels.Main
         private IDeliverysManagerService _deliverysManagerService;
         private IClientsManagerService _clientsManagerService;
         private IDialogService _dialogService;
+        private IProductsManagerService _productsManagerService;
+        private IDataBaseManagerService _databaseManagerService;
 
         public List<SettingItem> SettingsList { get; set; }
 
@@ -23,6 +27,7 @@ namespace tabApp.Core.ViewModels.Main
         public EventHandler ReloadUIEvent { get; set; }
 
         public MvxCommand ChooseDeliveryCommand { get; private set; }
+        public MvxCommand SelectLastPricesChangeDateCommand { get; private set; }
         public MvxCommand<int> ChooseDeliveryIndexCommand { get; private set; }
         public string[] DeliveriesList
         {
@@ -38,14 +43,31 @@ namespace tabApp.Core.ViewModels.Main
 
         public SettingsViewModel(IDeliverysManagerService deliverysManagerService,
                                  IClientsManagerService clientsManagerService,
-                                 IDialogService dialogService)
+                                 IProductsManagerService productsManagerService,
+                                 IDialogService dialogService,
+                                 IDataBaseManagerService databaseManagerService)
         {
             _deliverysManagerService = deliverysManagerService;
             _clientsManagerService = clientsManagerService;
             _dialogService = dialogService;
+            _productsManagerService = productsManagerService;
+            _databaseManagerService = databaseManagerService;
 
             ChooseDeliveryCommand = new MvxCommand(ChooseDelivery);
             ChooseDeliveryIndexCommand = new MvxCommand<int>(ChooseDeliveryIndex);
+            SelectLastPricesChangeDateCommand = new MvxCommand(SelectLastPricesChangeDate);
+        }
+
+        private void SelectLastPricesChangeDate()
+        {
+            _dialogService.ShowDatePickerDialog(SelectLastPricesChangeDateAction, false);
+        }
+
+        private void SelectLastPricesChangeDateAction(DateTime date)
+        {
+            _productsManagerService.UpdateLastPricesDateChange(date);
+            _databaseManagerService.SaveLastPricesChangeDate(_productsManagerService.LastPricesDateChange);
+            ReloadUIEvent?.Invoke(null, null);  
         }
 
         private async void ChooseDeliveryIndex(int deliveryIndex)
@@ -89,6 +111,20 @@ namespace tabApp.Core.ViewModels.Main
                 Command = ChooseDeliveryCommand
             });
 
+            list.Add(new SettingItemTitle
+            {
+                Type = SettingItemType.Title,
+                Title = "Lista de Produtos"
+            });
+
+            list.Add(new DateSelectSettingItem()
+            {
+                ImageName = "ic_price_change",
+                Type = SettingItemType.PricesLastChangeDate,
+                CurrentValue = _productsManagerService.LastPricesDateChange?.Date,
+                Command = SelectLastPricesChangeDateCommand
+            });
+
             return list;
         }
 
@@ -101,11 +137,13 @@ namespace tabApp.Core.ViewModels.Main
     {
         public SettingItemType Type { get; set; }
         public ICommand Command { get; set; }
+        public string ImageName { get; set; }
     }
 
     public enum SettingItemType
     {
         Delivery,
+        PricesLastChangeDate,
         Title
     }
     public class SettingItemTitle : SettingItem
@@ -117,5 +155,10 @@ namespace tabApp.Core.ViewModels.Main
     {
         public string CurrentValue { get; set; }
         public List<T> Options { get; set; }
+    }
+
+    public class DateSelectSettingItem : SettingItem
+    {
+        public DateTime? CurrentValue { get; set; }
     }
 }
