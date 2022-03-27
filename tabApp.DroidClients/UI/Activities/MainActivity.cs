@@ -12,6 +12,7 @@ using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using tabApp.Core.ViewModelsClient;
 using Android.Widget;
+using tabApp.DroidClients.UI.Fragments.Catalog;
 
 namespace tabApp.DroidClients
 {
@@ -21,6 +22,8 @@ namespace tabApp.DroidClients
     {
         private ProgressBar _indeterminateBar;
         private FrameLayout _container;
+
+        public EventHandler BackPress { get; set; }
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -66,6 +69,19 @@ namespace tabApp.DroidClients
         public void ShowToolbar()
         {
             SupportActionBar.Show();
+        }
+
+        public override void OnBackPressed()
+        {
+            var frag = SupportFragmentManager.FindFragmentById(Resource.Id.fragmentContainer);
+
+            if (frag is CatalogFragment)
+            {
+                BackPress?.Invoke(this, null);
+                return;
+            }
+
+            base.OnBackPressed();
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)

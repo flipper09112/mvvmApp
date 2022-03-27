@@ -75,6 +75,7 @@
     <Compile Include="UI\Adapters\HomepageAdapter.cs" />
     <Compile Include="UI\Bases\BaseFragment.cs" />
     <Compile Include="UI\Fragments\Catalog\CatalogFragment.cs" />
+    <Compile Include="UI\Fragments\Catalog\ProductsListFragment.cs" />
     <Compile Include="UI\Fragments\HomepageFragment.cs" />
     <Compile Include="UI\Fragments\Info\InfoFragment.cs" />
     <Compile Include="UI\ViewHolders\CatalogItemViewHolder.cs" />
@@ -226,6 +227,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_flour.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\ProductsListFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

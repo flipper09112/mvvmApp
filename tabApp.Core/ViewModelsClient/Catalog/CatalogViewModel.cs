@@ -11,6 +11,7 @@ namespace tabApp.Core.ViewModelsClient.Catalog
     {
         public MvxCommand<string> NextScreenCommand { get; set; }
         public MvxCommand<string> CakesTypesCommand { get; set; }
+        public MvxCommand GoBackMenuCommand { get; set; }
 
         private IMvxNavigationService _navigationService;
 
@@ -22,10 +23,18 @@ namespace tabApp.Core.ViewModelsClient.Catalog
 
             NextScreenCommand = new MvxCommand<string>(NextScreen);
             CakesTypesCommand = new MvxCommand<string>(CakesTypes);
+            GoBackMenuCommand = new MvxCommand(GoBackMenu);
 
             Position = 0;
             CatalogTypeItemsList = GetList(Position);
         }
+
+        private void GoBackMenu()
+        {
+            Position = 0;
+            CatalogTypeItemsList = GetList(Position);
+        }
+
         public List<CatalogTypeItem> catalogTypeItemsList;
         public List<CatalogTypeItem> CatalogTypeItemsList
         {
@@ -46,9 +55,10 @@ namespace tabApp.Core.ViewModelsClient.Catalog
             CatalogTypeItemsList = GetList(Position);
         }
 
-        private void NextScreen(string typeSelected)
+        private async void NextScreen(string typeSelected)
         {
-            //await _navigationService.Navigate<InfoViewModel>();
+            
+            await _navigationService.Navigate<ProductsListViewModel>();
         }
 
         private List<CatalogTypeItem> GetList(int position)

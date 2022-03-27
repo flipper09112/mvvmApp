@@ -7,6 +7,7 @@ namespace tabApp.Core.Services.Interfaces.Products
 {
     public interface IProductsManagerService
     {
+        PriceChangeDate LastPricesDateChange { get; }
         List<Product> ProductsList { get; }
         List<Client> ClientsWithTables { get; }
 
@@ -18,5 +19,7 @@ namespace tabApp.Core.Services.Interfaces.Products
         Product GetProductByClosestName(string productName);
         int GetUniqueId();
         string GetDailyOrderDesc(Client client);
+        void SetGetPriceChangeDate(List<PriceChangeDate> priceChangeDates);
+        void UpdateLastPricesDateChange(DateTime date);
     }
 }

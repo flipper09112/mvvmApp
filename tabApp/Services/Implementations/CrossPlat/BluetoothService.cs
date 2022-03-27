@@ -1,6 +1,7 @@
 ﻿using Android.Bluetooth;
 using Android.Content;
 using Java.Util;
+using Microsoft.AppCenter.Crashes;
 using MvvmCross;
 using MvvmCross.Platforms.Android;
 using System;
@@ -68,6 +69,7 @@ namespace tabApp.Core.Services.Implementations.Bluetooth
                 }
                 catch (Exception exp)
                 {
+                    Crashes.TrackError(exp);
                     throw exp;
                 }
             }

@@ -11288,16 +11288,19 @@ namespace tabApp.DroidClients
 			public const int notification_template_part_time = 2131492933;
 			
 			// aapt resource value: 0x7F0C0046
-			public const int select_dialog_item_material = 2131492934;
+			public const int ProductsListFragment = 2131492934;
 			
 			// aapt resource value: 0x7F0C0047
-			public const int select_dialog_multichoice_material = 2131492935;
+			public const int select_dialog_item_material = 2131492935;
 			
 			// aapt resource value: 0x7F0C0048
-			public const int select_dialog_singlechoice_material = 2131492936;
+			public const int select_dialog_multichoice_material = 2131492936;
 			
 			// aapt resource value: 0x7F0C0049
-			public const int support_simple_spinner_dropdown_item = 2131492937;
+			public const int select_dialog_singlechoice_material = 2131492937;
+			
+			// aapt resource value: 0x7F0C004A
+			public const int support_simple_spinner_dropdown_item = 2131492938;
 			
 			static Layout()
 			{
