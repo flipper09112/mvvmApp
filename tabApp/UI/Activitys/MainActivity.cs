@@ -138,21 +138,20 @@ namespace tabApp
 
         private bool OnReleaseAvailable(ReleaseDetails releaseDetails)
         {
-            // Look at releaseDetails public properties to get version information, release notes text or release notes URL
-            string versionName = releaseDetails.ShortVersion;
-            string versionCodeOrBuildNumber = releaseDetails.Version;
-            string releaseNotes = releaseDetails.ReleaseNotes;
-            Uri releaseNotesUrl = releaseDetails.ReleaseNotesUrl;
+            try
+            {
+                Toast.MakeText(this, "Atualização", ToastLength.Long).Show();
+                Distribute.NotifyUpdateAction(UpdateAction.Update);
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+            finally
+            {
+                Analytics.TrackEvent("OnReleaseAvailable");
+            }
 
-            // custom dialog
-            var title = "Version " + versionName + " available!";
-            Task answer;
-
-            Toast.MakeText(this, "Atualização", ToastLength.Long).Show();
-
-            Distribute.NotifyUpdateAction(UpdateAction.Update);
-
-            // Return true if you're using your own dialog, false otherwise
 
             return true;
         }
