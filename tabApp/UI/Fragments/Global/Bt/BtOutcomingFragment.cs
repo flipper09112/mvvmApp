@@ -46,6 +46,7 @@ namespace tabApp.UI.Fragments.Global.Bt
             _startButton.Click -= StartButtonClick;
             _sendData.Click -= SendDataClick;
             ViewModel.PropertyChanged -= ViewModelPropertyChanged;
+            _dateOutBt.Click -= DateOutBtClick;
         }
 
         public override void SetUI()
@@ -58,6 +59,12 @@ namespace tabApp.UI.Fragments.Global.Bt
             _startButton.Click += StartButtonClick;
             _sendData.Click += SendDataClick;
             ViewModel.PropertyChanged += ViewModelPropertyChanged;
+            _dateOutBt.Click += DateOutBtClick;
+        }
+
+        private void DateOutBtClick(object sender, EventArgs e)
+        {
+            ViewModel.SelectDateCommand.Execute(null);
         }
 
         private void ViewModelPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
