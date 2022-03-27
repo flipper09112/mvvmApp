@@ -1,9 +1,11 @@
-﻿using System;
+﻿using MvvmCross.Commands;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using tabApp.Core.Models;
 using tabApp.Core.Services.Interfaces.Bluetooth;
 using tabApp.Core.Services.Interfaces.Clients;
+using tabApp.Core.Services.Interfaces.Dialogs;
 
 namespace tabApp.Core.ViewModels.Global.Bt
 {
@@ -11,14 +13,46 @@ namespace tabApp.Core.ViewModels.Global.Bt
     {
         private IBluetoothService _bluetoothService;
         private IClientsManagerService _clientsManagerService;
+        private IDialogService _dialogService;
 
-        public BtOutcomingViewModel(IBluetoothService bluetoothService, IClientsManagerService clientsManagerService)
+        public MvxCommand SelectDateCommand;
+
+        public BtOutcomingViewModel(IBluetoothService bluetoothService, 
+                                    IClientsManagerService clientsManagerService,
+                                    IDialogService dialogService)
         {
             _bluetoothService = bluetoothService;
             _clientsManagerService = clientsManagerService;
+            _dialogService = dialogService;
+
+            SelectDateCommand = new MvxCommand(SelectDate);
         }
 
-        public List<Client> ClientList => _clientsManagerService.ClientsUpdatedToday;
+        private void SelectDate()
+        {
+            _dialogService.ShowDatePickerDialog(SelectDateAction, false);
+        }
+
+        private void SelectDateAction(DateTime date)
+        {
+            DateSelected = date;
+        }
+
+        private DateTime _dateSelected = DateTime.Today;
+        public DateTime DateSelected
+        {
+            get
+            {
+                return _dateSelected;
+            }
+            set
+            {
+                _dateSelected = value;
+                RaisePropertyChanged(nameof(DateSelected));
+            }
+        }
+
+        public List<Client> ClientList => _clientsManagerService.GetClientsUpdatedToday(DateSelected);
 
         public override void Appearing()
         {

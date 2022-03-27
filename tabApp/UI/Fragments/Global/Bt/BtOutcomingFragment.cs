@@ -23,6 +23,7 @@ namespace tabApp.UI.Fragments.Global.Bt
         private LottieAnimationView _lottie;
         private Button _startButton;
         private Button _sendData;
+        private TextView _dateOutBt;
         private bool _ready;
 
         private int count = 1;
@@ -36,6 +37,7 @@ namespace tabApp.UI.Fragments.Global.Bt
             _lottie = view.FindViewById<LottieAnimationView>(Resource.Id.view);
             _startButton = view.FindViewById<Button>(Resource.Id.startButton);
             _sendData = view.FindViewById<Button>(Resource.Id.sendData);
+            _dateOutBt = view.FindViewById<TextView>(Resource.Id.dateOutBt);
 
             return view;
         }
@@ -43,16 +45,24 @@ namespace tabApp.UI.Fragments.Global.Bt
         {
             _startButton.Click -= StartButtonClick;
             _sendData.Click -= SendDataClick;
+            ViewModel.PropertyChanged -= ViewModelPropertyChanged;
         }
 
         public override void SetUI()
         {
+            _dateOutBt.Text = ViewModel.DateSelected.ToString("dd/MM/yyyy");
         }
 
         public override void SetupBindings()
         {
             _startButton.Click += StartButtonClick;
-            _sendData.Click += SendDataClick; 
+            _sendData.Click += SendDataClick;
+            ViewModel.PropertyChanged += ViewModelPropertyChanged;
+        }
+
+        private void ViewModelPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            SetUI();
         }
 
         private void SendDataClick(object sender, EventArgs e)
