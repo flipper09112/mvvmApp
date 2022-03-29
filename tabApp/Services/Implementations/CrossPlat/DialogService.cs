@@ -174,8 +174,8 @@ namespace tabApp.Services.Implementations
 
             var _loadingImagePopUp = view.FindViewById<ImageView>(Resource.Id.custom_loading_imageView);
             Glide.With(act)
-                    .Load(Resource.Drawable.loading)
-                    .Into(_loadingImagePopUp);
+                .Load(Resource.Drawable.loading)
+                .Into(_loadingImagePopUp);
 
             //Custom adapter
             LongPressPopPupAdapter adapter;
@@ -204,6 +204,32 @@ namespace tabApp.Services.Implementations
             alert.SetMessage(v2);
             alert.SetPositiveButton("OK", (senderAlert, args) =>
             {
+            });
+
+            Dialog dialog = alert.Create();
+            dialog.Show();
+        }
+
+        public void ShowErrorDialog(string title, string description, Action confirmAction = null)
+        {
+            var top = Mvx.Resolve<IMvxAndroidCurrentTopActivity>();
+            var act = top.Activity;
+
+            LayoutInflater inflater = act.LayoutInflater;
+            View dialogView = inflater.Inflate(Resource.Layout.ErrorDialog, null);
+            var desc = dialogView.FindViewById<TextView>(Resource.Id.description);
+
+            Android.App.AlertDialog.Builder alert = new Android.App.AlertDialog.Builder(act);
+
+            alert.SetTitle(title);
+            alert.SetView(dialogView);
+            alert.SetCancelable(false);
+
+            desc.Text = description;
+
+            alert.SetPositiveButton("OK", (senderAlert, args) =>
+            {
+                confirmAction?.Invoke();
             });
 
             Dialog dialog = alert.Create();

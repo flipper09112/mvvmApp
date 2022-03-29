@@ -140,7 +140,10 @@ namespace tabApp
         {
             try
             {
-                Toast.MakeText(this, "Atualização", ToastLength.Long).Show();
+                RunOnUiThread(() =>
+                {
+                    Toast.MakeText(this, "Atualização", ToastLength.Long).Show();
+                });
                 Distribute.NotifyUpdateAction(UpdateAction.Update);
             }
             catch (Exception ex)

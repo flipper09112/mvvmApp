@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using tabApp.Core.Models;
 using tabApp.Core.Services.Interfaces.Clients;
@@ -206,6 +207,54 @@ namespace tabApp.Core.Services.Implementations.Products
             }
 
             LastPricesDateChange.Date = date;
+        }
+
+        public List<Product> CheckProductsNotUpdated(Client client)
+        {
+            Product prod;
+            List<Product> productsList = new List<Product>();
+
+            foreach(var dailyOrder in client.DailyOrders)
+            {
+                foreach(var dailyOrderDetails in dailyOrder.AllItems)
+                {
+                    prod = GetProductById(dailyOrderDetails.ProductId);
+
+                    if (productsList.Find(item => item.Id == prod.Id) != null)
+                        continue;
+
+                    if(prod.LastChangeDate == null && LastPricesDateChange != null)
+                    {
+                        productsList.Add(prod);
+                    }
+                    else if(prod.LastChangeDate != null && LastPricesDateChange != null && prod.LastChangeDate?.Date < LastPricesDateChange.Date)
+                    {
+                        productsList.Add(prod);
+                    }
+                }
+            }
+
+            foreach(var order in client.ExtraOrdersList.Where(item => item.OrderDay.Date >= client.PaymentDate.Date))
+            {
+                foreach (var dailyOrderDetails in order.AllItems)
+                {
+                    prod = GetProductById(dailyOrderDetails.ProductId);
+
+                    if (productsList.Find(item => item.Id == prod.Id) != null)
+                        continue;
+
+                    if (prod.LastChangeDate == null && LastPricesDateChange != null)
+                    {
+                        productsList.Add(prod);
+                    }
+                    else if (prod.LastChangeDate != null && LastPricesDateChange != null && prod.LastChangeDate?.Date < LastPricesDateChange.Date)
+                    {
+                        productsList.Add(prod);
+                    }
+                }
+            }
+
+            return productsList;
         }
     }
 }

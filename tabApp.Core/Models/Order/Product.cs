@@ -20,7 +20,7 @@ namespace tabApp.Core.Models
         public double CostProduct { get; set; }
         public double Discount { get; set; }
         public int Iva { get; set; }
-        public DateTime LastChangeDate { get; set; }
+        public DateTime? LastChangeDate { get; set; }
 
         [OneToMany]
         public List<ReSaleValues> ReSaleValues { get; set; }

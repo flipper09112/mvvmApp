@@ -331,7 +331,10 @@ namespace tabApp.Core.Services.Implementations.DB
 
         public void SaveLastPricesChangeDate(PriceChangeDate lastPricesDateChange)
         {
-            Database.Update(lastPricesDateChange);
+            if (GetPriceChangeDate().Count == 0)
+                Database.Insert(lastPricesDateChange);
+            else
+                Database.Update(lastPricesDateChange);
         }
 
         public void SaveClient(Client client, Regist regist)
