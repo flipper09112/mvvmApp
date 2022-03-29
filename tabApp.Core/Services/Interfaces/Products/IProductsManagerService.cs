@@ -21,5 +21,6 @@ namespace tabApp.Core.Services.Interfaces.Products
         string GetDailyOrderDesc(Client client);
         void SetGetPriceChangeDate(List<PriceChangeDate> priceChangeDates);
         void UpdateLastPricesDateChange(DateTime date);
+        List<Product> CheckProductsNotUpdated(Client client);
     }
 }

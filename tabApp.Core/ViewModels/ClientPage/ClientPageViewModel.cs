@@ -2,6 +2,7 @@
 using MvvmCross.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using tabApp.Core.Models;
 using tabApp.Core.Services.Implementations.Clients;
@@ -289,6 +290,14 @@ namespace tabApp.Core.ViewModels
         public override void Appearing()
         {
             DateSelected = SpinnerDates[0];
+
+            var outDatedProductsList = _productsManagerService.CheckProductsNotUpdated(Client);
+            if (outDatedProductsList.Count > 0)
+            {
+                List<string> prods = outDatedProductsList.Select(x => x.Name + "\n").ToList();
+
+                _dialogService.ShowErrorDialog("Produtos não atualizados", "O cliente contém produtos que nao tem os preços atualizados: \n\n" + prods.Aggregate((a, b) => a + b) + "\n");
+            }
         }
         public override void DisAppearing()
         {
