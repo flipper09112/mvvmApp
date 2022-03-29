@@ -258,7 +258,18 @@ namespace tabApp.Core.ViewModels
 
         private void SetPayment()
         {
-            _dialogService.ShowConfirmDialog("Confirmar Pagamento?", "Sim", ConfirmPayment);
+            if(Client.ExtraOrdersList.Any(item => item.OrderDay.Date > Client.PaymentDate.Date && !(item.AmmountedAdded ?? false)))
+            {
+                _dialogService.ShowErrorDialog("Encomendas", 
+                                               "Existem encomendas que nºao foram adicionadas aos extras",
+                                               () => _dialogService.ShowConfirmDialog("Confirmar Pagamento?", "Sim", ConfirmPayment),
+                                               () => { });
+            }
+            else
+            {
+                _dialogService.ShowConfirmDialog("Confirmar Pagamento?", "Sim", ConfirmPayment);
+            }
+
         }
 
         private void ShowDatePickerDialog()
