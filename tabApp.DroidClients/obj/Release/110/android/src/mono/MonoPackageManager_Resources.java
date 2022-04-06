@@ -71,7 +71,6 @@ public class MonoPackageManager_Resources {
 		"System.Security.Permissions.dll",
 		"System.Text.Encodings.Web.dll",
 		"System.Text.Json.dll",
-		"tabApp.Core.dll",
 		"Xamarin.Android.Glide.Annotations.dll",
 		"Xamarin.Android.Glide.DiskLruCache.dll",
 		"Xamarin.Android.Glide.dll",
@@ -82,6 +81,13 @@ public class MonoPackageManager_Resources {
 		"Xamarin.Essentials.dll",
 		"Xamarin.Google.Guava.ListenableFuture.dll",
 		"tabApp.DroidClients.dll",
+		"Microsoft.AppCenter.Analytics.Android.Bindings.dll",
+		"Microsoft.AppCenter.Analytics.dll",
+		"Microsoft.AppCenter.Android.Bindings.dll",
+		"Microsoft.AppCenter.Crashes.Android.Bindings.dll",
+		"Microsoft.AppCenter.Crashes.dll",
+		"Microsoft.AppCenter.dll",
+		"tabApp.Core.dll",
 	};
 	public static String[] Dependencies = new String[]{
 	};
