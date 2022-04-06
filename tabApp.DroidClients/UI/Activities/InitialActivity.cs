@@ -7,6 +7,9 @@ using Android.Widget;
 using Bumptech.Glide;
 using Bumptech.Glide.Load.Engine;
 using Java.Lang;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using System;
@@ -28,6 +31,7 @@ namespace tabApp.DroidClients.UI
             base.OnCreate(savedInstanceState);
             //Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             SetContentView(Resource.Layout.activity_splash_screen);
+            AppCenter.Start("5a0cfc0a-ba5b-4ea9-b2e2-08be8c0cae30", typeof(Analytics), typeof(Crashes));
 
             _imageView = FindViewById<ImageView>(Resource.Id.videoView);
 

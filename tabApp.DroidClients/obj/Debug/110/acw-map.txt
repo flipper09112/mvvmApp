@@ -19,6 +19,9 @@ tabapp.droidclients.ui.viewholders.CatalogItemViewHolder;crc6454520a5450c2e05b.C
 tabApp.DroidClients.UI.ViewHolders.HomepageItemViewHolder, tabApp.DroidClients;crc6454520a5450c2e05b.HomepageItemViewHolder
 tabApp.DroidClients.UI.ViewHolders.HomepageItemViewHolder;crc6454520a5450c2e05b.HomepageItemViewHolder
 tabapp.droidclients.ui.viewholders.HomepageItemViewHolder;crc6454520a5450c2e05b.HomepageItemViewHolder
+tabApp.DroidClients.UI.ViewHolders.ProdutoViewHolder, tabApp.DroidClients;crc6454520a5450c2e05b.ProdutoViewHolder
+tabApp.DroidClients.UI.ViewHolders.ProdutoViewHolder;crc6454520a5450c2e05b.ProdutoViewHolder
+tabapp.droidclients.ui.viewholders.ProdutoViewHolder;crc6454520a5450c2e05b.ProdutoViewHolder
 tabApp.DroidClients.UI.Fragments.HomepageFragment, tabApp.DroidClients;crc64bc5281faa64a20a4.HomepageFragment
 tabApp.DroidClients.UI.Fragments.HomepageFragment;crc64bc5281faa64a20a4.HomepageFragment
 tabapp.droidclients.ui.fragments.HomepageFragment;crc64bc5281faa64a20a4.HomepageFragment
@@ -28,6 +31,9 @@ tabapp.droidclients.ui.fragments.info.InfoFragment;crc6487812edc773d59ec.InfoFra
 tabApp.DroidClients.UI.Fragments.Catalog.CatalogFragment, tabApp.DroidClients;crc64b84dadbf4acaf435.CatalogFragment
 tabApp.DroidClients.UI.Fragments.Catalog.CatalogFragment;crc64b84dadbf4acaf435.CatalogFragment
 tabapp.droidclients.ui.fragments.catalog.CatalogFragment;crc64b84dadbf4acaf435.CatalogFragment
+tabApp.DroidClients.UI.Fragments.Catalog.ProductDetailsFragment, tabApp.DroidClients;crc64b84dadbf4acaf435.ProductDetailsFragment
+tabApp.DroidClients.UI.Fragments.Catalog.ProductDetailsFragment;crc64b84dadbf4acaf435.ProductDetailsFragment
+tabapp.droidclients.ui.fragments.catalog.ProductDetailsFragment;crc64b84dadbf4acaf435.ProductDetailsFragment
 tabApp.DroidClients.UI.Fragments.Catalog.ProductsListFragment, tabApp.DroidClients;crc64b84dadbf4acaf435.ProductsListFragment
 tabApp.DroidClients.UI.Fragments.Catalog.ProductsListFragment;crc64b84dadbf4acaf435.ProductsListFragment
 tabapp.droidclients.ui.fragments.catalog.ProductsListFragment;crc64b84dadbf4acaf435.ProductsListFragment
@@ -37,9 +43,114 @@ tabapp.droidclients.ui.adapters.CatalogAdapter;crc64e5449d453cea33de.CatalogAdap
 tabApp.DroidClients.UI.Adapters.HomepageAdapter, tabApp.DroidClients;crc64e5449d453cea33de.HomepageAdapter
 tabApp.DroidClients.UI.Adapters.HomepageAdapter;crc64e5449d453cea33de.HomepageAdapter
 tabapp.droidclients.ui.adapters.HomepageAdapter;crc64e5449d453cea33de.HomepageAdapter
+tabApp.DroidClients.UI.Adapters.ProdutsListAdapter, tabApp.DroidClients;crc64e5449d453cea33de.ProdutsListAdapter
+tabApp.DroidClients.UI.Adapters.ProdutsListAdapter;crc64e5449d453cea33de.ProdutsListAdapter
+tabapp.droidclients.ui.adapters.ProdutsListAdapter;crc64e5449d453cea33de.ProdutsListAdapter
+Com.Airbnb.Lottie.LottieAnimationView+ImageAssetDelegateImpl, Lottie.Android;com.airbnb.lottie.LottieAnimationView_ImageAssetDelegateImpl
+Com.Airbnb.Lottie.LottieAnimationView.ImageAssetDelegateImpl;com.airbnb.lottie.LottieAnimationView_ImageAssetDelegateImpl
+com.airbnb.lottie.LottieAnimationView_ImageAssetDelegateImpl;com.airbnb.lottie.LottieAnimationView_ImageAssetDelegateImpl
+Com.Airbnb.Lottie.LottieComposition+Factory+ActionCompositionLoaded, Lottie.Android;com.airbnb.lottie.LottieComposition$Factory_ActionCompositionLoaded
+Com.Airbnb.Lottie.LottieComposition.Factory.ActionCompositionLoaded;com.airbnb.lottie.LottieComposition$Factory_ActionCompositionLoaded
+com.airbnb.lottie.LottieComposition$Factory_ActionCompositionLoaded;com.airbnb.lottie.LottieComposition$Factory_ActionCompositionLoaded
+Com.Airbnb.Lottie.ICancellable, Lottie.Android;com.airbnb.lottie.Cancellable
+Com.Airbnb.Lottie.ICancellable;com.airbnb.lottie.Cancellable
+com.airbnb.lottie.Cancellable;com.airbnb.lottie.Cancellable
+Com.Airbnb.Lottie.IImageAssetDelegate, Lottie.Android;com.airbnb.lottie.ImageAssetDelegate
+Com.Airbnb.Lottie.IImageAssetDelegate;com.airbnb.lottie.ImageAssetDelegate
+com.airbnb.lottie.ImageAssetDelegate;com.airbnb.lottie.ImageAssetDelegate
+Com.Airbnb.Lottie.ILottieListener, Lottie.Android;com.airbnb.lottie.LottieListener
+Com.Airbnb.Lottie.ILottieListener;com.airbnb.lottie.LottieListener
+com.airbnb.lottie.LottieListener;com.airbnb.lottie.LottieListener
+Com.Airbnb.Lottie.ILottieListenerImplementor, Lottie.Android;mono.com.airbnb.lottie.LottieListenerImplementor
+Com.Airbnb.Lottie.ILottieListenerImplementor;mono.com.airbnb.lottie.LottieListenerImplementor
+mono.com.airbnb.lottie.LottieListenerImplementor;mono.com.airbnb.lottie.LottieListenerImplementor
+Com.Airbnb.Lottie.ILottieLogger, Lottie.Android;com.airbnb.lottie.LottieLogger
+Com.Airbnb.Lottie.ILottieLogger;com.airbnb.lottie.LottieLogger
+com.airbnb.lottie.LottieLogger;com.airbnb.lottie.LottieLogger
+Com.Airbnb.Lottie.ILottieOnCompositionLoadedListener, Lottie.Android;com.airbnb.lottie.LottieOnCompositionLoadedListener
+Com.Airbnb.Lottie.ILottieOnCompositionLoadedListener;com.airbnb.lottie.LottieOnCompositionLoadedListener
+com.airbnb.lottie.LottieOnCompositionLoadedListener;com.airbnb.lottie.LottieOnCompositionLoadedListener
+Com.Airbnb.Lottie.ILottieOnCompositionLoadedListenerImplementor, Lottie.Android;mono.com.airbnb.lottie.LottieOnCompositionLoadedListenerImplementor
+Com.Airbnb.Lottie.ILottieOnCompositionLoadedListenerImplementor;mono.com.airbnb.lottie.LottieOnCompositionLoadedListenerImplementor
+mono.com.airbnb.lottie.LottieOnCompositionLoadedListenerImplementor;mono.com.airbnb.lottie.LottieOnCompositionLoadedListenerImplementor
+Com.Airbnb.Lottie.ILottieProperty, Lottie.Android;com.airbnb.lottie.LottieProperty
+Com.Airbnb.Lottie.ILottieProperty;com.airbnb.lottie.LottieProperty
+com.airbnb.lottie.LottieProperty;com.airbnb.lottie.LottieProperty
+Com.Airbnb.Lottie.IOnCompositionLoadedListener, Lottie.Android;com.airbnb.lottie.OnCompositionLoadedListener
+Com.Airbnb.Lottie.IOnCompositionLoadedListener;com.airbnb.lottie.OnCompositionLoadedListener
+com.airbnb.lottie.OnCompositionLoadedListener;com.airbnb.lottie.OnCompositionLoadedListener
+Com.Airbnb.Lottie.IOnCompositionLoadedListenerImplementor, Lottie.Android;mono.com.airbnb.lottie.OnCompositionLoadedListenerImplementor
+Com.Airbnb.Lottie.IOnCompositionLoadedListenerImplementor;mono.com.airbnb.lottie.OnCompositionLoadedListenerImplementor
+mono.com.airbnb.lottie.OnCompositionLoadedListenerImplementor;mono.com.airbnb.lottie.OnCompositionLoadedListenerImplementor
+Com.Airbnb.Lottie.LottieDrawable+IRepeatMode, Lottie.Android;com.airbnb.lottie.LottieDrawable$RepeatMode
+Com.Airbnb.Lottie.LottieDrawable.IRepeatMode;com.airbnb.lottie.LottieDrawable$RepeatMode
+com.airbnb.lottie.LottieDrawable$RepeatMode;com.airbnb.lottie.LottieDrawable$RepeatMode
+Com.Airbnb.Lottie.PerformanceTracker+IFrameListener, Lottie.Android;com.airbnb.lottie.PerformanceTracker$FrameListener
+Com.Airbnb.Lottie.PerformanceTracker.IFrameListener;com.airbnb.lottie.PerformanceTracker$FrameListener
+com.airbnb.lottie.PerformanceTracker$FrameListener;com.airbnb.lottie.PerformanceTracker$FrameListener
+Com.Airbnb.Lottie.PerformanceTracker+IFrameListenerImplementor, Lottie.Android;mono.com.airbnb.lottie.PerformanceTracker_FrameListenerImplementor
+Com.Airbnb.Lottie.PerformanceTracker.IFrameListenerImplementor;mono.com.airbnb.lottie.PerformanceTracker_FrameListenerImplementor
+mono.com.airbnb.lottie.PerformanceTracker_FrameListenerImplementor;mono.com.airbnb.lottie.PerformanceTracker_FrameListenerImplementor
+Com.Airbnb.Lottie.Value.ISimpleLottieValueCallback, Lottie.Android;com.airbnb.lottie.value.SimpleLottieValueCallback
+Com.Airbnb.Lottie.Value.ISimpleLottieValueCallback;com.airbnb.lottie.value.SimpleLottieValueCallback
+com.airbnb.lottie.value.SimpleLottieValueCallback;com.airbnb.lottie.value.SimpleLottieValueCallback
+Com.Airbnb.Lottie.Network.ILottieFetchResult, Lottie.Android;com.airbnb.lottie.network.LottieFetchResult
+Com.Airbnb.Lottie.Network.ILottieFetchResult;com.airbnb.lottie.network.LottieFetchResult
+com.airbnb.lottie.network.LottieFetchResult;com.airbnb.lottie.network.LottieFetchResult
+Com.Airbnb.Lottie.Network.ILottieNetworkCacheProvider, Lottie.Android;com.airbnb.lottie.network.LottieNetworkCacheProvider
+Com.Airbnb.Lottie.Network.ILottieNetworkCacheProvider;com.airbnb.lottie.network.LottieNetworkCacheProvider
+com.airbnb.lottie.network.LottieNetworkCacheProvider;com.airbnb.lottie.network.LottieNetworkCacheProvider
+Com.Airbnb.Lottie.Network.ILottieNetworkFetcher, Lottie.Android;com.airbnb.lottie.network.LottieNetworkFetcher
+Com.Airbnb.Lottie.Network.ILottieNetworkFetcher;com.airbnb.lottie.network.LottieNetworkFetcher
+com.airbnb.lottie.network.LottieNetworkFetcher;com.airbnb.lottie.network.LottieNetworkFetcher
+Com.Airbnb.Lottie.Model.IKeyPathElement, Lottie.Android;com.airbnb.lottie.model.KeyPathElement
+Com.Airbnb.Lottie.Model.IKeyPathElement;com.airbnb.lottie.model.KeyPathElement
+com.airbnb.lottie.model.KeyPathElement;com.airbnb.lottie.model.KeyPathElement
+Com.Airbnb.Lottie.Model.Content.IContentModel, Lottie.Android;com.airbnb.lottie.model.content.ContentModel
+Com.Airbnb.Lottie.Model.Content.IContentModel;com.airbnb.lottie.model.content.ContentModel
+com.airbnb.lottie.model.content.ContentModel;com.airbnb.lottie.model.content.ContentModel
+Com.Airbnb.Lottie.Animation.Content.IContent, Lottie.Android;com.airbnb.lottie.animation.content.Content
+Com.Airbnb.Lottie.Animation.Content.IContent;com.airbnb.lottie.animation.content.Content
+com.airbnb.lottie.animation.content.Content;com.airbnb.lottie.animation.content.Content
+Com.Airbnb.Lottie.Animation.Content.IDrawingContent, Lottie.Android;com.airbnb.lottie.animation.content.DrawingContent
+Com.Airbnb.Lottie.Animation.Content.IDrawingContent;com.airbnb.lottie.animation.content.DrawingContent
+com.airbnb.lottie.animation.content.DrawingContent;com.airbnb.lottie.animation.content.DrawingContent
+Com.Airbnb.Lottie.Animation.Content.IKeyPathElementContent, Lottie.Android;com.airbnb.lottie.animation.content.KeyPathElementContent
+Com.Airbnb.Lottie.Animation.Content.IKeyPathElementContent;com.airbnb.lottie.animation.content.KeyPathElementContent
+com.airbnb.lottie.animation.content.KeyPathElementContent;com.airbnb.lottie.animation.content.KeyPathElementContent
+Com.Airbnb.Lottie.Animation.Content.IModifierContent, Lottie.Android;com.airbnb.lottie.animation.content.ModifierContent
+Com.Airbnb.Lottie.Animation.Content.IModifierContent;com.airbnb.lottie.animation.content.ModifierContent
+com.airbnb.lottie.animation.content.ModifierContent;com.airbnb.lottie.animation.content.ModifierContent
 Microcharts.Droid.ChartView, Microcharts.Droid;crc64e9f97cf19b8286a9.ChartView
 Microcharts.Droid.ChartView;crc64e9f97cf19b8286a9.ChartView
 microcharts.droid.ChartView;crc64e9f97cf19b8286a9.ChartView
+Com.Microsoft.Appcenter.Analytics.Channel.IAnalyticsListenerImplementor, Microsoft.AppCenter.Analytics.Android.Bindings;mono.com.microsoft.appcenter.analytics.channel.AnalyticsListenerImplementor
+Com.Microsoft.Appcenter.Analytics.Channel.IAnalyticsListenerImplementor;mono.com.microsoft.appcenter.analytics.channel.AnalyticsListenerImplementor
+mono.com.microsoft.appcenter.analytics.channel.AnalyticsListenerImplementor;mono.com.microsoft.appcenter.analytics.channel.AnalyticsListenerImplementor
+Com.Microsoft.Appcenter.Channel.IChannelGroupListenerImplementor, Microsoft.AppCenter.Android.Bindings;mono.com.microsoft.appcenter.channel.Channel_GroupListenerImplementor
+Com.Microsoft.Appcenter.Channel.IChannelGroupListenerImplementor;mono.com.microsoft.appcenter.channel.Channel_GroupListenerImplementor
+mono.com.microsoft.appcenter.channel.Channel_GroupListenerImplementor;mono.com.microsoft.appcenter.channel.Channel_GroupListenerImplementor
+Com.Microsoft.Appcenter.Channel.IChannelListenerImplementor, Microsoft.AppCenter.Android.Bindings;mono.com.microsoft.appcenter.channel.Channel_ListenerImplementor
+Com.Microsoft.Appcenter.Channel.IChannelListenerImplementor;mono.com.microsoft.appcenter.channel.Channel_ListenerImplementor
+mono.com.microsoft.appcenter.channel.Channel_ListenerImplementor;mono.com.microsoft.appcenter.channel.Channel_ListenerImplementor
+Com.Microsoft.Appcenter.Utils.NetworkStateHelper+IListenerImplementor, Microsoft.AppCenter.Android.Bindings;mono.com.microsoft.appcenter.utils.NetworkStateHelper_ListenerImplementor
+Com.Microsoft.Appcenter.Utils.NetworkStateHelper.IListenerImplementor;mono.com.microsoft.appcenter.utils.NetworkStateHelper_ListenerImplementor
+mono.com.microsoft.appcenter.utils.NetworkStateHelper_ListenerImplementor;mono.com.microsoft.appcenter.utils.NetworkStateHelper_ListenerImplementor
+Com.Microsoft.Appcenter.Utils.Context.UserIdContext+IListenerImplementor, Microsoft.AppCenter.Android.Bindings;mono.com.microsoft.appcenter.utils.context.UserIdContext_ListenerImplementor
+Com.Microsoft.Appcenter.Utils.Context.UserIdContext.IListenerImplementor;mono.com.microsoft.appcenter.utils.context.UserIdContext_ListenerImplementor
+mono.com.microsoft.appcenter.utils.context.UserIdContext_ListenerImplementor;mono.com.microsoft.appcenter.utils.context.UserIdContext_ListenerImplementor
+Com.Microsoft.Appcenter.Crashes.ICrashesListenerImplementor, Microsoft.AppCenter.Crashes.Android.Bindings;mono.com.microsoft.appcenter.crashes.CrashesListenerImplementor
+Com.Microsoft.Appcenter.Crashes.ICrashesListenerImplementor;mono.com.microsoft.appcenter.crashes.CrashesListenerImplementor
+mono.com.microsoft.appcenter.crashes.CrashesListenerImplementor;mono.com.microsoft.appcenter.crashes.CrashesListenerImplementor
+Microsoft.AppCenter.Crashes.Crashes+AndroidCrashListener, Microsoft.AppCenter.Crashes;crc64a4555f9f70c213ae.Crashes_AndroidCrashListener
+Microsoft.AppCenter.Crashes.Crashes.AndroidCrashListener;crc64a4555f9f70c213ae.Crashes_AndroidCrashListener
+microsoft.appcenter.crashes.Crashes_AndroidCrashListener;crc64a4555f9f70c213ae.Crashes_AndroidCrashListener
+Microsoft.AppCenter.AndroidHttpClientAdapter, Microsoft.AppCenter;crc64350623dcb797cc38.AndroidHttpClientAdapter
+Microsoft.AppCenter.AndroidHttpClientAdapter;crc64350623dcb797cc38.AndroidHttpClientAdapter
+microsoft.appcenter.AndroidHttpClientAdapter;crc64350623dcb797cc38.AndroidHttpClientAdapter
+Microsoft.AppCenter.ServiceCall, Microsoft.AppCenter;crc64350623dcb797cc38.ServiceCall
+Microsoft.AppCenter.ServiceCall;crc64350623dcb797cc38.ServiceCall
+microsoft.appcenter.ServiceCall;crc64350623dcb797cc38.ServiceCall
 MvvmCross.Platforms.Android.MvxJavaContainer, MvvmCross;crc64f17390f589b10bdb.MvxJavaContainer
 MvvmCross.Platforms.Android.MvxJavaContainer;crc64f17390f589b10bdb.MvxJavaContainer
 mvvmcross.platforms.android.MvxJavaContainer;crc64f17390f589b10bdb.MvxJavaContainer
@@ -319,6 +430,48 @@ skiasharp.views.android.SKGLTextureViewRenderer;crc648e35430423bd4943.SKGLTextur
 SkiaSharp.Views.Android.SKSurfaceView, SkiaSharp.Views.Android;crc648e35430423bd4943.SKSurfaceView
 SkiaSharp.Views.Android.SKSurfaceView;crc648e35430423bd4943.SKSurfaceView
 skiasharp.views.android.SKSurfaceView;crc648e35430423bd4943.SKSurfaceView
+Square.OkHttp3.CallExtensions+ActionCallback, Square.OkHttp3;crc64e9db98a0d7058662.CallExtensions_ActionCallback
+Square.OkHttp3.CallExtensions.ActionCallback;crc64e9db98a0d7058662.CallExtensions_ActionCallback
+square.okhttp3.CallExtensions_ActionCallback;crc64e9db98a0d7058662.CallExtensions_ActionCallback
+Square.OkHttp3.OkHttpClient+Builder+AuthenticatorImpl, Square.OkHttp3;okhttp3.OkHttpClient$Builder_AuthenticatorImpl
+Square.OkHttp3.OkHttpClient.Builder.AuthenticatorImpl;okhttp3.OkHttpClient$Builder_AuthenticatorImpl
+okhttp3.OkHttpClient$Builder_AuthenticatorImpl;okhttp3.OkHttpClient$Builder_AuthenticatorImpl
+Square.OkHttp3.OkHttpClient+Builder+InterceptorImpl, Square.OkHttp3;okhttp3.OkHttpClient$Builder_InterceptorImpl
+Square.OkHttp3.OkHttpClient.Builder.InterceptorImpl;okhttp3.OkHttpClient$Builder_InterceptorImpl
+okhttp3.OkHttpClient$Builder_InterceptorImpl;okhttp3.OkHttpClient$Builder_InterceptorImpl
+Square.OkHttp3.OkHttpClient+Builder+DnsImpl, Square.OkHttp3;okhttp3.OkHttpClient$Builder_DnsImpl
+Square.OkHttp3.OkHttpClient.Builder.DnsImpl;okhttp3.OkHttpClient$Builder_DnsImpl
+okhttp3.OkHttpClient$Builder_DnsImpl;okhttp3.OkHttpClient$Builder_DnsImpl
+Square.OkHttp3.OkHttpClient+Builder+HostnameVerifierImpl, Square.OkHttp3;okhttp3.OkHttpClient$Builder_HostnameVerifierImpl
+Square.OkHttp3.OkHttpClient.Builder.HostnameVerifierImpl;okhttp3.OkHttpClient$Builder_HostnameVerifierImpl
+okhttp3.OkHttpClient$Builder_HostnameVerifierImpl;okhttp3.OkHttpClient$Builder_HostnameVerifierImpl
+Square.Picasso.Picasso+IListener, Square.Picasso;com.squareup.picasso.Picasso$Listener
+Square.Picasso.Picasso.IListener;com.squareup.picasso.Picasso$Listener
+com.squareup.picasso.Picasso$Listener;com.squareup.picasso.Picasso$Listener
+Square.Picasso.Picasso+IListenerImplementor, Square.Picasso;mono.com.squareup.picasso.Picasso_ListenerImplementor
+Square.Picasso.Picasso.IListenerImplementor;mono.com.squareup.picasso.Picasso_ListenerImplementor
+mono.com.squareup.picasso.Picasso_ListenerImplementor;mono.com.squareup.picasso.Picasso_ListenerImplementor
+Square.Picasso.Picasso+IRequestTransformer, Square.Picasso;com.squareup.picasso.Picasso$RequestTransformer
+Square.Picasso.Picasso.IRequestTransformer;com.squareup.picasso.Picasso$RequestTransformer
+com.squareup.picasso.Picasso$RequestTransformer;com.squareup.picasso.Picasso$RequestTransformer
+Square.Picasso.RequestCreator+ActionCallback, Square.Picasso;com.squareup.picasso.RequestCreator_ActionCallback
+Square.Picasso.RequestCreator.ActionCallback;com.squareup.picasso.RequestCreator_ActionCallback
+com.squareup.picasso.RequestCreator_ActionCallback;com.squareup.picasso.RequestCreator_ActionCallback
+Square.Picasso.ICache, Square.Picasso;com.squareup.picasso.Cache
+Square.Picasso.ICache;com.squareup.picasso.Cache
+com.squareup.picasso.Cache;com.squareup.picasso.Cache
+Square.Picasso.ICallback, Square.Picasso;com.squareup.picasso.Callback
+Square.Picasso.ICallback;com.squareup.picasso.Callback
+com.squareup.picasso.Callback;com.squareup.picasso.Callback
+Square.Picasso.IDownloader, Square.Picasso;com.squareup.picasso.Downloader
+Square.Picasso.IDownloader;com.squareup.picasso.Downloader
+com.squareup.picasso.Downloader;com.squareup.picasso.Downloader
+Square.Picasso.ITarget, Square.Picasso;com.squareup.picasso.Target
+Square.Picasso.ITarget;com.squareup.picasso.Target
+com.squareup.picasso.Target;com.squareup.picasso.Target
+Square.Picasso.ITransformation, Square.Picasso;com.squareup.picasso.Transformation
+Square.Picasso.ITransformation;com.squareup.picasso.Transformation
+com.squareup.picasso.Transformation;com.squareup.picasso.Transformation
 Bumptech.Glide.Glide+IRequestOptionsFactory, Xamarin.Android.Glide;com.bumptech.glide.Glide$RequestOptionsFactory
 Bumptech.Glide.Glide.IRequestOptionsFactory;com.bumptech.glide.Glide$RequestOptionsFactory
 com.bumptech.glide.Glide$RequestOptionsFactory;com.bumptech.glide.Glide$RequestOptionsFactory

@@ -6,16 +6,24 @@ using Android.Runtime;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using AndroidX.ConstraintLayout.Widget;
 using In.UnicodeLabs.KdGaugeViewLib;
+using Java.Lang;
+using Java.Util.Concurrent;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
+using Plugin.CurrentActivity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using tabApp.Core.Models;
 using tabApp.Core.ViewModels;
 using tabApp.Core.ViewModels.Snooze;
 using tabApp.UI.Adapters.Home;
+using Xamarin.Essentials;
+using Location = Android.Locations.Location;
+using Math = System.Math;
 
 namespace tabApp.UI.Fragments.Snooze
 {
@@ -36,6 +44,8 @@ namespace tabApp.UI.Fragments.Snooze
         private NotificationsListAdapter _notificationsAdapter;
         private bool _runningNot;
         private TextView _clientDailyOrderLabel;
+        private ConstraintLayout _mainView;
+        private Runnable _runnable;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -50,6 +60,7 @@ namespace tabApp.UI.Fragments.Snooze
             _withoutNotifications = view.FindViewById<ImageView>(Resource.Id.withoutNotifications);
             _clientNameLabel = view.FindViewById<TextView>(Resource.Id.clientNameLabel);
             _clientDailyOrderLabel = view.FindViewById<TextView>(Resource.Id.clientDailyOrderLabel);
+            _mainView = view.FindViewById<ConstraintLayout>(Resource.Id.mainView);
 
             var layoutManager2 = new AndroidX.RecyclerView.Widget.LinearLayoutManager(Context);
             _notificationList.SetLayoutManager(layoutManager2);
@@ -126,7 +137,37 @@ namespace tabApp.UI.Fragments.Snooze
 
             _clientNameLabel.Text = client.Name + " (" + client.Id + " )";
             _clientDailyOrderLabel.Text = ViewModel.GetDailyOrderDesc(client);
-           
+
+            /*if(_runnable == null)
+            {
+                var executorService = Executors.NewSingleThreadExecutor();
+
+                _runnable = new Runnable(async () => {
+
+                    while(true)
+                    {
+                        MainThread.BeginInvokeOnMainThread(() =>
+                        {
+                            _mainView.SetBackgroundColor(GetColor(Resource.Color.yellow));
+                        });
+
+                        await Task.Delay(500);
+
+                        MainThread.BeginInvokeOnMainThread(() =>
+                        {
+                            _mainView.SetBackgroundColor(GetColor(Resource.Color.white));
+                        });
+
+                        await Task.Delay(500);
+                    }
+                });
+
+                var longRunningTaskFuture = executorService.Submit(_runnable);
+            }*/
+        }
+        private Android.Graphics.Color GetColor(int color)
+        {
+            return CrossCurrentActivity.Current.AppContext.Resources.GetColor(color);
         }
 
         private void SetClosestNotification(Location obj)

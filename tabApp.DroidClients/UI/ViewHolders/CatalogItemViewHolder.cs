@@ -48,7 +48,7 @@ namespace tabApp.DroidClients.UI.ViewHolders
 
         private void ItemViewClick(object sender, EventArgs e)
         {
-            _catalogTypeItem.Command.Execute(_catalogTypeItem.Name);
+            _catalogTypeItem.Command.Execute(_catalogTypeItem.ProductType.ToString());
         }
     }
 }

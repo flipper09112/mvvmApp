@@ -159,13 +159,29 @@
       "frameworks": {
         "monoandroid11.0": {
           "dependencies": {
+            "Com.Airbnb.Android.Lottie": {
+              "target": "Package",
+              "version": "[4.2.2, )"
+            },
+            "Microsoft.AppCenter.Analytics": {
+              "target": "Package",
+              "version": "[4.5.0, )"
+            },
+            "Microsoft.AppCenter.Crashes": {
+              "target": "Package",
+              "version": "[4.5.0, )"
+            },
             "MvvmCross.Droid.Support.V7.AppCompat": {
               "target": "Package",
               "version": "[6.4.1, )"
             },
+            "Square.Picasso": {
+              "target": "Package",
+              "version": "[2.71828.0, )"
+            },
             "Xamarin.Android.Glide": {
               "target": "Package",
-              "version": "[4.12.0.2, )"
+              "version": "[4.12.0.6, )"
             },
             "Xamarin.AndroidX.AppCompat": {
               "target": "Package",
@@ -186,6 +202,10 @@
             "Xamarin.AndroidX.Media": {
               "target": "Package",
               "version": "[1.4.2.2, )"
+            },
+            "Xamarin.AndroidX.RecyclerView": {
+              "target": "Package",
+              "version": "[1.2.0, )"
             },
             "Xamarin.Essentials": {
               "target": "Package",

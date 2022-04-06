@@ -73,15 +73,19 @@
     <Compile Include="Setup.cs" />
     <Compile Include="UI\Adapters\CatalogAdapter.cs" />
     <Compile Include="UI\Adapters\HomepageAdapter.cs" />
+    <Compile Include="UI\Adapters\ProdutsListAdapter.cs" />
     <Compile Include="UI\Bases\BaseFragment.cs" />
     <Compile Include="UI\Fragments\Catalog\CatalogFragment.cs" />
+    <Compile Include="UI\Fragments\Catalog\ProductDetailsFragment.cs" />
     <Compile Include="UI\Fragments\Catalog\ProductsListFragment.cs" />
     <Compile Include="UI\Fragments\HomepageFragment.cs" />
     <Compile Include="UI\Fragments\Info\InfoFragment.cs" />
     <Compile Include="UI\ViewHolders\CatalogItemViewHolder.cs" />
     <Compile Include="UI\ViewHolders\HomepageItemViewHolder.cs" />
+    <Compile Include="UI\ViewHolders\ProdutoViewHolder.cs" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidAsset Include="Assets\Lotties\bread_loading.json" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />
@@ -129,11 +133,23 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Com.Airbnb.Android.Lottie">
+      <Version>4.2.2</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AppCenter.Analytics">
+      <Version>4.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AppCenter.Crashes">
+      <Version>4.5.0</Version>
+    </PackageReference>
     <PackageReference Include="MvvmCross.Droid.Support.V7.AppCompat">
       <Version>6.4.1</Version>
     </PackageReference>
+    <PackageReference Include="Square.Picasso">
+      <Version>2.71828.0</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Android.Glide">
-      <Version>4.12.0.2</Version>
+      <Version>4.12.0.6</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.2.0.5" />
     <PackageReference Include="Xamarin.AndroidX.ConstraintLayout">
@@ -147,6 +163,9 @@
     </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.Media">
       <Version>1.4.2.2</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.AndroidX.RecyclerView">
+      <Version>1.2.0</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Google.Android.Material" Version="1.0.0.1" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
@@ -230,6 +249,24 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\ProductsListFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\produto_list_layout.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\image_not_found.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\view_loading_dialog.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\ProductDetailsFragment.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
