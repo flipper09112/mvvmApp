@@ -1,27 +1,50 @@
-﻿using SQLite;
+﻿using Newtonsoft.Json;
+using SQLite;
 using SQLiteNetExtensions.Attributes;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Text.Json.Serialization;
 
 namespace tabApp.Core.Models
 {
-    [Table("Product")]
     public class Product
     {
+        [JsonPropertyName("name")]
         public string Name { get; set; }
 
+        [JsonPropertyName("id")]
         [PrimaryKey]
         public int Id { get; set; }
+
+        [JsonPropertyName("imageReference")]
         public string ImageReference { get; set; }
+
+        [JsonPropertyName("unity")]
         public bool Unity { get; set; }
+
+        [JsonPropertyName("productType")]
         public ProductTypeEnum ProductType { get; set; }
+
+        [JsonPropertyName("pvp")]
         public double PVP { get; set; }
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("costProduct")]
         public double CostProduct { get; set; }
-        public double Discount { get; set; }
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("discount")]
+        public double? Discount { get; set; }
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("iva")]
         public int Iva { get; set; }
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("lastChangeDate")]
         public DateTime? LastChangeDate { get; set; }
 
+        [JsonPropertyName("reSaleValues")]
         [OneToMany]
         public List<ReSaleValues> ReSaleValues { get; set; }
 
@@ -37,7 +60,7 @@ namespace tabApp.Core.Models
             else
             {
                 var cost = CostProduct - (CostProduct * Discount * 0.01);
-                return cost + (cost * Iva * 0.01);
+                return (double)(cost + (cost * Iva * 0.01));
             }
         }
 

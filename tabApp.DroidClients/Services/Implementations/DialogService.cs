@@ -4,6 +4,8 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using MvvmCross;
+using MvvmCross.Platforms.Android;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +29,18 @@ namespace tabApp.DroidClients.Services.Implementations
 
         public void ShowConfirmDialog(string question, string confirmText, Action<bool> confirmAction)
         {
-            throw new NotImplementedException();
+            var top = Mvx.Resolve<IMvxAndroidCurrentTopActivity>();
+            var act = top.Activity;
+
+            Android.App.AlertDialog.Builder alert = new Android.App.AlertDialog.Builder(act);
+            alert.SetMessage(question);
+            alert.SetPositiveButton(confirmText, (senderAlert, args) =>
+            {
+                confirmAction.Invoke(true);
+            });
+
+            Dialog dialog = alert.Create();
+            dialog.Show();
         }
 
         public void ShowConfirmDialog(string question, string confirmText, Action<object> confirmAction, string cancelText, object obj)
@@ -36,6 +49,11 @@ namespace tabApp.DroidClients.Services.Implementations
         }
 
         public void ShowDatePickerDialog(Action<DateTime> confirmAction, bool withMinDate, DateTime? minDate = null, DateTime? maxDate = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ShowErrorDialog(string title, string description, Action confirmAction = null, Action cancelAction = null)
         {
             throw new NotImplementedException();
         }

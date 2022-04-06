@@ -11,6 +11,8 @@ namespace tabApp.Core.Services.Implementations.Products
         public Product Product => _product;
 
         public EditTypeEnum EditType { get; set; }
+        public ProductTypeEnum ProductTypeSelected { get; set; }
+        public int ProductSelectedId { get; set; }
 
         public void SelectProduct(Product product)
         {

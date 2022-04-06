@@ -18,6 +18,10 @@ namespace tabApp.Core
                .AsInterfaces()
                .RegisterAsLazySingleton();
 
+            CreatableTypes()
+               .EndingWith("Request")
+               .AsInterfaces()
+               .RegisterAsLazySingleton();
 
             CreatableTypes()
                 .EndingWith("Client")

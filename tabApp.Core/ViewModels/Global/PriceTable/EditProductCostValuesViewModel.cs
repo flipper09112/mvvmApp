@@ -82,7 +82,7 @@ namespace tabApp.Core.ViewModels.Global.PriceTable
             ValuesForChangeList.Add(new ValueChange()
             {
                 Name = "Desconto (%)",
-                Value = ProductSelected.Discount,
+                Value = (double)ProductSelected.Discount,
                 CanContinueRefreshCommand = SaveChangesCommand
             });
 

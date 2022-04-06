@@ -210,7 +210,7 @@ namespace tabApp.Services.Implementations
             dialog.Show();
         }
 
-        public void ShowErrorDialog(string title, string description, Action confirmAction = null)
+        public void ShowErrorDialog(string title, string description, Action confirmAction = null, Action cancelAction = null)
         {
             var top = Mvx.Resolve<IMvxAndroidCurrentTopActivity>();
             var act = top.Activity;
@@ -231,6 +231,14 @@ namespace tabApp.Services.Implementations
             {
                 confirmAction?.Invoke();
             });
+
+            if(cancelAction != null)
+            {
+                alert.SetNegativeButton("Fechar", (senderAlert, args) =>
+                {
+                    cancelAction?.Invoke();
+                });
+            }
 
             Dialog dialog = alert.Create();
             dialog.Show();

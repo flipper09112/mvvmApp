@@ -14,6 +14,6 @@ namespace tabApp.Core.Services.Interfaces.Dialogs
         void ShowSuccessChangeSnackBar(string info);
         void ShowChooseOptions(List<LongPressItem> data);
         void Show(string v1, string v2);
-        void ShowErrorDialog(string title, string description, Action confirmAction = null);
+        void ShowErrorDialog(string title, string description, Action confirmAction = null, Action cancelAction = null);
     }
 }

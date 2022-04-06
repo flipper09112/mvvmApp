@@ -22,6 +22,7 @@ namespace tabApp.DroidClients
     {
         private ProgressBar _indeterminateBar;
         private FrameLayout _container;
+        private Dialog _loadingDialog;
 
         public EventHandler BackPress { get; set; }
 
@@ -57,9 +58,29 @@ namespace tabApp.DroidClients
             switch (e.PropertyName)
             {
                 case nameof(ViewModel.IsBusy):
-                    _indeterminateBar.Visibility = sender ? ViewStates.Visible : ViewStates.Invisible;
+
+                    if (_loadingDialog == null)
+                    {
+                        CreateDialog();
+                    }
+
+                    if(sender)
+                        _loadingDialog.Show();
+                    else
+                        _loadingDialog.Dismiss();
+
                     break;
             }
+        }
+
+        private void CreateDialog()
+        {                    
+            _loadingDialog = new Dialog(this);
+
+            _loadingDialog.Window.SetBackgroundDrawableResource(Android.Resource.Color.Transparent);
+            _loadingDialog.RequestWindowFeature((int)WindowFeatures.NoTitle);
+            _loadingDialog.SetCancelable(false);
+            _loadingDialog.SetContentView(Resource.Layout.view_loading_dialog);
         }
 
         public void HideToolbar()
