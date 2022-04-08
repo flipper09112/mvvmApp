@@ -11,7 +11,8 @@ namespace tabApp.Core.Services.Implementations.WebServices.Products
 {
     public abstract class BaseRequest<Tinput, Toutput> where Tinput : BaseInput where Toutput : BaseOutput
     {
-        private string BaseUrl = "http://94.61.92.97:92";
+        //private string BaseUrl = "http://94.61.92.97:92";
+        private string BaseUrl = "http://94.61.92.97:95";
 
         protected abstract string ApiMethod { get; }
 

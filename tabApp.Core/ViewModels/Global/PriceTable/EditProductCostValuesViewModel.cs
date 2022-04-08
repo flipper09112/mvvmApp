@@ -75,7 +75,7 @@ namespace tabApp.Core.ViewModels.Global.PriceTable
 
             ValuesForChangeList.Add(new ValueChange() { 
                 Name = "Custo",
-                Value = ProductSelected.CostProduct,
+                Value = (double)ProductSelected.CostProduct,
                 CanContinueRefreshCommand = SaveChangesCommand
             });
 
@@ -89,7 +89,7 @@ namespace tabApp.Core.ViewModels.Global.PriceTable
             ValuesForChangeList.Add(new ValueChange()
             {
                 Name = "IVA",
-                Value = ProductSelected.Iva,
+                Value = (double)ProductSelected.Iva,
                 CanContinueRefreshCommand = SaveChangesCommand
             });
         }

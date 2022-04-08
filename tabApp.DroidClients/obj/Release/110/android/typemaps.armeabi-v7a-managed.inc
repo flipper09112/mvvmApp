@@ -2150,44 +2150,6 @@ module10_managed_to_java_duplicates:
 	.type	module11_managed_to_java, %object
 	.p2align	2
 module11_managed_to_java:
-	.long	33554434
-	.long	1222
-	.long	33554435
-	.long	1223
-	.long	33554436
-	.long	1235
-	.long	33554437
-	.long	1236
-	.long	33554462
-	.long	1271
-	.long	33554463
-	.long	1211
-	.long	33554464
-	.long	1212
-	.long	33554465
-	.long	1213
-	.long	33554466
-	.long	1256
-	.long	33554467
-	.long	1234
-	.long	33554468
-	.long	1253
-	.long	33554469
-	.long	1254
-	.long	33554470
-	.long	1255
-	.long	33554471
-	.long	1261
-	.long	33554472
-	.long	1262
-	.long	33554473
-	.long	1263
-	.size	module11_managed_to_java, 128
-
-	.section	.rodata.module12_managed_to_java,"a",%progbits
-	.type	module12_managed_to_java, %object
-	.p2align	2
-module12_managed_to_java:
 	.long	33554442
 	.long	279
 	.long	33554445
@@ -2216,12 +2178,12 @@ module12_managed_to_java:
 	.long	290
 	.long	33554468
 	.long	291
-	.size	module12_managed_to_java, 112
+	.size	module11_managed_to_java, 112
 
-	.section	.rodata.module12_managed_to_java_duplicates,"a",%progbits
-	.type	module12_managed_to_java_duplicates, %object
+	.section	.rodata.module11_managed_to_java_duplicates,"a",%progbits
+	.type	module11_managed_to_java_duplicates, %object
 	.p2align	2
-module12_managed_to_java_duplicates:
+module11_managed_to_java_duplicates:
 	.long	33554446
 	.long	282
 	.long	33554448
@@ -2242,12 +2204,12 @@ module12_managed_to_java_duplicates:
 	.long	289
 	.long	33554469
 	.long	290
-	.size	module12_managed_to_java_duplicates, 80
+	.size	module11_managed_to_java_duplicates, 80
 
-	.section	.rodata.module13_managed_to_java,"a",%progbits
-	.type	module13_managed_to_java, %object
+	.section	.rodata.module12_managed_to_java,"a",%progbits
+	.type	module12_managed_to_java, %object
 	.p2align	2
-module13_managed_to_java:
+module12_managed_to_java:
 	.long	33554435
 	.long	1189
 	.long	33554436
@@ -2300,12 +2262,12 @@ module13_managed_to_java:
 	.long	1201
 	.long	33554474
 	.long	1202
-	.size	module13_managed_to_java, 208
+	.size	module12_managed_to_java, 208
 
-	.section	.rodata.module13_managed_to_java_duplicates,"a",%progbits
-	.type	module13_managed_to_java_duplicates, %object
+	.section	.rodata.module12_managed_to_java_duplicates,"a",%progbits
+	.type	module12_managed_to_java_duplicates, %object
 	.p2align	2
-module13_managed_to_java_duplicates:
+module12_managed_to_java_duplicates:
 	.long	33554438
 	.long	1191
 	.long	33554444
@@ -2330,12 +2292,12 @@ module13_managed_to_java_duplicates:
 	.long	1204
 	.long	33554473
 	.long	1200
-	.size	module13_managed_to_java_duplicates, 96
+	.size	module12_managed_to_java_duplicates, 96
 
-	.section	.rodata.module14_managed_to_java,"a",%progbits
-	.type	module14_managed_to_java, %object
+	.section	.rodata.module13_managed_to_java,"a",%progbits
+	.type	module13_managed_to_java, %object
 	.p2align	2
-module14_managed_to_java:
+module13_managed_to_java:
 	.long	33554435
 	.long	1100
 	.long	33554436
@@ -2370,30 +2332,30 @@ module14_managed_to_java:
 	.long	1104
 	.long	33554460
 	.long	1102
-	.size	module14_managed_to_java, 136
+	.size	module13_managed_to_java, 136
 
-	.section	.rodata.module14_managed_to_java_duplicates,"a",%progbits
-	.type	module14_managed_to_java_duplicates, %object
+	.section	.rodata.module13_managed_to_java_duplicates,"a",%progbits
+	.type	module13_managed_to_java_duplicates, %object
 	.p2align	2
-module14_managed_to_java_duplicates:
+module13_managed_to_java_duplicates:
 	.long	33554448
 	.long	1096
 	.long	33554456
 	.long	1101
-	.size	module14_managed_to_java_duplicates, 16
+	.size	module13_managed_to_java_duplicates, 16
+
+	.section	.rodata.module14_managed_to_java,"a",%progbits
+	.type	module14_managed_to_java, %object
+	.p2align	2
+module14_managed_to_java:
+	.long	33554446
+	.long	1544
+	.size	module14_managed_to_java, 8
 
 	.section	.rodata.module15_managed_to_java,"a",%progbits
 	.type	module15_managed_to_java, %object
 	.p2align	2
 module15_managed_to_java:
-	.long	33554446
-	.long	1544
-	.size	module15_managed_to_java, 8
-
-	.section	.rodata.module16_managed_to_java,"a",%progbits
-	.type	module16_managed_to_java, %object
-	.p2align	2
-module16_managed_to_java:
 	.long	33554435
 	.long	1081
 	.long	33554436
@@ -2430,20 +2392,20 @@ module16_managed_to_java:
 	.long	1088
 	.long	33554459
 	.long	1090
-	.size	module16_managed_to_java, 144
+	.size	module15_managed_to_java, 144
 
-	.section	.rodata.module16_managed_to_java_duplicates,"a",%progbits
-	.type	module16_managed_to_java_duplicates, %object
+	.section	.rodata.module15_managed_to_java_duplicates,"a",%progbits
+	.type	module15_managed_to_java_duplicates, %object
 	.p2align	2
-module16_managed_to_java_duplicates:
+module15_managed_to_java_duplicates:
 	.long	33554457
 	.long	1087
-	.size	module16_managed_to_java_duplicates, 8
+	.size	module15_managed_to_java_duplicates, 8
 
-	.section	.rodata.module17_managed_to_java,"a",%progbits
-	.type	module17_managed_to_java, %object
+	.section	.rodata.module16_managed_to_java,"a",%progbits
+	.type	module16_managed_to_java, %object
 	.p2align	2
-module17_managed_to_java:
+module16_managed_to_java:
 	.long	33554437
 	.long	509
 	.long	33554439
@@ -2454,19 +2416,57 @@ module17_managed_to_java:
 	.long	517
 	.long	33554444
 	.long	518
-	.size	module17_managed_to_java, 40
+	.size	module16_managed_to_java, 40
 
-	.section	.rodata.module17_managed_to_java_duplicates,"a",%progbits
-	.type	module17_managed_to_java_duplicates, %object
+	.section	.rodata.module16_managed_to_java_duplicates,"a",%progbits
+	.type	module16_managed_to_java_duplicates, %object
 	.p2align	2
-module17_managed_to_java_duplicates:
+module16_managed_to_java_duplicates:
 	.long	33554438
 	.long	509
 	.long	33554440
 	.long	519
 	.long	33554443
 	.long	517
-	.size	module17_managed_to_java_duplicates, 24
+	.size	module16_managed_to_java_duplicates, 24
+
+	.section	.rodata.module17_managed_to_java,"a",%progbits
+	.type	module17_managed_to_java, %object
+	.p2align	2
+module17_managed_to_java:
+	.long	33554434
+	.long	1222
+	.long	33554435
+	.long	1223
+	.long	33554436
+	.long	1235
+	.long	33554437
+	.long	1236
+	.long	33554462
+	.long	1271
+	.long	33554463
+	.long	1211
+	.long	33554464
+	.long	1212
+	.long	33554465
+	.long	1213
+	.long	33554466
+	.long	1256
+	.long	33554467
+	.long	1234
+	.long	33554468
+	.long	1253
+	.long	33554469
+	.long	1254
+	.long	33554470
+	.long	1255
+	.long	33554471
+	.long	1261
+	.long	33554472
+	.long	1262
+	.long	33554473
+	.long	1263
+	.size	module17_managed_to_java, 128
 
 	.section	.rodata.module18_managed_to_java,"a",%progbits
 	.type	module18_managed_to_java, %object

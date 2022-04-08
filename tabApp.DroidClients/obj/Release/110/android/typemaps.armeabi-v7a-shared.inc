@@ -67,44 +67,44 @@
 	.section	.rodata.map_aname.11,"aMS",%progbits,1
 	.type	.L.map_aname.11, %object
 .L.map_aname.11:
-	.asciz	"tabApp.DroidClients"
-	.size	.L.map_aname.11, 20
+	.asciz	"Xamarin.AndroidX.Activity"
+	.size	.L.map_aname.11, 26
 
 	.section	.rodata.map_aname.12,"aMS",%progbits,1
 	.type	.L.map_aname.12, %object
 .L.map_aname.12:
-	.asciz	"Xamarin.AndroidX.Activity"
-	.size	.L.map_aname.12, 26
+	.asciz	"Square.Picasso"
+	.size	.L.map_aname.12, 15
 
 	.section	.rodata.map_aname.13,"aMS",%progbits,1
 	.type	.L.map_aname.13, %object
 .L.map_aname.13:
-	.asciz	"Square.Picasso"
-	.size	.L.map_aname.13, 15
+	.asciz	"Microsoft.AppCenter.Crashes.Android.Bindings"
+	.size	.L.map_aname.13, 45
 
 	.section	.rodata.map_aname.14,"aMS",%progbits,1
 	.type	.L.map_aname.14, %object
 .L.map_aname.14:
-	.asciz	"Microsoft.AppCenter.Crashes.Android.Bindings"
-	.size	.L.map_aname.14, 45
+	.asciz	"MvvmCross.Droid.Support.Core.UI"
+	.size	.L.map_aname.14, 32
 
 	.section	.rodata.map_aname.15,"aMS",%progbits,1
 	.type	.L.map_aname.15, %object
 .L.map_aname.15:
-	.asciz	"MvvmCross.Droid.Support.Core.UI"
-	.size	.L.map_aname.15, 32
+	.asciz	"Microsoft.AppCenter.Analytics.Android.Bindings"
+	.size	.L.map_aname.15, 47
 
 	.section	.rodata.map_aname.16,"aMS",%progbits,1
 	.type	.L.map_aname.16, %object
 .L.map_aname.16:
-	.asciz	"Microsoft.AppCenter.Analytics.Android.Bindings"
-	.size	.L.map_aname.16, 47
+	.asciz	"Xamarin.AndroidX.Lifecycle.ViewModel"
+	.size	.L.map_aname.16, 37
 
 	.section	.rodata.map_aname.17,"aMS",%progbits,1
 	.type	.L.map_aname.17, %object
 .L.map_aname.17:
-	.asciz	"Xamarin.AndroidX.Lifecycle.ViewModel"
-	.size	.L.map_aname.17, 37
+	.asciz	"tabApp.DroidClients"
+	.size	.L.map_aname.17, 20
 
 	.section	.rodata.map_aname.18,"aMS",%progbits,1
 	.type	.L.map_aname.18, %object

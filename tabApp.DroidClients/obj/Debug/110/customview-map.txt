@@ -1,3 +1,4 @@
+{http://schemas.android.com/aapt}attr;obj\Debug\110\res\drawable\ic_launcher_foreground.xml
 adaptive-icon;obj\Debug\110\res\mipmap-anydpi-v26\ic_launcher.xml
 adaptive-icon;obj\Debug\110\res\mipmap-anydpi-v26\ic_launcher_round.xml
 androidx.appcompat.widget.AppCompatButton;obj\Debug\110\res\layout\infofragment.xml
@@ -40,6 +41,7 @@ foreground;obj\Debug\110\res\mipmap-anydpi-v26\ic_launcher.xml
 foreground;obj\Debug\110\res\mipmap-anydpi-v26\ic_launcher_round.xml
 FrameLayout;obj\Debug\110\res\layout\content_main.xml
 gradient;obj\Debug\110\res\drawable\button_call_default.xml
+gradient;obj\Debug\110\res\drawable\ic_launcher_foreground.xml
 ImageView;obj\Debug\110\res\layout\activity_splash_screen.xml
 ImageView;obj\Debug\110\res\layout\button_layout.xml
 ImageView;obj\Debug\110\res\layout\homepagefragment.xml
@@ -54,6 +56,7 @@ item;obj\Debug\110\res\drawable\button_call_clicked.xml
 item;obj\Debug\110\res\drawable\button_call_default.xml
 item;obj\Debug\110\res\drawable\call_button.xml
 item;obj\Debug\110\res\drawable\default_widget.xml
+item;obj\Debug\110\res\drawable\ic_launcher_foreground.xml
 item;obj\Debug\110\res\drawable\widget.xml
 item;obj\Debug\110\res\drawable\widget_clicked.xml
 item;obj\Debug\110\res\menu\menu_main.xml
@@ -71,6 +74,8 @@ path;obj\Debug\110\res\drawable\ic_bread.xml
 path;obj\Debug\110\res\drawable\ic_cake.xml
 path;obj\Debug\110\res\drawable\ic_flour.xml
 path;obj\Debug\110\res\drawable\ic_info.xml
+path;obj\Debug\110\res\drawable\ic_launcher_background.xml
+path;obj\Debug\110\res\drawable\ic_launcher_foreground.xml
 paths;C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\lp\69\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
 ProgressBar;obj\Debug\110\res\layout\activity_main.xml
 RelativeLayout;obj\Debug\110\res\layout\content_main.xml
@@ -93,14 +98,17 @@ selector;obj\Debug\110\res\drawable\widget.xml
 shape;obj\Debug\110\res\drawable\button_call_clicked.xml
 shape;obj\Debug\110\res\drawable\button_call_default.xml
 shape;obj\Debug\110\res\drawable\default_widget.xml
+shape;obj\Debug\110\res\drawable\ic_circle_white.xml
 shape;obj\Debug\110\res\drawable\widget_clicked.xml
 solid;obj\Debug\110\res\drawable\button_call_clicked.xml
 solid;obj\Debug\110\res\drawable\default_widget.xml
+solid;obj\Debug\110\res\drawable\ic_circle_white.xml
 solid;obj\Debug\110\res\drawable\widget_clicked.xml
 string;C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\lp\1\jl\res\values\strings.xml
 string;C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\lp\10\jl\res\values\strings.xml
 string;obj\Debug\110\res\values\strings.xml
 stroke;obj\Debug\110\res\drawable\button_call_clicked.xml
+stroke;obj\Debug\110\res\drawable\ic_circle_white.xml
 style;obj\Debug\110\res\values\styles.xml
 TextView;obj\Debug\110\res\layout\button_layout.xml
 TextView;obj\Debug\110\res\layout\homepageitem.xml
@@ -112,6 +120,8 @@ vector;obj\Debug\110\res\drawable\ic_bread.xml
 vector;obj\Debug\110\res\drawable\ic_cake.xml
 vector;obj\Debug\110\res\drawable\ic_flour.xml
 vector;obj\Debug\110\res\drawable\ic_info.xml
+vector;obj\Debug\110\res\drawable\ic_launcher_background.xml
+vector;obj\Debug\110\res\drawable\ic_launcher_foreground.xml
 View;obj\Debug\110\res\layout\button_layout.xml
 View;obj\Debug\110\res\layout\homepageitem.xml
 View;obj\Debug\110\res\layout\infofragment.xml
