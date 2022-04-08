@@ -962,7 +962,7 @@
 
 	/* 106: tabApp.Core.dll */
 	/* uncompressed_file_size */
-	.word	260608
+	.word	261120
 	/* loaded */
 	.byte	0
 	/* data */

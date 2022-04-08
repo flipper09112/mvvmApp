@@ -30,7 +30,7 @@ namespace tabApp.Core.Models
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         [JsonPropertyName("costProduct")]
-        public double CostProduct { get; set; }
+        public double? CostProduct { get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         [JsonPropertyName("discount")]
@@ -38,7 +38,7 @@ namespace tabApp.Core.Models
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         [JsonPropertyName("iva")]
-        public int Iva { get; set; }
+        public int? Iva { get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         [JsonPropertyName("lastChangeDate")]
@@ -56,7 +56,7 @@ namespace tabApp.Core.Models
         internal double GetCostValueWithIva()
         {
             if (Discount == null || Discount == 0)
-                return CostProduct + (CostProduct * Iva * 0.01);
+                return (double)(CostProduct + (CostProduct * Iva * 0.01));
             else
             {
                 var cost = CostProduct - (CostProduct * Discount * 0.01);
@@ -73,7 +73,7 @@ namespace tabApp.Core.Models
 
         internal double GetCostValueWithoutIva()
         {
-            return CostProduct;
+            return (double)CostProduct;
         }
     }
 

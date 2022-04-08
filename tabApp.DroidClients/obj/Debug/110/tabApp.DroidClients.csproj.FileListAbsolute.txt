@@ -695,4 +695,7 @@ C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\androi
 C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\android\src\mono\com\microsoft\appcenter\crashes\CrashesListenerImplementor.java
 C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\android\src\mono\com\microsoft\appcenter\utils\context\UserIdContext_ListenerImplementor.java
 C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\android\src\mono\com\microsoft\appcenter\utils\NetworkStateHelper_ListenerImplementor.java
+C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\res\drawable\ic_circle_white.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\res\drawable\ic_launcher_foreground.xml
+C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\res\drawable\ic_launcher_background.xml
 C:\Users\Utilizador\source\repos\tabApp\tabApp.DroidClients\obj\Debug\110\tabApp.DroidClients.csproj.CopyComplete
