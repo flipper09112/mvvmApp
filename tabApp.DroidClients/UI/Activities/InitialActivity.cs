@@ -6,16 +6,11 @@ using Android.Views;
 using Android.Widget;
 using Bumptech.Glide;
 using Bumptech.Glide.Load.Engine;
-using Java.Lang;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using tabApp.Core.ViewModelsClient;
 
 namespace tabApp.DroidClients.UI
