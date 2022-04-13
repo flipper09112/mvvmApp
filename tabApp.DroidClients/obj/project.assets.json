@@ -8523,29 +8523,21 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Utilizador\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
-    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\flipper09112\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Utilizador\\source\\repos\\tabApp\\tabApp.DroidClients\\tabApp.DroidClients.csproj",
+      "projectUniqueName": "C:\\Users\\flipper09112\\Documents\\GestorApp\\tabApp.DroidClients\\tabApp.DroidClients.csproj",
       "projectName": "tabApp.DroidClients",
-      "projectPath": "C:\\Users\\Utilizador\\source\\repos\\tabApp\\tabApp.DroidClients\\tabApp.DroidClients.csproj",
-      "packagesPath": "C:\\Users\\Utilizador\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Utilizador\\source\\repos\\tabApp\\tabApp.DroidClients\\obj\\",
+      "projectPath": "C:\\Users\\flipper09112\\Documents\\GestorApp\\tabApp.DroidClients\\tabApp.DroidClients.csproj",
+      "packagesPath": "C:\\Users\\flipper09112\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\flipper09112\\Documents\\GestorApp\\tabApp.DroidClients\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Utilizador\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "C:\\Users\\flipper09112\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "monoandroid11.0"
@@ -8557,8 +8549,8 @@
       "frameworks": {
         "monoandroid11.0": {
           "projectReferences": {
-            "C:\\Users\\Utilizador\\source\\repos\\tabApp\\tabApp.Core\\tabApp.Core.csproj": {
-              "projectPath": "C:\\Users\\Utilizador\\source\\repos\\tabApp\\tabApp.Core\\tabApp.Core.csproj"
+            "C:\\Users\\flipper09112\\Documents\\GestorApp\\tabApp.Core\\tabApp.Core.csproj": {
+              "projectPath": "C:\\Users\\flipper09112\\Documents\\GestorApp\\tabApp.Core\\tabApp.Core.csproj"
             }
           }
         }
@@ -8632,7 +8624,7 @@
       "code": "NU1605",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Detected package downgrade: Xamarin.AndroidX.AppCompat from 1.3.1.3 to 1.2.0.5. Reference the package directly from the project to select a different version. \r\n tabApp.DroidClients -> Com.Airbnb.Android.Lottie 4.2.2 -> Xamarin.AndroidX.AppCompat (>= 1.3.1.3) \r\n tabApp.DroidClients -> Xamarin.AndroidX.AppCompat (>= 1.2.0.5)",
+      "message": "Downgrade de pacote detectado: Xamarin.AndroidX.AppCompat de 1.3.1.3 para 1.2.0.5. Referencie o pacote diretamente do projeto para selecionar uma versão diferente. \r\n tabApp.DroidClients -> Com.Airbnb.Android.Lottie 4.2.2 -> Xamarin.AndroidX.AppCompat (>= 1.3.1.3) \r\n tabApp.DroidClients -> Xamarin.AndroidX.AppCompat (>= 1.2.0.5)",
       "libraryId": "Xamarin.AndroidX.AppCompat",
       "targetGraphs": [
         "MonoAndroid,Version=v11.0"
@@ -8642,7 +8634,7 @@
       "code": "NU1605",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Detected package downgrade: Xamarin.AndroidX.AppCompat from 1.3.1.3 to 1.2.0.5. Reference the package directly from the project to select a different version. \r\n tabApp.DroidClients -> Xamarin.AndroidX.ConstraintLayout 2.1.1.2 -> Xamarin.AndroidX.AppCompat (>= 1.3.1.3) \r\n tabApp.DroidClients -> Xamarin.AndroidX.AppCompat (>= 1.2.0.5)",
+      "message": "Downgrade de pacote detectado: Xamarin.AndroidX.AppCompat de 1.3.1.3 para 1.2.0.5. Referencie o pacote diretamente do projeto para selecionar uma versão diferente. \r\n tabApp.DroidClients -> Xamarin.AndroidX.ConstraintLayout 2.1.1.2 -> Xamarin.AndroidX.AppCompat (>= 1.3.1.3) \r\n tabApp.DroidClients -> Xamarin.AndroidX.AppCompat (>= 1.2.0.5)",
       "libraryId": "Xamarin.AndroidX.AppCompat",
       "targetGraphs": [
         "MonoAndroid,Version=v11.0"
@@ -8652,7 +8644,7 @@
       "code": "NU1605",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Detected package downgrade: Xamarin.Essentials from 1.7.0 to 1.6.1. Reference the package directly from the project to select a different version. \r\n tabApp.DroidClients -> tabApp.Core -> Xamarin.Essentials (>= 1.7.0) \r\n tabApp.DroidClients -> Xamarin.Essentials (>= 1.6.1)",
+      "message": "Downgrade de pacote detectado: Xamarin.Essentials de 1.7.0 para 1.6.1. Referencie o pacote diretamente do projeto para selecionar uma versão diferente. \r\n tabApp.DroidClients -> tabApp.Core -> Xamarin.Essentials (>= 1.7.0) \r\n tabApp.DroidClients -> Xamarin.Essentials (>= 1.6.1)",
       "libraryId": "Xamarin.Essentials",
       "targetGraphs": [
         "MonoAndroid,Version=v11.0"
