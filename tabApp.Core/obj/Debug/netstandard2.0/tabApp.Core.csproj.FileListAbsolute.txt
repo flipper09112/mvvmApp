@@ -1,0 +1,10 @@
+C:\Users\flipper09112\Documents\GestorApp\tabApp.Core\bin\Debug\netstandard2.0\tabApp.Core.deps.json
+C:\Users\flipper09112\Documents\GestorApp\tabApp.Core\bin\Debug\netstandard2.0\tabApp.Core.dll
+C:\Users\flipper09112\Documents\GestorApp\tabApp.Core\bin\Debug\netstandard2.0\tabApp.Core.pdb
+C:\Users\flipper09112\Documents\GestorApp\tabApp.Core\obj\Debug\netstandard2.0\tabApp.Core.csproj.AssemblyReference.cache
+C:\Users\flipper09112\Documents\GestorApp\tabApp.Core\obj\Debug\netstandard2.0\tabApp.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\flipper09112\Documents\GestorApp\tabApp.Core\obj\Debug\netstandard2.0\tabApp.Core.AssemblyInfoInputs.cache
+C:\Users\flipper09112\Documents\GestorApp\tabApp.Core\obj\Debug\netstandard2.0\tabApp.Core.AssemblyInfo.cs
+C:\Users\flipper09112\Documents\GestorApp\tabApp.Core\obj\Debug\netstandard2.0\tabApp.Core.csproj.CoreCompileInputs.cache
+C:\Users\flipper09112\Documents\GestorApp\tabApp.Core\obj\Debug\netstandard2.0\tabApp.Core.dll
+C:\Users\flipper09112\Documents\GestorApp\tabApp.Core\obj\Debug\netstandard2.0\tabApp.Core.pdb
