@@ -214,6 +214,12 @@ namespace tabApp.Core.Services.Implementations.DB
                 Database.Insert(globalOrderRegist);
         }
 
+        public GlobalOrderRegist GetGlobalOrderRegist(DateTime date)
+        {
+            return GetGlobalOrderRegists().Find(item => item.OrderRegistDate.Date == date);
+        }
+        
+
         public void InsertNewProduct(Product product)
         {
             Database.InsertAll(product.ReSaleValues);

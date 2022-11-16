@@ -24,6 +24,9 @@
   <item android:id="@+id/mouthBills"
 			android:title="Contas Mês" />
 
+	<item android:id="@+id/faturation"
+			android:title="Faturação" />
+
 	<item android:id="@+id/otherOptions"
 			android:title="Outras Opções" />
 

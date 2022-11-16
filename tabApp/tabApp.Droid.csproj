@@ -52,6 +52,7 @@
     <AndroidSigningStorePass>flipper09112</AndroidSigningStorePass>
     <AndroidSigningKeyAlias>gestorFrota</AndroidSigningKeyAlias>
     <AndroidSigningKeyPass>flipper09112</AndroidSigningKeyPass>
+    <MandroidI18n />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -89,6 +90,7 @@
     <Compile Include="Helpers\DecimalDigitsInputFilter.cs" />
     <Compile Include="Helpers\FragmentHelper.cs" />
     <Compile Include="Helpers\LoadingPopPupHelper.cs" />
+    <Compile Include="Helpers\MyWebViewClient.cs" />
     <Compile Include="Helpers\NotificationHelper.cs" />
     <Compile Include="Helpers\PrinterHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
@@ -107,6 +109,10 @@
     <Compile Include="UI\Adapters\ClientPage\CreateNotification\CreateNotificationsOtherDaysAdapterAdapter.cs" />
     <Compile Include="UI\Adapters\ClientPage\CreateNotification\CreateNotificationsPredefinedAdapter.cs" />
     <Compile Include="UI\Adapters\EditClient\EditListSelectableAdapter.cs" />
+    <Compile Include="UI\Adapters\Faturation\LastTrasnportationsDocsAdapter.cs" />
+    <Compile Include="UI\Adapters\Faturation\ProductsListFatAdapter.cs" />
+    <Compile Include="UI\Adapters\Faturation\Spinners\ClientsSpinnerAdapter.cs" />
+    <Compile Include="UI\Adapters\Faturation\Spinners\VehiclesSpinnerAdapter.cs" />
     <Compile Include="UI\Adapters\Global\EditProductAdapter.cs" />
     <Compile Include="UI\Adapters\Global\EditProductCostAdapter.cs" />
     <Compile Include="UI\Adapters\Global\HomeFinancialsProductsAdapter.cs" />
@@ -130,6 +136,7 @@
     <Compile Include="UI\Adapters\Swipe\SwipeController.cs" />
     <Compile Include="UI\Adapters\Swipe\UnderlayButton.cs" />
     <Compile Include="UI\Fragments\Bases\BaseOptionsListFragment.cs" />
+    <Compile Include="UI\Fragments\Bases\Generic\DocumentFragment.cs" />
     <Compile Include="UI\Fragments\ClientPage\OtherOptions\AddStoreRegistFragment.cs" />
     <Compile Include="UI\Fragments\ClientPage\OtherOptions\ChangeDailyOrderFragment.cs" />
     <Compile Include="UI\Fragments\ClientPage\OtherOptions\CreateNoficationFragment.cs" />
@@ -151,6 +158,8 @@
     <Compile Include="UI\Fragments\Global\Bt\BtOutcomingFragment.cs" />
     <Compile Include="UI\Fragments\Global\ChangePrices\ChangePricesFragment.cs" />
     <Compile Include="UI\Fragments\Global\DatabaseManagerPageFragment.cs" />
+    <Compile Include="UI\Fragments\Global\Faturation\FaturationHomeFragment.cs" />
+    <Compile Include="UI\Fragments\Global\Faturation\TransportationDocumentsFragment.cs" />
     <Compile Include="UI\Fragments\Global\GlobalOrderFragment.cs" />
     <Compile Include="UI\Fragments\EditClient\SelectDaysPageFragment.cs" />
     <Compile Include="UI\Fragments\Global\MonthBills\MonthBillsHomeFragment.cs" />
@@ -182,6 +191,8 @@
     <Compile Include="UI\ViewHolders\CreateNotifications\CreateNotificationsOtherDaysViewHolder.cs" />
     <Compile Include="UI\ViewHolders\CreateNotifications\ItemRadioViewHolderAndroidX.cs" />
     <Compile Include="UI\ViewHolders\EditProfileListItemViewHolder.cs" />
+    <Compile Include="UI\ViewHolders\Faturation\LastTrasnportationsDocViewHolder.cs" />
+    <Compile Include="UI\ViewHolders\Faturation\ProductFatViewHolder.cs" />
     <Compile Include="UI\ViewHolders\HomeFinancialsProductsViewHolder.cs" />
     <Compile Include="UI\ViewHolders\HomePageOrderViewHolderAndroidX.cs" />
     <Compile Include="UI\ViewHolders\ItemRadioViewHolder.cs" />
@@ -1076,10 +1087,39 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_alert.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\FaturationHomeFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_police_car.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\TransportationDocumentsFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\LastTrasnportationsDocItem.xml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\DocumentFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\ProductFatItem.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties TriggeredFromHotReload="False" />
+      <UserProperties TriggeredFromHotReload="False" XamarinHotReloadWrongLinkerErrorInfoBartabAppDroidHideInfoBar="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

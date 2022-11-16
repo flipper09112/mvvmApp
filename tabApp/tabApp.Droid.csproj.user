@@ -5,5 +5,8 @@
     <SelectedPlatformGroup>Emulator</SelectedPlatformGroup>
     <ActiveDebugProfile>Tablet M-DPI 10.1in - API 30 %28Android 11.0 - API 30%29</ActiveDebugProfile>
     <DefaultDevice>tablet_m-dpi_10_1in_-_api_30</DefaultDevice>
+    <AndroidDesignerPreferredTheme>AppTheme</AndroidDesignerPreferredTheme>
+    <AndroidDesignerPreferredDevice>10.1in WXGA %28Tablet%29</AndroidDesignerPreferredDevice>
+    <ProjectView>ProjectFiles</ProjectView>
   </PropertyGroup>
 </Project>
