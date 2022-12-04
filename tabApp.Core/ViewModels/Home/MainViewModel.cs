@@ -10,9 +10,11 @@ using tabApp.Core.Services.Implementations.DB;
 using tabApp.Core.Services.Interfaces;
 using tabApp.Core.Services.Interfaces.Clients;
 using tabApp.Core.Services.Interfaces.DB;
+using tabApp.Core.Services.Interfaces.Dialogs;
 using tabApp.Core.Services.Interfaces.Products;
 using tabApp.Core.Services.Interfaces.Timer;
 using tabApp.Core.ViewModels.Global;
+using tabApp.Core.ViewModels.Global.Faturation;
 using tabApp.Core.ViewModels.Global.MonthBills;
 using tabApp.Core.ViewModels.Global.Other;
 using tabApp.Core.ViewModels.Main;
@@ -28,6 +30,7 @@ namespace tabApp.Core.ViewModels
         private readonly IInativityTimerService _inativityTimerService;
         private readonly IDataBaseManagerService _dataBaseService;
         private readonly IProductsManagerService _productsManagerService;
+        private readonly IDialogService _dialogService;
 
         public MvxCommand<(double lat, double lgt)> SetClosestClientCommand { get; private set; }
         public MvxAsyncCommand ShowHomePage { get; private set; }
@@ -36,6 +39,8 @@ namespace tabApp.Core.ViewModels
         public MvxCommand SyncronizeCommand { get; private set; }
         public MvxCommand OtherOptionsCommand { get; private set; }
         public MvxCommand MonthBillsCommand { get; private set; }
+        public MvxCommand NoInternetConnectionCommand { get; private set; }
+        public MvxCommand FaturationCommand { get; private set; }
         public MvxCommand<string> SetFilterCommand { get; set; }
         public MvxCommand ShowSettingsCommand { get; set; }
 
@@ -44,9 +49,13 @@ namespace tabApp.Core.ViewModels
         private bool _alreadyStarted;
 
         public MainViewModel(IMvxNavigationService navigationService,
-                             IChooseClientService chooseClientService, IClientsManagerService clientsManagerService,
-                             IClientsListFilterService clientsListFilterService, IInativityTimerService inativityTimerService,
-                             IDataBaseManagerService clientsDataBaseService, IProductsManagerService productsManagerService)
+                             IChooseClientService chooseClientService, 
+                             IClientsManagerService clientsManagerService,
+                             IClientsListFilterService clientsListFilterService,
+                             IInativityTimerService inativityTimerService,
+                             IDataBaseManagerService clientsDataBaseService, 
+                             IProductsManagerService productsManagerService,
+                             IDialogService dialogService)
         {
             _navigationService = navigationService;
             _chooseClientService = chooseClientService;
@@ -55,6 +64,7 @@ namespace tabApp.Core.ViewModels
             _inativityTimerService = inativityTimerService;
             _dataBaseService = clientsDataBaseService;
             _productsManagerService = productsManagerService;
+            _dialogService = dialogService;
 
             ShowHomePage = new MvxAsyncCommand(async () => await _navigationService.Navigate<SplashViewModel>());
             SetClosestClientCommand = new MvxCommand<(double lat, double lgt)>(ShowClosestClient);
@@ -65,6 +75,18 @@ namespace tabApp.Core.ViewModels
             MonthBillsCommand = new MvxCommand(MonthBills);
             OtherOptionsCommand = new MvxCommand(OtherOptionsCommandAction);
             ShowSettingsCommand = new MvxCommand(ShowSettingsPage);
+            FaturationCommand = new MvxCommand(ShowFaturation);
+            NoInternetConnectionCommand = new MvxCommand(NoInternetConnection);
+        }
+
+        private void NoInternetConnection()
+        {
+            _dialogService.ShowErrorDialog(string.Empty, "Sem ligação à internet", null);
+        }
+
+        private async void ShowFaturation()
+        {
+            await _navigationService.Navigate<FaturationHomeViewModel>();
         }
 
         private async void MonthBills()

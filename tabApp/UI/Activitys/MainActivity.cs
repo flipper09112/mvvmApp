@@ -39,7 +39,7 @@ using Location = Android.Locations.Location;
 namespace tabApp
 {
     [MvxActivityPresentation]
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true, ScreenOrientation = Android.Content.PM.ScreenOrientation.Landscape)]
+    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true, ScreenOrientation = ScreenOrientation.Landscape)]
     public class MainActivity : MvxAppCompatActivity<MainViewModel>, NavigationView.IOnNavigationItemSelectedListener
     {
         public static MainActivity Instance;
@@ -59,7 +59,7 @@ namespace tabApp
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            base.OnCreate(savedInstanceState);
+            base.OnCreate(savedInstanceState); 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             // In this example OnReleaseAvailable is a method name in same class
             Distribute.ReleaseAvailable = OnReleaseAvailable;
@@ -300,6 +300,16 @@ namespace tabApp
             if (id == Resource.Id.mouthBills)
             {
                 ViewModel.MonthBillsCommand.Execute(null);
+                return true;
+            }
+
+            if (id == Resource.Id.faturation)
+            {
+                var current = Connectivity.NetworkAccess;
+                if (current == NetworkAccess.Internet)
+                    ViewModel.FaturationCommand.Execute(null);
+                else
+                    ViewModel.NoInternetConnectionCommand.Execute(null);
                 return true;
             }
 

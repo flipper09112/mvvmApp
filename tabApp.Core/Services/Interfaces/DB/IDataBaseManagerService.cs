@@ -43,5 +43,6 @@ namespace tabApp.Core.Services.Implementations.DB
         void LoadProducts();
         void RemoveResaleValue(ReSaleValues resaleValue);
         void SaveLastPricesChangeDate(PriceChangeDate lastPricesDateChange);
+        GlobalOrderRegist GetGlobalOrderRegist(DateTime dateTime);
     }
 }

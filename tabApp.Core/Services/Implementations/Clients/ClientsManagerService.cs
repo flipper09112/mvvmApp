@@ -101,7 +101,7 @@ namespace tabApp.Core.Services.Implementations.Clients
             };
 
             client.AddExtra(extra);
-            client.SetNewRegist(regist);
+            //client.SetNewRegist(regist);
             return regist;
         }
         public ExtraOrder AddNewOrder(Client client, ExtraOrder extraOrder)

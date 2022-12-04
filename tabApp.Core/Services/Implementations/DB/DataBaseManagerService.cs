@@ -18,6 +18,7 @@ using tabApp.Core.Models.GlobalOrder;
 using tabApp.Core.Services.Interfaces.Orders;
 using tabApp.Core.Helpers;
 using tabApp.Core.Services.Interfaces.Deliverys;
+using tabApp.Core.Services.Interfaces.Dialogs;
 
 namespace tabApp.Core.Services.Implementations.DB
 {
@@ -32,6 +33,7 @@ namespace tabApp.Core.Services.Implementations.DB
         private INotificationsManagerService _notificationsManagerService;
         private IGlobalOrdersPastManagerService _globalOrdersPastManagerService;
         private IDeliverysManagerService _deliverysManagerService;
+        private IDialogService _dialogService;
 
         public SQLiteConnection Database { get; set; }
         public bool DBRestored { get; set; }
@@ -46,7 +48,8 @@ namespace tabApp.Core.Services.Implementations.DB
                                       IFirebaseService firebaseService,
                                       INotificationsManagerService notificationsManagerService,
                                       IGlobalOrdersPastManagerService globalOrdersPastManagerService,
-                                      IDeliverysManagerService deliverysManagerService)
+                                      IDeliverysManagerService deliverysManagerService,
+                                      IDialogService dialogService)
         {
             _sQLiteService = sQLiteService;
             _clientsManagerService = clientsManagerService;
@@ -56,6 +59,7 @@ namespace tabApp.Core.Services.Implementations.DB
             _notificationsManagerService = notificationsManagerService;
             _globalOrdersPastManagerService = globalOrdersPastManagerService;
             _deliverysManagerService = deliverysManagerService;
+            _dialogService = dialogService;
         }
 
         public void ReloadDB()
@@ -99,6 +103,16 @@ namespace tabApp.Core.Services.Implementations.DB
                 Database.CreateTable<GlobalOrderRegist>();
                 Database.CreateTable<Delivery>();
                 Database.CreateTable<PriceChangeDate>();
+
+                var tableInfo = Database.GetTableInfo(nameof(Client));
+                var columnExists = tableInfo.Any(x => x.Name.Equals(nameof(Client.NIF)));
+
+                if(!columnExists)
+                {
+                    SQLiteCommand cmd = new SQLiteCommand(Database);
+                    cmd.CommandText = "ALTER TABLE Client ADD COLUMN NIF NULL";
+                    cmd.ExecuteNonQuery();
+                }
 
             } catch (NotSupportedException e) {
                 Debug.WriteLine(e.Message);
@@ -213,6 +227,12 @@ namespace tabApp.Core.Services.Implementations.DB
             if(regist == null)
                 Database.Insert(globalOrderRegist);
         }
+
+        public GlobalOrderRegist GetGlobalOrderRegist(DateTime date)
+        {
+            return GetGlobalOrderRegists().Find(item => item.OrderRegistDate.Date == date);
+        }
+        
 
         public void InsertNewProduct(Product product)
         {
@@ -416,17 +436,25 @@ namespace tabApp.Core.Services.Implementations.DB
 
         public void UpdateClientFromBluetooth(Client client)
         {
-            Client oldClient = _clientsManagerService.ClientsList.Find(item => item.Id == client.Id);
+            try
+            {
+                Client oldClient = _clientsManagerService.ClientsList.Find(item => item.Id == client.Id);
 
-            Database.Update(client);
-            Database.Update(client.Address);
+                Database.Update(client);
+                Database.Update(client.Address);
 
-            UpdateRegists(client, oldClient);
-            UpdateNewOrders(client, oldClient);
-            //falta o update das quantidades diarias
+                UpdateRegists(client, oldClient);
+                UpdateNewOrders(client, oldClient);
+                //falta o update das quantidades diarias
 
-            int pos = _clientsManagerService.ClientsList.IndexOf(oldClient);
-            _clientsManagerService.ClientsList[pos] = Database.GetWithChildren<Client>(client.Id, true);
+                int pos = _clientsManagerService.ClientsList.IndexOf(oldClient);
+                _clientsManagerService.ClientsList[pos] = Database.GetWithChildren<Client>(client.Id, true);
+            }
+            catch(Exception ex)
+            {
+                _dialogService.ShowErrorDialog("UpdateClientFromBluetooth", ex.Message);
+                throw ex;
+            }
         }
 
         private void UpdateNewOrders(Client client, Client oldClient)

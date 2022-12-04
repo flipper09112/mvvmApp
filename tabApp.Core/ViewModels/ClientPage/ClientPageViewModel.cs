@@ -121,10 +121,12 @@ namespace tabApp.Core.ViewModels
         public List<TabsOptionsEnum> TabsOptions { 
             get
             {
-                List<TabsOptionsEnum> tabs = new List<TabsOptionsEnum>();
-                tabs.Add(TabsOptionsEnum.Mapa);
-                tabs.Add(TabsOptionsEnum.Registo);
-                tabs.Add(TabsOptionsEnum.Encomendas);
+                List<TabsOptionsEnum> tabs = new List<TabsOptionsEnum>
+                {
+                    TabsOptionsEnum.Mapa,
+                    TabsOptionsEnum.Registo,
+                    TabsOptionsEnum.Encomendas
+                };
                 return tabs;
             }
         }

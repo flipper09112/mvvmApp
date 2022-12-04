@@ -18,6 +18,7 @@ namespace tabApp.Core.Models
         public int Position { get; set; }
         public string Name { get; set; }
         public string SubName { get; set; }
+        public int? NIF { get; set; }
 
         [ManyToOne]
         public Delivery Delivery { get; set; }
