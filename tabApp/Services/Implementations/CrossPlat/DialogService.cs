@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Content;
 using Android.Icu.Text;
+using Android.Net.Rtp;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
@@ -97,7 +98,7 @@ namespace tabApp.Services.Implementations
             _confirmAction.Invoke(e.Date);
         }
 
-        public void ShowInputDialog(string question, string confirmText, Action<double> confirmAction)
+        public void ShowInputDialog(string question, string confirmText, Action<double> confirmAction, bool showCheckBox = true)
         {
             var top = Mvx.Resolve<IMvxAndroidCurrentTopActivity>();
             var act = top.Activity;
@@ -122,10 +123,12 @@ namespace tabApp.Services.Implementations
             et.SetFilters(new IInputFilter[] { new DecimalDigitsInputFilter(2) });
             et.InputType = InputTypes.ClassNumber | InputTypes.NumberFlagDecimal;
 
+            var radioGroup = dialog.FindViewById<RadioGroup>(Resource.Id.radioGroup);
             addRB = dialog.FindViewById<RadioButton>(Resource.Id.addRB);
+            subRB = dialog.FindViewById<RadioButton>(Resource.Id.subRB);
             addRB.Checked = true;
-            subRB = dialog.FindViewById<RadioButton>(Resource.Id.addRB);
 
+            radioGroup.Visibility = showCheckBox ? ViewStates.Visible : ViewStates.Gone;
         }
 
         public void ShowSuccessChangeSnackBar(string info)

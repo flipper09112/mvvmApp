@@ -13,15 +13,22 @@ namespace tabApp.Core.Services.Interfaces.WebServices.Bases
 {
     public abstract class BaseRequest<Tinput, Toutput> where Tinput : BaseInput where Toutput : BaseOutput
     {
-        protected abstract HttpMethod HttpMethod { get; }
+        protected virtual HttpMethod HttpMethod { get; } = HttpMethod.Post;
         protected abstract string EndPoint { get; }
+        protected virtual bool HasId { get; } = false;
 
         public async Task<Toutput> SendAsync(Tinput input)
         {
             try
             {
-                Debug.WriteLine("Request : " + FaturationService.BaseUrl + EndPoint);
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create(FaturationService.BaseUrl + EndPoint);
+                string endPointEdited = EndPoint;
+                if (HasId)
+                {
+                    endPointEdited = endPointEdited.Replace(":id", input.Id);
+                }
+
+                Debug.WriteLine("Request : " + FaturationService.BaseUrl + endPointEdited);
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(FaturationService.BaseUrl + endPointEdited);
                 httpWebRequest.ContentType = "application/json";
                 httpWebRequest.Accept = "application/json";
                 httpWebRequest.Method = HttpMethod.ToString().ToUpper();

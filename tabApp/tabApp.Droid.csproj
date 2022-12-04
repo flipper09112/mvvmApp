@@ -86,6 +86,7 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\Downloader.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\DecimalDigitsInputFilter.cs" />
     <Compile Include="Helpers\FragmentHelper.cs" />
@@ -158,6 +159,7 @@
     <Compile Include="UI\Fragments\Global\Bt\BtOutcomingFragment.cs" />
     <Compile Include="UI\Fragments\Global\ChangePrices\ChangePricesFragment.cs" />
     <Compile Include="UI\Fragments\Global\DatabaseManagerPageFragment.cs" />
+    <Compile Include="UI\Fragments\Global\Faturation\FaturationFragment.cs" />
     <Compile Include="UI\Fragments\Global\Faturation\FaturationHomeFragment.cs" />
     <Compile Include="UI\Fragments\Global\Faturation\TransportationDocumentsFragment.cs" />
     <Compile Include="UI\Fragments\Global\GlobalOrderFragment.cs" />
@@ -831,6 +833,7 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Resources\res\" />
     <Folder Include="UI\Fragments\ClientPage\OtherOptions\Notifications\" />
   </ItemGroup>
   <ItemGroup>
@@ -1113,6 +1116,25 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\ProductFatItem.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_invoice.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\FaturationFragment.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_pos_printer.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_external.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\xml\provider_paths.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

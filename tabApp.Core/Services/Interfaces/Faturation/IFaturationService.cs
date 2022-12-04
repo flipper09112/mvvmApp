@@ -14,5 +14,6 @@ namespace tabApp.Core.Services.Interfaces.Faturation
         TrasnportationsDocs TrasnportationsDocs { get; }
         Administration Administration { get; }
         Implementations.Faturation.Clients Clients { get; }
+        FatProducts Products { get; }
     }
 }

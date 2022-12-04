@@ -21,6 +21,7 @@ namespace tabApp.UI.Fragments.Global.Faturation
     public class FaturationHomeFragment : BaseFragment<FaturationHomeViewModel>
     {
         private CardView _trasnportationDocs;
+        private CardView _faturationDocs;
         private MainActivity _activity;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -28,7 +29,8 @@ namespace tabApp.UI.Fragments.Global.Faturation
             View view = inflater.Inflate(Resource.Layout.FaturationHomeFragment, container, false);
 
             _trasnportationDocs = view.FindViewById<CardView>(Resource.Id.trasnportationDocs);
-
+            _faturationDocs = view.FindViewById<CardView>(Resource.Id.faturationDocs);
+            
             _activity = ParentActivity as MainActivity;
 
             return view;
@@ -43,11 +45,18 @@ namespace tabApp.UI.Fragments.Global.Faturation
         public override void SetupBindings()
         {
             _trasnportationDocs.Click += TrasnportationDocsClick;
+            _faturationDocs.Click += FaturationDocsClick;
         }
 
         public override void CleanBindings()
         {
-            _trasnportationDocs.Click += TrasnportationDocsClick;
+            _trasnportationDocs.Click -= TrasnportationDocsClick;
+            _faturationDocs.Click -= FaturationDocsClick;
+        }
+
+        private void FaturationDocsClick(object sender, EventArgs e)
+        {
+            ViewModel.ShowFaturationPageCommand.Execute();
         }
 
         private void TrasnportationDocsClick(object sender, EventArgs e)

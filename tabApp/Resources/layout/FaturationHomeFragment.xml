@@ -84,6 +84,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/faturationDocs"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:layout_margin="20dp"
@@ -95,13 +96,31 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView1"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginLeft="30dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    card_view:srcCompat="@android:drawable/btn_star_big_on" />
+                    android:src="@drawable/ic_invoice"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:textAlignment="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="20dp"
+                    android:text="Faturas"
+                    android:fontFamily="@font/arista_pro_bold"
+                    android:gravity="center"
+                    android:autoSizeTextType="uniform"
+                    android:maxLines="1"
+                    android:autoSizeMaxTextSize="30sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView1"
+                    app:layout_constraintTop_toTopOf="@+id/imageView1" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

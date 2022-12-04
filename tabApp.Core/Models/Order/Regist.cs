@@ -32,6 +32,7 @@ namespace tabApp.Core.Models
         NewClient,
         ChangeDailyOrder,
         Inativate,
-        ChangePrices
+        ChangePrices,
+        UpdateNIF
     }
 }

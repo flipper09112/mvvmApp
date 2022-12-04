@@ -5,6 +5,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Webkit;
 using Android.Widget;
+using AndroidX.CardView.Widget;
 using iText.Kernel.Pdf;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using System;
@@ -22,6 +23,9 @@ namespace tabApp.UI.Fragments.Bases.Generic
     public class DocumentFragment : BaseFragment<DocumentViewModel>
     {
         private WebView _webview;
+        private CardView _posPrinterBt;
+        private CardView _openExternalApp;
+        private CardView _printerBt;
         private MainActivity _mainActivity;
         private bool _loaded;
 
@@ -30,6 +34,9 @@ namespace tabApp.UI.Fragments.Bases.Generic
             View view = inflater.Inflate(Resource.Layout.DocumentFragment, container, false);
 
             _webview = view.FindViewById<WebView>(Resource.Id.webview);
+            _posPrinterBt = view.FindViewById<CardView>(Resource.Id.posPrinterBt);
+            _openExternalApp = view.FindViewById<CardView>(Resource.Id.openExternalApp);
+            _printerBt = view.FindViewById<CardView>(Resource.Id.printerBt);
 
             return view;
         }
@@ -47,11 +54,30 @@ namespace tabApp.UI.Fragments.Bases.Generic
 
         public override void SetupBindings()
         {
+            _posPrinterBt.Click += PosPrinterBtClick;
+            _openExternalApp.Click += OpenExternalAppClick;
+            _printerBt.Click += PrinterBtClick;
         }
 
         public override void CleanBindings()
         {
+            _posPrinterBt.Click -= PosPrinterBtClick;
+            _openExternalApp.Click -= OpenExternalAppClick;
+            _printerBt.Click -= PrinterBtClick;
+        }
+
+        private void PrinterBtClick(object sender, EventArgs e)
+        {
+        }
+
+        private void OpenExternalAppClick(object sender, EventArgs e)
+        {
+            ViewModel.OpenExternalAppCommand.Execute(null);
+        }
+
+        private void PosPrinterBtClick(object sender, EventArgs e)
+        {
+            ViewModel.PosPrinterCommand.Execute(null);
         }
     }
-
 }
