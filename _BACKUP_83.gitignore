@@ -1,0 +1,12 @@
+<<<<<<< HEAD
+tabApp/obj/
+tabApp/bin/
+tabApp.DroidWear/tabApp.DroidWear/obj/
+tabApp.DroidClients/obj/
+tabApp.Core/obj/
+tabApp.Core/bin/
+.vs/
+=======
+tabApp.DroidWear/tabApp.DroidWear/obj/
+tabApp.DroidClients/obj/Debug/110/lp/99/jl/res/values-zh-rHK/values-zh-rHK.xml
+>>>>>>> dcb38ad3 (add-gitignore-rules)
