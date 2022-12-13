@@ -5,6 +5,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using AndroidX.RecyclerView.Widget;
+using MvvmCross.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,11 +26,12 @@ namespace tabApp.UI.Adapters.Faturation
 
         public List<FatItem> ProductsList { get; set; }
         public Action<FatItem> RemoveProduct { get; internal set; }
+        public MvxCommand UpdateValueCommand { get; internal set; }
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
             ProductFatViewHolder lastTrasnportationsDoc = holder as ProductFatViewHolder;
-            lastTrasnportationsDoc.Bind(ProductsList[holder.AdapterPosition], RemoveProduct);
+            lastTrasnportationsDoc.Bind(ProductsList[holder.AdapterPosition], RemoveProduct, UpdateValueCommand);
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)

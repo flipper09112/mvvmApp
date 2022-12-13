@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using tabApp.Core.Models;
+using tabApp.Core.Services.Implementations.DB;
+using tabApp.Core.Services.Implementations.Faturation.Helpers;
+using tabApp.Core.Services.Implementations.Products;
 using tabApp.Core.Services.Interfaces.Clients;
 using tabApp.Core.Services.Interfaces.DB;
 using tabApp.Core.Services.Interfaces.Products;
@@ -237,6 +240,50 @@ namespace tabApp.Core.Services.Implementations.Clients
         public Client GetClientById(int clientId)
         {
             return ClientsList.Find(cli => cli.Id == clientId);
+        }
+
+        public List<(int productId, double ammount)> GetTotalProductsFromClient(Client clientSelected, DateTime payTo)
+        {
+            List<(int productId, double ammount)> productsList = new List<(int productId, double ammount)>();
+
+            DateTime dateTemp = clientSelected.PaymentDate.AddDays(1);
+
+            while (dateTemp.Date <= payTo)
+            {
+                var order = GetTodayDailyOrder(clientSelected, dateTemp.DayOfWeek);
+                var extraOrder = HasOrderThisDate(clientSelected, dateTemp);
+
+                order.AllItems.ForEach(item =>
+                {
+                    AddItemToList(productsList, item);
+                });
+
+                extraOrder?.AllItems.ForEach(item =>
+                {
+                    AddItemToList(productsList, item);
+                });
+
+                dateTemp = dateTemp.AddDays(1);
+            }
+
+            return productsList;
+        }
+
+        private void AddItemToList(List<(int productId, double ammount)> productsList, DailyOrderDetails item)
+        {
+            var hasItem = productsList.Any(itemList => itemList.productId == item.ProductId);
+
+            if(hasItem)
+            {
+                var listItem = productsList.Find(itemList => itemList.productId == item.ProductId);
+                productsList.Remove(listItem);
+
+                productsList.Add((item.ProductId, listItem.ammount + item.Ammount));
+            }
+            else
+            {
+                productsList.Add((item.ProductId, item.Ammount));
+            }
         }
     }
 }

@@ -70,14 +70,14 @@ namespace tabApp.Core.Services.Interfaces.WebServices.Sells.DTOs
         public object due_date { get; set; }
         public int serie_id { get; set; }
         public int document_type_id { get; set; }
-        public int gross_total { get; set; }
+        public double gross_total { get; set; }
         public int total_discount { get; set; }
-        public int net_total { get; set; }
-        public int total_base_vat { get; set; }
-        public int total_vat { get; set; }
+        public double net_total { get; set; }
+        public double total_base_vat { get; set; }
+        public double total_vat { get; set; }
         public int total_shipping { get; set; }
-        public int total_services { get; set; }
-        public int grand_total { get; set; }
+        public double total_services { get; set; }
+        public double grand_total { get; set; }
         public int final_discount_financial { get; set; }
         public int final_discount_global { get; set; }
         public int final_discount_global_value { get; set; }
@@ -103,7 +103,7 @@ namespace tabApp.Core.Services.Interfaces.WebServices.Sells.DTOs
         public object payment_method_id { get; set; }
         public object payment_condition_id { get; set; }
         public object shipping_mode_id { get; set; }
-        public int shipping_value { get; set; }
+        public int? shipping_value { get; set; }
         public int? shipping_vat_id { get; set; }
         public int price_id { get; set; }
         public int currency_id { get; set; }
@@ -113,7 +113,7 @@ namespace tabApp.Core.Services.Interfaces.WebServices.Sells.DTOs
         public int irs_retention_apply { get; set; }
         public object irs_retention_base { get; set; }
         public object irs_retention_total { get; set; }
-        public int irs_retention_tax { get; set; }
+        public int? irs_retention_tax { get; set; }
         public string url_file { get; set; }
         public int file_previewed { get; set; }
         public string file_last_generated { get; set; }
@@ -123,7 +123,7 @@ namespace tabApp.Core.Services.Interfaces.WebServices.Sells.DTOs
         public int sms_sent { get; set; }
         public string status { get; set; }
         public string status_last_change { get; set; }
-        public int vehicle_id { get; set; }
+        public int? vehicle_id { get; set; }
         public object employee_id { get; set; }
         public string waybill_shipping_date { get; set; }
         public object at_code { get; set; }
@@ -149,7 +149,7 @@ namespace tabApp.Core.Services.Interfaces.WebServices.Sells.DTOs
         public int sign_attempt { get; set; }
         public object sign_error { get; set; }
         public int created_by { get; set; }
-        public int finished_by { get; set; }
+        public int? finished_by { get; set; }
         public string finished_at { get; set; }
         public object canceled_by { get; set; }
         public object canceled_at { get; set; }
@@ -213,20 +213,20 @@ namespace tabApp.Core.Services.Interfaces.WebServices.Sells.DTOs
         public int sale_id { get; set; }
         public int item_id { get; set; }
         public string item_details { get; set; }
-        public int unit_price { get; set; }
+        public double unit_price { get; set; }
         public int quantity { get; set; }
         public int discount { get; set; }
-        public int gross_total { get; set; }
-        public int net_total { get; set; }
-        public int total_base_vat { get; set; }
-        public int total_vat { get; set; }
+        public double gross_total { get; set; }
+        public double net_total { get; set; }
+        public double total_base_vat { get; set; }
+        public double total_vat { get; set; }
         public int total_discount { get; set; }
-        public int grand_total { get; set; }
+        public double grand_total { get; set; }
         public int vat_id { get; set; }
         public int unit_id { get; set; }
         public int vat_exemption_id { get; set; }
-        public Item item { get; set; }
-        public Vat vat { get; set; }
+        public Item2 item { get; set; }
+        public Vat2 vat { get; set; }
         public Unit unit { get; set; }
         public Vatexemption vatexemption { get; set; }
     }
@@ -275,8 +275,8 @@ namespace tabApp.Core.Services.Interfaces.WebServices.Sells.DTOs
         public int id { get; set; }
         public int sale_id { get; set; }
         public int vat_id { get; set; }
-        public int total_base_vat { get; set; }
-        public int total_vat { get; set; }
+        public double total_base_vat { get; set; }
+        public double total_vat { get; set; }
         public Vat vat { get; set; }
     }
 

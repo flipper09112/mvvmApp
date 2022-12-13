@@ -49,6 +49,9 @@ namespace tabApp.Core.Services.Interfaces.WebServices.Sells.DTOs
         [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd HH:mm")]
         public DateTime WaybillShippingDate { get; set; }
 
+        [JsonProperty("waybill_global")]
+        public bool WaybillGlobal { get; set; }
+
         //[JsonProperty("location_origin")]
         //public string LocationOrigin { get; set; }
 
@@ -59,10 +62,21 @@ namespace tabApp.Core.Services.Interfaces.WebServices.Sells.DTOs
         [JsonConverter(typeof(StringEnumConverter))]
         public StatusEnum Status { get; set; }
 
+        [JsonProperty("payment_method")]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public PaymentMethodEnum PaymentMethod { get; set; }
+
         [JsonProperty("items")]
         public List<FatItem> Items { get; set; }
     }
 
+    public enum PaymentMethodEnum
+    {
+        [EnumMember(Value = "Numerário")]
+        Numerario,
+        [EnumMember(Value = "Transferência bancária")]
+        TransferenciaBancaria
+    }
 
     public class FatItem
     {

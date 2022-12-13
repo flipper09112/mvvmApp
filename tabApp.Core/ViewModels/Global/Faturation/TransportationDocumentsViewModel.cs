@@ -83,15 +83,25 @@ namespace tabApp.Core.ViewModels.Global.Faturation
             ProductsList = list;
         }
 
-        private void CreateTransportationDocument()
+        private async void CreateTransportationDocument()
         {
-            SecureStorage.SetAsync(LastTransportationGuideItemsKey, JsonConvert.SerializeObject(ProductsList));
-            //_faturationService.TrasnportationsDocs.CreateDocument(ClientSelected, VehicleSelected, DateSelected ?? DateTime.Today.AddDays(1), ProductsList);
+            IsBusy = true;
+            await SecureStorage.SetAsync(LastTransportationGuideItemsKey, JsonConvert.SerializeObject(ProductsList));
+            var success = await _faturationService.TrasnportationsDocs.CreateDocument(ClientsList[0], VehicleSelected, DateSelected ?? DateTime.Today.AddDays(1), ProductsList);
+
+            if (!success)
+            {
+                IsBusy = false;
+                return;
+            }
+            
+            await _navigationService.Close(this);
+            IsBusy = false;
         }
 
         private bool CanCreateTransportationDocument()
         {
-            return DateSelected != null && ProductsList.Count != 0;
+            return DateSelected != null && ProductsList.Count != 0 && VehicleSelected != null;
         }
 
         private List<TrasnportationDoc> _lastTrasnportationsDocs;
@@ -151,8 +161,18 @@ namespace tabApp.Core.ViewModels.Global.Faturation
             }
         }
 
-        public FatClient ClientSelected { get; set; }
-        public Car VehicleSelected { get; set; }
+        //public FatClient ClientSelected { get; set; }
+        private Car _vehicleSelected;
+        public Car VehicleSelected
+        {
+            get => _vehicleSelected;
+            set
+            {
+                _vehicleSelected = value;
+                CreateTransportationDocumentCommand.RaiseCanExecuteChanged();
+            }
+        }   
+        
         public string LastTransportationGuideItemsKey => "TransportationDocumentsViewModel_LastTransportationGuideItemsKey";
 
         private async void OpenDoc(TrasnportationDoc selectedDoc)
@@ -171,9 +191,9 @@ namespace tabApp.Core.ViewModels.Global.Faturation
                 return;
             }
 
-            LastTrasnportationsDocs = await _faturationService.TrasnportationsDocs.GetVendasLista();
+            LastTrasnportationsDocs = await _faturationService.TrasnportationsDocs.GetVendasLista(SellsTypes.Guias);
             Vehicles = await _faturationService.Administration.GetVehicles();
-            ClientsList = await _faturationService.Clients.GetClient(269348077);
+            ClientsList = await _faturationService.Clients.GetClient("Consumidor final");
 
             IsBusy = false;
         }

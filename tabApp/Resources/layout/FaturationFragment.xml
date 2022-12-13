@@ -95,7 +95,7 @@
 
     <Button
         android:id="@+id/createTrasnportationDoc"
-        android:layout_width="200dp"
+        android:layout_width="150dp"
         android:layout_height="50dp"
         android:text="Criar Guia"
         android:enabled="false"
@@ -104,7 +104,7 @@
         android:textColor="@color/white"
         android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/divider"
+        app:layout_constraintEnd_toStartOf="@+id/divider5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <View
@@ -126,7 +126,7 @@
         app:layout_constraintBottom_toTopOf="@+id/createTrasnportationDoc"
         app:layout_constraintEnd_toStartOf="@+id/divider"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/guiasRv" />
 
     <View
         android:id="@+id/divider6"
@@ -147,6 +147,7 @@
         android:fontFamily="@font/arista_pro_bold"
         android:text="Usar items da última guia"
         android:textColor="@color/white"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/divider6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/divider"
@@ -160,6 +161,7 @@
         android:background="@drawable/green_button"
         android:textColor="@color/white"
         android:text="Usar encomenda de hoje"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/divider"
@@ -181,7 +183,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/clientName"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="Consumidor Final"
@@ -194,5 +196,78 @@
         app:layout_constraintEnd_toStartOf="@+id/divider"
         app:layout_constraintStart_toEndOf="@+id/textView3"
         app:layout_constraintTop_toTopOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Guia"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:fontFamily="@font/arista_pro_light"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <ImageView
+        android:id="@+id/openGuiaIcon"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView5"
+        app:layout_constraintEnd_toStartOf="@+id/divider"
+        app:layout_constraintTop_toTopOf="@+id/textView5"
+        card_view:srcCompat="@drawable/ic_pdf" />
+
+    <Spinner
+        android:id="@+id/guiasRv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView5"
+        app:layout_constraintEnd_toStartOf="@+id/openGuiaIcon"
+        app:layout_constraintStart_toEndOf="@+id/textView5"
+        app:layout_constraintTop_toTopOf="@+id/textView5" />
+
+    <View
+        android:id="@+id/divider5"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="?android:attr/listDivider"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/divider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider6" />
+
+      <Button
+        android:id="@+id/addProductBt"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="Adicionar Produto"
+        android:background="@drawable/green_button"
+        android:fontFamily="@font/arista_pro_bold"
+        android:textColor="@color/white"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/divider"
+        app:layout_constraintStart_toEndOf="@+id/divider5" />
+
+    <TextView
+        android:id="@+id/totalFatValue"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:fontFamily="@font/arista_pro_bold"
+        android:autoSizeTextType="uniform"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/createTrasnportationDoc"
+        app:layout_constraintEnd_toStartOf="@+id/addProductBt"
+        app:layout_constraintStart_toEndOf="@+id/createTrasnportationDoc"
+        app:layout_constraintTop_toTopOf="@+id/createTrasnportationDoc" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

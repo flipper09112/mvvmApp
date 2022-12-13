@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using tabApp.Core.Services.Implementations.Products;
 using tabApp.Core.Services.Interfaces.Faturation;
 using tabApp.Core.Services.Interfaces.Products;
+using Xamarin.Essentials;
 
 namespace tabApp.Core.ViewModels.Global.Faturation
 {
@@ -18,6 +19,7 @@ namespace tabApp.Core.ViewModels.Global.Faturation
 
         public MvxCommand ShowTransportationDocsPageCommand;
         public MvxCommand ShowFaturationPageCommand;
+        public MvxCommand ShowFaturaLusaCommand;
 
         public FaturationHomeViewModel(IMvxNavigationService navigationService, 
                                        IFaturationService faturationService,
@@ -29,6 +31,24 @@ namespace tabApp.Core.ViewModels.Global.Faturation
 
             ShowTransportationDocsPageCommand = new MvxCommand(ShowTransportationDocsPage);
             ShowFaturationPageCommand = new MvxCommand(ShowFaturationPage);
+            ShowFaturaLusaCommand = new MvxCommand(ShowFaturaLusa);
+        }
+
+        private async void ShowFaturaLusa()
+        {
+            try
+            {
+                var uri = new Uri("https://facturalusa.pt/app/vistageral");
+                await Browser.OpenAsync(uri, new BrowserLaunchOptions
+                {
+                    LaunchMode = BrowserLaunchMode.SystemPreferred,
+                    TitleMode = BrowserTitleMode.Hide,
+                });
+            }
+            catch (Exception ex)
+            {
+                // An unexpected error occured. No browser may be installed on the device.
+            }
         }
 
         private async void ShowFaturationPage()
