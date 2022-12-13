@@ -54,8 +54,7 @@ namespace tabApp.UI
                     MainThread.BeginInvokeOnMainThread(() =>
                     {
                         MainActivity mainActivity = ParentActivity as MainActivity;
-
-                        mainActivity.ViewModelPropertyChanged(Vm.IsBusy, e);
+                        mainActivity?.ViewModelPropertyChanged(Vm.IsBusy, e);
                     });
                    
                     break;

@@ -27,5 +27,6 @@ namespace tabApp.Core.Services.Interfaces.Clients
         List<string> GetAllPaymentsTypes();
         int GetNewId();
         void AddNewClient(Client newClient);
+        List<(int productId, double ammount)> GetTotalProductsFromClient(Client clientSelected, DateTime payTo);
     }
 }

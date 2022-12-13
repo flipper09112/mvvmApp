@@ -51,7 +51,7 @@ namespace tabApp.Core.Services.Interfaces.WebServices.Clients.DTOs
         public string type { get; set; }
         public int vat_exemption_id { get; set; }
         public string vat_type { get; set; }
-        public int irs_retention_tax { get; set; }
+        public int? irs_retention_tax { get; set; }
         public string observations { get; set; }
         public string other_emails { get; set; }
         public int code_blocked { get; set; }

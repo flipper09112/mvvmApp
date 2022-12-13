@@ -5,6 +5,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using AndroidX.RecyclerView.Widget;
+using MvvmCross.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,7 @@ namespace tabApp.UI.ViewHolders.Faturation
         private ImageView _deleteIcon;
         private Action<FatItem> _removeProduct;
         private FatItem _fatItem;
+        private MvxCommand _updateValueCommand;
 
         public ProductFatViewHolder(View itemView) : base(itemView)
         {
@@ -42,17 +44,20 @@ namespace tabApp.UI.ViewHolders.Faturation
         private void ProductAmmountTextChanged(object sender, Android.Text.TextChangedEventArgs e)
         {
             _fatItem.Quantity = e.Text.ToString();
+            _updateValueCommand.Execute(null);
         }
 
         private void DeleteIconClick(object sender, EventArgs e)
         {
             _removeProduct.Invoke(_fatItem);
+            _updateValueCommand.Execute(null);
         }
 
-        internal void Bind(FatItem fatItem, Action<FatItem> removeProduct)
+        internal void Bind(FatItem fatItem, Action<FatItem> removeProduct, MvxCommand updateValueCommand)
         {
             _removeProduct = removeProduct;
             _fatItem = fatItem;
+            _updateValueCommand = updateValueCommand;
 
             _productAmmount.Text = fatItem.Quantity;
             _productId.Text = fatItem.Id;

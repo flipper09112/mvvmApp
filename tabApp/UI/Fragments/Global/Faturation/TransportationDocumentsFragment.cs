@@ -29,13 +29,13 @@ namespace tabApp.UI.Fragments.Global.Faturation
         private RecyclerView _guiasRv;
         private RecyclerView _productsListRv;
         private View _emptyLayout;
-        private Spinner _clientSpinner, _vehicleSpinner;
+        private Spinner _vehicleSpinner;
         private TextView _chargingTime;
         private Button _createTrasnportationDocBt;
         private Button _setTodayOrderBt;
         private Button _lastTransportationItemsBt;
         private LastTrasnportationsDocsAdapter _lastTrasnportationsDocsAdapter;
-        private ClientsSpinnerAdapter _clientsSpinnerAdapter;
+        //private ClientsSpinnerAdapter _clientsSpinnerAdapter;
         private VehiclesSpinnerAdapter _vehiclesSpinnerAdapter;
         private ProductsListFatAdapter _productsListAdapter;
         private DateTime _dateSelected;
@@ -49,7 +49,7 @@ namespace tabApp.UI.Fragments.Global.Faturation
             _guiasRv = view.FindViewById<RecyclerView>(Resource.Id.GuiasRv);
             _productsListRv = view.FindViewById<RecyclerView>(Resource.Id.productsListRv);
             _emptyLayout = view.FindViewById(Resource.Id.emptyLayout);
-            _clientSpinner = view.FindViewById<Spinner>(Resource.Id.clientSpinner);
+            //_clientSpinner = view.FindViewById<Spinner>(Resource.Id.clientSpinner);
             _vehicleSpinner = view.FindViewById<Spinner>(Resource.Id.vehicleSpinner);
             _chargingTime = view.FindViewById<TextView>(Resource.Id.chargingTime);
             _createTrasnportationDocBt = view.FindViewById<Button>(Resource.Id.createTrasnportationDoc);
@@ -73,7 +73,7 @@ namespace tabApp.UI.Fragments.Global.Faturation
             _createTrasnportationDocBt.Click += CreateTrasnportationDocBtClick;
             _setTodayOrderBt.Click += SetTodayOrderBtClick;
             _lastTransportationItemsBt.Click += LastTransportationItemsBtClick;
-            _clientSpinner.ItemSelected += ClientSpinnerItemSelected;
+            //_clientSpinner.ItemSelected += ClientSpinnerItemSelected;
             _vehicleSpinner.ItemSelected += VehicleSpinnerItemSelected;
         }
 
@@ -85,7 +85,7 @@ namespace tabApp.UI.Fragments.Global.Faturation
             _createTrasnportationDocBt.Click -= CreateTrasnportationDocBtClick;
             _setTodayOrderBt.Click -= SetTodayOrderBtClick;
             _lastTransportationItemsBt.Click -= LastTransportationItemsBtClick;
-            _clientSpinner.ItemSelected -= ClientSpinnerItemSelected;
+            //_clientSpinner.ItemSelected -= ClientSpinnerItemSelected;
             _vehicleSpinner.ItemSelected -= VehicleSpinnerItemSelected;
         }
 
@@ -94,14 +94,15 @@ namespace tabApp.UI.Fragments.Global.Faturation
             ViewModel.VehicleSelected = ViewModel.Vehicles[e.Position];
         }
 
-        private void ClientSpinnerItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        /*private void ClientSpinnerItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             ViewModel.ClientSelected = ViewModel.ClientsList[e.Position];
-        }
+        }*/
 
         private void LastTransportationItemsBtClick(object sender, EventArgs e)
         {
             ViewModel.UseLastProductsListCommand.Execute(null);
+            CreateTransportationDocumentCommandCanExecuteChanged(null, null);
         }
 
         private void SetTodayOrderBtClick(object sender, EventArgs e)
@@ -146,7 +147,7 @@ namespace tabApp.UI.Fragments.Global.Faturation
             _dateSelected = _dateSelected.AddHours(e.HourOfDay);
             _dateSelected = _dateSelected.AddMinutes(e.Minute);
 
-            _chargingTime.Text = _dateSelected.ToString("dd/MM/yyyy hh:mm");
+            _chargingTime.Text = _dateSelected.ToString("dd/MM/yyyy HH:mm");
             ViewModel.DateSelected = _dateSelected;
             CreateTransportationDocumentCommandCanExecuteChanged(null, null);
         }
@@ -157,10 +158,6 @@ namespace tabApp.UI.Fragments.Global.Faturation
             {
                 case nameof(ViewModel.LastTrasnportationsDocs):
                     SetLastTrasnportationsDocsRv();
-                    break;
-                case nameof(ViewModel.ClientsList):
-                    _clientsSpinnerAdapter = new ClientsSpinnerAdapter(ViewModel.ClientsList);
-                    _clientSpinner.Adapter = _clientsSpinnerAdapter;
                     break;
                 case nameof(ViewModel.Vehicles):
                     _vehiclesSpinnerAdapter = new VehiclesSpinnerAdapter(ViewModel.Vehicles);

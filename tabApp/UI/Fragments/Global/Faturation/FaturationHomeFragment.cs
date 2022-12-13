@@ -22,6 +22,7 @@ namespace tabApp.UI.Fragments.Global.Faturation
     {
         private CardView _trasnportationDocs;
         private CardView _faturationDocs;
+        private ImageView _faturalusaIcon;
         private MainActivity _activity;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -30,7 +31,8 @@ namespace tabApp.UI.Fragments.Global.Faturation
 
             _trasnportationDocs = view.FindViewById<CardView>(Resource.Id.trasnportationDocs);
             _faturationDocs = view.FindViewById<CardView>(Resource.Id.faturationDocs);
-            
+            _faturalusaIcon = view.FindViewById<ImageView>(Resource.Id.faturalusaIcon);
+
             _activity = ParentActivity as MainActivity;
 
             return view;
@@ -46,12 +48,19 @@ namespace tabApp.UI.Fragments.Global.Faturation
         {
             _trasnportationDocs.Click += TrasnportationDocsClick;
             _faturationDocs.Click += FaturationDocsClick;
+            _faturalusaIcon.Click += FaturalusaIconClick;
         }
 
         public override void CleanBindings()
         {
             _trasnportationDocs.Click -= TrasnportationDocsClick;
             _faturationDocs.Click -= FaturationDocsClick;
+            _faturalusaIcon.Click -= FaturalusaIconClick;
+        }
+
+        private void FaturalusaIconClick(object sender, EventArgs e)
+        {
+            ViewModel.ShowFaturaLusaCommand.Execute();
         }
 
         private void FaturationDocsClick(object sender, EventArgs e)

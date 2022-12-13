@@ -6,7 +6,9 @@ using System.Text;
 using tabApp.Core.Models;
 using tabApp.Core.Services.Implementations.Clients;
 using tabApp.Core.Services.Implementations.DB;
+using tabApp.Core.Services.Implementations.Faturation;
 using tabApp.Core.Services.Interfaces.Dialogs;
+using tabApp.Core.Services.Interfaces.Faturation;
 using tabApp.Core.ViewModels.ClientPage;
 using tabApp.Core.ViewModels.ClientPage.OtherOptions;
 using tabApp.Core.ViewModels.Global.Faturation;
@@ -19,6 +21,7 @@ namespace tabApp.Core.ViewModels
         private readonly IMvxNavigationService _navigationService;
         private readonly IDialogService _dialogService;
         private readonly IDataBaseManagerService _dataBaseManagerService;
+        private readonly IFaturationService _faturationService;
         public EventHandler ShowCalculatorEvent;
 
         public MvxCommand InsertNewRegistCommand;
@@ -31,12 +34,14 @@ namespace tabApp.Core.ViewModels
         public OtherOptionsViewModel(IChooseClientService chooseClientService, 
                                      IMvxNavigationService navigationService,
                                      IDialogService dialogService,
-                                     IDataBaseManagerService dataBaseManagerService)
+                                     IDataBaseManagerService dataBaseManagerService,
+                                     IFaturationService faturationService)
         {
             _chooseClientService = chooseClientService;
             _navigationService = navigationService;
             _dialogService = dialogService;
             _dataBaseManagerService = dataBaseManagerService;
+            _faturationService = faturationService;
 
             InsertNewRegistCommand = new MvxCommand(InsertNewRegist);
             PrintPageCommand = new MvxCommand(PrintPage);
@@ -54,6 +59,7 @@ namespace tabApp.Core.ViewModels
             }
             else
             {
+                _faturationService.ClientSelected = _chooseClientService.ClientSelected;
                 await _navigationService.Navigate<FaturationViewModel>();
             }
         }

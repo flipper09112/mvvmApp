@@ -45,7 +45,7 @@ namespace tabApp.UI.ViewHolders.Faturation
             _docClick = docClick;
 
             _docName.Text = trasnportationDoc.Name;
-            _docDateTime.Text = trasnportationDoc.EmissionDate.ToString("ddd dd/mm/yyyy");
+            _docDateTime.Text = trasnportationDoc.EmissionDate.ToString("ddd dd/MM/yyyy");
         }
     }
 }

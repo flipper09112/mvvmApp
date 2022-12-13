@@ -16,41 +16,98 @@ using tabApp.Core.ViewModels.Global.Faturation;
 using tabApp.UI.Adapters.Faturation.Spinners;
 using tabApp.UI.Adapters.Faturation;
 using tabApp.Core.Services.Interfaces.WebServices.Sells.DTOs;
+using Android.Media.TV;
+using tabApp.UI.Adapters.Global;
 
 namespace tabApp.UI.Fragments.Global.Faturation
 {
     [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.fragmentContainer, true)]
     public class FaturationFragment : BaseFragment<FaturationViewModel>
     {
+        private View _view;
         private RecyclerView _faturasRv;
         private RecyclerView _productsListRv;
         private View _emptyLayout;
+        private Spinner _guiasSpinner;
+        private ImageView _openGuiaIcon;
+        private Button _addProductBt, _createFaturaBt;
+        private TextView _clientName;
+        private TextView _totalFatValue;
         private ProductsListFatAdapter _productsListAdapter;
         private LastTrasnportationsDocsAdapter _lastTrasnportationsDocsAdapter;
+        private LastTrasnportationsDocsSpinnerAdapter _guiasSpinnerAdapter;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
+            if (_view != null) return _view;
             View view = inflater.Inflate(Resource.Layout.FaturationFragment, container, false);
 
+            _view = view;
             _faturasRv = view.FindViewById<RecyclerView>(Resource.Id.faturasRv);
             _productsListRv = view.FindViewById<RecyclerView>(Resource.Id.productsListRv);
             _emptyLayout = view.FindViewById(Resource.Id.emptyLayout);
+            _guiasSpinner = view.FindViewById<Spinner>(Resource.Id.guiasRv);
+            _openGuiaIcon = view.FindViewById<ImageView>(Resource.Id.openGuiaIcon);
+            _addProductBt = view.FindViewById<Button>(Resource.Id.addProductBt);
+            _createFaturaBt = view.FindViewById<Button>(Resource.Id.createTrasnportationDoc);
+            _clientName = view.FindViewById<TextView>(Resource.Id.clientName);
+            _totalFatValue = view.FindViewById<TextView>(Resource.Id.totalFatValue);
+
+            _faturasRv.SetLayoutManager(new LinearLayoutManager(Context));
+            _productsListRv.SetLayoutManager(new LinearLayoutManager(Context));
 
             return view;
         }
 
         public override void SetUI()
         {
+            _clientName.Text = ViewModel.ClientName;
+            _totalFatValue.Text = ViewModel.TotalFatValue;
         }
 
         public override void SetupBindings()
         {
             ViewModel.PropertyChanged += ViewModelPropertyChanged;
+            _guiasSpinner.ItemSelected += GuiasSpinnerItemSelected;
+            _openGuiaIcon.Click += OpenGuiaIconClick;
+            ViewModel.CreateFaturaSimplesCommand.CanExecuteChanged += CreateFaturaSimplesCommandCanExecuteChanged;
+            _createFaturaBt.Click += CreateFaturaBtClick;
+            _addProductBt.Click += AddProductBtClick;
         }
 
         public override void CleanBindings()
         {
             ViewModel.PropertyChanged -= ViewModelPropertyChanged;
+            _guiasSpinner.ItemSelected -= GuiasSpinnerItemSelected;
+            _openGuiaIcon.Click -= OpenGuiaIconClick;
+            ViewModel.CreateFaturaSimplesCommand.CanExecuteChanged -= CreateFaturaSimplesCommandCanExecuteChanged;
+            _createFaturaBt.Click -= CreateFaturaBtClick;
+            _addProductBt.Click -= AddProductBtClick;
+        }
+
+        private void AddProductBtClick(object sender, EventArgs e)
+        {
+            ViewModel.AddProductCommand.Execute(null);
+        }
+
+        private void CreateFaturaBtClick(object sender, EventArgs e)
+        {
+            ViewModel.CreateFaturaSimplesCommand.Execute(null);
+        }
+
+        private void CreateFaturaSimplesCommandCanExecuteChanged(object sender, EventArgs e)
+        {
+            _createFaturaBt.Enabled = ViewModel.CreateFaturaSimplesCommand.CanExecute(null);
+        }
+
+        private void OpenGuiaIconClick(object sender, EventArgs e)
+        {
+            ViewModel.OpenDocCommand.Execute(ViewModel.GuiaSelected);
+        }
+
+        private void GuiasSpinnerItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            ViewModel.GuiaSelected = ViewModel.LastTrasnportationsDocs[e.Position];
         }
 
         private void ViewModelPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -60,12 +117,26 @@ namespace tabApp.UI.Fragments.Global.Faturation
                 case nameof(ViewModel.LastTrasnportationsDocs):
                     SetLastTrasnportationsDocsRv();
                     break;
+                case nameof(ViewModel.FaturationDocs):
+                    SeFaturationDocsRv();
+                    break;
+                case nameof(ViewModel.TotalFatValue):
+                    SetUI();
+                    break;
                 case nameof(ViewModel.ProductsList):
                     _productsListAdapter = new ProductsListFatAdapter(ViewModel.ProductsList);
                     _productsListAdapter.RemoveProduct = RemoveProduct;
+                    _productsListAdapter.UpdateValueCommand = ViewModel.UpdateValueCommand;
                     _productsListRv.SetAdapter(_productsListAdapter);
+                    CreateFaturaSimplesCommandCanExecuteChanged(null, null);
                     break;
             }
+        }
+
+        private void SetLastTrasnportationsDocsRv()
+        {
+            _guiasSpinnerAdapter = new LastTrasnportationsDocsSpinnerAdapter(ViewModel.LastTrasnportationsDocs);
+            _guiasSpinner.Adapter = _guiasSpinnerAdapter;
         }
 
         private void RemoveProduct(FatItem fatItemToRemove)
@@ -77,11 +148,11 @@ namespace tabApp.UI.Fragments.Global.Faturation
 
             _productsListAdapter.NotifyItemRemoved(pos);
         }
-        private void SetLastTrasnportationsDocsRv()
+        private void SeFaturationDocsRv()
         {
-            _emptyLayout.Visibility = ViewModel.LastTrasnportationsDocs == null || ViewModel.LastTrasnportationsDocs.Count == 0 ? ViewStates.Visible : ViewStates.Invisible;
+            _emptyLayout.Visibility = ViewModel.FaturationDocs == null || ViewModel.FaturationDocs.Count == 0 ? ViewStates.Visible : ViewStates.Invisible;
 
-            _lastTrasnportationsDocsAdapter = new LastTrasnportationsDocsAdapter(ViewModel.LastTrasnportationsDocs);
+            _lastTrasnportationsDocsAdapter = new LastTrasnportationsDocsAdapter(ViewModel.FaturationDocs);
             _lastTrasnportationsDocsAdapter.DocClick = ViewModel.OpenDocCommand;
             _faturasRv.SetAdapter(_lastTrasnportationsDocsAdapter);
         }

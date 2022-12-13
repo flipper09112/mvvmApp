@@ -22,12 +22,15 @@ namespace tabApp.Core.Services.Interfaces.WebServices.Products.DTOs
         [JsonProperty("vat")]
         public int Vat { get; set; }
 
+        [JsonProperty("details_show_print")]
+        public bool DetailsShowPrint { get; set; }
+
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter))]
         public FatProductTypeEnum Type { get; set; }
 
         [JsonProperty("prices")]
-        public List<string> Prices { get; internal set; }
+        public string Prices { get; internal set; }
     }
 
     public class FatPrices
