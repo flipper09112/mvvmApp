@@ -96,7 +96,7 @@
 
     <Button
         android:id="@+id/createTrasnportationDoc"
-        android:layout_width="200dp"
+        android:layout_width="150dp"
         android:layout_height="50dp"
         android:text="Criar Guia"
         android:enabled="false"
@@ -105,7 +105,7 @@
         android:textColor="@color/white"
         android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/divider"
+        app:layout_constraintEnd_toStartOf="@+id/divider5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <View
@@ -246,5 +246,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/divider"
         app:layout_constraintTop_toBottomOf="@+id/divider2" />
+
+    <View
+        android:id="@+id/divider5"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="?android:attr/listDivider"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/divider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/productsListRv" />
+
+    <Button
+        android:id="@+id/addProductBt"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/green_button"
+        android:fontFamily="@font/arista_pro_bold"
+        android:text="Adicionar Produto"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/divider"
+        app:layout_constraintStart_toEndOf="@+id/divider5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -44,13 +44,13 @@ namespace tabApp.UI.ViewHolders.Faturation
         private void ProductAmmountTextChanged(object sender, Android.Text.TextChangedEventArgs e)
         {
             _fatItem.Quantity = e.Text.ToString();
-            _updateValueCommand.Execute(null);
+            _updateValueCommand?.Execute(null);
         }
 
         private void DeleteIconClick(object sender, EventArgs e)
         {
             _removeProduct.Invoke(_fatItem);
-            _updateValueCommand.Execute(null);
+            _updateValueCommand?.Execute(null);
         }
 
         internal void Bind(FatItem fatItem, Action<FatItem> removeProduct, MvxCommand updateValueCommand)
