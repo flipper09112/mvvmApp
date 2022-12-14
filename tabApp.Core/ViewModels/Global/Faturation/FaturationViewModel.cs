@@ -125,14 +125,17 @@ namespace tabApp.Core.ViewModels.Global.Faturation
 
             _fatForClient = _faturationService.ClientSelected != null;
             _clientSelectedApp = _faturationService.ClientSelected;
-            _clientSelected = new FatClient()
-            {
-                Id = _faturationService.ClientSelected.Id,
-                Name = _faturationService.ClientSelected.Name,
-                Country = "Portugal",
-                Address = _faturationService.ClientSelected.Address.AddressDesc,
-                NIF = _faturationService.ClientSelected.NIF.ToString(),
-            };
+
+            if(_clientSelectedApp != null)
+                _clientSelected = new FatClient()
+                {
+                    Id = _faturationService.ClientSelected.Id,
+                    Name = _faturationService.ClientSelected.Name,
+                    Country = "Portugal",
+                    Address = _faturationService.ClientSelected.Address.AddressDesc,
+                    NIF = _faturationService.ClientSelected.NIF.ToString(),
+                };
+
             _faturationService.ClientSelected = null;
         }
 
@@ -245,7 +248,7 @@ namespace tabApp.Core.ViewModels.Global.Faturation
                 return;
             }
 
-            FaturationDocs = await _faturationService.TrasnportationsDocs.GetVendasLista(SellsTypes.Facturação, _clientSelectedApp.Id);
+            FaturationDocs = await _faturationService.TrasnportationsDocs.GetVendasLista(SellsTypes.Facturação, _clientSelectedApp?.Id);
             LastTrasnportationsDocs = await _faturationService.TrasnportationsDocs.GetVendasLista(SellsTypes.Guias);
             Client = await _faturationService.Clients.GetClient("Consumidor final");
 

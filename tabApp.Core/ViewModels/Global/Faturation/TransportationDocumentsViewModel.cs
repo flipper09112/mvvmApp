@@ -9,8 +9,10 @@ using tabApp.Core.Models;
 using tabApp.Core.Models.Faturation;
 using tabApp.Core.Services.Implementations.DB;
 using tabApp.Core.Services.Implementations.Faturation;
+using tabApp.Core.Services.Implementations.Products;
 using tabApp.Core.Services.Interfaces.Dialogs;
 using tabApp.Core.Services.Interfaces.Faturation;
+using tabApp.Core.Services.Interfaces.Products;
 using tabApp.Core.Services.Interfaces.WebServices.Sells.DTOs;
 using tabApp.Core.ViewModels.Bases.Generic;
 using Xamarin.Essentials;
@@ -24,26 +26,40 @@ namespace tabApp.Core.ViewModels.Global.Faturation
         private IFaturationService _faturationService;
         private IDataBaseManagerService _dataBaseManagerService;
         private IDialogService _dialogService;
+        private IAddProductToOrderService _addProductToOrderService;
+        private IProductsManagerService _productsManagerService;
 
         public MvxCommand<TrasnportationDoc> OpenDocCommand { get; private set; }
         public MvxCommand CreateTransportationDocumentCommand { get; private set; }
         public MvxCommand UseTodayOrderCommand { get; private set; }
         public MvxCommand UseLastProductsListCommand { get; private set; }
+        public MvxCommand AddProductCommand { get; private set; }
+        public MvxCommand UpdateValueCommand { get; private set; }
 
         public TransportationDocumentsViewModel(IMvxNavigationService navigationService,
                                                 IFaturationService faturationService,
                                                 IDataBaseManagerService dataBaseManagerService,
-                                                IDialogService dialogService)
+                                                IDialogService dialogService,
+                                                IAddProductToOrderService addProductToOrderService,
+                                                IProductsManagerService productsManagerService)
         {
             _navigationService = navigationService;
             _faturationService = faturationService;
             _dataBaseManagerService = dataBaseManagerService;
             _dialogService = dialogService;
+            _addProductToOrderService = addProductToOrderService;
+            _productsManagerService = productsManagerService;
 
             OpenDocCommand = new MvxCommand<TrasnportationDoc>(OpenDoc);
             CreateTransportationDocumentCommand = new MvxCommand(CreateTransportationDocument, CanCreateTransportationDocument);
             UseTodayOrderCommand = new MvxCommand(UseTodayOrder);
             UseLastProductsListCommand = new MvxCommand(UseLastProductsList);
+            AddProductCommand = new MvxCommand(AddProduct);
+        }
+
+        private async void AddProduct()
+        {
+            await _navigationService.Navigate<ChooseProductViewModel>();
         }
 
         private async void UseLastProductsList()
@@ -185,6 +201,8 @@ namespace tabApp.Core.ViewModels.Global.Faturation
         {
             IsBusy = true;
 
+            GetNewProduct();
+
             if (LastTrasnportationsDocs != null)
             {
                 IsBusy = false;
@@ -196,6 +214,22 @@ namespace tabApp.Core.ViewModels.Global.Faturation
             ClientsList = await _faturationService.Clients.GetClient("Consumidor final");
 
             IsBusy = false;
+        }
+        private void GetNewProduct()
+        {
+            if (_addProductToOrderService.ProductsSelected.Count > 0)
+            {
+                _addProductToOrderService.ProductsSelected.ForEach(product => ProductsList.Add(new FatItem()
+                {
+                    Id = product.Id.ToString(),
+                    Details = _productsManagerService.GetProductById(product.Id).Name,
+                    Discount = "0",
+                    Price = product.PVP.ToString(),
+                    Vat = product.Iva.ToString() ?? "NaN",
+                    Quantity = "0",
+                }));
+            }
+            _addProductToOrderService.ProductsSelected.Clear();
         }
 
         public override void DisAppearing()

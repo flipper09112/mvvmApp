@@ -34,6 +34,7 @@ namespace tabApp.UI.Fragments.Global.Faturation
         private Button _createTrasnportationDocBt;
         private Button _setTodayOrderBt;
         private Button _lastTransportationItemsBt;
+        private Button _addProductBt;
         private LastTrasnportationsDocsAdapter _lastTrasnportationsDocsAdapter;
         //private ClientsSpinnerAdapter _clientsSpinnerAdapter;
         private VehiclesSpinnerAdapter _vehiclesSpinnerAdapter;
@@ -55,6 +56,7 @@ namespace tabApp.UI.Fragments.Global.Faturation
             _createTrasnportationDocBt = view.FindViewById<Button>(Resource.Id.createTrasnportationDoc);
             _setTodayOrderBt = view.FindViewById<Button>(Resource.Id.setTodayOrderBt);
             _lastTransportationItemsBt = view.FindViewById<Button>(Resource.Id.lastTransportationItemsBt);
+            _addProductBt = view.FindViewById<Button>(Resource.Id.addProductBt);
 
             _guiasRv.SetLayoutManager(new LinearLayoutManager(Context));
             _productsListRv.SetLayoutManager(new LinearLayoutManager(Context));
@@ -63,6 +65,14 @@ namespace tabApp.UI.Fragments.Global.Faturation
 
         public override void SetUI()
         {
+            UpdateTable();
+        }
+
+        private void UpdateTable()
+        {
+            _productsListAdapter = new ProductsListFatAdapter(ViewModel.ProductsList);
+            _productsListAdapter.RemoveProduct = RemoveProduct;
+            _productsListRv.SetAdapter(_productsListAdapter);
         }
 
         public override void SetupBindings()
@@ -75,6 +85,7 @@ namespace tabApp.UI.Fragments.Global.Faturation
             _lastTransportationItemsBt.Click += LastTransportationItemsBtClick;
             //_clientSpinner.ItemSelected += ClientSpinnerItemSelected;
             _vehicleSpinner.ItemSelected += VehicleSpinnerItemSelected;
+            _addProductBt.Click += AddProductBtClick;
         }
 
         public override void CleanBindings()
@@ -87,6 +98,12 @@ namespace tabApp.UI.Fragments.Global.Faturation
             _lastTransportationItemsBt.Click -= LastTransportationItemsBtClick;
             //_clientSpinner.ItemSelected -= ClientSpinnerItemSelected;
             _vehicleSpinner.ItemSelected -= VehicleSpinnerItemSelected;
+            _addProductBt.Click -= AddProductBtClick;
+        }
+
+        private void AddProductBtClick(object sender, EventArgs e)
+        {
+            ViewModel.AddProductCommand.Execute();
         }
 
         private void VehicleSpinnerItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
