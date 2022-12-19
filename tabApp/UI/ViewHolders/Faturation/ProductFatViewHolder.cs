@@ -53,7 +53,7 @@ namespace tabApp.UI.ViewHolders.Faturation
             _updateValueCommand?.Execute(null);
         }
 
-        internal void Bind(FatItem fatItem, Action<FatItem> removeProduct, MvxCommand updateValueCommand)
+        internal void Bind(FatItem fatItem, Action<FatItem> removeProduct, MvxCommand updateValueCommand, bool simpleView)
         {
             _removeProduct = removeProduct;
             _fatItem = fatItem;
@@ -63,6 +63,12 @@ namespace tabApp.UI.ViewHolders.Faturation
             _productId.Text = fatItem.Id;
             _productName.Text = fatItem.Details;
             _productVat.Text = fatItem.Vat + "%";
+
+            if(simpleView)
+            {
+                _deleteIcon.Visibility = ViewStates.Gone;
+                _productVat.Visibility = ViewStates.Gone;
+            }
         }
     }
 }

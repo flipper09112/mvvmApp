@@ -7,6 +7,7 @@ using tabApp.Core.Services.Interfaces.Dialogs;
 using tabApp.Core.Services.Interfaces.WebServices.Sells.DTOs;
 using tabApp.Core.Services.Interfaces.WebServices.Sells;
 using System.Linq;
+using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 
 namespace tabApp.Core.Services.Implementations.Faturation.Helpers
 {
@@ -83,11 +84,11 @@ namespace tabApp.Core.Services.Implementations.Faturation.Helpers
             return trasnportationDocs;
         }
 
-        public async Task<bool> CreateDocument(FatClient fatClient, Car vehicleSelected, DateTime dateSelected, List<FatItem> productsList)
+        public async Task<TrasnportationDoc> CreateDocument(FatClient fatClient, Car vehicleSelected, DateTime dateSelected, List<FatItem> productsList)
         {
             var success = await _fatProductsManager.ValidateItems(productsList);
 
-            if (!success) return false;
+            if (!success) return null;
 
             var response = await _createSellDocumentRequest.SendAsync(new CreateSellDocumentInput()
             {
@@ -112,10 +113,11 @@ namespace tabApp.Core.Services.Implementations.Faturation.Helpers
             if (!response.Success)
             {
                 _dialogService.ShowErrorDialog(string.Empty, response.Error);
-                return false;
+                return null;
             }
 
-            return true;
+            var docs = await GetVendasLista(SellsTypes.Guias);
+            return docs[0];
         }
 
         internal async Task<string> GetDocumentPos(TrasnportationDoc documentSelected)
@@ -159,18 +161,27 @@ namespace tabApp.Core.Services.Implementations.Faturation.Helpers
             return response.id.ToString();
         }
 
-        internal async Task<bool> UpdateFatDocument(string fatId, FatClient client, List<FatItem> productsList, TrasnportationDoc guiaSelected)
+        internal async Task<TrasnportationDoc> UpdateFatDocument(string fatId, FatClient client, List<FatItem> productsList, TrasnportationDoc guiaSelected, bool faturaRecibo)
         {
-            var fatClient = await _fatClientsManager.ValidateClient(client);
+            FatClient fatClient;
+
+            if (client.Name.Equals("Consumidor final"))
+                fatClient = client;
+            else
+                fatClient = await _fatClientsManager.ValidateClient(client);
 
             if (fatClient == null)
-                return false;
+                return null;
 
             var response = await _updateFatRequest.SendAsync(new CreateSellDocumentInput()
             {
                 Id = fatId,
                 IssueDate = DateTime.Now,
-                DocumentType = client.Id.Equals("Consumidor final") ? DocumentTypeEnum.FacturaSimplificada : DocumentTypeEnum.FacturaRecibo,
+                DocumentType = client.Name.Equals("Consumidor final") ? 
+                                    DocumentTypeEnum.FacturaSimplificada :
+                                    faturaRecibo ? 
+                                        DocumentTypeEnum.FacturaRecibo :
+                                        DocumentTypeEnum.Factura,
                 CustomerId = fatClient.Id.ToString(),
                 VatNumber = fatClient.NIF,
                 Address = fatClient.Address,
@@ -187,10 +198,11 @@ namespace tabApp.Core.Services.Implementations.Faturation.Helpers
             if (!response.Success)
             {
                 _dialogService.ShowErrorDialog(string.Empty, response.Error);
-                return false;
+                return null;
             }
 
-            return true;
+            return (await GetVendasLista(SellsTypes.Facturação))[0];
         }
+
     }
 }

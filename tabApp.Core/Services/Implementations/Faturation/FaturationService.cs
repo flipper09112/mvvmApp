@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using tabApp.Core.Models;
 using tabApp.Core.Models.Faturation;
@@ -30,7 +31,7 @@ namespace tabApp.Core.Services.Implementations.Faturation
     public class FaturationService : IFaturationService
     {
         public static string BaseUrl = "https://facturalusa.pt/api/v1";
-        public static string APIKEY = "uwzNzf0rmzjev5iWyQDGcRQFJY37DhmI8HuULd6yslHqUBbqVOophwVSEp9Zr2vAJwBx0I8P4GyVk0QPYTig5BWwqnfWztRLejK65gu6d4stIuc7C47BfETD83RgvQ6l";
+        public static string APIKEY = "ZnrkWoPMFvsMmLUujyWDSPjhWZ2HvxIa6uRNVhuciqjXF12WhcSrlKgDG0MUfIK8muqCP32RrOuHbxgWHRaHazicKzl1zrWA82DTWozofhPKwnQ0GyXP9PKaV3MB7IQ0";
         //public static string APIKEY = "vvrwuk2AP4mAjNnliYav0n9lNvkZ5AbUVOdGFeQsDijeFtVkw3asV9W7Kr2Cg0V5s8M65xJrl3y9g9aTMLcrXJ0qMMyiI8MINtEx0cESne6zC0YylSpL9ln3J6M9rNwv";
 
         private readonly IGetVendasListaRequest _getVendasListaRequest;
@@ -147,5 +148,38 @@ namespace tabApp.Core.Services.Implementations.Faturation
         }
 
         public Client ClientSelected { get; set; }
+
+        public List<FatItem> GetItemsRemainingFromGuia(TrasnportationDoc guiaSelected, List<TrasnportationDoc> faturationDocs)
+        {
+            List<FatItem> fatItems = new List<FatItem>();
+            if (guiaSelected == null) return null;
+            List<Item> itemsRemaining = guiaSelected.ProductItems;
+
+            foreach(var fat in faturationDocs)
+            {
+                if (fat.StartTravelDate != guiaSelected.StartTravelDate)
+                    continue;
+
+                foreach(var product in fat.ProductItems)
+                {
+                    var findProduct = itemsRemaining.Find(item => item.item.reference == product.item.reference);
+                    findProduct.quantity -= product.quantity;
+                }
+            }
+
+            itemsRemaining = itemsRemaining.Where(item => item.quantity > 0).ToList();
+
+            itemsRemaining.ForEach(product => fatItems.Add(new FatItem()
+            {
+                Id = product.item.reference.ToString(),
+                Details = product.item_details,
+                Discount = product.discount.ToString(),
+                Price = _productsManagerService.GetProductById(int.Parse(product.item.reference)).PVP.ToString(),
+                Vat = product?.vat?.tax.ToString() ?? "NaN",
+                Quantity = product.quantity.ToString(),
+            }));
+
+            return fatItems;
+        }
     }
 }

@@ -185,6 +185,9 @@ namespace tabApp.UI.Fragments.Global.Faturation
                     _productsListAdapter.RemoveProduct = RemoveProduct;
                     _productsListRv.SetAdapter(_productsListAdapter);
                     break;
+                case nameof(ViewModel.DateSelected):
+                    _chargingTime.Text = ViewModel.DateSelected.Value.ToString("dd/MM/yyyy HH:mm");
+                    break;
             }
         }
 

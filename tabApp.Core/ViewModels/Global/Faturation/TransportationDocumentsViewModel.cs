@@ -65,12 +65,18 @@ namespace tabApp.Core.ViewModels.Global.Faturation
         private async void UseLastProductsList()
         {
             var productsListString = await SecureStorage.GetAsync(LastTransportationGuideItemsKey);
+            var dateLastDoc = await SecureStorage.GetAsync(LastTransportationGuideDateKey);
 
-            if(productsListString == null)
+            if (productsListString == null)
             {
                 _dialogService.ShowErrorDialog(string.Empty, "Sem dados da última guia de transporte");
                 return;
             }
+            if(dateLastDoc != null)
+            {
+                DateSelected = DateTime.Parse(dateLastDoc);
+            }
+
             ProductsList = JsonConvert.DeserializeObject<List<FatItem>>(productsListString);
         }
 
@@ -103,15 +109,17 @@ namespace tabApp.Core.ViewModels.Global.Faturation
         {
             IsBusy = true;
             await SecureStorage.SetAsync(LastTransportationGuideItemsKey, JsonConvert.SerializeObject(ProductsList));
-            var success = await _faturationService.TrasnportationsDocs.CreateDocument(ClientsList[0], VehicleSelected, DateSelected ?? DateTime.Today.AddDays(1), ProductsList);
+            await SecureStorage.SetAsync(LastTransportationGuideDateKey, DateSelected.ToString());
+            var doc = await _faturationService.TrasnportationsDocs.CreateDocument(ClientsList[0], VehicleSelected, DateSelected ?? DateTime.Today.AddDays(1), ProductsList);
 
-            if (!success)
+            if (doc == null)
             {
                 IsBusy = false;
                 return;
             }
-            
-            await _navigationService.Close(this);
+
+            OpenDoc(doc);
+            //await _navigationService.Close(this);
             IsBusy = false;
         }
 
@@ -190,6 +198,7 @@ namespace tabApp.Core.ViewModels.Global.Faturation
         }   
         
         public string LastTransportationGuideItemsKey => "TransportationDocumentsViewModel_LastTransportationGuideItemsKey";
+        public string LastTransportationGuideDateKey => "TransportationDocumentsViewModel_LastTransportationGuideDateKey";
 
         private async void OpenDoc(TrasnportationDoc selectedDoc)
         {
