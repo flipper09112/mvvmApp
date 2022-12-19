@@ -27,15 +27,28 @@ namespace tabApp.UI.Fragments.Global.Faturation
         private View _view;
         private RecyclerView _faturasRv;
         private RecyclerView _productsListRv;
+        private RecyclerView _remainingItemsRv;
         private View _emptyLayout;
         private Spinner _guiasSpinner;
         private ImageView _openGuiaIcon;
         private Button _addProductBt, _createFaturaBt;
         private TextView _clientName;
         private TextView _totalFatValue;
+        private RadioGroup _fatRadioGroup;
+        private RadioButton _fatRg;
         private ProductsListFatAdapter _productsListAdapter;
         private LastTrasnportationsDocsAdapter _lastTrasnportationsDocsAdapter;
         private LastTrasnportationsDocsSpinnerAdapter _guiasSpinnerAdapter;
+        private ProductsListFatAdapter _productsRemainingListAdapter;
+        private RadioButton _fatReceiptRg;
+        private LinearLayout _actionTemplateContainer;
+        private LinearLayout _templateContainer;
+        private Button _templateOneBt;
+        private Button _templateTwoBt;
+        private Button _templateThreeBt;
+        private Button _actionTemplateOneBt;
+        private Button _actionTemplateTwoBt;
+        private Button _actionTemplateThreeBt;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -45,6 +58,7 @@ namespace tabApp.UI.Fragments.Global.Faturation
             _view = view;
             _faturasRv = view.FindViewById<RecyclerView>(Resource.Id.faturasRv);
             _productsListRv = view.FindViewById<RecyclerView>(Resource.Id.productsListRv);
+            _remainingItemsRv = view.FindViewById<RecyclerView>(Resource.Id.remainingItemsRv);
             _emptyLayout = view.FindViewById(Resource.Id.emptyLayout);
             _guiasSpinner = view.FindViewById<Spinner>(Resource.Id.guiasRv);
             _openGuiaIcon = view.FindViewById<ImageView>(Resource.Id.openGuiaIcon);
@@ -52,9 +66,21 @@ namespace tabApp.UI.Fragments.Global.Faturation
             _createFaturaBt = view.FindViewById<Button>(Resource.Id.createTrasnportationDoc);
             _clientName = view.FindViewById<TextView>(Resource.Id.clientName);
             _totalFatValue = view.FindViewById<TextView>(Resource.Id.totalFatValue);
+            _fatRadioGroup = view.FindViewById<RadioGroup>(Resource.Id.fatRadioGroup);
+            _fatRg = view.FindViewById<RadioButton>(Resource.Id.fatRg);
+            _fatReceiptRg = view.FindViewById<RadioButton>(Resource.Id.fatReceiptRg);
+            _actionTemplateContainer = view.FindViewById<LinearLayout>(Resource.Id.actionTemplateContainer);
+            _templateContainer = view.FindViewById<LinearLayout>(Resource.Id.templateContainer);
+            _templateOneBt = view.FindViewById<Button>(Resource.Id.templateOneBt);
+            _templateTwoBt = view.FindViewById<Button>(Resource.Id.templateTwoBt);
+            _templateThreeBt = view.FindViewById<Button>(Resource.Id.templateThreeBt);
+            _actionTemplateOneBt = view.FindViewById<Button>(Resource.Id.actionTemplateOneBt);
+            _actionTemplateTwoBt = view.FindViewById<Button>(Resource.Id.actionTemplateTwoBt);
+            _actionTemplateThreeBt = view.FindViewById<Button>(Resource.Id.actionTemplateThreeBt);
 
             _faturasRv.SetLayoutManager(new LinearLayoutManager(Context));
             _productsListRv.SetLayoutManager(new LinearLayoutManager(Context));
+            _remainingItemsRv.SetLayoutManager(new LinearLayoutManager(Context));
 
             return view;
         }
@@ -63,6 +89,24 @@ namespace tabApp.UI.Fragments.Global.Faturation
         {
             _clientName.Text = ViewModel.ClientName;
             _totalFatValue.Text = ViewModel.TotalFatValue;
+
+            _fatRadioGroup.Visibility = ViewModel.FatForClient ? ViewStates.Visible : ViewStates.Gone;
+
+            SetTemplateLayout();
+        }
+
+        private void SetTemplateLayout()
+        {
+            _actionTemplateContainer.Visibility = ViewModel.FatForClient ? ViewStates.Gone : ViewStates.Visible;
+            _templateContainer.Visibility = ViewModel.FatForClient ? ViewStates.Gone : ViewStates.Visible;
+
+            _templateOneBt.Enabled = ViewModel.UseTemplateOneCommand.CanExecute(null);
+            _templateTwoBt.Enabled = ViewModel.UseTemplateTwoCommand.CanExecute(null);
+            _templateThreeBt.Enabled = ViewModel.UseTemplateThreeCommand.CanExecute(null);
+
+            _actionTemplateOneBt.Text = ViewModel.UseTemplateOneCommand.CanExecute(null) ? "Apagar" : "Criar";
+            _actionTemplateTwoBt.Text = ViewModel.UseTemplateTwoCommand.CanExecute(null) ? "Apagar" : "Criar";
+            _actionTemplateThreeBt.Text = ViewModel.UseTemplateThreeCommand.CanExecute(null) ? "Apagar" : "Criar";
         }
 
         public override void SetupBindings()
@@ -73,6 +117,14 @@ namespace tabApp.UI.Fragments.Global.Faturation
             ViewModel.CreateFaturaSimplesCommand.CanExecuteChanged += CreateFaturaSimplesCommandCanExecuteChanged;
             _createFaturaBt.Click += CreateFaturaBtClick;
             _addProductBt.Click += AddProductBtClick;
+            _fatRadioGroup.CheckedChange += FatRadioGroupCheckedChange;
+
+            _templateOneBt.Click += TemplateOneBtClick;
+            _templateTwoBt.Click += TemplateTwoBtClick;
+            _templateThreeBt.Click += TemplateThreeBtClick;
+            _actionTemplateOneBt.Click += ActionTemplateOneBtClick;
+            _actionTemplateTwoBt.Click += ActionTemplateTwoBtClick;
+            _actionTemplateThreeBt.Click += ActionTemplateThreeBtClick;
         }
 
         public override void CleanBindings()
@@ -83,6 +135,49 @@ namespace tabApp.UI.Fragments.Global.Faturation
             ViewModel.CreateFaturaSimplesCommand.CanExecuteChanged -= CreateFaturaSimplesCommandCanExecuteChanged;
             _createFaturaBt.Click -= CreateFaturaBtClick;
             _addProductBt.Click -= AddProductBtClick;
+            _fatRadioGroup.CheckedChange -= FatRadioGroupCheckedChange;
+
+            _templateOneBt.Click -= TemplateOneBtClick;
+            _templateTwoBt.Click -= TemplateTwoBtClick;
+            _templateThreeBt.Click -= TemplateThreeBtClick;
+            _actionTemplateOneBt.Click -= ActionTemplateOneBtClick;
+            _actionTemplateTwoBt.Click -= ActionTemplateTwoBtClick;
+            _actionTemplateThreeBt.Click -= ActionTemplateThreeBtClick;
+        }
+
+        private void ActionTemplateTwoBtClick(object sender, EventArgs e)
+        {
+            ViewModel.SetTemplateTwoCommand.Execute();
+        }
+
+        private void ActionTemplateThreeBtClick(object sender, EventArgs e)
+        {
+            ViewModel.SetTemplateThreeCommand.Execute();
+        }
+
+        private void ActionTemplateOneBtClick(object sender, EventArgs e)
+        {
+            ViewModel.SetTemplateOneCommand.Execute();
+        }
+
+        private void TemplateThreeBtClick(object sender, EventArgs e)
+        {
+            ViewModel.UseTemplateThreeCommand.Execute();
+        }
+
+        private void TemplateTwoBtClick(object sender, EventArgs e)
+        {
+            ViewModel.UseTemplateTwoCommand.Execute();
+        }
+
+        private void TemplateOneBtClick(object sender, EventArgs e)
+        {
+            ViewModel.UseTemplateOneCommand.Execute();
+        }
+
+        private void FatRadioGroupCheckedChange(object sender, RadioGroup.CheckedChangeEventArgs e)
+        {
+            ViewModel.FaturaRecibo = _fatReceiptRg.Checked;
         }
 
         private void AddProductBtClick(object sender, EventArgs e)
@@ -129,6 +224,16 @@ namespace tabApp.UI.Fragments.Global.Faturation
                     _productsListAdapter.UpdateValueCommand = ViewModel.UpdateValueCommand;
                     _productsListRv.SetAdapter(_productsListAdapter);
                     CreateFaturaSimplesCommandCanExecuteChanged(null, null);
+                    break;
+                case nameof(ViewModel.ProductsRemaining):
+                    _productsRemainingListAdapter = new ProductsListFatAdapter(ViewModel.ProductsRemaining, true); 
+                    _remainingItemsRv.SetAdapter(_productsRemainingListAdapter);
+                    break;
+
+                case nameof(ViewModel.TemplateOneKey):
+                case nameof(ViewModel.TemplateTwoKey):
+                case nameof(ViewModel.TemplateThreeKey):
+                    SetTemplateLayout();
                     break;
             }
         }

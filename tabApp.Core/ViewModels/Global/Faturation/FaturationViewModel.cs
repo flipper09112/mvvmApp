@@ -39,12 +39,21 @@ namespace tabApp.Core.ViewModels.Global.Faturation
         public MvxCommand UseLastProductsListCommand { get; private set; }
         public MvxCommand AddProductCommand { get; private set; }
         public MvxCommand UpdateValueCommand { get; private set; }
+        public MvxCommand UseTemplateOneCommand { get; private set; }
+        public MvxCommand UseTemplateTwoCommand { get; private set; }
+        public MvxCommand UseTemplateThreeCommand { get; private set; }
+        public MvxCommand SetTemplateOneCommand { get; private set; }
+        public MvxCommand SetTemplateTwoCommand { get; private set; }
+        public MvxCommand SetTemplateThreeCommand { get; private set; }
 
         private bool _fatForClient;
         private Client _clientSelectedApp;
         private FatClient _clientSelected;
 
         public string LastInvoiveGuideItemsKey => "FaturationViewModel_LastTransportationGuideItemsKey";
+        public string TemplateOneKey => "TemplateOneKey";
+        public string TemplateTwoKey => "TemplateTwoKey";
+        public string TemplateThreeKey => "TemplateThreeKey";
 
         private List<FatItem> _productsList = new List<FatItem>();
         public List<FatItem> ProductsList
@@ -83,6 +92,17 @@ namespace tabApp.Core.ViewModels.Global.Faturation
 
         public List<FatClient> Client { get; private set; }
 
+        private List<FatItem> _productsRemaining = new List<FatItem>();
+        public List<FatItem> ProductsRemaining
+        {
+            get => _productsRemaining;
+            set
+            {
+                _productsRemaining = value;
+                RaisePropertyChanged(nameof(ProductsRemaining));
+            }
+        }
+
         private TrasnportationDoc _guiaSelected;
         public TrasnportationDoc GuiaSelected
         {
@@ -93,6 +113,7 @@ namespace tabApp.Core.ViewModels.Global.Faturation
                 IsBusy = true;
                 GetItems();
                 IsBusy = false;
+                ProductsRemaining = _faturationService.GetItemsRemainingFromGuia(GuiaSelected, FaturationDocs);
                 CreateFaturaSimplesCommand.RaiseCanExecuteChanged();
                 RaisePropertyChanged(nameof(GuiaSelected));
             }
@@ -122,6 +143,12 @@ namespace tabApp.Core.ViewModels.Global.Faturation
             UseLastProductsListCommand = new MvxCommand(UseLastProductsList);
             AddProductCommand = new MvxCommand(AddProduct);
             UpdateValueCommand = new MvxCommand(UpdateValue);
+            UseTemplateOneCommand = new MvxCommand(UseTemplateOne, CanUseTemplateOne);
+            UseTemplateTwoCommand = new MvxCommand(UseTemplateTwo, CanUseTemplateTwo);
+            UseTemplateThreeCommand = new MvxCommand(UseTemplateThree, CanUseTemplateThree);
+            SetTemplateOneCommand = new MvxCommand(SetTemplateOne);
+            SetTemplateTwoCommand = new MvxCommand(SetTemplateTwo);
+            SetTemplateThreeCommand = new MvxCommand(SetTemplateThree);
 
             _fatForClient = _faturationService.ClientSelected != null;
             _clientSelectedApp = _faturationService.ClientSelected;
@@ -139,6 +166,92 @@ namespace tabApp.Core.ViewModels.Global.Faturation
             _faturationService.ClientSelected = null;
         }
 
+        private async void SetTemplateThree()
+        {
+            IsBusy = true;
+
+            var data = await SecureStorage.GetAsync(TemplateThreeKey);
+            if (data == null)
+                await SecureStorage.SetAsync(TemplateThreeKey, JsonConvert.SerializeObject(ProductsList));
+            else
+                SecureStorage.Remove(TemplateThreeKey);
+
+            await RaisePropertyChanged(nameof(TemplateThreeKey));
+
+            IsBusy = false;
+        }
+
+        private async void SetTemplateTwo()
+        {
+            IsBusy = true;
+
+            var data = await SecureStorage.GetAsync(TemplateTwoKey);
+            if (data == null)
+                await SecureStorage.SetAsync(TemplateTwoKey, JsonConvert.SerializeObject(ProductsList));
+            else
+                SecureStorage.Remove(TemplateTwoKey);
+
+            await RaisePropertyChanged(nameof(TemplateTwoKey));
+
+            IsBusy = false;
+        }
+
+        private async void SetTemplateOne()
+        {
+            IsBusy = true;
+
+            var data = await SecureStorage.GetAsync(TemplateOneKey);
+            if (data == null)
+                await SecureStorage.SetAsync(TemplateOneKey, JsonConvert.SerializeObject(ProductsList));
+            else
+                SecureStorage.Remove(TemplateOneKey);
+
+            await RaisePropertyChanged(nameof(TemplateOneKey));
+            IsBusy = false;
+        }
+
+        private bool CanUseTemplateThree()
+        {
+            return SecureStorage.GetAsync(TemplateThreeKey).Result != null;
+        }
+
+        private bool CanUseTemplateTwo()
+        {
+            return SecureStorage.GetAsync(TemplateTwoKey).Result != null;
+        }
+
+        private bool CanUseTemplateOne()
+        {
+            return SecureStorage.GetAsync(TemplateOneKey).Result != null;
+        }
+
+        private async void UseTemplateThree()
+        {
+            UseTemplate(TemplateThreeKey);
+        }
+
+        private void UseTemplateTwo()
+        {
+            UseTemplate(TemplateTwoKey);
+        }
+
+        private void UseTemplateOne()
+        {
+            UseTemplate(TemplateOneKey);
+        }
+
+        private async void UseTemplate(string key)
+        {
+            IsBusy = true;
+
+            var data = await SecureStorage.GetAsync(key);
+
+            if (data != null)
+                ProductsList = JsonConvert.DeserializeObject<List<FatItem>>(data);
+
+            IsBusy = false;
+        }
+
         private void UpdateValue()
         {
             RaisePropertyChanged(nameof(TotalFatValue));
@@ -150,6 +263,7 @@ namespace tabApp.Core.ViewModels.Global.Faturation
         }
 
         public string ClientName => _fatForClient ? (_clientSelected.Name + "["+_clientSelected.NIF+"]") : "Consumidor final";
+        public bool FatForClient => _fatForClient;
 
         public string TotalFatValue
         {
@@ -163,6 +277,8 @@ namespace tabApp.Core.ViewModels.Global.Faturation
                 return value.ToString("C");
             }
         }
+
+        public bool FaturaRecibo { get; set; } = true;
 
         private async void UseLastProductsList()
         {
@@ -219,16 +335,17 @@ namespace tabApp.Core.ViewModels.Global.Faturation
                 return;
             }
 
-            var success = await _faturationService.TrasnportationsDocs.UpdateFatDocument(fatId, _clientSelected ?? Client[0], ProductsList, GuiaSelected);
+            var doc = await _faturationService.TrasnportationsDocs.UpdateFatDocument(fatId, _clientSelected ?? Client[0], ProductsList, GuiaSelected, FaturaRecibo);
 
-            if (!success)
+            if (doc == null)
             {
                 IsBusy = false;
                 return;
             }
 
             IsBusy = false;
-            await _navigationService.Close(this);
+            //await _navigationService.Close(this);
+            OpenDoc(doc);
         }
 
         private bool CanCreateTransportationDocument()

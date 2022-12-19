@@ -17,12 +17,15 @@ namespace tabApp.UI.Adapters.Faturation
 {
     public class ProductsListFatAdapter : RecyclerView.Adapter
     {
-        public ProductsListFatAdapter(List<FatItem> productsList)
+        public ProductsListFatAdapter(List<FatItem> productsList, bool simpleView = false)
         {
+            _simpleView = simpleView;
             ProductsList = productsList;
         }
 
         public override int ItemCount => ProductsList?.Count ?? 0;
+
+        private bool _simpleView;
 
         public List<FatItem> ProductsList { get; set; }
         public Action<FatItem> RemoveProduct { get; internal set; }
@@ -31,7 +34,7 @@ namespace tabApp.UI.Adapters.Faturation
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
             ProductFatViewHolder lastTrasnportationsDoc = holder as ProductFatViewHolder;
-            lastTrasnportationsDoc.Bind(ProductsList[holder.AdapterPosition], RemoveProduct, UpdateValueCommand);
+            lastTrasnportationsDoc.Bind(ProductsList[holder.AdapterPosition], RemoveProduct, UpdateValueCommand, _simpleView);
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
