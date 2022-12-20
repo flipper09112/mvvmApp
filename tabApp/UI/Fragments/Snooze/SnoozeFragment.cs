@@ -1,11 +1,15 @@
-﻿using Android.App;
+﻿using Android.Animation;
+using Android.App;
 using Android.Content;
+using Android.Graphics;
 using Android.Locations;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.V7.Widget;
 using Android.Views;
+using Android.Views.Animations;
 using Android.Widget;
+using AndroidX.ConstraintLayout.Widget;
 using In.UnicodeLabs.KdGaugeViewLib;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using System;
@@ -36,6 +40,9 @@ namespace tabApp.UI.Fragments.Snooze
         private NotificationsListAdapter _notificationsAdapter;
         private bool _runningNot;
         private TextView _clientDailyOrderLabel;
+        private ConstraintLayout _mainContainer;
+        private Client _lastClient;
+        private ObjectAnimator _animator;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -50,6 +57,7 @@ namespace tabApp.UI.Fragments.Snooze
             _withoutNotifications = view.FindViewById<ImageView>(Resource.Id.withoutNotifications);
             _clientNameLabel = view.FindViewById<TextView>(Resource.Id.clientNameLabel);
             _clientDailyOrderLabel = view.FindViewById<TextView>(Resource.Id.clientDailyOrderLabel);
+            _mainContainer = view.FindViewById<ConstraintLayout>(Resource.Id.mainContainer);
 
             var layoutManager2 = new AndroidX.RecyclerView.Widget.LinearLayoutManager(Context);
             _notificationList.SetLayoutManager(layoutManager2);
@@ -126,7 +134,27 @@ namespace tabApp.UI.Fragments.Snooze
 
             _clientNameLabel.Text = client.Name + " (" + client.Id + " )";
             _clientDailyOrderLabel.Text = ViewModel.GetDailyOrderDesc(client);
-           
+
+            if (_lastClient != null && _lastClient.Id == client.Id)
+                return;
+
+            _lastClient = client;
+
+            var diff = DateTime.Now - client.LastChangeDate;
+            if (client.LastChangeDate != default(DateTime) && diff < TimeSpan.FromDays(30))
+            {
+                _animator = ObjectAnimator.OfInt(_mainContainer, "backgroundColor", Color.Yellow, Color.White);
+
+                // duration of one color
+                _animator.SetDuration(500);
+                _animator.SetEvaluator(new ArgbEvaluator());
+
+                // It will be repeated up to infinite time
+                _animator.RepeatCount = Animation.Infinite;
+                _animator.Start();
+            }
+            else
+                _animator?.Resume();
         }
 
         private void SetClosestNotification(Location obj)

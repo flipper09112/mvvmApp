@@ -56,6 +56,9 @@ namespace tabApp.UI.Fragments.Global.Faturation
             _trasnportationDocs.Click -= TrasnportationDocsClick;
             _faturationDocs.Click -= FaturationDocsClick;
             _faturalusaIcon.Click -= FaturalusaIconClick;
+
+            _activity.ShowMenu();
+            _activity.ShowToolbar();
         }
 
         private void FaturalusaIconClick(object sender, EventArgs e)
