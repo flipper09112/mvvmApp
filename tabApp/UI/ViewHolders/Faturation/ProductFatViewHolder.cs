@@ -66,6 +66,7 @@ namespace tabApp.UI.ViewHolders.Faturation
 
             if(simpleView)
             {
+                _productId.Visibility = ViewStates.Gone;
                 _deleteIcon.Visibility = ViewStates.Gone;
                 _productVat.Visibility = ViewStates.Gone;
             }

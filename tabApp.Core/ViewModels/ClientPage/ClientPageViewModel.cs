@@ -177,7 +177,7 @@ namespace tabApp.Core.ViewModels
             else
             {
                 var orderAmmount = _ordersManagerService.GetValue(extraOrder.Id, extraOrder.AllItems);
-                var dayAmmount = _ordersManagerService.GetValue(extraOrder.Id, _clientsManagerService.GetTodayDailyOrder(Client, extraOrder.OrderDay.DayOfWeek));
+                var dayAmmount = GetDayAmmount(Client, extraOrder);
                 var ammount = orderAmmount - dayAmmount; 
                 Client.AddExtra(ammount);
                 extraOrder.AmmountedAdded = true;
@@ -196,6 +196,42 @@ namespace tabApp.Core.ViewModels
             _dialogService.ShowSuccessChangeSnackBar("Adicionado extra com sucesso");
             RaisePropertyChanged(nameof(AddOrderExtra));
             IsBusy = false;
+        }
+
+        private double GetDayAmmount(Client client, ExtraOrder extraOrder)
+        {
+            List<(DateTime Date, int days)> days = new List<(DateTime Date, int days)>()
+            {
+                (DateTime.Parse("12/24/2022 07:00:00"), 3),
+                (DateTime.Parse("12/31/2022 07:00:00"), 3)
+            };
+
+            foreach (var date in days)
+            {
+                if (date.Date.Day == extraOrder.OrderDay.Day
+                    && date.Date.Month == extraOrder.OrderDay.Month)
+                {
+                    string daysLabel = "";
+                    for (int i = 1; i < date.days; i++)
+                    {
+                        daysLabel += (date.Date.AddDays(i).ToString("dd/MM") + "\n");
+                    }
+
+                    _dialogService.Show("Dia de dobra", "O extra foi adicionado tendo em consideração que nos seguintes dias não se trabalha!\n" + daysLabel);
+
+                    double value = 0;
+                    for (int i = 0; i < date.days; i++)
+                    {
+                        value += _ordersManagerService.GetValue(extraOrder.Id,
+                                                                _clientsManagerService.GetTodayDailyOrder(client,
+                                                                                                          extraOrder.OrderDay.AddDays(i).DayOfWeek));
+                    }
+
+                    return value;
+                }
+            }
+
+            return _ordersManagerService.GetValue(extraOrder.Id, _clientsManagerService.GetTodayDailyOrder(client, extraOrder.OrderDay.DayOfWeek));
         }
 
         private void CancelOrder(ExtraOrder order)

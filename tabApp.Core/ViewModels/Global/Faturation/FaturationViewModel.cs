@@ -225,7 +225,7 @@ namespace tabApp.Core.ViewModels.Global.Faturation
             return SecureStorage.GetAsync(TemplateOneKey).Result != null;
         }
 
-        private async void UseTemplateThree()
+        private void UseTemplateThree()
         {
             UseTemplate(TemplateThreeKey);
         }
