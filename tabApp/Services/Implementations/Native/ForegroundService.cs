@@ -137,7 +137,9 @@ namespace tabApp.Services.Implementations.Native
             if(!order.ExtraOrder.HasNotify)
             {
                 order.ExtraOrder.HasNotify = true;
-                _notificationHelper.Notify(order.ExtraOrder.Id, order.Client.Name, GetOrderDesc(order.ExtraOrder));
+                _notificationHelper.Notify(order.ExtraOrder.Id, 
+                                           order.Client.Name + " (" + (order.ExtraOrder.IsTotal ? "Total" : "Extra") + ")", 
+                                           GetOrderDesc(order.ExtraOrder));
             }
         }
         private string GetOrderDesc(ExtraOrder obj)
