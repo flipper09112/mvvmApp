@@ -209,7 +209,7 @@ namespace tabApp.Core.ViewModels.Home
         }
         private void SetupClientDeterminatedStop()
         {
-            double total = _ammountToPayService.CalculateBetweenDates(Client, FirstDayDeterminatedDate, LastDayDeterminatedDate);
+            double total = _ammountToPayService.CalculateBetweenDates(Client, FirstDayDeterminatedDate, LastDayDeterminatedDate, false);
             Client.AddExtra(-1 * total);
             if(FirstDayDeterminatedDate.Date <= DateTime.Today.AddDays(1).Date)
                 Client.UpdateActive(false);

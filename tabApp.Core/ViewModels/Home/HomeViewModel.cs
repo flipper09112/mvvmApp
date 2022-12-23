@@ -3,6 +3,7 @@ using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Threading.Tasks;
 using tabApp.Core.Helpers;
@@ -149,8 +150,8 @@ namespace tabApp.Core
         {
             List<(DateTime Date, int days)> days = new List<(DateTime Date, int days)>()
             {
-                (DateTime.Parse("12/24/2022 07:00:00"), 3),
-                (DateTime.Parse("12/31/2022 07:00:00"), 3),
+                (DateTime.ParseExact("12/24/2022 07:00:00", "MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture), 3),
+                (DateTime.ParseExact("12/31/2022 07:00:00", "MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture), 3),
             };
 
             foreach(var date in days)

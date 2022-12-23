@@ -282,7 +282,7 @@ namespace tabApp.Core.Services.Implementations.Clients
             return ammount + client.ExtraValueToPay;
         }
 
-        public double CalculateBetweenDates(Client client, DateTime startDate, DateTime endDate)
+        public double CalculateBetweenDates(Client client, DateTime startDate, DateTime endDate, bool withExtra = true)
         {
             double ammount = 0;
             DateTime temp = startDate;
@@ -320,7 +320,7 @@ namespace tabApp.Core.Services.Implementations.Clients
                 temp = temp.AddDays(1);
             }
 
-            return ammount + client.ExtraValueToPay;
+            return ammount + (withExtra ? client.ExtraValueToPay : 0);
         }
     }
 }
