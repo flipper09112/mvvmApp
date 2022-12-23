@@ -9,6 +9,6 @@ namespace tabApp.Core.Services.Interfaces.Clients
     {
         double Calculate(Client client, DateTime payTo);
         double CalculateUntilDate(Client client, DateTime endDate);
-        double CalculateBetweenDates(Client client, DateTime startDate, DateTime endDate);
+        double CalculateBetweenDates(Client client, DateTime startDate, DateTime endDate, bool withExtra = true);
     }
 }

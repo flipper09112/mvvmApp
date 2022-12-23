@@ -140,10 +140,10 @@ namespace tabApp.UI.Fragments.Snooze
 
             _lastClient = client;
 
-            var diff = DateTime.Now - client.LastChangeDate;
-            if (client.LastChangeDate != default(DateTime) && diff < TimeSpan.FromDays(30))
+            AlertType alertType = GetAlertType(client);
+            if (alertType != AlertType.None)
             {
-                _animator = ObjectAnimator.OfInt(_mainContainer, "backgroundColor", Color.Yellow, Color.White);
+                _animator = ObjectAnimator.OfInt(_mainContainer, "backgroundColor", alertType == AlertType.Inativated ? Color.Red : Color.Yellow, Color.White);
 
                 // duration of one color
                 _animator.SetDuration(500);
@@ -155,6 +155,24 @@ namespace tabApp.UI.Fragments.Snooze
             }
             else
                 _animator?.Resume();
+        }
+
+        private AlertType GetAlertType(Client client)
+        {
+            if (!client.Active)
+                return AlertType.Inativated;
+
+            var detailsListChangeDailyOrder = client.DetailsList.Where(item => item.DetailType == DetailTypeEnum.ChangeDailyOrder)?.ToList();
+
+            foreach (var detail in detailsListChangeDailyOrder ?? new List<Regist>())
+            {
+                var diff = DateTime.Now - detail.DetailRegistDay;
+
+                if (diff < TimeSpan.FromDays(30))
+                    return AlertType.ChangedDailyOrder;
+            }
+
+            return AlertType.None;
         }
 
         private void SetClosestNotification(Location obj)
@@ -212,5 +230,12 @@ namespace tabApp.UI.Fragments.Snooze
 
             _running = false;
         }
+    }
+
+    internal enum AlertType
+    {
+        ChangedDailyOrder,
+        Inativated,
+        None
     }
 }
