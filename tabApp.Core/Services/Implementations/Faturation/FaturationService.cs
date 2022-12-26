@@ -31,8 +31,12 @@ namespace tabApp.Core.Services.Implementations.Faturation
     public class FaturationService : IFaturationService
     {
         public static string BaseUrl = "https://facturalusa.pt/api/v1";
+
+#if DEBUG
         public static string APIKEY = "ZnrkWoPMFvsMmLUujyWDSPjhWZ2HvxIa6uRNVhuciqjXF12WhcSrlKgDG0MUfIK8muqCP32RrOuHbxgWHRaHazicKzl1zrWA82DTWozofhPKwnQ0GyXP9PKaV3MB7IQ0";
-        //public static string APIKEY = "vvrwuk2AP4mAjNnliYav0n9lNvkZ5AbUVOdGFeQsDijeFtVkw3asV9W7Kr2Cg0V5s8M65xJrl3y9g9aTMLcrXJ0qMMyiI8MINtEx0cESne6zC0YylSpL9ln3J6M9rNwv";
+#elif RELEASE
+        public static string APIKEY = "8XmZy4zUHx0dM7jqo1JSfAPIRcefKCLSWRO730uFHrD1upEh18KIkTiXmzRalP4LxyyjL3szNVSz729hQ0aNqhL8bgQXenWiQJI8nW5WrygmJX01D3CQE5SGD5n3Q6EX";
+#endif
 
         private readonly IGetVendasListaRequest _getVendasListaRequest;
         private readonly IDialogService _dialogService;

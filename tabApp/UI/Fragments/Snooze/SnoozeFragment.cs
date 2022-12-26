@@ -146,7 +146,7 @@ namespace tabApp.UI.Fragments.Snooze
                 _animator = ObjectAnimator.OfInt(_mainContainer, "backgroundColor", alertType == AlertType.Inativated ? Color.Red : Color.Yellow, Color.White);
 
                 // duration of one color
-                _animator.SetDuration(500);
+                _animator.SetDuration(250);
                 _animator.SetEvaluator(new ArgbEvaluator());
 
                 // It will be repeated up to infinite time
@@ -154,7 +154,7 @@ namespace tabApp.UI.Fragments.Snooze
                 _animator.Start();
             }
             else
-                _animator?.Resume();
+                _animator?.Cancel();
         }
 
         private AlertType GetAlertType(Client client)

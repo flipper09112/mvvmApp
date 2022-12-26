@@ -20,7 +20,7 @@ namespace tabApp.UI.Fragments.Home.ViewPager
         private HomeViewModel ViewModel;
         private HomePageOrdersListAdapter adapter;
         private View emptyLayout;
-        private RecyclerView recycler;
+        public RecyclerView recycler;
 
         public HomePageOrdersFragment(Core.OrdersPage ordersPage, Core.HomeViewModel viewModel)
         {

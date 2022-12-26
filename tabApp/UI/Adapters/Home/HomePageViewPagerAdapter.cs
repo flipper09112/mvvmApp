@@ -12,7 +12,7 @@ namespace tabApp.UI.Adapters.Home
     public class HomePageViewPagerAdapter : FragmentStatePagerAdapter
     {
         public List<SecondaryOptions> TabsOptions;
-        private HomePageOrdersFragment encomenda;
+        public HomePageOrdersFragment encomenda;
         private FragmentManager _fm;
 
         public override int Count => TabsOptions?.Count ?? 0;

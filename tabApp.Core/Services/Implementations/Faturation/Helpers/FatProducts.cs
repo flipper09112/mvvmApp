@@ -20,8 +20,11 @@ namespace tabApp.Core.Services.Implementations.Faturation.Helpers
 {
     public class FatProducts
     {
+#if DEBUG
         private const string PriceTableId = "61132"; //dev
-        //private const string PriceTableId = "61432"; //prod
+#elif RELEASE
+        private const string PriceTableId = "61451"; //prod
+#endif
 
         public IDialogService _dialogService { get; }
 
