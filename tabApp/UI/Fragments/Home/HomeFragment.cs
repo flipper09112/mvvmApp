@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.Content;
+using Android.Locations;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
@@ -17,6 +18,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using tabApp.Core;
+using tabApp.Core.Models;
 using tabApp.Core.ViewModels;
 using tabApp.UI.Adapters;
 using tabApp.UI.Adapters.Home;
@@ -36,6 +38,7 @@ namespace tabApp.UI
         private AlertDialog _longPressPopUp;
         private GridView _popUpGv;
         private ImageView _loadingImagePopUp;
+        private bool _running;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -97,6 +100,7 @@ namespace tabApp.UI
             ViewModel.ShowOptionsLongPress += ShowOptionsLongPress;
             ViewModel.UpdateOrderList += UpdateOrderList;
             ViewModel.UpdateAllTabs += UpdateAllTabs;
+            _activity.LocationEvent += LocationEvent;
         }
 
         public override void CleanBindings()
@@ -106,6 +110,44 @@ namespace tabApp.UI
             ViewModel.ShowOptionsLongPress -= ShowOptionsLongPress;
             ViewModel.UpdateOrderList -= UpdateOrderList;
             ViewModel.UpdateAllTabs -= UpdateAllTabs;
+            _activity.LocationEvent -= LocationEvent;
+        }
+
+        private void LocationEvent(Location obj)
+        {
+            SetClosestOrder(obj);
+        }
+
+        private void SetClosestOrder(Location obj)
+        {
+            if (_running) return;
+            _running = true;
+            var _orders = _viewPagerAdapter.TabsOptions?.Where(item => item is OrdersPage)?.ToList();
+            if (_orders == null || _orders.Count == 0) return;
+
+            Dictionary<(Client Client, ExtraOrder ExtraOrder), double> distances = new Dictionary<(Client Client, ExtraOrder ExtraOrder), double>();
+
+            foreach (var item in ((OrdersPage)_orders.First()).Value)
+            {
+                if (item.Client.Address.Coordenadas.Equals("null") || item.Client.Address.Coordenadas == null) continue;
+
+                double distance = Math.Sqrt(Math.Pow(double.Parse(item.Client.Address.Lat) - obj.Latitude, 2) + Math.Pow(double.Parse(item.Client.Address.Lgt) - obj.Longitude, 2));
+                distances.Add(item, distance);
+            }
+
+            if (distances.Count == 0)
+            {
+                _running = false;
+                return;
+            }
+
+            double minimumDistance = distances.Min(distance => distance.Value);
+            var closestOrder = distances.First(distance => distance.Value == minimumDistance).Key;
+
+            int pos = ((OrdersPage)_orders.First()).Value.IndexOf(closestOrder);
+            _viewPagerAdapter.encomenda?.recycler?.SmoothScrollToPosition(pos);
+
+            _running = false;
         }
 
         private void UpdateAllTabs(object sender, EventArgs e)
