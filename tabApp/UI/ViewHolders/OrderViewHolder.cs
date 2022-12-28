@@ -71,7 +71,17 @@ namespace tabApp.UI.ViewHolders
                 }
                 else
                 {
-                    if(extraOrder.OrderDay.Date > viewModel.Client.PaymentDate.Date && !(extraOrder.AmmountedAdded ?? false))
+                    if(viewModel.IsLojaClient(extraOrder.ClientId))
+                    {
+                        _orderTitle.Text = _orderTitle.Text + " (" + "Not StoreOrder" + ")";
+                        _cancelAppointment.Visibility = ViewStates.Visible;
+                        _cancelAppointment.Text = "Anular registo";
+                        _orderDayLabel.Text = "Registo do dia\n" + extraOrder.OrderDay.ToString("dd/MM/yyyy");
+
+                        _cancelAppointment.Click -= CancelAppointmentClick;
+                        _cancelAppointment.Click += CancelAppointmentClick;
+                    }
+                    else if(extraOrder.OrderDay.Date > viewModel.Client.PaymentDate.Date && !(extraOrder.AmmountedAdded ?? false))
                     {
                         _cancelAppointment.Visibility = ViewStates.Visible;
                         _cancelAppointment.SetBackgroundResource(Resource.Drawable.blue_button);

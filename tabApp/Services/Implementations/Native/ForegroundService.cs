@@ -14,6 +14,8 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using tabApp.Core.Models;
+using tabApp.Core.Models.Notifications;
+using tabApp.Core.Services.Interfaces.Clients;
 using tabApp.Core.Services.Interfaces.Notifications;
 using tabApp.Core.Services.Interfaces.Orders;
 using tabApp.Core.Services.Interfaces.Products;
@@ -63,6 +65,7 @@ namespace tabApp.Services.Implementations.Native
             _checkClosestOrderRunning = true;
             var ordersManagerService = Mvx.Resolve<IOrdersManagerService>();
             var notificationsManagerService = Mvx.Resolve<INotificationsManagerService>();
+            var clientsManagerService = Mvx.Resolve<IClientsManagerService>();
             double distance;
 
             //check orders
@@ -87,7 +90,7 @@ namespace tabApp.Services.Implementations.Native
                     Log.Debug(logTag, $"Distancia Notification is {distance.ToString("N2")}");
                     if (distance < 80)
                     {
-                        NotifyNotification(not);
+                        NotifyNotification(clientsManagerService, not);
                     }
                 }
             }
@@ -95,7 +98,7 @@ namespace tabApp.Services.Implementations.Native
             _checkClosestOrderRunning = false;
         }
 
-        private void NotifyNotification(Core.Models.Notifications.Notification not)
+        private void NotifyNotification(IClientsManagerService clientsManagerService, Core.Models.Notifications.Notification not)
         {
             if (_notificationHelper == null)
                 _notificationHelper = new NotificationHelper(ApplicationContext);
@@ -103,7 +106,12 @@ namespace tabApp.Services.Implementations.Native
             if (!not.HasNotify)
             {
                 not.HasNotify = true;
-                _notificationHelper.Notify(not.NotificationId, not.ClientId.ToString(), not.Info);
+                var client = clientsManagerService.ClientsList.Find(client => client.Id == not.ClientId);
+                _notificationHelper.Notify(not.NotificationId, 
+                                           client.Name, 
+                                           not.Info 
+                                           + (not.NotificationType == NotificationTypeEnum.DontPay ?  ("\n\nValue(Nos extras) : " + client.ExtraValueToPay.ToString("C")) : string.Empty)
+                                           );
             }
         }
 

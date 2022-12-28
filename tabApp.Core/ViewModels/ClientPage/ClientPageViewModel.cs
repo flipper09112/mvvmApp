@@ -2,6 +2,7 @@
 using MvvmCross.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using tabApp.Core.Models;
@@ -202,8 +203,8 @@ namespace tabApp.Core.ViewModels
         {
             List<(DateTime Date, int days)> days = new List<(DateTime Date, int days)>()
             {
-                (DateTime.Parse("12/24/2022 07:00:00"), 3),
-                (DateTime.Parse("12/31/2022 07:00:00"), 3)
+                (DateTime.ParseExact("12/24/2022 07:00:00", "MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture), 3),
+                (DateTime.ParseExact("12/31/2022 07:00:00", "MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture), 3),
             };
 
             foreach (var date in days)
@@ -296,6 +297,18 @@ namespace tabApp.Core.ViewModels
 
         private void SetPayment()
         {
+            if(Client.ExtraOrdersList.Any(order => order.OrderDay.Date > Client.PaymentDate.Date && order.OrderDay.Date <= DateSelected.Date))
+            {
+                _dialogService.ShowErrorDialog("Alerta", 
+                                               "Existem encomendas que não foram adicionadas ao extra!\nPoderão ter sido adicionadas manualmente.\nPretende continuar com o processo de pagamento?",
+                                               ContinuePayment);
+                return;
+            }
+            _dialogService.ShowConfirmDialog("Confirmar Pagamento?", "Sim", ConfirmPayment);
+        }
+
+        private void ContinuePayment()
+        {
             _dialogService.ShowConfirmDialog("Confirmar Pagamento?", "Sim", ConfirmPayment);
         }
 
@@ -339,6 +352,11 @@ namespace tabApp.Core.ViewModels
         }
         public override void DisAppearing()
         {
+        }
+
+        public bool IsLojaClient(int clientId)
+        {
+            return _clientsManagerService.ClientsList.Find(client => client.Id == clientId).PaymentType == PaymentTypeEnum.Loja;
         }
     }
 

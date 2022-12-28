@@ -13,6 +13,7 @@ using Com.Bumptech.Glide;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -38,6 +39,7 @@ namespace tabApp.UI
         private AlertDialog _longPressPopUp;
         private GridView _popUpGv;
         private ImageView _loadingImagePopUp;
+        private Stopwatch _timer;
         private bool _running;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -121,6 +123,13 @@ namespace tabApp.UI
         private void SetClosestOrder(Location obj)
         {
             if (_running) return;
+
+            if (_timer != null && _timer.Elapsed < TimeSpan.FromMinutes(1)) return;
+
+            _timer ??= new Stopwatch();
+            _timer.Reset();
+            _timer.Start();
+
             _running = true;
             var _orders = _viewPagerAdapter.TabsOptions?.Where(item => item is OrdersPage)?.ToList();
             if (_orders == null || _orders.Count == 0) return;
