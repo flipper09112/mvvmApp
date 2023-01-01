@@ -134,7 +134,7 @@ namespace tabApp.Core.Services.Interfaces.WebServices.Sells.DTOs
         public string location_origin_address { get; set; }
         public string location_origin_city { get; set; }
         public string location_origin_postal_code { get; set; }
-        public int warehouse_origin_id { get; set; }
+        public int? warehouse_origin_id { get; set; }
         public object warehouse_destiny_id { get; set; }
         public object location_destiny_id { get; set; }
         public object mb_entity { get; set; }

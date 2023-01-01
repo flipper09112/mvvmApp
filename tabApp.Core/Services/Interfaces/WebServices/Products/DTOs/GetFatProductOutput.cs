@@ -16,7 +16,7 @@ namespace tabApp.Core.Services.Interfaces.WebServices.Products.DTOs
         public int id { get; set; }
         public int subscription_id { get; set; }
         public int item_id { get; set; }
-        public int warehouse_id { get; set; }
+        public int? warehouse_id { get; set; }
         public double average_cost_price { get; set; }
         public string updated_at { get; set; }
         public string created_at { get; set; }
@@ -60,7 +60,7 @@ namespace tabApp.Core.Services.Interfaces.WebServices.Products.DTOs
         public int id { get; set; }
         public int subscription_id { get; set; }
         public int item_id { get; set; }
-        public int warehouse_id { get; set; }
+        public int? warehouse_id { get; set; }
         public int quantity { get; set; }
         public DateTime updated_at { get; set; }
         public DateTime created_at { get; set; }
