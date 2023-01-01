@@ -297,7 +297,7 @@ namespace tabApp.Core.ViewModels
 
         private void SetPayment()
         {
-            if(Client.ExtraOrdersList.Any(order => order.OrderDay.Date > Client.PaymentDate.Date && order.OrderDay.Date <= DateSelected.Date))
+            if(Client.ExtraOrdersList.Any(order => order.OrderDay.Date > Client.PaymentDate.Date && order.OrderDay.Date <= DateSelected.Date && !(order.AmmountedAdded ?? false)))
             {
                 _dialogService.ShowErrorDialog("Alerta", 
                                                "Existem encomendas que não foram adicionadas ao extra!\nPoderão ter sido adicionadas manualmente.\nPretende continuar com o processo de pagamento?",
