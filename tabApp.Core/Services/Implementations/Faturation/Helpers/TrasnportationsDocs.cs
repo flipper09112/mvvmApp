@@ -117,6 +117,8 @@ namespace tabApp.Core.Services.Implementations.Faturation.Helpers
             }
 
             var docs = await GetVendasLista(SellsTypes.Guias);
+            if (docs.Count == 0) return null;
+
             return docs[0];
         }
 
