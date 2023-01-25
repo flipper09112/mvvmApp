@@ -100,7 +100,7 @@ namespace tabApp.Core.Services.Implementations.Faturation.Helpers
                 //City = clientSelected.City,
                 //PostalCode = clientSelected.PostalCode,
                 //Country = clientSelected.Country,
-                VatType = VatTypeEnum.Nãofazernada,
+                VatType = VatTypeEnum.IVAincluído,
                 Vehicle = vehicleSelected.Id.ToString(),
                 WaybillShippingDate = dateSelected,
                 WaybillGlobal = true,
