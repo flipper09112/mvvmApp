@@ -167,7 +167,8 @@ namespace tabApp.Core.Services.Implementations.Faturation
                 foreach(var product in fat.ProductItems)
                 {
                     var findProduct = itemsRemaining.Find(item => item.item.reference == product.item.reference);
-                    findProduct.quantity -= product.quantity;
+                    if(findProduct != null)
+                        findProduct.quantity -= product.quantity;
                 }
             }
 
