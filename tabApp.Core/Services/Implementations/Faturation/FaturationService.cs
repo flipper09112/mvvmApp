@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using tabApp.Core.Models;
 using tabApp.Core.Models.Faturation;
 using tabApp.Core.Services.Implementations.Clients;
+using tabApp.Core.Services.Implementations.DB;
 using tabApp.Core.Services.Implementations.Faturation.Helpers;
 using tabApp.Core.Services.Implementations.Products;
 using tabApp.Core.Services.Implementations.WebServices.Clients;
@@ -32,11 +33,11 @@ namespace tabApp.Core.Services.Implementations.Faturation
     {
         public static string BaseUrl = "https://facturalusa.pt/api/v1";
 
-//#if DEBUG
-  //      public static string APIKEY = "ZnrkWoPMFvsMmLUujyWDSPjhWZ2HvxIa6uRNVhuciqjXF12WhcSrlKgDG0MUfIK8muqCP32RrOuHbxgWHRaHazicKzl1zrWA82DTWozofhPKwnQ0GyXP9PKaV3MB7IQ0";
-//#elif RELEASE
+#if DEBUG
+        public static string APIKEY = "qBPFofneE5YeYv8DDVBR0d5f2mq0wIY6DMhmki5BzAFOEZ1mdEfIf9boZtnHBr3ckFrYm48ycUuGpoZESMQGlfeH91rHbceG8oILTtrSklhRcTkMBxztQtbK0QwPtpjf";
+#elif RELEASE
         public static string APIKEY = "8XmZy4zUHx0dM7jqo1JSfAPIRcefKCLSWRO730uFHrD1upEh18KIkTiXmzRalP4LxyyjL3szNVSz729hQ0aNqhL8bgQXenWiQJI8nW5WrygmJX01D3CQE5SGD5n3Q6EX";
-//#endif
+#endif
 
         private readonly IGetVendasListaRequest _getVendasListaRequest;
         private readonly IDialogService _dialogService;
@@ -53,6 +54,7 @@ namespace tabApp.Core.Services.Implementations.Faturation
         private readonly IDeleteFatProductRequest _deleteFatProductRequest;
         private readonly ICreateFatClientRequest _createFatClientRequest;
         private readonly IClientsManagerService _clientsManagerService;
+        private readonly IDataBaseManagerService _dataBaseManagerService;
 
         public TrasnportationDoc DocumentSelected { get; set; }
 
@@ -70,7 +72,8 @@ namespace tabApp.Core.Services.Implementations.Faturation
                                  IUpdateFatProductRequest updateFatProductRequest,
                                  IDeleteFatProductRequest deleteFatProductRequest,
                                  ICreateFatClientRequest createFatClientRequest,
-                                 IClientsManagerService clientsManagerService)
+                                 IClientsManagerService clientsManagerService,
+                                 IDataBaseManagerService dataBaseManagerService)
         {
             _getVendasListaRequest = getVendasListaRequest;
             _dialogService = dialogService;
@@ -87,6 +90,7 @@ namespace tabApp.Core.Services.Implementations.Faturation
             _deleteFatProductRequest = deleteFatProductRequest;
             _createFatClientRequest = createFatClientRequest;
             _clientsManagerService = clientsManagerService;
+            _dataBaseManagerService = dataBaseManagerService;
         }
 
         private TrasnportationsDocs _trasnportationsDocs;
@@ -146,7 +150,8 @@ namespace tabApp.Core.Services.Implementations.Faturation
                                                 _getFatProductRequest,
                                                 _productsManagerService,
                                                 _updateFatProductRequest,
-                                                _deleteFatProductRequest);
+                                                _deleteFatProductRequest,
+                                                _dataBaseManagerService);
                 return _products;
             }
         }

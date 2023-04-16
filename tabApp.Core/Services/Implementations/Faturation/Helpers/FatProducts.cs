@@ -15,6 +15,7 @@ using System.Linq;
 using tabApp.Core.Services.Implementations.WebServices.Products;
 using Org.BouncyCastle.Math;
 using static Common.Logging.Configuration.ArgUtils;
+using tabApp.Core.Services.Implementations.DB;
 
 namespace tabApp.Core.Services.Implementations.Faturation.Helpers
 {
@@ -34,13 +35,15 @@ namespace tabApp.Core.Services.Implementations.Faturation.Helpers
         private IProductsManagerService _productsManagerService;
         private IUpdateFatProductRequest _updateFatProductRequest;
         private IDeleteFatProductRequest _deleteFatProductRequest;
+        private IDataBaseManagerService _dataBaseManagerService;
 
         public FatProducts(IDialogService dialogService, 
                            IAddFatProductRequest addFatProductRequest,
                            IGetFatProductRequest getFatProductRequest,
                            IProductsManagerService productsManagerService,
                            IUpdateFatProductRequest updateFatProductRequest,
-                           IDeleteFatProductRequest deleteFatProductRequest)
+                           IDeleteFatProductRequest deleteFatProductRequest,
+                           IDataBaseManagerService dataBaseManagerService)
         {
             _dialogService = dialogService;
             _addFatProductRequest = addFatProductRequest;
@@ -48,6 +51,7 @@ namespace tabApp.Core.Services.Implementations.Faturation.Helpers
             _productsManagerService = productsManagerService;
             _updateFatProductRequest = updateFatProductRequest;
             _deleteFatProductRequest = deleteFatProductRequest;
+            _dataBaseManagerService = dataBaseManagerService;
         }
 
         internal async Task<int> AddProduct(Product product)
@@ -102,7 +106,7 @@ namespace tabApp.Core.Services.Implementations.Faturation.Helpers
                 }
 
                 var product = _productsManagerService.GetProductById(int.Parse(item.Id));
-                if (product.Iva == 0)
+                if (product.Iva == 0 && product.IsencaoIva == "M18")
                 {
                     _dialogService.ShowErrorDialog(string.Empty, "Produto sem dados sobre o IVA");
                     return false;
@@ -113,15 +117,42 @@ namespace tabApp.Core.Services.Implementations.Faturation.Helpers
                 {
                     var id = await AddProduct(product);
                     //await UpdateProduct(id, product);
-                    continue;
                 }
-                
                 //update product if price is different
-                if(response.data.First().prices.Count == 0 ||
+                else if(response.data.First().prices.Count == 0 ||
                    response.data.First().prices.Find(table => table.price_id.ToString() == PriceTableId).price != product.PVP)
                 {
                     await UpdateProduct(response.data.First().id, product);
                 }
+
+                //Cabaz alimentar
+                if(DateTime.Now.Date == new DateTime(2023, 04, 18).Date)
+                {
+                    if(product.Iva == 6)
+                    {
+                        product.Iva = 0;
+                        product.IsencaoIva = "M26";
+                        _dataBaseManagerService.SaveProduct(product);
+                        item.Vat = "0";
+                        item.VatExemption = "M26";
+                        await UpdateProduct(response.data.First().id, product, "M26");
+                    }
+                }
+
+                //Fim Cabaz alimentar
+                if (DateTime.Now.Date == new DateTime(2023, 11, 1).Date)
+                {
+                    if (product.Iva == 0 && product.IsencaoIva == "M26")
+                    {
+                        product.Iva = 6;
+                        product.IsencaoIva = "M18";
+                        _dataBaseManagerService.SaveProduct(product);
+                        item.Vat = "6";
+                        item.VatExemption = "M18";
+                        await UpdateProduct(response.data.First().id, product);
+                    }
+                }
+
             }
 
             return true;
@@ -146,6 +177,7 @@ namespace tabApp.Core.Services.Implementations.Faturation.Helpers
                 Description = product.Name,
                 Unit = product.Unity ? "uni" : "kg",
                 Vat = product.Iva,
+                VatException = product.IsencaoIva ?? "M18",
                 Type = FatProductTypeEnum.Mercadorias,
                 Active = true,
                 Prices = JsonConvert.SerializeObject(price),

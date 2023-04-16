@@ -247,7 +247,22 @@ namespace tabApp.Core.ViewModels.Global.Faturation
             var data = await SecureStorage.GetAsync(key);
 
             if (data != null)
-                ProductsList = JsonConvert.DeserializeObject<List<FatItem>>(data);
+            {
+                var productsList = JsonConvert.DeserializeObject<List<FatItem>>(data);
+                //used for update iva values of products
+                foreach (var prod in productsList)
+                {
+                    var product = _productsManagerService.GetProductById(int.Parse(prod.Id));
+
+                    if (product != null)
+                    {
+                        prod.Vat = product.Iva.ToString();
+                        prod.VatExemption = product.IsencaoIva;
+                    }
+                }
+
+                ProductsList = productsList;
+            }
 
             IsBusy = false;
         }
@@ -289,7 +304,22 @@ namespace tabApp.Core.ViewModels.Global.Faturation
                 _dialogService.ShowErrorDialog(string.Empty, "Sem dados da última guia de transporte");
                 return;
             }
-            ProductsList = JsonConvert.DeserializeObject<List<FatItem>>(productsListString);
+
+            var productsList = JsonConvert.DeserializeObject<List<FatItem>>(productsListString);
+
+            //used for update iva values of products
+            foreach (var prod in productsList)
+            {
+                var product = _productsManagerService.GetProductById(int.Parse(prod.Id));
+
+                if (product != null)
+                {
+                    prod.Vat = product.Iva.ToString();
+                    prod.VatExemption = product.IsencaoIva;
+                }
+            }
+
+            ProductsList = productsList;
         }
 
         private void UseTodayOrder()
@@ -312,6 +342,7 @@ namespace tabApp.Core.ViewModels.Global.Faturation
                 //Price = itemAmmount.Product.PVP.ToString(),
                 //Discount = "0",
                 Vat = itemAmmount.Product.Iva.ToString(),
+                VatExemption = itemAmmount.Product.IsencaoIva
             }));
 
             ProductsList = list;
@@ -383,6 +414,7 @@ namespace tabApp.Core.ViewModels.Global.Faturation
                     Discount = "0",
                     Price = !_fatForClient ? product.PVP.ToString() : _productsManagerService.GetProductAmmount(_clientSelectedApp.Id, product).ToString(),
                     Vat = product.Iva.ToString() ?? "NaN",
+                    VatExemption = product.IsencaoIva,
                     Quantity = "0",
                 }));
             }
@@ -410,6 +442,7 @@ namespace tabApp.Core.ViewModels.Global.Faturation
                 Discount = "0",
                 Price = _productsManagerService.GetProductAmmount(_clientSelectedApp.Id, _productsManagerService.GetProductById(product.productId)).ToString(),
                 Vat = _productsManagerService.GetProductById(product.productId).Iva.ToString() ?? "NaN",
+                VatExemption = _productsManagerService.GetProductById(product.productId).IsencaoIva,
                 Quantity = product.ammount.ToString(),
             }));
 
@@ -428,6 +461,7 @@ namespace tabApp.Core.ViewModels.Global.Faturation
                 Discount = product.discount.ToString(),
                 Price = _productsManagerService.GetProductById(int.Parse(product.item.reference)).PVP.ToString(),
                 Vat = product?.vat?.tax.ToString() ?? "NaN",
+                VatExemption = _productsManagerService.GetProductById(int.Parse(product.item.reference)).IsencaoIva,
                 Quantity = product.quantity.ToString(),
             }));
 

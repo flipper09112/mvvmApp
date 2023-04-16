@@ -21,6 +21,9 @@ namespace tabApp.Core.Services.Interfaces.WebServices.Products.DTOs
         [JsonProperty("vat")]
         public int Vat { get; set; }
 
+        [JsonProperty("vat_exemption")]
+        public string VatException { get; set; }
+
         [JsonProperty("details_show_print")]
         public bool DetailsShowPrint { get; set; }
 

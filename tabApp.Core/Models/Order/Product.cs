@@ -24,6 +24,7 @@ namespace tabApp.Core.Models
 
         [OneToMany]
         public List<ReSaleValues> ReSaleValues { get; set; }
+        public string IsencaoIva { get; set; } = "M18";
 
         public Product()
         {

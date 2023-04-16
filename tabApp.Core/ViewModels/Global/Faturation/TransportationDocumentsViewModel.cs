@@ -77,7 +77,21 @@ namespace tabApp.Core.ViewModels.Global.Faturation
                 DateSelected = DateTime.Parse(dateLastDoc);
             }
 
-            ProductsList = JsonConvert.DeserializeObject<List<FatItem>>(productsListString);
+            var productsList = JsonConvert.DeserializeObject<List<FatItem>>(productsListString);
+
+            //used for update iva values of products
+            foreach(var prod in productsList)
+            {
+                var product = _productsManagerService.GetProductById(int.Parse(prod.Id));
+
+                if(product != null)
+                {
+                    prod.Vat = product.Iva.ToString();
+                    prod.VatExemption = product.IsencaoIva;
+                }
+            }
+
+            ProductsList = productsList;
         }
 
         private void UseTodayOrder()
@@ -100,6 +114,7 @@ namespace tabApp.Core.ViewModels.Global.Faturation
                 //Price = itemAmmount.Product.PVP.ToString(),
                 //Discount = "0",
                 Vat = itemAmmount.Product.Iva.ToString(),
+                VatExemption = itemAmmount.Product.IsencaoIva
             }));
 
             ProductsList = list;
