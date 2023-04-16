@@ -135,7 +135,7 @@ namespace tabApp.Core.Services.Implementations.Faturation.Helpers
                         _dataBaseManagerService.SaveProduct(product);
                         item.Vat = "0";
                         item.VatExemption = "M26";
-                        await UpdateProduct(response.data.First().id, product, "M26");
+                        await UpdateProduct(response.data.First().id, product);
                     }
                 }
 
