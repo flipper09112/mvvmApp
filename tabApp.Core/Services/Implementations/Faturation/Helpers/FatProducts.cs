@@ -126,7 +126,7 @@ namespace tabApp.Core.Services.Implementations.Faturation.Helpers
                 }
 
                 //Cabaz alimentar
-                if(DateTime.Now.Date == new DateTime(2023, 04, 18).Date)
+                if(DateTime.Now.Date >= new DateTime(2023, 04, 18).Date && DateTime.Now.Date < new DateTime(2024, 1, 1).Date)
                 {
                     if(product.Iva == 6)
                     {
@@ -140,7 +140,7 @@ namespace tabApp.Core.Services.Implementations.Faturation.Helpers
                 }
 
                 //Fim Cabaz alimentar
-                if (DateTime.Now.Date == new DateTime(2023, 11, 1).Date)
+                if (DateTime.Now.Date >= new DateTime(2024, 1, 1).Date)
                 {
                     if (product.Iva == 0 && product.IsencaoIva == "M26")
                     {
