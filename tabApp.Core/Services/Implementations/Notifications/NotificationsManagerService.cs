@@ -31,7 +31,7 @@ namespace tabApp.Core.Services.Implementations.Notifications
         {
             var todayItems = AllNotifications?.FindAll(item => item.AlertDay.Date == DateTime.Today);
 
-            todayItems.RemoveAll(item => _clientsManagerService.GetClientById(item.ClientId) == null);
+            todayItems?.RemoveAll(item => _clientsManagerService.GetClientById(item.ClientId) == null);
 
             return todayItems?.OrderBy(item => _clientsManagerService.GetClientById(item.ClientId).Position).ToList<Notification>();
         }

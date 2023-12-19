@@ -85,6 +85,9 @@ namespace tabApp.UI.Fragments.Global.MonthBills
             if (ViewModel.PrintLogo == null)
                 ViewModel.PrintLogo += PrintLogo;
 
+            if (ViewModel.PrintMbWay == null)
+                ViewModel.PrintMbWay += PrintMbWay;
+
             if (ViewModel.PrintBarCode == null)
                 ViewModel.PrintBarCode += PrintBarCode;
 
@@ -193,6 +196,20 @@ namespace tabApp.UI.Fragments.Global.MonthBills
             try
             { 
                 await PrintPhotoAsync(PrinterHelper.GetLogo(_activity.Resources, Resource.Drawable.logo_300));
+                return true;
+            }
+            catch (Exception e)
+            {
+            }
+
+            return false;
+        }
+
+        public async Task<bool> PrintMbWay()
+        {
+            try
+            {
+                await PrintPhotoAsync(PrinterHelper.GetLogo(_activity.Resources, Resource.Drawable.mbway_60));
                 return true;
             }
             catch (Exception e)
