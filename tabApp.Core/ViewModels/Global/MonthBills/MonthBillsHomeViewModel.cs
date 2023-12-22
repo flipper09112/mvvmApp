@@ -73,8 +73,15 @@ namespace tabApp.Core.ViewModels.Global.MonthBills
             await _bluetoothService.SendDataAsync(new ThermalPrinterFormatsHelper().Get(), PairedDevicesSelected);
             await _bluetoothService.SendDataAsync("------------------------------------------------\n\n\n\n", PairedDevicesSelected);
 
-            await PrintBarCode.Invoke();
+            //await PrintBarCode.Invoke();
+            await PrintMbWay.Invoke();
+            await _bluetoothService.SendDataAsync("\n\nSe pretender pagar por mbway pode enviar para\no seguinte numero indicando o numero de cliente\n\n\n\n", PairedDevicesSelected);
+            await _bluetoothService.SendDataAsync(ThermalPrinterFormatsHelper.CenterAlign(), PairedDevicesSelected);
+            await _bluetoothService.SendDataAsync(ThermalPrinterFormatsHelper.DoubleHeightAndWidth(), PairedDevicesSelected);
+            await _bluetoothService.SendDataAsync("964690528\n\n", PairedDevicesSelected);
+            await _bluetoothService.SendDataAsync("Mensagem: " + client.Id + "\n\n\n\n", PairedDevicesSelected);
 
+            await _bluetoothService.SendDataAsync(new ThermalPrinterFormatsHelper().Get(), PairedDevicesSelected);
             await _bluetoothService.SendDataAsync("------------------------------------------------\n\n\n\n", PairedDevicesSelected);
             await _bluetoothService.SendDataAsync("Agradecemos a sua preferencia\n\n", PairedDevicesSelected);
             await _bluetoothService.SendDataAsync("Obrigado", PairedDevicesSelected);
@@ -152,6 +159,7 @@ namespace tabApp.Core.ViewModels.Global.MonthBills
         public Func<Task<bool>> PrintLogo { get; set; }
         public Func<Task<bool>> PrintBarCode { get; set; }
         public Func<double, Task<bool>> PrintPrice { get; set; }
+        public Func<Task<bool>> PrintMbWay { get; set; }
 
         public override void Appearing()
         {
