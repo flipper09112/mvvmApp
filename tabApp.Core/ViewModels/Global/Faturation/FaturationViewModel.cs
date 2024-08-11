@@ -457,7 +457,7 @@ namespace tabApp.Core.ViewModels.Global.Faturation
             LastTrasnportationsDocs.Find(guia => guia.ID == GuiaSelected.ID).ProductItems.ForEach(product => list.Add(new FatItem()
             {
                 Id = product.item.reference.ToString(),
-                Details = product.item_details,
+                Details = product.item.description,
                 Discount = product.discount.ToString(),
                 Price = _productsManagerService.GetProductById(int.Parse(product.item.reference)).PVP.ToString(),
                 Vat = product?.vat?.tax.ToString() ?? "NaN",

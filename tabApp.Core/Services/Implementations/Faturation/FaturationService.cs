@@ -33,11 +33,11 @@ namespace tabApp.Core.Services.Implementations.Faturation
     {
         public static string BaseUrl = "https://facturalusa.pt/api/v1";
 
-#if DEBUG
-        public static string APIKEY = "qBPFofneE5YeYv8DDVBR0d5f2mq0wIY6DMhmki5BzAFOEZ1mdEfIf9boZtnHBr3ckFrYm48ycUuGpoZESMQGlfeH91rHbceG8oILTtrSklhRcTkMBxztQtbK0QwPtpjf";
-#elif RELEASE
+//#if DEBUG
+        //public static string APIKEY = "qBPFofneE5YeYv8DDVBR0d5f2mq0wIY6DMhmki5BzAFOEZ1mdEfIf9boZtnHBr3ckFrYm48ycUuGpoZESMQGlfeH91rHbceG8oILTtrSklhRcTkMBxztQtbK0QwPtpjf";
+//#elif RELEASE
         public static string APIKEY = "8XmZy4zUHx0dM7jqo1JSfAPIRcefKCLSWRO730uFHrD1upEh18KIkTiXmzRalP4LxyyjL3szNVSz729hQ0aNqhL8bgQXenWiQJI8nW5WrygmJX01D3CQE5SGD5n3Q6EX";
-#endif
+//#endif
 
         private readonly IGetVendasListaRequest _getVendasListaRequest;
         private readonly IDialogService _dialogService;
@@ -182,7 +182,7 @@ namespace tabApp.Core.Services.Implementations.Faturation
             itemsRemaining.ForEach(product => fatItems.Add(new FatItem()
             {
                 Id = product.item.reference.ToString(),
-                Details = product.item_details,
+                Details = product.item.description,
                 Discount = product.discount.ToString(),
                 Price = _productsManagerService.GetProductById(int.Parse(product.item.reference)).PVP.ToString(),
                 Vat = product?.vat?.tax.ToString() ?? "NaN",

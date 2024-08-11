@@ -65,7 +65,7 @@ namespace tabApp.Core.Services.Interfaces.WebServices.Sells.DTOs
     {
         public int id { get; set; }
         public int subscription_id { get; set; }
-        public int number { get; set; }
+        public int? number { get; set; }
         public string issue_date { get; set; }
         public object due_date { get; set; }
         public int serie_id { get; set; }

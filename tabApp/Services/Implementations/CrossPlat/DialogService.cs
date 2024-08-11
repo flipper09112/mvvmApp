@@ -218,6 +218,9 @@ namespace tabApp.Services.Implementations
             var top = Mvx.Resolve<IMvxAndroidCurrentTopActivity>();
             var act = top.Activity;
 
+            if (act == null)
+                return;
+
             LayoutInflater inflater = act.LayoutInflater;
             View dialogView = inflater.Inflate(Resource.Layout.ErrorDialog, null);
             var desc = dialogView.FindViewById<TextView>(Resource.Id.description);
