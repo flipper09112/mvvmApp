@@ -6,3 +6,6 @@ tabApp.Core/obj/
 tabApp.Core/bin/
 .vs/
 tabApp.DroidClients/obj/Debug/*
+/tabApp.DroidClients/obj
+/tabApp.DroidClients/obj
+/tabApp.DroidClients/obj
