@@ -23,7 +23,9 @@ namespace tabApp.Core.Services.Implementations.Faturation.Helpers
         public async Task<List<Car>> GetVehicles()
         {
             List<Car> cars = new List<Car>();
-            var response = await _getVehiclesRequest.SendAsync(new GetVehiclesInput());
+
+            await Task.Delay(2000);
+            /*var response = await _getVehiclesRequest.SendAsync(new GetVehiclesInput());
 
             if (!response.Success)
             {
@@ -36,7 +38,21 @@ namespace tabApp.Core.Services.Implementations.Faturation.Helpers
                 Plate = car.license_plate,
                 Id = car.id,
                 Name = car.name
-            }));
+            }));*/
+
+            cars.Add(new Car()
+            {
+                Plate = "93-OR-81",
+                Name = "Caddy Maxi",
+                Id = 85069
+            });
+
+            cars.Add(new Car()
+            {
+                Plate = "35-IG-67",
+                Name = "Caddy Normal",
+                Id = 85070
+            });
 
             return cars;
         }

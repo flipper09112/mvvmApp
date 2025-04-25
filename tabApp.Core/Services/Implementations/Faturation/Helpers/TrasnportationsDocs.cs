@@ -8,6 +8,7 @@ using tabApp.Core.Services.Interfaces.WebServices.Sells.DTOs;
 using tabApp.Core.Services.Interfaces.WebServices.Sells;
 using System.Linq;
 using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
+using tabApp.Core.Helpers;
 
 namespace tabApp.Core.Services.Implementations.Faturation.Helpers
 {
@@ -45,41 +46,71 @@ namespace tabApp.Core.Services.Implementations.Faturation.Helpers
         public async Task<List<TrasnportationDoc>> GetVendasLista(SellsTypes sellType, int? id = null)
         {
             List<TrasnportationDoc> trasnportationDocs = new List<TrasnportationDoc>();
+            //var response = await _getVendasListaRequest.SendAsync(new GetVendasListaInput()
+            //{
+            //    Type = sellType
+            //});
+
+            //if (!response.Success)
+            //{
+            //    _dialogService.ShowErrorDialog(string.Empty, response.Error);
+            //    return trasnportationDocs;
+            //}
+
+            //if(id != null)
+            //{
+            //    response.Data.Where(fat => fat.customer.code == id.ToString()).ToList().ForEach(doc => trasnportationDocs.Add(new TrasnportationDoc()
+            //    {
+            //        ID = doc.id,
+            //        Name = doc.documenttype.saft_initials + "-" + doc.serie.description + "-" + doc.documenttypeserie.document_number,
+            //        DocumentUrl = doc.url_file,
+            //        ProductItems = doc.items,
+            //        StartTravelDate = doc.waybill_shipping_date == null ? DateTime.MinValue : DateTime.Parse(doc.waybill_shipping_date),
+            //        EmissionDate = doc.file_last_generated == null ? DateTime.MinValue : DateTime.Parse(doc.file_last_generated)
+            //    }));
+            //}
+            //else
+            //{
+            //    response.Data.ForEach(doc => trasnportationDocs.Add(new TrasnportationDoc()
+            //    {
+            //        ID = doc.id,
+            //        Name = doc.documenttype.saft_initials + "-" + doc.serie.description + "-" + doc.documenttypeserie.document_number,
+            //        DocumentUrl = doc.url_file,
+            //        ProductItems = doc.items,
+            //        StartTravelDate = doc.waybill_shipping_date == null ? DateTime.MinValue : DateTime.Parse(doc.waybill_shipping_date),
+            //        EmissionDate = doc.file_last_generated == null ? DateTime.MinValue : DateTime.Parse(doc.file_last_generated)
+            //    }));
+            //}
+
+            if (id == null)
+            {
+                var savedId = await SecureStorageHelper.GetKeyAsync(SecureStorageHelper.LastTransportationDoc);
+
+                if (savedId == null)
+                    return trasnportationDocs;
+
+                id = int.Parse(savedId);
+            }
+
+
             var response = await _getVendasListaRequest.SendAsync(new GetVendasListaInput()
             {
-                Type = sellType
+                Value = id.ToString(),
+                SearchIn = "ID"
             });
 
-            if (!response.Success)
-            {
-                _dialogService.ShowErrorDialog(string.Empty, response.Error);
-                return trasnportationDocs;
-            }
+            if (response.id == 0)
+                return null;
 
-            if(id != null)
+            trasnportationDocs.Add(new TrasnportationDoc()
             {
-                response.Data.Where(fat => fat.customer.code == id.ToString()).ToList().ForEach(doc => trasnportationDocs.Add(new TrasnportationDoc()
-                {
-                    ID = doc.id,
-                    Name = doc.documenttype.saft_initials + "-" + doc.serie.description + "-" + doc.documenttypeserie.document_number,
-                    DocumentUrl = doc.url_file,
-                    ProductItems = doc.items,
-                    StartTravelDate = doc.waybill_shipping_date == null ? DateTime.MinValue : DateTime.Parse(doc.waybill_shipping_date),
-                    EmissionDate = doc.file_last_generated == null ? DateTime.MinValue : DateTime.Parse(doc.file_last_generated)
-                }));
-            }
-            else
-            {
-                response.Data.ForEach(doc => trasnportationDocs.Add(new TrasnportationDoc()
-                {
-                    ID = doc.id,
-                    Name = doc.documenttype.saft_initials + "-" + doc.serie.description + "-" + doc.documenttypeserie.document_number,
-                    DocumentUrl = doc.url_file,
-                    ProductItems = doc.items,
-                    StartTravelDate = doc.waybill_shipping_date == null ? DateTime.MinValue : DateTime.Parse(doc.waybill_shipping_date),
-                    EmissionDate = doc.file_last_generated == null ? DateTime.MinValue : DateTime.Parse(doc.file_last_generated)
-                }));
-            }
+                ID = response.id,
+                Name = response.documenttype.saft_initials + "-" + response.serie.description + "-" + response.documenttype.id,
+                DocumentUrl = response.url_file,
+                ProductItems = response.items,
+                StartTravelDate = response.waybill_shipping_date == null ? DateTime.MinValue : DateTime.Parse(response.waybill_shipping_date),
+                EmissionDate = response.file_last_generated == null ? DateTime.MinValue : DateTime.Parse(response.file_last_generated)
+            });
 
             return trasnportationDocs;
         }
@@ -116,10 +147,21 @@ namespace tabApp.Core.Services.Implementations.Faturation.Helpers
                 return null;
             }
 
-            var docs = await GetVendasLista(SellsTypes.Guias);
-            if (docs.Count == 0) return null;
+            //var docs = await GetVendasLista(SellsTypes.Guias);
+            //if (docs.Count == 0) return null;
 
-            return docs[0];
+            await SecureStorageHelper.SaveKeyAsync(SecureStorageHelper.LastTransportationDoc, response.id);
+
+            return new TrasnportationDoc()
+            {
+                ID = int.Parse(response.id),
+                Name = "name",
+                DocumentUrl = response.url_file,
+                ProductItems = response.items,
+                StartTravelDate = response.waybill_shipping_date == null ? DateTime.MinValue : DateTime.Parse(response.waybill_shipping_date),
+                EmissionDate = response.file_last_generated == null ? DateTime.MinValue : DateTime.Parse(response.file_last_generated)
+            };
+            //return docs[0];
         }
 
         internal async Task<string> GetDocumentPos(TrasnportationDoc documentSelected)

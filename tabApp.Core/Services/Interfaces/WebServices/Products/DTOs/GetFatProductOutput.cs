@@ -7,8 +7,37 @@ namespace tabApp.Core.Services.Interfaces.WebServices.Products.DTOs
 {
     public class GetFatProductOutput : BaseOutput
     {
-        public bool status { get; set; }
-        public List<Datum> data { get; set; }
+        public int id { get; set; }
+        public string reference { get; set; }
+        public string description { get; set; }
+        public string details { get; set; }
+        public int details_show_print { get; set; }
+        public string type { get; set; }
+        public string cost_price { get; set; }
+        public string observations { get; set; }
+        public int reference_blocked { get; set; }
+        public int description_blocked { get; set; }
+        public int active { get; set; }
+        public DateTime updated_at { get; set; }
+        public DateTime created_at { get; set; }
+        public string stock { get; set; }
+        public object category { get; set; }
+        public Unit unit { get; set; }
+        public Vat vat { get; set; }
+        public Vatexemption vatexemption { get; set; }
+        public object imagefile { get; set; }
+        public List<Price> prices { get; set; }
+        public List<object> barcodes { get; set; }
+        public Defaultprice defaultprice { get; set; }
+    }
+
+    public class Defaultprice
+    {
+        public int id { get; set; }
+        public int item_id { get; set; }
+        public int price_id { get; set; }
+        public string price { get; set; }
+        public string discount { get; set; }
     }
 
     public class Averagecostprice
@@ -73,7 +102,7 @@ namespace tabApp.Core.Services.Interfaces.WebServices.Products.DTOs
         public int item_id { get; set; }
         public int price_id { get; set; }
         public double price { get; set; }
-        public int discount { get; set; }
+        public double discount { get; set; }
         public DateTime updated_at { get; set; }
         public DateTime created_at { get; set; }
         public Pricetable pricetable { get; set; }
@@ -84,7 +113,7 @@ namespace tabApp.Core.Services.Interfaces.WebServices.Products.DTOs
         public int id { get; set; }
         public int subscription_id { get; set; }
         public string description { get; set; }
-        public int is_default { get; set; }
+        public object is_default { get; set; }
         public int active { get; set; }
         public string updated_at { get; set; }
         public string created_at { get; set; }
@@ -96,7 +125,7 @@ namespace tabApp.Core.Services.Interfaces.WebServices.Products.DTOs
         public int subscription_id { get; set; }
         public string description { get; set; }
         public string symbol { get; set; }
-        public int active { get; set; }
+        public object active { get; set; }
         public string updated_at { get; set; }
         public string created_at { get; set; }
     }
@@ -107,9 +136,9 @@ namespace tabApp.Core.Services.Interfaces.WebServices.Products.DTOs
         public int subscription_id { get; set; }
         public string description { get; set; }
         public string type { get; set; }
-        public int tax { get; set; }
+        public double tax { get; set; }
         public string saft_region { get; set; }
-        public int active { get; set; }
+        public object active { get; set; }
         public string updated_at { get; set; }
         public string created_at { get; set; }
     }

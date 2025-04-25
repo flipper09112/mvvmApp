@@ -14,13 +14,6 @@ namespace tabApp.Core.Services.Interfaces.WebServices.Sells.DTOs
 
         [JsonProperty("search_in")]
         public string SearchIn { get; set; }
-
-        [JsonProperty("type")]
-        [JsonConverter(typeof(StringEnumConverter))]
-        public SellsTypes Type { get; set; }
-
-        [JsonProperty("skip")]
-        public int Skip { get; set; }
     }
 
     public enum SellsTypes

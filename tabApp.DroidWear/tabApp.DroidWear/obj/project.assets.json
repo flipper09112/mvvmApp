@@ -8230,6 +8230,7 @@
       "outputPath": "C:\\Users\\flipper09112\\Documents\\GestorApp\\tabApp.DroidWear\\tabApp.DroidWear\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
+      "UsingMicrosoftNETSdk": false,
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],

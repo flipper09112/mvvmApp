@@ -16,6 +16,7 @@ namespace tabApp.Core.Helpers
         public static string DeliveryIdAdmin = "DeliveryIdAdmin";
 
         public static string HasLoginYesValue = "HasLoginTrue";
+        public static string LastTransportationDoc = "LastTransportationDoc";
 
         public static async Task SaveKeyAsync(string key, string value)
         {

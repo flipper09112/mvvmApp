@@ -113,7 +113,7 @@ namespace tabApp.Core.ViewModels.Global.Faturation
                 IsBusy = true;
                 GetItems();
                 IsBusy = false;
-                ProductsRemaining = _faturationService.GetItemsRemainingFromGuia(GuiaSelected, FaturationDocs);
+                //ProductsRemaining = _faturationService.GetItemsRemainingFromGuia(GuiaSelected, FaturationDocs);
                 CreateFaturaSimplesCommand.RaiseCanExecuteChanged();
                 RaisePropertyChanged(nameof(GuiaSelected));
             }
@@ -396,7 +396,7 @@ namespace tabApp.Core.ViewModels.Global.Faturation
                 return;
             }
 
-            FaturationDocs = await _faturationService.TrasnportationsDocs.GetVendasLista(SellsTypes.Facturação, _clientSelectedApp?.Id);
+            //FaturationDocs = await _faturationService.TrasnportationsDocs.GetVendasLista(SellsTypes.Facturação, _clientSelectedApp?.Id);
             LastTrasnportationsDocs = await _faturationService.TrasnportationsDocs.GetVendasLista(SellsTypes.Guias);
             Client = await _faturationService.Clients.GetClient(_fatForClient ? _clientSelectedApp?.Id.ToString() : "Consumidor final");
 

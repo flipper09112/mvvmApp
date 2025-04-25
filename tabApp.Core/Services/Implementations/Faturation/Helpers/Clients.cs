@@ -47,17 +47,17 @@ namespace tabApp.Core.Services.Implementations.Faturation.Helpers
                 _dialogService.ShowErrorDialog(string.Empty, response.Error);
                 return clientsList;
             }
-
-            response.data.ForEach(client => clientsList.Add(new FatClient()
+            
+            clientsList.Add(new FatClient()
             {
-                Id = client.id,
-                Name = client.name,
-                NIF = client.vat_number,
-                Address = client.address,
-                Country = client.country,
-                PostalCode = client.postal_code,
-                City = client.city
-            }));
+                Id = response.id,
+                Name = response.name,
+                NIF = response.vat_number,
+                Address = response.address,
+                Country = response.country,
+                PostalCode = response.postal_code,
+                City = response.city
+            });
 
             return clientsList;
         }

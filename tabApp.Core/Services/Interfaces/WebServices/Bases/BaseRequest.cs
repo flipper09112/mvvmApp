@@ -1,12 +1,13 @@
 ﻿using Newtonsoft.Json;
-using Spire.Pdf.Fields;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using tabApp.Core.Services.Implementations.Faturation;
+using tabApp.Core.Services.Interfaces.WebServices.Sells.DTOs;
 using static SQLite.SQLite3;
 
 namespace tabApp.Core.Services.Interfaces.WebServices.Bases
@@ -33,6 +34,9 @@ namespace tabApp.Core.Services.Interfaces.WebServices.Bases
                 httpWebRequest.Accept = "application/json";
                 httpWebRequest.Method = HttpMethod.ToString().ToUpper();
 
+                // 🔒 Adiciona o Bearer Token aqui:
+                httpWebRequest.Headers["Authorization"] = "Bearer " + input.ApiToken;
+
                 Debug.WriteLine("Method : " + HttpMethod.ToString().ToUpper());
 
                 using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
@@ -47,6 +51,14 @@ namespace tabApp.Core.Services.Interfaces.WebServices.Bases
                 {
                     var result = streamReader.ReadToEnd();
                     Debug.WriteLine("Response : " + result);
+
+                    // Tratamento especial para quando a resposta é só um número
+                    if (typeof(Toutput) == typeof(DuplicateWayBillOutput) && long.TryParse(result, out _))
+                    {
+                        var output = new DuplicateWayBillOutput { id = result };
+                        return (Toutput)(object)output;
+                    } 
+
                     return JsonConvert.DeserializeObject<Toutput>(result);
                 }
             }

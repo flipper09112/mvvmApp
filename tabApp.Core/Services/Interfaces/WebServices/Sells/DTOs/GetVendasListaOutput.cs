@@ -10,59 +10,6 @@ namespace tabApp.Core.Services.Interfaces.WebServices.Sells.DTOs
 {
     public class GetVendasListaOutput : BaseOutput
     {
-        [JsonProperty("status")]
-        public bool Status { get; set; }
-
-        [JsonProperty("data")]
-        public List<Datum> Data { get; set; }
-    }
-
-    public class Createdby
-    {
-        public int id { get; set; }
-        public string name { get; set; }
-        public string email { get; set; }
-        public object subscription { get; set; }
-        public List<object> restrictions { get; set; }
-    }
-
-    public class Currency
-    {
-        public int id { get; set; }
-        public string description { get; set; }
-        public string symbol { get; set; }
-    }
-
-    public class Customer
-    {
-        public int id { get; set; }
-        public string code { get; set; }
-        public string name { get; set; }
-        public string contact { get; set; }
-        public string vat_number { get; set; }
-        public string country { get; set; }
-        public string address { get; set; }
-        public string city { get; set; }
-        public string postal_code { get; set; }
-        public string email { get; set; }
-        public string telephone { get; set; }
-        public string mobile { get; set; }
-        public int code_blocked { get; set; }
-        public int vat_number_blocked { get; set; }
-        public int name_blocked { get; set; }
-        public string created_at { get; set; }
-    }
-
-    public class Customercountry
-    {
-        public int id { get; set; }
-        public string name { get; set; }
-        public string code_iso_one { get; set; }
-        public string code_iso_two { get; set; }
-    }
-
-    public class Datum
-    {
         public int id { get; set; }
         public int subscription_id { get; set; }
         public int? number { get; set; }
@@ -71,16 +18,16 @@ namespace tabApp.Core.Services.Interfaces.WebServices.Sells.DTOs
         public int serie_id { get; set; }
         public int document_type_id { get; set; }
         public double gross_total { get; set; }
-        public int total_discount { get; set; }
+        public string total_discount { get; set; }
         public double net_total { get; set; }
         public double total_base_vat { get; set; }
         public double total_vat { get; set; }
-        public int total_shipping { get; set; }
+        public string total_shipping { get; set; }
         public double total_services { get; set; }
         public double grand_total { get; set; }
-        public int final_discount_financial { get; set; }
-        public int final_discount_global { get; set; }
-        public int final_discount_global_value { get; set; }
+        public string final_discount_financial { get; set; }
+        public string final_discount_global { get; set; }
+        public string final_discount_global_value { get; set; }
         public int customer_id { get; set; }
         public string customer_code { get; set; }
         public string customer_name { get; set; }
@@ -103,17 +50,17 @@ namespace tabApp.Core.Services.Interfaces.WebServices.Sells.DTOs
         public object payment_method_id { get; set; }
         public object payment_condition_id { get; set; }
         public object shipping_mode_id { get; set; }
-        public int? shipping_value { get; set; }
+        public string shipping_value { get; set; }
         public int? shipping_vat_id { get; set; }
         public int price_id { get; set; }
         public int currency_id { get; set; }
-        public int currency_exchange { get; set; }
+        public double currency_exchange { get; set; }
         public string vat_type { get; set; }
         public string observations { get; set; }
-        public int irs_retention_apply { get; set; }
+        public string irs_retention_apply { get; set; }
         public object irs_retention_base { get; set; }
         public object irs_retention_total { get; set; }
-        public int? irs_retention_tax { get; set; }
+        public string irs_retention_tax { get; set; }
         public string url_file { get; set; }
         public int file_previewed { get; set; }
         public string file_last_generated { get; set; }
@@ -181,6 +128,51 @@ namespace tabApp.Core.Services.Interfaces.WebServices.Sells.DTOs
         public object accountopen { get; set; }
     }
 
+    public class Createdby
+    {
+        public int id { get; set; }
+        public string name { get; set; }
+        public string email { get; set; }
+        public object subscription { get; set; }
+        public List<object> restrictions { get; set; }
+    }
+
+    public class Currency
+    {
+        public int id { get; set; }
+        public string description { get; set; }
+        public string symbol { get; set; }
+    }
+
+    public class Customer
+    {
+        public int id { get; set; }
+        public string code { get; set; }
+        public string name { get; set; }
+        public string contact { get; set; }
+        public string vat_number { get; set; }
+        public string country { get; set; }
+        public string address { get; set; }
+        public string city { get; set; }
+        public string postal_code { get; set; }
+        public string email { get; set; }
+        public string telephone { get; set; }
+        public string mobile { get; set; }
+        public int code_blocked { get; set; }
+        public int vat_number_blocked { get; set; }
+        public int name_blocked { get; set; }
+        public string created_at { get; set; }
+    }
+
+    public class Customercountry
+    {
+        public int id { get; set; }
+        public string name { get; set; }
+        public string code_iso_one { get; set; }
+        public string code_iso_two { get; set; }
+    }
+
+
     public class Documenttype
     {
         public int id { get; set; }
@@ -214,13 +206,13 @@ namespace tabApp.Core.Services.Interfaces.WebServices.Sells.DTOs
         public int item_id { get; set; }
         public string item_details { get; set; }
         public double unit_price { get; set; }
-        public int quantity { get; set; }
-        public int discount { get; set; }
+        public double quantity { get; set; }
+        public double discount { get; set; }
         public double gross_total { get; set; }
         public double net_total { get; set; }
         public double total_base_vat { get; set; }
         public double total_vat { get; set; }
-        public int total_discount { get; set; }
+        public string total_discount { get; set; }
         public double grand_total { get; set; }
         public int vat_id { get; set; }
         public int unit_id { get; set; }
@@ -260,7 +252,7 @@ namespace tabApp.Core.Services.Interfaces.WebServices.Sells.DTOs
         public int id { get; set; }
         public string description { get; set; }
         public string type { get; set; }
-        public int tax { get; set; }
+        public double tax { get; set; }
     }
 
     public class Unit
@@ -285,7 +277,7 @@ namespace tabApp.Core.Services.Interfaces.WebServices.Sells.DTOs
         public int id { get; set; }
         public string description { get; set; }
         public string type { get; set; }
-        public int tax { get; set; }
+        public double tax { get; set; }
         public string saft_region { get; set; }
     }
 

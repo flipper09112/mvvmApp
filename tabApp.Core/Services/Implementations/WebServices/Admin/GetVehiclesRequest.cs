@@ -6,7 +6,7 @@ using tabApp.Core.Services.Interfaces.WebServices.Sells.DTOs;
 using tabApp.Core.Services.Interfaces.WebServices.Sells;
 using tabApp.Core.Services.Interfaces.WebServices.Admin;
 using tabApp.Core.Services.Interfaces.WebServices.Admin.DTOs;
-using Spire.Pdf.Fields;
+using System.Net.Http;
 
 namespace tabApp.Core.Services.Implementations.WebServices.Admin
 {

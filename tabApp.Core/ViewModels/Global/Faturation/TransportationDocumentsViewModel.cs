@@ -233,7 +233,7 @@ namespace tabApp.Core.ViewModels.Global.Faturation
                 return;
             }
 
-            LastTrasnportationsDocs = await _faturationService.TrasnportationsDocs.GetVendasLista(SellsTypes.Guias);
+            //LastTrasnportationsDocs = await _faturationService.TrasnportationsDocs.GetVendasLista(SellsTypes.Guias);
             Vehicles = await _faturationService.Administration.GetVehicles();
             ClientsList = await _faturationService.Clients.GetClient("Consumidor final");
 

@@ -21,11 +21,11 @@ namespace tabApp.Core.Services.Implementations.Faturation.Helpers
 {
     public class FatProducts
     {
-#if DEBUG
-        private const string PriceTableId = "61132"; //dev
-#elif RELEASE
+//#if DEBUG
+//        private const string PriceTableId = "61132"; //dev
+//#elif RELEASE
         private const string PriceTableId = "61451"; //prod
-#endif
+//#endif
 
         public IDialogService _dialogService { get; }
 
@@ -99,11 +99,11 @@ namespace tabApp.Core.Services.Implementations.Faturation.Helpers
                     SearchIn = FatProductPropertyEnum.Reference
                 });
 
-                if (!response.Success)
-                {
-                    _dialogService.ShowErrorDialog(string.Empty, response.Error);
-                    return false;
-                }
+                //if (!response.Success)
+                //{
+                //    _dialogService.ShowErrorDialog(string.Empty, response.Error);
+                //    return false;
+                //}
 
                 var product = _productsManagerService.GetProductById(int.Parse(item.Id));
                 if (product.Iva == 0 && product.IsencaoIva == "M18")
@@ -113,16 +113,21 @@ namespace tabApp.Core.Services.Implementations.Faturation.Helpers
                 }
 
                 //criar produto senao existir
-                if (response.data.Count == 0)
+                if (!response.Success)
                 {
                     var id = await AddProduct(product);
                     //await UpdateProduct(id, product);
+
+                    if (id == -1)
+                        return false;
+
+                    response.id = id;
                 }
                 //update product if price is different
-                else if(response.data.First().prices.Count == 0 ||
-                   response.data.First().prices.Find(table => table.price_id.ToString() == PriceTableId).price != product.PVP)
+                else if(response.prices.Count == 0 ||
+                   response.prices.First().price != product.PVP)
                 {
-                    await UpdateProduct(response.data.First().id, product);
+                    await UpdateProduct(response.id, product);
                 }
 
                 //Cabaz alimentar
@@ -135,7 +140,7 @@ namespace tabApp.Core.Services.Implementations.Faturation.Helpers
                         _dataBaseManagerService.SaveProduct(product);
                         item.Vat = "0";
                         item.VatExemption = "M26";
-                        await UpdateProduct(response.data.First().id, product);
+                        await UpdateProduct(response.id, product);
                     }
                 }
 
@@ -149,7 +154,7 @@ namespace tabApp.Core.Services.Implementations.Faturation.Helpers
                         _dataBaseManagerService.SaveProduct(product);
                         item.Vat = "6";
                         item.VatExemption = "M18";
-                        await UpdateProduct(response.data.First().id, product);
+                        await UpdateProduct(response.id, product);
                     }
                 }
 

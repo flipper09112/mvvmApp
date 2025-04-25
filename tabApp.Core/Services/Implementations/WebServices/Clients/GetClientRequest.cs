@@ -7,7 +7,7 @@ using tabApp.Core.Services.Interfaces.WebServices.Sells;
 using tabApp.Core.Services.Interfaces.WebServices.Clients.DTOs;
 using tabApp.Core.Services.Interfaces.WebServices.Clients;
 using System.Threading.Tasks;
-using Spire.Pdf.Fields;
+using System.Net.Http;
 
 namespace tabApp.Core.Services.Implementations.WebServices.Clients
 {

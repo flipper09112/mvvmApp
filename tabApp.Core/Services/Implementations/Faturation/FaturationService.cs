@@ -31,12 +31,13 @@ namespace tabApp.Core.Services.Implementations.Faturation
 {
     public class FaturationService : IFaturationService
     {
-        public static string BaseUrl = "https://facturalusa.pt/api/v1";
+        public static string BaseUrl = "https://facturalusa.pt/api/v2";
 
 //#if DEBUG
         //public static string APIKEY = "qBPFofneE5YeYv8DDVBR0d5f2mq0wIY6DMhmki5BzAFOEZ1mdEfIf9boZtnHBr3ckFrYm48ycUuGpoZESMQGlfeH91rHbceG8oILTtrSklhRcTkMBxztQtbK0QwPtpjf";
 //#elif RELEASE
-        public static string APIKEY = "8XmZy4zUHx0dM7jqo1JSfAPIRcefKCLSWRO730uFHrD1upEh18KIkTiXmzRalP4LxyyjL3szNVSz729hQ0aNqhL8bgQXenWiQJI8nW5WrygmJX01D3CQE5SGD5n3Q6EX";
+        //public static string APIKEY = "8XmZy4zUHx0dM7jqo1JSfAPIRcefKCLSWRO730uFHrD1upEh18KIkTiXmzRalP4LxyyjL3szNVSz729hQ0aNqhL8bgQXenWiQJI8nW5WrygmJX01D3CQE5SGD5n3Q6EX";
+        public static string APIKEY = "25933|aMTxGtCLqN8G7d7LMf1Em9t7lPnOA320YtsxCF0Ue695e1c0";
 //#endif
 
         private readonly IGetVendasListaRequest _getVendasListaRequest;
