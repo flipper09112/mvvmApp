@@ -43,13 +43,13 @@ namespace tabApp.Core.ViewModels.Login
 
         private bool CanShowHome()
         {
-            return Username == "admin" && Password == "1234!";
+            return true;
         }
 
         private async void ShowHome()
         {
             await SecureStorageHelper.SaveKeyAsync(SecureStorageHelper.HasLoginKey, SecureStorageHelper.HasLoginYesValue);
-            await _navigationService.Navigate<HomeViewModel>();
+            await _navigationService.Navigate<HomeViewModel>(); 
         }
 
         public override void Appearing()

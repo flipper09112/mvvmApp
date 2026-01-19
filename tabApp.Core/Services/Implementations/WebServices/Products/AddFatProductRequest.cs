@@ -12,6 +12,6 @@ namespace tabApp.Core.Services.Implementations.WebServices.Products
     {
         protected override HttpMethod HttpMethod => HttpMethod.Post;
 
-        protected override string EndPoint => "/items/create";
+        protected override string EndPoint => "/items";
     }
 }

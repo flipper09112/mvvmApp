@@ -42,6 +42,13 @@ namespace tabApp.Core.Services.Implementations.Faturation.Helpers
 
             cars.Add(new Car()
             {
+                Plate = "CB-94-PE",
+                Name = "Ford Transit Connect ",
+                Id = 85117
+            });
+
+            cars.Add(new Car()
+            {
                 Plate = "93-OR-81",
                 Name = "Caddy Maxi",
                 Id = 85069

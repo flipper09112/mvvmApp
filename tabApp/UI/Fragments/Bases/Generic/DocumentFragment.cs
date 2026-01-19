@@ -43,13 +43,32 @@ namespace tabApp.UI.Fragments.Bases.Generic
 
         public override void SetUI()
         {
+
             if (_loaded) return;
             _loaded = true;
+
+            OpenUrlInExternalApp(ViewModel.DocUrl);
             _webview.SetWebViewClient(new MyWebViewClient(ViewModel));
 
             _webview.Settings.JavaScriptEnabled = true;
             _webview.Settings.SetPluginState(WebSettings.PluginState.On);
             _webview.LoadUrl("https://docs.google.com/gview?embedded=true&url=" + ViewModel.DocUrl);
+        }
+
+        private void OpenUrlInExternalApp(string url)
+        {
+            var intent = new Intent(Intent.ActionView);
+            intent.SetDataAndType(Android.Net.Uri.Parse(url), "application/pdf");
+            intent.SetFlags(ActivityFlags.ClearWhenTaskReset | ActivityFlags.NewTask);
+
+            try
+            {
+                StartActivity(intent);
+            }
+            catch (ActivityNotFoundException)
+            {
+                Toast.MakeText(Context, "Nenhuma aplicação encontrada para abrir o PDF.", ToastLength.Long).Show();
+            }
         }
 
         public override void SetupBindings()

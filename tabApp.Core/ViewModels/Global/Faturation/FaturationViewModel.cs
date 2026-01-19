@@ -358,7 +358,7 @@ namespace tabApp.Core.ViewModels.Global.Faturation
         {
             IsBusy = true;
             SecureStorage.SetAsync(LastInvoiveGuideItemsKey, JsonConvert.SerializeObject(ProductsList));
-            var fatId = await _faturationService.TrasnportationsDocs.CreateFatByWayBill(GuiaSelected);
+            var fatId = await _faturationService.TrasnportationsDocs.CreateFatByWayBill(GuiaSelected, _clientSelected != null);
 
             if (fatId == null)
             {

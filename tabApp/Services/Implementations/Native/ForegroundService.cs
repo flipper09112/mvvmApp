@@ -3,6 +3,7 @@ using Android;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
+using Android.Gms.Location;
 using Android.Locations;
 using Android.OS;
 using Android.Runtime;
@@ -26,8 +27,8 @@ using Location = Android.Locations.Location;
 
 namespace tabApp.Services.Implementations.Native
 {
-    [Service]
-    public class ForegroundService : Service, ILocationListener
+    [Service(Exported = false, ForegroundServiceType = Android.Content.PM.ForegroundService.TypeLocation)]
+    public class ForegroundService : Service
     {
         const int SERVICE_RUNNING_NOTIFICATION_ID = 123;
         const string NOTIFICATION_CHANNEL_ID = "com.company.app.channel";
@@ -39,6 +40,8 @@ namespace tabApp.Services.Implementations.Native
         private bool _running;
         private NotificationHelper _notificationHelper;
         private bool _checkClosestOrderRunning;
+        private FusedLocationProviderClient _fusedClient;
+        private LocationCallbackImpl _locationCallBack;
 
         // ILocationListener is a way for the Service to subscribe for updates
         // from the System location Service
@@ -187,10 +190,56 @@ namespace tabApp.Services.Implementations.Native
         {
             base.OnCreate();
             Log.Debug(logTag, "OnCreate called in the Location Service");
+
+            _fusedClient = LocationServices.GetFusedLocationProviderClient(this);
+
+            _locationCallBack = new LocationCallbackImpl(location =>
+            {
+                OnLocationChanged(location);
+            });
+
+            StartForegroundServiceWithNotification();
+
+            //StartLocationUpdates();
             StartLocationUpdates();
         }
 
-        [return: GeneratedEnum]
+        private void StartLocationUpdates()
+        {
+            var request = new LocationRequest()
+                .SetPriority(LocationRequest.PriorityHighAccuracy)
+                .SetInterval(1000)
+                .SetMaxWaitTime(1000)
+                ;
+
+            _fusedClient.RequestLocationUpdates(request, _locationCallBack, Looper.MainLooper);
+        }
+
+        private void StartForegroundServiceWithNotification()
+        {
+            // Check if device is running Android 8.0 or higher and call StartForeground() if so
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
+            {
+                var notification = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
+                                   .SetContentTitle(Resources.GetString(Resource.String.app_name))
+                                   .SetContentText("A aplicação está a rastrear a sua localização para poder criar geo alertas!")
+                                   .SetSmallIcon(Resource.Drawable.notification_icon_background)
+                                   .SetOngoing(true)
+                                   .SetContentIntent(BuildIntentToShowMainActivity())
+                                   .Build();
+
+                var notificationManager =
+                    GetSystemService(NotificationService) as NotificationManager;
+
+                var chan = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "On-going Notification", NotificationImportance.Max);
+
+                notificationManager.CreateNotificationChannel(chan);
+
+                StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, notification);
+            }
+        }
+
+        /*[return: GeneratedEnum]
         public override StartCommandResult OnStartCommand(Intent intent, [GeneratedEnum] StartCommandFlags flags, int startId)
         {
 
@@ -218,7 +267,7 @@ namespace tabApp.Services.Implementations.Native
             }
 
             return StartCommandResult.Sticky;
-        }
+        }*/
         /// <summary>
          /// Builds a PendingIntent that will display the main activity of the app. This is used when the 
          /// user taps on the notification; it will take them to the main activity of the app.
@@ -244,14 +293,14 @@ namespace tabApp.Services.Implementations.Native
         }
 
         // Handle location updates from the location manager
-        public void StartLocationUpdates()
+        /*public void StartLocationUpdates()
         {
             //we can set different location criteria based on requirements for our app -
             //for example, we might want to preserve power, or get extreme accuracy
             var locationCriteria = new Criteria();
 
-            locationCriteria.Accuracy = Accuracy.Coarse;
-            locationCriteria.PowerRequirement = Power.NoRequirement;
+            locationCriteria.Accuracy = Accuracy.Fine;
+            locationCriteria.PowerRequirement = Power.High;
 
             CheckPermissions();
 
@@ -262,12 +311,12 @@ namespace tabApp.Services.Implementations.Native
 
             // Get an initial fix on location
             if(locationProvider != null)
-                LocMgr.RequestLocationUpdates(locationProvider, 500, 0, this);
+                LocMgr.RequestLocationUpdates(LocationManager.GpsProvider, 500, 0, this);
 
             Log.Debug(logTag, "Now sending location updates");
-        }
+        }*/
 
-        private async void CheckPermissions()
+        /*private async void CheckPermissions()
         {
             var status = await Permissions.CheckStatusAsync<Permissions.LocationAlways>();
 
@@ -280,27 +329,45 @@ namespace tabApp.Services.Implementations.Native
 
                 var locationCriteria = new Criteria();
 
-                locationCriteria.Accuracy = Accuracy.Coarse;
-                locationCriteria.PowerRequirement = Power.NoRequirement;
+                locationCriteria.Accuracy = Accuracy.Fine;
+                locationCriteria.PowerRequirement = Power.High;
                 var locationProvider = LocMgr.GetBestProvider(locationCriteria, true);
                 Log.Debug(logTag, string.Format("You are about to get location updates via {0}", locationProvider));
 
+
                 // Get an initial fix on location
                 if (locationProvider != null)
-                    LocMgr.RequestLocationUpdates(locationProvider, 500, 0, this);
+                    LocMgr.RequestLocationUpdates(LocationManager.GpsProvider, 500, 0, this);
 
                 Log.Debug(logTag, "Now sending location updates");
             }
-        }
+        }*/
 
-        public override void OnDestroy()
+        /*public override void OnDestroy()
         {
             base.OnDestroy();
             Log.Debug(logTag, "Service has been terminated");
 
             // Stop getting updates from the location manager:
             LocMgr?.RemoveUpdates(this);
+        }*/
+
+    }
+
+    public class LocationCallbackImpl : LocationCallback
+    {
+        private readonly Action<Android.Locations.Location> _onLocation;
+
+        public LocationCallbackImpl(Action<Android.Locations.Location> onLocation)
+        {
+            this._onLocation = onLocation;
         }
 
+        public override void OnLocationResult(LocationResult result)
+        {
+            var location = result.LastLocation;
+            if (location != null)
+                _onLocation(location);
+        }
     }
 }

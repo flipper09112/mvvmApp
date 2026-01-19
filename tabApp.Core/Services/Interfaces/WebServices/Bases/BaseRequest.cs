@@ -44,6 +44,7 @@ namespace tabApp.Core.Services.Interfaces.WebServices.Bases
                     var body = JsonConvert.SerializeObject(input);
                     Debug.WriteLine("Body : " + body);
                     streamWriter.Write(body);
+                    streamWriter.Flush();
                 }
 
                 var httpResponse = (HttpWebResponse)await httpWebRequest.GetResponseAsync();

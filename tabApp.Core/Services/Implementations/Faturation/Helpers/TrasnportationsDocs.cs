@@ -82,9 +82,11 @@ namespace tabApp.Core.Services.Implementations.Faturation.Helpers
             //    }));
             //}
 
+            SecureStorageHelper.SaveKeyAsync(SecureStorageHelper.LastTransportationDoc, "1463139");
+
             if (id == null)
             {
-                var savedId = await SecureStorageHelper.GetKeyAsync(SecureStorageHelper.LastTransportationDoc);
+                var savedId = await SecureStorageHelper.GetKeyAsync(SecureStorageHelper.LastTransportationDoc); 
 
                 if (savedId == null)
                     return trasnportationDocs;
@@ -188,12 +190,12 @@ namespace tabApp.Core.Services.Implementations.Faturation.Helpers
             return response.url_file;
         }
 
-        internal async Task<string> CreateFatByWayBill(TrasnportationDoc guiaSelected)
+        internal async Task<string> CreateFatByWayBill(TrasnportationDoc guiaSelected, bool receiptBill)
         {
             var response = await _duplicateWayBillRequest.SendAsync(new DuplicateWayBillInput()
             {
                 Id = guiaSelected.ID.ToString(),
-                DocumentType = DocumentTypeEnum.FacturaSimplificada
+                DocumentType = receiptBill ? DocumentTypeEnum.FacturaRecibo : DocumentTypeEnum.FacturaSimplificada
             });
 
             if (!response.Success)
@@ -232,7 +234,7 @@ namespace tabApp.Core.Services.Implementations.Faturation.Helpers
                 City = fatClient.City,
                 PostalCode = fatClient.PostalCode,
                 Country = fatClient.Country,
-                WaybillShippingDate = guiaSelected.StartTravelDate,
+                WaybillShippingDate = DateTime.Now.AddHours(1),
                 VatType = VatTypeEnum.IVAincluído,
                 Items = productsList,
                 Status = StatusEnum.Terminado,

@@ -430,6 +430,8 @@ namespace tabApp
         #region ForeGroundService
         public void StartForegroundServiceCompat<T>(Bundle args = null) where T : Service
         {
+            
+
             if (foregroundIntent != null) return;
 
             foregroundIntent = new Intent(this, typeof(T));
@@ -438,15 +440,22 @@ namespace tabApp
                 foregroundIntent.PutExtras(args);
             }
 
-           /* if (Android.OS.Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.O)
+            if (Android.OS.Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.O)
             {
-                this.StartForegroundService(intent);
+                try
+                {
+                    this.StartForegroundService(foregroundIntent);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.StackTrace);
+                }
 
             }
             else
-            {*/
-                this.StartService(foregroundIntent); 
-            /*}*/
+            {
+                this.StartService(foregroundIntent);
+            }
         }
         #endregion
 

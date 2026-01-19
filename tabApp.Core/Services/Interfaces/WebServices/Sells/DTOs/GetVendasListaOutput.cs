@@ -52,7 +52,7 @@ namespace tabApp.Core.Services.Interfaces.WebServices.Sells.DTOs
         public object shipping_mode_id { get; set; }
         public string shipping_value { get; set; }
         public int? shipping_vat_id { get; set; }
-        public int price_id { get; set; }
+        public object price_id { get; set; }
         public int currency_id { get; set; }
         public double currency_exchange { get; set; }
         public string vat_type { get; set; }

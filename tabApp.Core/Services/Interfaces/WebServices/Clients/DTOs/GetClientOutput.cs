@@ -20,10 +20,10 @@ namespace tabApp.Core.Services.Interfaces.WebServices.Clients.DTOs
         public string telephone { get; set; }
         public string mobile { get; set; }
         public int currency_id { get; set; }
-        public int payment_method_id { get; set; }
-        public int payment_condition_id { get; set; }
+        public object payment_method_id { get; set; }
+        public object payment_condition_id { get; set; }
         public object shipping_mode_id { get; set; }
-        public int price_id { get; set; }
+        public object price_id { get; set; }
         public object employee_id { get; set; }
         public string type { get; set; }
         public int vat_exemption_id { get; set; }

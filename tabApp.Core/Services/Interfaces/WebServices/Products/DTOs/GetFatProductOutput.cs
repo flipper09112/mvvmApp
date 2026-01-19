@@ -35,7 +35,7 @@ namespace tabApp.Core.Services.Interfaces.WebServices.Products.DTOs
     {
         public int id { get; set; }
         public int item_id { get; set; }
-        public int price_id { get; set; }
+        public object price_id { get; set; }
         public string price { get; set; }
         public string discount { get; set; }
     }
@@ -100,7 +100,7 @@ namespace tabApp.Core.Services.Interfaces.WebServices.Products.DTOs
         public int id { get; set; }
         public int subscription_id { get; set; }
         public int item_id { get; set; }
-        public int price_id { get; set; }
+        public object price_id { get; set; }
         public double price { get; set; }
         public double discount { get; set; }
         public DateTime updated_at { get; set; }
