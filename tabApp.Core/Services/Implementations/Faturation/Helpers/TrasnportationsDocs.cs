@@ -82,8 +82,6 @@ namespace tabApp.Core.Services.Implementations.Faturation.Helpers
             //    }));
             //}
 
-            SecureStorageHelper.SaveKeyAsync(SecureStorageHelper.LastTransportationDoc, "1463139");
-
             if (id == null)
             {
                 var savedId = await SecureStorageHelper.GetKeyAsync(SecureStorageHelper.LastTransportationDoc); 
