@@ -12,3 +12,6 @@ tabApp.DroidClients/obj/Debug/*
 /.idea
 /tabApp.DroidClients/obj
 /tabApp.DroidClients/obj
+/tabApp.CrossPlatform/obj
+/tabApp.DroidWear/tabApp.DroidWear/obj
+/tabApp.DroidClients/obj
