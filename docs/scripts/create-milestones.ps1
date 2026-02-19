@@ -47,16 +47,11 @@ foreach ($Milestone in $Milestones) {
         $Created++
     }
     catch {
-        if ($_.Exception.Message -like "*422*" -or $_.Exception.Message -like "*Validation Failed*") {
-            Write-Host "SKIP: $($Milestone.title) (já existe)" -ForegroundColor Yellow
-        } else {
-            Write-Host "ERROR: $($Milestone.title)" -ForegroundColor Red
-        }
+        Write-Host "ERROR: $($Milestone.title)" -ForegroundColor Red
     }
     Start-Sleep -Milliseconds 300
 }
 
 Write-Host ""
 Write-Host "Created $Created milestones" -ForegroundColor Green
-
 

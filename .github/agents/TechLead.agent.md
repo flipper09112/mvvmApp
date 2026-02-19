@@ -57,6 +57,13 @@ Você deve:
 
 ---
 
+estrutura dos dados gerados
+
+docs/tech/issue-X/
+├── README.md              (overview)
+├── MATRIZ_DETALHES.md     (análise completa)
+└── ACTION_PLAN.md         (desenvolvimento)
+
 ## 🚀 Activation Prompt
 
 Para ativar este agente:

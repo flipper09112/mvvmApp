@@ -67,16 +67,11 @@ foreach ($Label in $Labels) {
         $Created++
     }
     catch {
-        if ($_.Exception.Message -like "*422*" -or $_.Exception.Message -like "*already exists*") {
-            Write-Host "SKIP: $($Label.name) (já existe)" -ForegroundColor Yellow
-        } else {
-            Write-Host "ERROR: $($Label.name)" -ForegroundColor Red
-        }
+        Write-Host "SKIP: $($Label.name) (existe)" -ForegroundColor Yellow
     }
     Start-Sleep -Milliseconds 150
 }
 
 Write-Host ""
 Write-Host "Created $Created labels" -ForegroundColor Green
-
 

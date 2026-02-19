@@ -26,10 +26,6 @@ docs/
 ├── MIGRATION_BACKLOG_COMPLETE.md       ← High-level overview
 ├── GITHUB_ISSUES_READY.md              ← All 142 issues (GitHub ready)
 ├── QUICK_REFERENCE.md                  ← Quick start guide
-├── scripts/                            ← Automation scripts
-│   ├── README.md                       ← Scripts guide
-│   ├── create-milestones.ps1           ← Create GitHub milestones
-│   └── create-labels.ps1               ← Create GitHub labels
 └── issues/
     ├── PHASE_0_ASSESSMENT.md           ← 8 assessment issues
     ├── PHASE_1_MAUI_SETUP.md           ← 12 setup issues
@@ -40,64 +36,6 @@ docs/
     ├── PHASE_6_TESTING.md              ← 8 testing issues
     └── PHASE_7_RELEASE.md              ← 2 release issues
 ```
-
----
-
-## 🏗 Milestones
-
----
-
-## 🚀 GitHub Setup (Automation Scripts)
-
-### Quick Setup with Scripts
-
-**Location:** `docs/scripts/`
-
-We provide PowerShell scripts to automatically create milestones and labels in GitHub:
-
-#### Step 1: Get GitHub Token
-1. Go to https://github.com/settings/tokens
-2. Generate new token (classic)
-3. Grant `repo` scope
-4. Copy the token
-
-#### Step 2: Run Setup Scripts
-
-```powershell
-# Navigate to project
-cd "C:\Users\flipper09112\Documents\GestorApp"
-
-# Create milestones
-.\docs\scripts\create-milestones.ps1 -Owner "your-github-username" -Repo "GestorApp" -Token "ghp_xxxxx"
-
-# Create labels
-.\docs\scripts\create-labels.ps1 -Owner "your-github-username" -Repo "GestorApp" -Token "ghp_xxxxx"
-```
-
-#### Step 3: Verify in GitHub
-- Check Milestones: GitHub → Issues → Milestones
-- Check Labels: GitHub → Issues → Labels
-
-**For detailed guide:** See [scripts/README.md](scripts/README.md)
-
-### What Gets Created
-
-**7 Milestones:**
-- Milestone 1: Assessment & Planning (1 week)
-- Milestone 2: MAUI Foundation (2 weeks)
-- Milestone 3: Core & Infrastructure (3 weeks)
-- Milestone 4: UI Layer Migration (6 weeks)
-- Milestone 5: Feature Integration (3 weeks)
-- Milestone 6: Testing & Hardening (2 weeks)
-- Milestone 7: Release & Go-Live (1 week)
-
-**31 Labels:**
-- Type (6): migration, infra, ui, feature, security, test
-- Platform (4): maui, android, ios, windows
-- Risk (4): critical, high, medium, low
-- Phase (8): assessment, setup, core, infrastructure, ui, feature, testing, release
-- Priority (4): P0, P1, P2, P3
-- Component (6): navigation, database, authentication, bluetooth, maps, notifications
 
 ---
 
