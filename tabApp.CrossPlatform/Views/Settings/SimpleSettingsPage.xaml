@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:BaseContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:tabApp.CrossPlatform.Views.Bases"
+    xmlns:vm="clr-namespace:tabApp.CrossPlatform.ViewModels.Main"
+    x:Class="tabApp.CrossPlatform.Views.Settings.SimpleSettingsPage"
+    x:DataType="vm:SimpleSettingsViewModel"
+    Title="{Binding Title}">
+
+    <!--
+    MIGRATION POC: MAUI ContentPage with CommunityToolkit.Mvvm ViewModel
+    
+    Key points:
+    1. Inherits from BaseContentPage which handles ViewModel lifecycle
+    2. Uses x:DataType for compile-time binding validation
+    3. Bindings to [ObservableProperty] generated properties
+    4. Bindings to [RelayCommand] generated commands
+    -->
+
+    <ScrollView Padding="20" Spacing="15">
+        <VerticalStackLayout Spacing="15">
+            
+            <!-- Header -->
+            <Label 
+                Text="Configurações da Aplicação"
+                FontSize="24"
+                FontAttributes="Bold"
+                TextColor="#2B5B84"/>
+
+            <!-- Section 1: App Info -->
+            <Frame BorderColor="#2B5B84" CornerRadius="10" Padding="15">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Informações da Aplicação" FontAttributes="Bold" FontSize="16"/>
+                    
+                    <HorizontalStackLayout Spacing="10">
+                        <Label Text="Versão:" FontAttributes="Bold" WidthRequest="100"/>
+                        <Label Text="{Binding AppVersion}"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Section 2: Preferences -->
+            <Frame BorderColor="#2B5B84" CornerRadius="10" Padding="15">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Preferências" FontAttributes="Bold" FontSize="16"/>
+                    
+                    <!-- Notifications Toggle -->
+                    <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                        <Label 
+                            Text="Notificações:" 
+                            FontAttributes="Bold"
+                            VerticalOptions="Center"
+                            WidthRequest="100"/>
+                        <Switch 
+                            IsToggled="{Binding NotificationsEnabled}"
+                            VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+
+                    <!-- Language Picker -->
+                    <HorizontalStackLayout Spacing="10">
+                        <Label 
+                            Text="Idioma:" 
+                            FontAttributes="Bold"
+                            VerticalOptions="Center"
+                            WidthRequest="100"/>
+                        <Picker 
+                            SelectedItem="{Binding SelectedLanguage}"
+                            ItemsSource="{Binding ., StringFormat='Português|English|Español'}"
+                            HorizontalOptions="FillAndExpand"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Section 3: Actions -->
+            <Frame BorderColor="#2B5B84" CornerRadius="10" Padding="15">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Ações" FontAttributes="Bold" FontSize="16"/>
+
+                    <!-- Save Button -->
+                    <Button 
+                        Text="Guardar Configurações"
+                        Command="{Binding SaveSettingsCommand}"
+                        IsEnabled="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}"
+                        BackgroundColor="#2B5B84"
+                        TextColor="White"/>
+
+                    <!-- Clear Cache Button -->
+                    <Button 
+                        Text="Limpar Cache"
+                        Command="{Binding ClearCacheCommand}"
+                        IsEnabled="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}"
+                        BackgroundColor="#6C8EAA"
+                        TextColor="White"/>
+
+                    <!-- Reset Button -->
+                    <Button 
+                        Text="Repor Predefinições"
+                        Command="{Binding ResetToDefaultsCommand}"
+                        IsEnabled="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}"
+                        BackgroundColor="#A0BDD4"
+                        TextColor="White"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Loading Indicator -->
+            <ActivityIndicator 
+                IsRunning="{Binding IsBusy}" 
+                IsVisible="{Binding IsBusy}"
+                Color="#2B5B84"/>
+
+            <!-- Spacer -->
+            <BoxView HeightRequest="20"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</views:BaseContentPage>
+

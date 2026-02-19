@@ -4,11 +4,22 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:tabApp.CrossPlatform"
-    Title="tabApp.CrossPlatform">
+    Title="Gestor App">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <!-- 
+    MIGRATION NOTE: 
+    Updated from basic Shell structure to support routing.
+    Routes will be registered programmatically in AppShell.xaml.cs
+    -->
+    
+    <TabBar>
+        <ShellContent
+            Title="Home"
+            Icon="home.png"
+            Route="home"
+            ContentTemplate="{DataTemplate local:MainPage}" />
+    </TabBar>
 
 </Shell>
+
+
