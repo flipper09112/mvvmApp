@@ -57,8 +57,36 @@
     </ItemGroup>
 
     <ItemGroup>
+        <!-- MAUI Core -->
         <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)"/>
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.0"/>
+        
+        <!-- Compatible Packages from tabApp.Core -->
+        <PackageReference Include="Autofac" Version="6.1.0" />
+        <PackageReference Include="BarcodeLib" Version="2.4.0" />
+        <PackageReference Include="itext7" Version="7.1.15" />
+        <PackageReference Include="sqlite-net-pcl" Version="1.7.335" />
+        <PackageReference Include="SQLiteNetExtensions" Version="2.1.0" />
+        <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+        <PackageReference Include="Spire.XLS" Version="11.3.4" />
+        <PackageReference Include="System.Formats.Asn1" Version="5.0.0" />
+        <PackageReference Include="System.Security.Cryptography.Xml" Version="5.0.0" />
+        <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.5.0" />
+        <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.5.0" />
+        <PackageReference Include="Microsoft.AppCenter.Distribute" Version="4.5.0" />
+        
+        <!-- MAUI Replacements -->
+        <PackageReference Include="Microsoft.Maui.Essentials" Version="$(MauiVersion)" />
+        <PackageReference Include="Microcharts.Maui" Version="0.9.5.9" />
+        <PackageReference Include="FirebaseStorage.net" Version="1.0.3" />
+        
+        <!-- MAUI UI Libraries -->
+        <PackageReference Include="SkiaSharp.Extended.UI.Maui" Version="2.0.0" />
+        <PackageReference Include="ZXing.Net.Maui" Version="0.4.0" />
+        <PackageReference Include="Microsoft.Maui.Controls.Maps" Version="$(MauiVersion)" />
+        
+        <!-- JSON & HTTP -->
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     </ItemGroup>
 
 </Project>
