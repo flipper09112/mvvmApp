@@ -1,5 +1,6 @@
-﻿using MvvmCross.Commands;
-using MvvmCross.Navigation;
+﻿﻿// TODO: ISSUE-002 - Remove MvvmCross and replace with MAUI MVVM pattern
+// using MvvmCross.Commands;
+// using MvvmCross.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Text;

@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Remoting.Contexts;
 using System.Threading.Tasks;
@@ -32,7 +32,7 @@ using tabApp.Helpers;
 using tabApp.Services.Implementations.Native;
 using tabApp.UI;
 using tabApp.UI.Fragments.Snooze;
-using Xamarin.Essentials;
+using Microsoft.Maui.Essentials;
 using ForegroundService = tabApp.Services.Implementations.Native.ForegroundService;
 using Location = Android.Locations.Location;
 

@@ -1,4 +1,4 @@
-﻿using MvvmCross.Commands;
+﻿﻿using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using tabApp.Core.Services.Implementations.Products;
 using tabApp.Core.Services.Interfaces.Faturation;
 using tabApp.Core.Services.Interfaces.Products;
-using Xamarin.Essentials;
+using Microsoft.Maui.Essentials;
 
 namespace tabApp.Core.ViewModels.Global.Faturation
 {

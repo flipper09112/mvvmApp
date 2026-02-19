@@ -1,4 +1,13 @@
-﻿using Android.App;
+﻿﻿// ==============================================================================
+// TODO: ISSUE-002 - This file is obsolete and will be replaced
+// This is a Xamarin.Android + MvvmCross Application class
+// MAUI uses App.xaml.cs and MauiProgram.cs
+// DO NOT USE THIS FILE IN MAUI PROJECT
+// ==============================================================================
+
+#if FALSE // Disabled - Android/MvvmCross specific
+
+using Android.App;
 using Android.Runtime;
 using Autofac;
 using MvvmCross.Droid.Support.V7.AppCompat;
@@ -24,3 +33,5 @@ namespace tabApp
         }
     }
 }
+
+#endif // FALSE - End of disabled Android/MvvmCross code

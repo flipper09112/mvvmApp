@@ -1,4 +1,13 @@
-﻿using Android.Support.Design.Widget;
+﻿﻿// ==============================================================================
+// TODO: ISSUE-002 - This file is obsolete and will be replaced
+// This is a Xamarin.Android + MvvmCross setup file
+// MAUI uses MauiProgram.cs for dependency injection and setup
+// DO NOT USE THIS FILE IN MAUI PROJECT
+// ==============================================================================
+
+#if FALSE // Disabled - Android/MvvmCross specific
+
+using Android.Support.Design.Widget;
 using Android.Support.V4.View;
 using Android.Support.V4.Widget;
 using Android.Support.V7.Widget;
@@ -62,3 +71,5 @@ namespace tabApp
         }
     }
 }
+
+#endif // FALSE - End of disabled Android/MvvmCross code

@@ -1,4 +1,4 @@
-﻿using MvvmCross.Commands;
+﻿﻿using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using Newtonsoft.Json;
 using System;
@@ -18,7 +18,7 @@ using tabApp.Core.Services.Interfaces.Faturation;
 using tabApp.Core.Services.Interfaces.Products;
 using tabApp.Core.Services.Interfaces.WebServices.Sells.DTOs;
 using tabApp.Core.ViewModels.Bases.Generic;
-using Xamarin.Essentials;
+using Microsoft.Maui.Essentials;
 
 namespace tabApp.Core.ViewModels.Global.Faturation
 {

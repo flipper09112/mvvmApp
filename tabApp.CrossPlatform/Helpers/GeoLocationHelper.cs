@@ -1,4 +1,4 @@
-﻿using Org.BouncyCastle.Math.EC;
+﻿﻿using Org.BouncyCastle.Math.EC;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +8,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
-using Xamarin.Essentials;
+using Microsoft.Maui.Essentials;
 
 namespace tabApp.Core.Helpers
 {
