@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("tabApp.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ef180c47fd629561f169e5c0578a09f9ed42c4f6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+faaf0a3c539ce56a992bf5074e79f887ecee2d59")]
 [assembly: System.Reflection.AssemblyProductAttribute("tabApp.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("tabApp.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

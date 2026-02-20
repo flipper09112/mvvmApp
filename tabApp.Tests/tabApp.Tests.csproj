@@ -36,6 +36,7 @@
     <Compile Include="..\tabApp.Core\Models\GlobalOrder\CakeClientItem.cs" />
     <Compile Include="..\tabApp.Core\Services\Interfaces\Orders\IOrdersManagerService.cs" />
     <Compile Include="..\tabApp.Core\Services\Interfaces\Notifications\INotificationsManagerService.cs" />
+    <Compile Include="..\tabApp.Core\Services\Interfaces\Products\IProductsManagerService.cs" />
   </ItemGroup>
 
   <!-- Components under test (no MAUI APIs) -->
@@ -43,6 +44,14 @@
     <Compile Include="..\tabApp.CrossPlatform\Services\Location\HaversineCalculator.cs" />
     <Compile Include="..\tabApp.CrossPlatform\Services\Interfaces\Location\IProximityService.cs" />
     <Compile Include="..\tabApp.CrossPlatform\Services\Implementations\Location\ProximityService.cs" />
+
+    <!-- TASK-3.7 -->
+    <Compile Include="..\tabApp.CrossPlatform\Services\Interfaces\Notifications\INotificationStateStore.cs" />
+    <Compile Include="..\tabApp.CrossPlatform\Services\Interfaces\Notifications\IProximityNotificationService.cs" />
+    <Compile Include="..\tabApp.CrossPlatform\Services\Interfaces\Notifications\ILocalNotificationSender.cs" />
+    <Compile Include="..\tabApp.CrossPlatform\Services\Implementations\Notifications\DeduplicationKeyBuilder.cs" />
+    <Compile Include="..\tabApp.CrossPlatform\Services\Implementations\Notifications\PreferencesNotificationStateStore.cs" />
+    <Compile Include="..\tabApp.CrossPlatform\Services\Implementations\Notifications\ProximityNotificationService.cs" />
   </ItemGroup>
 
 </Project>

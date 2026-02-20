@@ -2,7 +2,7 @@
 ## Consolidated Task Status Report
 
 **Last Updated:** 2026-02-20  
-**Overall Progress:** 6 / 11 tasks complete (54%)  
+**Overall Progress:** 7 / 11 tasks complete (64%)  
 **Phase:** PHASE 2 in progress — PHASE 1 complete
 
 ---
@@ -17,7 +17,7 @@
 | Phase | Tasks | Status | Completion |
 |---|---|---|---|
 | PHASE 1 — Analysis & Documentation | 3.1 → 3.4 | ✅ COMPLETE | 100% |
-| PHASE 2 — Proof of Concepts | 3.5 → 3.8 | 🔄 IN PROGRESS | 50% (2/4) |
+| PHASE 2 — Proof of Concepts | 3.5 → 3.8 | 🔄 IN PROGRESS | 75% (3/4) |
 | PHASE 3 — Integration & Approval | 3.9 → 3.11 | ⏳ PENDING | 0% |
 
 ---
@@ -158,15 +158,33 @@ Working POC implemented inside `tabApp.CrossPlatform`. Both Android (WorkManager
 ### TASK 3.7 — Notification State Persistence POC
 | | |
 |---|---|
-| **Status** | 📋 READY TO START |
+| **Status** | ✅ COMPLETE |
+| **Completed** | 2026-02-20 |
 | **Owner** | Mobile Dev |
-| **Estimated Duration** | 0.5 days |
 
-**Planned deliverables:**
-- `NotificationStateStore.cs` — Preferences-based persistence
-- `DeduplicationService.cs` — deduplication logic
-- `NotificationSender.cs` — integration with MAUI LocalNotificationService
-- Unit tests for persistence and deduplication
+**Summary:**  
+Persistent per-day notification deduplication POC. Replaces the broken in-memory `HasNotify` flag (lost on restart → duplicate notifications) with `PreferencesNotificationStateStore` backed by MAUI Preferences (Android → SharedPreferences, iOS → NSUserDefaults). 22 unit tests across 3 fixtures.
+
+**Deliverables produced:**
+
+| File | Description |
+|---|---|
+| `Services/Interfaces/Notifications/INotificationStateStore.cs` | Persistence abstraction: `IsNotified()`, `MarkNotified()`, `ClearExpired()`, `ClearAll()` |
+| `Services/Interfaces/Notifications/IProximityNotificationService.cs` | Send + dedup interface |
+| `Services/Interfaces/Notifications/ILocalNotificationSender.cs` | Platform send abstraction |
+| `Services/Implementations/Notifications/PreferencesNotificationStateStore.cs` | MAUI Preferences store + companion index key (no enumeration API workaround) |
+| `Services/Implementations/Notifications/DeduplicationKeyBuilder.cs` | Key format: `{Type}_{Id}_{yyyy-MM-dd}` — date scopes dedup window |
+| `Services/Implementations/Notifications/ProximityNotificationService.cs` | Full dedup + send + TASK-3.4 content formatting |
+| `Services/Implementations/Notifications/MauiLocalNotificationSender.cs` | POC stub sender (swap for `Plugin.LocalNotification` in production) |
+| `tabApp.Tests/Task37Tests.cs` | 22 NUnit tests — 3 fixtures |
+
+**Key findings:**
+- ✅ Deduplication survives app restarts — state persists in MAUI Preferences
+- ✅ Per-day window — same item notifiable again the next day (date embedded in key)
+- ✅ `ClearExpired()` removes yesterday's keys — no unbounded key growth
+- ✅ `IKeyValueStore` abstraction removes MAUI runtime dependency from test project
+- ⚠️ `IProductsManagerService` not yet in MAUI DI — deferred to TASK-3.8
+- ⚠️ `MauiLocalNotificationSender` is a debug stub — real plugin deferred to implementation phase
 
 **Depends on:** TASK-3.4
 
@@ -272,13 +290,12 @@ Working POC implemented inside `tabApp.CrossPlatform`. Both Android (WorkManager
 | Android `net10.0-android` | ✅ | 0 errors in TASK-3.5 files |
 | iOS `net10.0-ios` | ✅ | 0 errors in TASK-3.5 files |
 | Windows | N/A | Location tracker not registered for Windows TFM |
-| Unit tests | ✅ | 28 tests in tabApp.Tests — 4 fixtures: Haversine accuracy, parsing, orders, notifications |
+| Unit tests | ✅ | 50 tests in tabApp.Tests — TASK-3.6: 28 tests (4 fixtures), TASK-3.7: 22 tests (3 fixtures) |
 
 ---
 
 ## 📌 Next Actions
 
-1. **Immediately:** Start TASK-3.7 — Notification deduplication POC using MAUI `Preferences`
-2. **Then:** TASK-3.8 — DI migration POC removing all `Mvx.Resolve` calls
-3. **Gate:** TASK-3.9 — Architecture review (requires all POCs complete)
-4. **Plan:** TASK-3.10 + 3.11 — Implementation roadmap and archive
+1. **Immediately:** Start TASK-3.8 — DI migration POC: register Core services in MAUI DI, remove all `Mvx.Resolve` calls
+2. **Gate:** TASK-3.9 — Architecture review (requires all PHASE 2 POCs complete)
+3. **Plan:** TASK-3.10 + 3.11 — Implementation roadmap and archive

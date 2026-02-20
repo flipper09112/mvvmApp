@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using tabApp.CrossPlatform.Services.Implementations.Location;
+using tabApp.CrossPlatform.Services.Implementations.Notifications;
 using tabApp.CrossPlatform.Services.Interfaces.Location;
+using tabApp.CrossPlatform.Services.Interfaces.Notifications;
 using tabApp.CrossPlatform.ViewModels.Main;
 using tabApp.CrossPlatform.Views.Settings;
 
@@ -62,6 +64,11 @@ namespace tabApp.CrossPlatform
             //       before ProximityService can be fully activated (deferred to TASK-3.8 DI migration).
             //       Registration is here for completeness; resolution will succeed once Core services are wired.
             services.AddSingleton<IProximityService, ProximityService>();
+
+            // TASK-3.7: Notification state persistence POC
+            services.AddSingleton<INotificationStateStore, PreferencesNotificationStateStore>();
+            services.AddSingleton<ILocalNotificationSender, MauiLocalNotificationSender>();
+            services.AddSingleton<IProximityNotificationService, ProximityNotificationService>();
         }
 
         /// <summary>

@@ -1,20 +1,28 @@
 ﻿// ─────────────────────────────────────────────────────────────────────────────
 // TASK-3.6 — Proximity Detection POC: Unit Tests
+// TASK-3.7 — Notification State Persistence POC: Unit Tests
 //
 // Coverage:
-//   HaversineCalculatorTests   — formula accuracy + edge cases
-//   CoordinateParsingTests     — TryParseAddress / TryParseStrings
-//   ProximityServiceOrderTests — GetOrdersInProximity filtering
-//   ProximityServiceNotifTests — GetNotificationsInProximity filtering
+//   HaversineCalculatorTests          — formula accuracy + edge cases
+//   CoordinateParsingTests            — TryParseAddress / TryParseStrings
+//   ProximityServiceOrderTests        — GetOrdersInProximity filtering
+//   ProximityServiceNotifTests        — GetNotificationsInProximity filtering
+//   DeduplicationKeyBuilderTests      — key format + date embedding
+//   NotificationStateStoreTests       — IsNotified / MarkNotified / ClearExpired / ClearAll
+//   ProximityNotificationServiceTests — dedup flow (send once, skip twice, clear → resend)
 // ─────────────────────────────────────────────────────────────────────────────
 
+using Microsoft.Maui.Storage;
 using Moq;
 using tabApp.Core.Models;
 using tabApp.Core.Models.Notifications;
 using tabApp.Core.Services.Interfaces.Notifications;
 using tabApp.Core.Services.Interfaces.Orders;
+using tabApp.Core.Services.Interfaces.Products;
 using tabApp.CrossPlatform.Services.Implementations.Location;
+using tabApp.CrossPlatform.Services.Implementations.Notifications;
 using tabApp.CrossPlatform.Services.Interfaces.Location;
+using tabApp.CrossPlatform.Services.Interfaces.Notifications;
 using tabApp.CrossPlatform.Services.Location;
 
 namespace tabApp.Tests;
