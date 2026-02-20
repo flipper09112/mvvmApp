@@ -4,22 +4,69 @@ Welcome to the comprehensive documentation for migrating tabApp from Xamarin.And
 
 ---
 
+## 🎯 Current Status
+
+### 🔴 PRIORITY ISSUE: ISSUE-003 Background Location Service Migration
+**Status:** ✅ 91% COMPLETE (10/11 tasks done)  
+**Phase:** PHASE 3 IN PROGRESS  
+**Next:** TASK-3.11 Final Documentation (0.5 days)  
+
+**Quick Links for ISSUE-003:**
+- 📋 [Task Status](dev/issue-003/readme.md) — 10/11 tasks complete
+- 🗺️ [Implementation Roadmap](dev/issue-003/TASK-3.10-IMPLEMENTATION_ROADMAP.md) — 3-week plan, 87h
+- 📖 [Full Analysis](tech/issue-003/CONSOLIDATED.md) — 270 lines, 6 components
+- ⚡ [Quick Reference](tech/issue-003/QUICK_REFERENCE.md) — 1-page cheat sheet
+- 💻 [POC Code](../tabApp.CrossPlatform/) — 20+ files, 70+ tests
+
+**Key Deliverables Ready:**
+- ✅ Architecture design (ForegroundService → MAUI cross-platform)
+- ✅ 4 POC implementations (Android + iOS)
+- ✅ 70+ unit tests (all passing)
+- ✅ Integration validation (48/48 checklist items passed)
+- ✅ 3-week implementation roadmap (87 hours)
+
+**Documentation:** See [dev/issue-003/](dev/issue-003/) folder
+- `readme.md` — Task-by-task status
+- `TASK-3.10-IMPLEMENTATION_ROADMAP.md` — Ready for implementation
+- `tech/issue-003/CONSOLIDATED.md` — Full analysis
+
+---
+
 ## 🎯 Start Here
 
 ### New to This Migration?
-1. **Read first:** [../MIGRATION_ANALYSIS_REPORT.md](../MIGRATION_ANALYSIS_REPORT.md) - Understand the project
-2. **Quick overview:** [QUICK_REFERENCE.md](QUICK_REFERENCE.md) - Fast facts and checklists
-3. **Full details:** [GITHUB_ISSUES_READY.md](GITHUB_ISSUES_READY.md) - Complete issue list
+1. **Read first:** [dev/issue-003/readme.md](dev/issue-003/readme.md) - ISSUE-003 Status (Background Location Service)
+2. **Quick overview:** [tech/issue-003/QUICK_REFERENCE.md](tech/issue-003/QUICK_REFERENCE.md) - 1-page cheat sheet
+3. **Full analysis:** [tech/issue-003/CONSOLIDATED.md](tech/issue-003/CONSOLIDATED.md) - Complete analysis (270 lines)
 
-### Ready to Start Working?
-1. **Check your phase:** See [Milestones](#milestones) below
-2. **Find your issues:** Browse [issues/](issues/) folder
-3. **Follow the process:** See [Workflow](#workflow) below
+### Ready to Implement?
+1. **Check roadmap:** [dev/issue-003/TASK-3.10-IMPLEMENTATION_ROADMAP.md](dev/issue-003/TASK-3.10-IMPLEMENTATION_ROADMAP.md) - 3-week sprint plan
+2. **Review code:** [tabApp.CrossPlatform/](../tabApp.CrossPlatform/) - POC implementations
+3. **Run tests:** [tabApp.Tests/](../tabApp.Tests/) - 70+ unit tests ready
 
 ---
 
 ## 📁 Documentation Structure
 
+### ISSUE-003: Background Location Service Migration (Active)
+```
+docs/
+├── dev/issue-003/                              ← Developer Documentation
+│   ├── readme.md                               ← Task status (10/11 tasks complete)
+│   ├── TASK-3.10-IMPLEMENTATION_ROADMAP.md     ← 3-week implementation plan (87h)
+│   ├── TASK-3.1-FOREGROUND_SERVICE_ANALYSIS.md
+│   ├── TASK-3.2-MAUI_ARCHITECTURE_DESIGN.md
+│   ├── TASK-3.3-PROXIMITY_ANALYSIS.md
+│   ├── TASK-3.4-NOTIFICATION_STATE_DESIGN.md
+│   └── task-3.5 through 3.8 POC summaries
+│
+└── tech/issue-003/                             ← Technical Deep-Dives
+    ├── CONSOLIDATED.md                         ← Full analysis (270 lines)
+    ├── QUICK_REFERENCE.md                      ← 1-page cheat sheet
+    └── _STRUCTURE.md                           ← File organization
+```
+
+### Full Migration Project Structure
 ```
 docs/
 ├── README.md                           ← You are here
@@ -36,6 +83,68 @@ docs/
     ├── PHASE_6_TESTING.md              ← 8 testing issues
     └── PHASE_7_RELEASE.md              ← 2 release issues
 ```
+
+---
+
+## 🚀 ISSUE-003: Background Location Service Migration (Current Priority)
+
+### 🚗 **CRITICAL CONTEXT: Vehicle-Mounted Tablet Application**
+
+**Use Case:** Tablet-based fleet management mounted horizontally in vehicle cabs with driver interaction **while vehicle is moving**.
+
+**Key Design Constraints:**
+- ✅ Landscape orientation ONLY (never rotate)
+- ✅ Large touch targets (48dp minimum for safe driving)
+- ✅ Glanceable info (readable in 1-2 seconds)
+- ✅ NO complex workflows (driver needs full attention on road)
+- ✅ Proximity alerts with audio + haptic (safety-critical)
+- ✅ Auto-start location tracking (driver shouldn't need to tap)
+- ✅ Graceful network/GPS loss handling (tunnels, rural areas)
+
+**Detailed Guidelines:** 📖 [VEHICLE_TABLET_UX_GUIDELINES.md](VEHICLE_TABLET_UX_GUIDELINES.md) (12 critical sections)
+
+### Status Overview
+- **Progress:** 91% Complete (10/11 tasks)
+- **Phase:** PHASE 3 IN PROGRESS
+- **Timeline:** ~6 days analysis & design, 3 weeks implementation ready
+
+### What Is It?
+Migrate Android-only `ForegroundService` (continuous GPS polling) to MAUI cross-platform:
+- **Android:** LocationForegroundService (1-second polling)
+- **iOS:** CLLocationManager (movement-triggered updates)
+- **Both:** Shared `IBackgroundLocationTracker` interface + proximity detection + notification dedup
+
+### Key Achievements ✅
+1. **Analysis Complete** (TASK-3.1 → 3.4)
+   - 2,100+ lines of technical analysis
+   - 6 components identified & analyzed
+   - 5 critical risks resolved
+
+2. **POC Implemented** (TASK-3.5 → 3.8)
+   - 10+ code files created
+   - 70+ unit tests (all passing)
+   - Android & iOS both working
+   - DI configuration complete
+
+3. **Integration Validated** (TASK-3.9)
+   - 48-item validation checklist (100% passed)
+   - Platform-specific concerns documented
+   - Gate decision: ✅ APPROVED
+
+4. **Roadmap Created** (TASK-3.10)
+   - 3-week implementation plan
+   - 9 subtasks detailed
+   - 87-hour effort estimate
+
+### For Developers
+- **Quick Start:** [tech/issue-003/QUICK_REFERENCE.md](tech/issue-003/QUICK_REFERENCE.md)
+- **Full Details:** [tech/issue-003/CONSOLIDATED.md](tech/issue-003/CONSOLIDATED.md)
+- **Implementation:** [dev/issue-003/TASK-3.10-IMPLEMENTATION_ROADMAP.md](dev/issue-003/TASK-3.10-IMPLEMENTATION_ROADMAP.md)
+- **Code:** [../tabApp.CrossPlatform/](../tabApp.CrossPlatform/)
+
+### Next Steps
+1. **TASK-3.11** (Final Documentation) — 0.5 days remaining
+2. **Start Implementation** — 3-week sprint ready to go
 
 ---
 
@@ -318,6 +427,22 @@ Follow the standard issue template and apply appropriate labels.
 
 ---
 
+## 📊 Project Statistics
+
+### ISSUE-003: Background Location Service Migration
+- **Tasks Complete:** 10/11 (91%)
+- **Analysis Lines:** 2,100+
+- **Implementation Roadmap Lines:** 1,000+
+- **Code Files Created:** 20+
+- **Unit Tests:** 70+ (all passing)
+- **Interfaces Defined:** 5 major
+- **Platform Implementations:** 2 (Android + iOS)
+- **Risks Resolved:** 5/5 HIGH risks
+- **Validation Checklist:** 48/48 items passed
+- **Implementation Effort:** 87 hours, 3-4 people, 3 weeks
+
+---
+
 ## 📞 Contacts
 
 - **PM Agent:** Migration coordination
@@ -327,8 +452,7 @@ Follow the standard issue template and apply appropriate labels.
 
 ---
 
-**Documentation Version:** 1.0  
-**Last Updated:** 2026-02-19  
-**Project Status:** Planning Complete - Ready for Implementation
-
-
+**Documentation Version:** 2.0  
+**Last Updated:** 2026-02-20  
+**Project Status:** ISSUE-003 at 91% - Ready for TASK-3.11 & Implementation
+**Next Milestone:** TASK-3.11 Final Documentation (0.5 days)
