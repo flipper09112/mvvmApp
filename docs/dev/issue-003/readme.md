@@ -2,8 +2,8 @@
 ## Consolidated Task Status Report
 
 **Last Updated:** 2026-02-20  
-**Overall Progress:** 7 / 11 tasks complete (64%)  
-**Phase:** PHASE 2 in progress — PHASE 1 complete
+**Overall Progress:** 8 / 11 tasks complete (73%)  
+**Phase:** PHASE 2 COMPLETE — PHASE 3 ready to start
 
 ---
 
@@ -17,8 +17,8 @@
 | Phase | Tasks | Status | Completion |
 |---|---|---|---|
 | PHASE 1 — Analysis & Documentation | 3.1 → 3.4 | ✅ COMPLETE | 100% |
-| PHASE 2 — Proof of Concepts | 3.5 → 3.8 | 🔄 IN PROGRESS | 75% (3/4) |
-| PHASE 3 — Integration & Approval | 3.9 → 3.11 | ⏳ PENDING | 0% |
+| PHASE 2 — Proof of Concepts | 3.5 → 3.8 | ✅ COMPLETE | 100% (4/4) |
+| PHASE 3 — Integration & Approval | 3.9 → 3.11 | 📋 READY TO START | 0% |
 
 ---
 
@@ -193,14 +193,43 @@ Persistent per-day notification deduplication POC. Replaces the broken in-memory
 ### TASK 3.8 — DI Migration POC (MvxResolve → MAUI IServiceProvider)
 | | |
 |---|---|
-| **Status** | 📋 READY TO START |
+| **Status** | ✅ COMPLETE |
+| **Completed** | 2026-02-20 |
 | **Owner** | Architect / Senior Dev |
-| **Estimated Duration** | 0.5 days |
 
-**Planned deliverables:**
-- `DIConfiguration.cs` — MAUI DI extension methods
-- Refactored `ProximityService` without `Mvx.Resolve`
-- Integration tests verifying DI resolution
+**Summary:**  
+Audit confirmed **zero active `Mvx.Resolve` calls** in `tabApp.CrossPlatform` and `tabApp.Core` — all MvvmCross code was already guarded under `#if FALSE`. `DIConfiguration.cs` created as the single source of truth for MAUI DI registration. `MauiProgram.cs` simplified to use `builder.ConfigureCoreServices()`. 20 unit tests validate the full DI graph via `ServiceCollection` (no MAUI runtime required).
+
+**Deliverables produced:**
+
+| File | Description |
+|---|---|
+| `DIConfiguration.cs` | `DiConfiguration` static class — `ConfigureCoreServices(MauiAppBuilder)` extension + `RegisterCoreServices()`, `RegisterLocationServices()`, `RegisterNotificationServices()` |
+| `MauiProgram.cs` | Simplified — delegates all service registration to `.ConfigureCoreServices()` |
+| `tabApp.Tests/Task38Tests.cs` | 20 NUnit tests — 4 fixtures: DI audit, registration, resolution, dependency graph |
+
+**Key findings:**
+- ✅ Zero `Mvx.Resolve` calls — MvvmCross fully removed from active code paths
+- ✅ All 6 Core services resolve from `IServiceCollection` with correct singleton lifetimes
+- ✅ Transitive deps satisfied — `IOrdersManagerService` shares the same `IClientsManagerService` singleton
+- ✅ `IProximityNotificationService` resolves with all TASK-3.7 deps wired
+- ⚠️ `ISQLiteService`, `IFileService`, `IFirebaseService`, `IDialogService` — no CrossPlatform implementation yet; deferred to implementation phase
+- ⚠️ `IInativityTimerService` still depends on `IMvxNavigationService` — deferred to TASK-3.9 scope
+
+**Dependency graph registered:**
+```
+IClientsManagerService          ← no deps
+IDeliverysManagerService        ← no deps
+IGlobalOrdersPastManagerService ← no deps
+IProductsManagerService         ← IClientsManagerService
+IOrdersManagerService           ← IProductsManagerService + IClientsManagerService
+INotificationsManagerService    ← IClientsManagerService
+IBackgroundLocationTracker      ← platform (LocationForegroundService / CLLocationManager)
+IProximityService               ← IOrdersManagerService + INotificationsManagerService
+INotificationStateStore         ← IKeyValueStore → MAUI Preferences
+ILocalNotificationSender        ← no deps (stub)
+IProximityNotificationService   ← INotificationStateStore + ILocalNotificationSender + IProductsManagerService
+```
 
 **Depends on:** TASK-3.1, TASK-3.2
 
@@ -212,12 +241,6 @@ Persistent per-day notification deduplication POC. Replaces the broken in-memory
 | **Status** | ⏳ PENDING (awaiting PHASE 2 completion) |
 | **Owner** | Tech Lead / Architect |
 | **Estimated Duration** | 1 day |
-
-**Planned deliverables:**
-- Architecture review presentation
-- Review meeting notes
-- Approved architecture document
-- `RISK_MITIGATION_PLAN.md`
 
 **Gate:** All TASK-3.1 → 3.8 must be complete before this task starts.
 
@@ -264,12 +287,13 @@ Persistent per-day notification deduplication POC. Replaces the broken in-memory
 
 | Risk | Severity | Status | Notes |
 |---|---|---|---|
-| WorkManager 15-min minimum on Android | HIGH | 🔍 Monitored | Confirmed in TASK-3.5 POC. Foreground Service needed for sub-15-min intervals |
+| WorkManager 15-min minimum on Android | HIGH | ✅ Resolved | Replaced by `LocationForegroundService` (TASK-3.5 correction) |
 | iOS significant-change is movement-triggered | MEDIUM | 🔍 Monitored | Not configurable; battery-optimal but frequency uncontrollable |
-| `BackgroundLocationStatus` is in-memory only | MEDIUM | 📋 Deferred | Replace with Preferences/SQLite in full implementation (TASK-3.7) |
+| `BackgroundLocationStatus` is in-memory only | MEDIUM | 📋 Deferred | Replace with Preferences/SQLite in full implementation phase |
 | `ACCESS_BACKGROUND_LOCATION` secondary dialog (Android 10+) | MEDIUM | 📋 Deferred | Requires UX guidance; user must navigate to Settings on second denial |
-| `Mvx.Resolve` calls throughout codebase | HIGH | 📋 TASK-3.8 | Blocking full DI migration — addressed in next POC |
-| String-based coordinates in data models | MEDIUM | ✅ Mitigated | `HaversineCalculator.TryParse*()` isolates all string parsing. Full model refactor deferred to impl phase |
+| `Mvx.Resolve` calls throughout codebase | HIGH | ✅ Resolved | Audit confirmed zero active calls (TASK-3.8) |
+| `ISQLiteService` / `IFileService` / `IFirebaseService` not in MAUI DI | HIGH | 📋 TASK-3.9 | No CrossPlatform implementation yet — blocking `DataBaseManagerService` |
+| String-based coordinates in data models | MEDIUM | ✅ Mitigated | `HaversineCalculator.TryParse*()` isolates all string parsing |
 
 ---
 
@@ -290,12 +314,12 @@ Persistent per-day notification deduplication POC. Replaces the broken in-memory
 | Android `net10.0-android` | ✅ | 0 errors in TASK-3.5 files |
 | iOS `net10.0-ios` | ✅ | 0 errors in TASK-3.5 files |
 | Windows | N/A | Location tracker not registered for Windows TFM |
-| Unit tests | ✅ | 50 tests in tabApp.Tests — TASK-3.6: 28 tests (4 fixtures), TASK-3.7: 22 tests (3 fixtures) |
+| Unit tests | ✅ | 70 tests in tabApp.Tests — TASK-3.6: 28 (4 fixtures), TASK-3.7: 22 (3 fixtures), TASK-3.8: 20 (4 fixtures) |
 
 ---
 
 ## 📌 Next Actions
 
-1. **Immediately:** Start TASK-3.8 — DI migration POC: register Core services in MAUI DI, remove all `Mvx.Resolve` calls
-2. **Gate:** TASK-3.9 — Architecture review (requires all PHASE 2 POCs complete)
-3. **Plan:** TASK-3.10 + 3.11 — Implementation roadmap and archive
+1. **Immediately:** Start TASK-3.9 — Integration Architecture Review (all PHASE 2 POCs complete)
+2. **Then:** TASK-3.10 — Implementation Roadmap & Checklist
+3. **Then:** TASK-3.11 — Final Documentation & Archive

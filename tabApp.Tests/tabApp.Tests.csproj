@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.2" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
     <PackageReference Include="Moq" Version="4.20.70" />
     <PackageReference Include="NUnit" Version="4.2.2" />
@@ -34,9 +35,14 @@
     <Compile Include="..\tabApp.Core\Models\Order\ProductAmmount.cs" />
     <Compile Include="..\tabApp.Core\Models\Order\Regist.cs" />
     <Compile Include="..\tabApp.Core\Models\GlobalOrder\CakeClientItem.cs" />
+    <Compile Include="..\tabApp.Core\Models\GlobalOrder\GlobalOrderRegist.cs" />
+    <!-- Core service interfaces -->
     <Compile Include="..\tabApp.Core\Services\Interfaces\Orders\IOrdersManagerService.cs" />
+    <Compile Include="..\tabApp.Core\Services\Interfaces\Orders\IGlobalOrdersPastManagerService.cs" />
     <Compile Include="..\tabApp.Core\Services\Interfaces\Notifications\INotificationsManagerService.cs" />
     <Compile Include="..\tabApp.Core\Services\Interfaces\Products\IProductsManagerService.cs" />
+    <Compile Include="..\tabApp.Core\Services\Interfaces\Clients\IClientsManagerService.cs" />
+    <Compile Include="..\tabApp.Core\Services\Interfaces\Deliverys\IDeliverysManagerService.cs" />
   </ItemGroup>
 
   <!-- Components under test (no MAUI APIs) -->
