@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" Version="6.0.2" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageReference Include="Moq" Version="4.20.70" />
+    <PackageReference Include="NUnit" Version="4.2.2" />
+    <PackageReference Include="NUnit.Analyzers" Version="4.4.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
+    <!-- SQLite deps required by Core models -->
+    <PackageReference Include="sqlite-net-pcl" Version="1.7.335" />
+    <PackageReference Include="SQLiteNetExtensions" Version="2.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="NUnit.Framework" />
+  </ItemGroup>
+
+  <!-- Core models needed for ProximityService signatures -->
+  <ItemGroup>
+    <Compile Include="..\tabApp.Core\Models\Client\Client.cs" />
+    <Compile Include="..\tabApp.Core\Models\Notifications\Notification.cs" />
+    <Compile Include="..\tabApp.Core\Models\Order\Order.cs" />
+    <Compile Include="..\tabApp.Core\Models\Order\Product.cs" />
+    <Compile Include="..\tabApp.Core\Models\Order\ProductAmmount.cs" />
+    <Compile Include="..\tabApp.Core\Models\Order\Regist.cs" />
+    <Compile Include="..\tabApp.Core\Models\GlobalOrder\CakeClientItem.cs" />
+    <Compile Include="..\tabApp.Core\Services\Interfaces\Orders\IOrdersManagerService.cs" />
+    <Compile Include="..\tabApp.Core\Services\Interfaces\Notifications\INotificationsManagerService.cs" />
+  </ItemGroup>
+
+  <!-- Components under test (no MAUI APIs) -->
+  <ItemGroup>
+    <Compile Include="..\tabApp.CrossPlatform\Services\Location\HaversineCalculator.cs" />
+    <Compile Include="..\tabApp.CrossPlatform\Services\Interfaces\Location\IProximityService.cs" />
+    <Compile Include="..\tabApp.CrossPlatform\Services\Implementations\Location\ProximityService.cs" />
+  </ItemGroup>
+
+</Project>

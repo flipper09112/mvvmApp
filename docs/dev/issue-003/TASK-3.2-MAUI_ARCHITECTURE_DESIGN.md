@@ -22,9 +22,9 @@ Design the MAUI equivalent architecture for ForegroundService, considering:
 
 ## 🔍 MAUI Background Options Analysis
 
-### ⚠️ Requirement: Real-Time Tracking (Max 5 Second Interval)
+### ⚠️ Requirement: Real-Time Tracking (Max 1 Second Interval)
 
-**Critical Constraint:** Location must be updated **maximum every 5 seconds** in background for proximity detection accuracy.
+**Critical Constraint:** Location must be updated **maximum every 1 second** in background for proximity detection accuracy.
 
 This eliminates several options:
 
@@ -33,12 +33,12 @@ This eliminates several options:
 | MAUI Background Tasks | 5-30 sec | ❌ No (unreliable, no guarantee) |
 | WorkManager (periodic) | 15 min minimum | ❌ No (too long) |
 | Significant Location Change | ~500m+ events | ❌ No (event-driven, not time-based) |
-| **FusedLocationProviderClient** | **1-5 sec** | ✅ **Yes** |
-| **CLLocationManager** | **1-5 sec** | ✅ **Yes** |
+| **FusedLocationProviderClient** | **1 sec** | ✅ **Yes** |
+| **CLLocationManager** | **1 sec (target)** | ✅ **Yes** |
 
 ---
 
-### Option 1: Android FusedLocationProviderClient (5sec intervals)
+### Option 1: Android FusedLocationProviderClient (1sec intervals)
 
 **What it is:**
 - Google Play Services location API
@@ -55,12 +55,12 @@ public class AndroidLocationService : IBackgroundLocationService
     
     public async Task StartAsync()
     {
-        // Create location request with 5 second interval
+        // Create location request with 1 second interval
         var request = new LocationRequest()
             .SetPriority(LocationRequest.PriorityHighAccuracy)
-            .SetInterval(5000)      // 5 seconds
-            .SetMaxWaitTime(5000)   // Max 5 seconds
-            .SetFastestInterval(2000); // Allow faster updates (2 sec minimum)
+            .SetInterval(1000)      // 1 second
+            .SetMaxWaitTime(1000)   // Max 1 second
+            .SetFastestInterval(1000); // Minimum 1 second
         
         // Create callback
         _locationCallback = new LocationCallbackImpl(location =>
@@ -109,7 +109,7 @@ public class AndroidLocationService : IBackgroundLocationService
 ```
 
 **Pros:**
-- ✅ Real-time location updates (5 second intervals)
+- ✅ Real-time location updates (1 second intervals)
 - ✅ Accurate GPS + Network + Sensors combination
 - ✅ Background-capable with foreground notification
 - ✅ Works even with battery saver mode
@@ -127,13 +127,13 @@ public class AndroidLocationService : IBackgroundLocationService
 
 ---
 
-### Option 2: iOS CLLocationManager (5sec intervals + Standard Updates)
+### Option 2: iOS CLLocationManager (1sec target + Standard Updates)
 
 **What it is:**
 - iOS Core Location framework
 - Standard location tracking mode (NOT significant change)
 - Supports background location with UIBackgroundModes
-- Can achieve 5 second intervals
+- Can achieve 1 second intervals
 
 **Implementation Pattern:**
 ```csharp
@@ -159,9 +159,9 @@ public class iOSLocationService : IBackgroundLocationService, ICLLocationManager
         // Start standard location updates (NOT significant change)
         _locationManager.StartUpdatingLocation();
         
-        // Note: iOS doesn't have direct 5-second interval control
+        // Note: iOS doesn't have direct 1-second interval control
         // Updates are event-driven based on movement and accuracy
-        // In practice, you'll get updates every 5-10 seconds with good GPS
+        // In practice, target 1-second cadence when GPS is stable
     }
     
     public async Task StopAsync()
@@ -183,7 +183,7 @@ public class iOSLocationService : IBackgroundLocationService, ICLLocationManager
 ```
 
 **Pros:**
-- ✅ Real-time location updates (~5-10 second intervals typical)
+- ✅ Real-time location updates (1-second target, event-driven)
 - ✅ Accurate GPS + Network + Sensors
 - ✅ Background-capable (UIBackgroundModes = location)
 - ✅ Standard iOS approach
@@ -212,7 +212,7 @@ public class iOSLocationService : IBackgroundLocationService, ICLLocationManager
 │  IBackgroundLocationService (Abstraction)            │
 │  ├─ StartLocationTracking()                          │
 │  ├─ StopLocationTracking()                           │
-│  ├─ LocationChanged Event (5sec max)                 │
+│  ├─ LocationChanged Event (1sec max)                 │
 │  └─ ProximityAlert Event                             │
 │                                                      │
 ├──────────────────────────────────────────────────────┤
@@ -220,15 +220,15 @@ public class iOSLocationService : IBackgroundLocationService, ICLLocationManager
 │                                                      │
 │  Android Path (Real-Time):                           │
 │  ├─ AndroidLocationService                           │
-│  ├─ FusedLocationProviderClient (5sec interval)      │
+│  ├─ FusedLocationProviderClient (1sec interval)      │
 │  ├─ Foreground Service (persistent notification)     │
-│  └─ LocationCallback (fires every 5 seconds)         │
+│  └─ LocationCallback (fires every 1 second)          │
 │                                                      │
 │  iOS Path (Real-Time):                               │
 │  ├─ iOSLocationService                               │
 │  ├─ CLLocationManager (standard updates)             │
 │  ├─ UIBackgroundModes = location (in Info.plist)     │
-│  └─ LocationDelegate (fires every 5-10 seconds)      │
+│  └─ LocationDelegate (targets 1-second cadence)      │
 │                                                      │
 ├──────────────────────────────────────────────────────┤
 │  Supporting Services:                                │
@@ -251,9 +251,9 @@ public class iOSLocationService : IBackgroundLocationService, ICLLocationManager
 
 **Why This Approach:**
 - ✅ Cross-platform from day 1 (abstraction layer)
-- ✅ **Real-time location every 5 seconds** (meets requirement)
+- ✅ **Real-time location every 1 second** (meets requirement)
 - ✅ Platform-optimal implementation for each OS
-- ✅ Android: FusedLocationProviderClient with 5sec interval
+- ✅ Android: FusedLocationProviderClient with 1sec interval
 - ✅ iOS: CLLocationManager standard updates
 - ✅ Both support background tracking
 - ✅ Unified interface for app code
@@ -270,17 +270,17 @@ public class iOSLocationService : IBackgroundLocationService, ICLLocationManager
 
 ---
 
-### Comparison: Previous (15min) vs New (5sec Real-Time)
+### Comparison: Previous (15min) vs New (1sec Real-Time)
 
-| Aspect | Previous (15min WorkManager) | New (5sec Real-Time) |
+| Aspect | Previous (15min WorkManager) | New (1sec Real-Time) |
 |--------|------------------------------|----------------------|
-| **Android** | WorkManager (15min periodic) | FusedLocationProviderClient (5sec) |
-| **iOS** | Significant change (~500m) | CLLocationManager standard (5sec) |
-| **Update Interval** | 15 minutes | 5 seconds ⚡ |
+| **Android** | WorkManager (15min periodic) | FusedLocationProviderClient (1sec) |
+| **iOS** | Significant change (~500m) | CLLocationManager standard (1sec target) |
+| **Update Interval** | 15 minutes | 1 second ⚡ |
 | **Accuracy** | Low (event-driven) | High (GPS continuous) ⚡ |
 | **Battery** | Very low | High (trade-off) |
 | **Background** | Yes (no notification) | Yes (with notification) |
-| **Proximity Detection** | Delayed (up to 15min) | Real-time (5sec) ⚡ |
+| **Proximity Detection** | Delayed (up to 15min) | Real-time (1sec) ⚡ |
 | **Use Case** | Periodic sync | **Real-time tracking** ⚡ |
 
 ---
@@ -299,10 +299,10 @@ namespace tabApp.Core.Services.Interfaces
     /// <summary>
     /// Cross-platform abstraction for background location tracking.
     /// 
-    /// REQUIREMENT: Real-time location updates (maximum 5 second interval)
+    /// REQUIREMENT: Real-time location updates (maximum 1 second interval)
     /// 
-    /// Android Implementation: FusedLocationProviderClient (5 second periodic updates)
-    /// iOS Implementation: CLLocationManager standard updates (5-10 second intervals)
+    /// Android Implementation: FusedLocationProviderClient (1 second periodic updates)
+    /// iOS Implementation: CLLocationManager standard updates (event-driven; 1-second target)
     /// 
     /// Both implementations provide real-time location updates for accurate proximity detection.
     /// Battery usage is high due to continuous GPS, but necessary for reliable geo-alerts.
@@ -327,8 +327,8 @@ namespace tabApp.Core.Services.Interfaces
         
         /// <summary>
         /// Current update interval in milliseconds.
-        /// Default: 5000ms (5 seconds) for real-time proximity detection.
-        /// Minimum: 2000ms (2 seconds) on Android
+        /// Default: 1000ms (1 second) for real-time proximity detection.
+        /// Minimum: 1000ms (1 second) requested on Android; not guaranteed.
         /// Note: iOS doesn't expose exact interval control (event-driven)
         /// </summary>
         int UpdateIntervalMs { get; set; }
@@ -367,7 +367,7 @@ namespace tabApp.Core.Services.Interfaces
         
         /// <summary>
         /// Fired when new location received.
-        /// Frequency: Android ~every 5 seconds, iOS ~every 5-10 seconds.
+        /// Frequency: Android ~every 1 second, iOS targets 1 second (event-driven).
         /// Always fired on main thread.
         /// </summary>
         event EventHandler<LocationChangedEventArgs> LocationChanged;
@@ -481,7 +481,7 @@ namespace tabApp.Droid.Services
     /// <summary>
     /// Android background location service using FusedLocationProviderClient.
     /// 
-    /// Provides real-time location updates (5 second intervals) with foreground service notification.
+    /// Provides real-time location updates (1 second intervals) with foreground service notification.
     /// 
     /// Uses FusedLocationProviderClient for location acquisition.
     /// Maintains foreground service throughout tracking (required for background location on Android 8.0+).
@@ -497,7 +497,7 @@ namespace tabApp.Droid.Services
         
         public LocationData LastLocation { get; private set; }
         public bool IsTracking => _isTracking;
-        public int UpdateIntervalMs { get; set; } = 5000;  // 5 seconds
+        public int UpdateIntervalMs { get; set; } = 1000;  // 1 second
         
         public event EventHandler<LocationChangedEventArgs> LocationChanged;
         public event EventHandler<ProximityAlertEventArgs> ProximityAlertTriggered;
@@ -515,12 +515,12 @@ namespace tabApp.Droid.Services
             
             try
             {
-                // Create location request with 5 second interval
+                // Create location request with 1 second interval
                 var request = new LocationRequest()
                     .SetPriority(LocationRequest.PriorityHighAccuracy)
-                    .SetInterval(5000)      // 5 seconds
-                    .SetMaxWaitTime(5000)   // Max 5 seconds
-                    .SetFastestInterval(2000); // Allow faster updates (2 sec minimum)
+                    .SetInterval(1000)      // 1 second
+                    .SetMaxWaitTime(1000)   // Max 1 second
+                    .SetFastestInterval(1000); // Minimum 1 second
                 
                 // Create callback
                 _locationCallback = new LocationCallbackImpl(location =>
@@ -662,7 +662,7 @@ namespace tabApp.Droid.Services
 ```
 
 **Key Features:**
-- ✅ Real-time updates every 5 seconds
+- ✅ Real-time updates every 1 second
 - ✅ FusedLocationProviderClient for accurate location
 - ✅ Foreground service notification (required for background)
 - ✅ LocationCallback handler for location events
@@ -687,7 +687,7 @@ namespace tabApp.iOS.Services
     /// iOS background location service using CLLocationManager.
     /// 
     /// Uses standard location tracking mode (NOT significant location change).
-    /// Provides real-time updates every 5-10 seconds for accurate proximity detection.
+    /// Provides real-time updates targeting 1-second cadence for accurate proximity detection.
     /// 
     /// Requires:
     /// - NSLocationAlwaysAndWhenInUseUsageDescription in Info.plist
@@ -701,7 +701,7 @@ namespace tabApp.iOS.Services
         
         public LocationData LastLocation { get; private set; }
         public bool IsTracking => _isTracking;
-        public int UpdateIntervalMs { get; set; } = 5000;  // iOS doesn't use this directly (event-driven)
+        public int UpdateIntervalMs { get; set; } = 1000;  // iOS doesn't use this directly (event-driven)
         
         public event EventHandler<LocationChangedEventArgs> LocationChanged;
         public event EventHandler<ProximityAlertEventArgs> ProximityAlertTriggered;
@@ -846,7 +846,7 @@ namespace tabApp.iOS.Services
 ```
 
 **Key Features:**
-- ✅ Real-time updates every 5-10 seconds (event-driven based on movement + accuracy)
+- ✅ Real-time updates targeting 1 second (event-driven based on movement + accuracy)
 - ✅ Standard location updates (NOT significant location change)
 - ✅ AccuracyBest for high precision
 - ✅ DistanceFilter = 5m (trigger for every 5m of movement)
@@ -918,7 +918,7 @@ namespace tabApp.CrossPlatform
 |--------|-------------------|-------------------------|
 | **Platform** | Android only | Android + iOS |
 | **Location API** | ForegroundService + FusedLocationProviderClient | FusedLocationProviderClient (Android) + CLLocationManager (iOS) |
-| **Update Interval** | 1000ms (1 second) | Android: 5000ms (5 sec), iOS: ~5-10 sec |
+| **Update Interval** | 1000ms (1 second) | Android: 1000ms (1 sec), iOS: 1-second target |
 | **Accuracy** | High (GPS always) | High (GPS always) |
 | **Battery** | Very high drain | Very high drain |
 | **Foreground Notification** | Required | Required |
@@ -936,7 +936,7 @@ namespace tabApp.CrossPlatform
 
 **Current:** Continuous GPS in foreground service (similar battery impact as MAUI solution)
 
-**MAUI:** Continuous GPS with 5-second intervals + foreground notification
+**MAUI:** Continuous GPS with 1-second intervals + foreground notification
 
 **Impact:**
 - ⚠️ High battery drain (continuous GPS required)

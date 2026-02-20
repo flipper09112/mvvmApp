@@ -23,9 +23,14 @@ For each issue implemented:
 
 ### ✅ REQUIRED OUTPUT
 
-You MUST create exactly ONE file:
+You MUST create exactly TWO file:
 
 docs/dev/issue-XX/readme.md
+docs/dev/issue-XX/task-x.x-description.md
+
+### ✅ REQUIRED Input
+
+You MUST read files if exist in docs/tech/issue-XX/
 
 ### ❌ HARD CONSTRAINTS
 
@@ -107,6 +112,7 @@ Validate:
 File:
 
 docs/dev/issue-XX/readme.md
+docs/dev/issue-XX/task-x.x-description.md
 
 ------------------------------------------------------------------------
 

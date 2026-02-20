@@ -1,6 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-	<application android:allowBackup="true" android:icon="@mipmap/appicon" android:roundIcon="@mipmap/appicon_round" android:supportsRtl="true"></application>
+	<application android:allowBackup="true" android:icon="@mipmap/appicon" android:roundIcon="@mipmap/appicon_round" android:supportsRtl="true">
+		<!-- LocationForegroundService: Android 8.0+ requires the service declared with foregroundServiceType -->
+		<service
+			android:name="tabApp.CrossPlatform.LocationForegroundService"
+			android:exported="false"
+			android:foregroundServiceType="location" />
+	</application>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+	<!-- Required to call StartForegroundService() on Android 9+ -->
+	<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+	<!-- Required for foregroundServiceType="location" on Android 14+ -->
+	<uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
 </manifest>

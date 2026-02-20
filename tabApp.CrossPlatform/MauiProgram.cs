@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
-using tabApp.CrossPlatform.Services;
+using tabApp.CrossPlatform.Services.Implementations.Location;
+using tabApp.CrossPlatform.Services.Interfaces.Location;
 using tabApp.CrossPlatform.ViewModels.Main;
 using tabApp.CrossPlatform.Views.Settings;
 
@@ -52,6 +53,15 @@ namespace tabApp.CrossPlatform
             // services.AddSingleton<IFileService, FileService>();
             // services.AddSingleton<ISQLiteService, SQLiteService>();
             // services.AddTransient<IDialogService, DialogService>();
+
+            // Background location tracking POC (platform-specific implementations in Platforms/Android|iOS)
+            services.AddSingleton<IBackgroundLocationTracker, BackgroundLocationTracker>();
+
+            // TASK-3.6: Proximity detection POC — HaversineCalculator + ProximityService
+            // NOTE: IOrdersManagerService and INotificationsManagerService must be registered
+            //       before ProximityService can be fully activated (deferred to TASK-3.8 DI migration).
+            //       Registration is here for completeness; resolution will succeed once Core services are wired.
+            services.AddSingleton<IProximityService, ProximityService>();
         }
 
         /// <summary>
