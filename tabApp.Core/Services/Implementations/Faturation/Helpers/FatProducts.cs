@@ -157,6 +157,7 @@ namespace tabApp.Core.Services.Implementations.Faturation.Helpers
                         await UpdateProduct(response.id, product);
                     }
                 }
+                
 
             }
 
