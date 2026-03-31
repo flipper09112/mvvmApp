@@ -29,6 +29,7 @@ namespace tabApp.Core.Services.Implementations.Helpers
                     DatesWeeklyPayment(dateTimesList);
                     break;
                 case PaymentTypeEnum.Mensal:
+                case PaymentTypeEnum.LojaMensal:
                     DatesMensalPayment(dateTimesList);
                     break;
                     

@@ -424,7 +424,7 @@ namespace tabApp.Core.ViewModels
 
         private void RemoveResalesValues(PaymentTypeEnum newPaymentType)
         {
-            if(newPaymentType != PaymentTypeEnum.JuntaDiasLoja && newPaymentType != PaymentTypeEnum.Loja)
+            if(newPaymentType != PaymentTypeEnum.JuntaDiasLoja && newPaymentType != PaymentTypeEnum.Loja && newPaymentType != PaymentTypeEnum.LojaMensal)
             {
                 if (_productsManagerService.ProductsList[0].ReSaleValues.Find(reSaleValues => reSaleValues.ClientId == Client.Id) != null)
                 {
@@ -442,7 +442,7 @@ namespace tabApp.Core.ViewModels
 
         private void CreateResalesValues()
         {
-            if (Client.PaymentType == PaymentTypeEnum.JuntaDiasLoja || Client.PaymentType == PaymentTypeEnum.Loja)
+            if (Client.PaymentType == PaymentTypeEnum.JuntaDiasLoja || Client.PaymentType == PaymentTypeEnum.Loja || Client.PaymentType == PaymentTypeEnum.LojaMensal)
             {
                 if (_productsManagerService.ProductsList[0].ReSaleValues.Find(reSaleValues => reSaleValues.ClientId == Client.Id) == null)
                 {

@@ -57,7 +57,7 @@ namespace tabApp.Core.ViewModels.Global.ChangePrices
             IsBusy = true;
             foreach(Client client in _clientsManagerService.ClientsList)
             {
-                if (client.PaymentType == PaymentTypeEnum.Loja || client.PaymentType == PaymentTypeEnum.JuntaDiasLoja)
+                if (client.PaymentType == PaymentTypeEnum.Loja || client.PaymentType == PaymentTypeEnum.JuntaDiasLoja || client.PaymentType == PaymentTypeEnum.LojaMensal)
                     continue;
 
                 var value = UpdateClient(client);
