@@ -246,7 +246,8 @@ namespace tabApp.Core.Models
         Loja,
         JuntaDias,
         None,
-        JuntaDiasLoja
+        JuntaDiasLoja,
+        LojaMensal
     }
 
     [Table("Delivery")]

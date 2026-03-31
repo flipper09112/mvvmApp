@@ -245,7 +245,7 @@ namespace tabApp.Core.Services.Implementations.Faturation.Helpers
                 return null;
             }
 
-            return (await GetVendasLista(SellsTypes.Facturação))?[0];
+            return (await GetVendasLista(SellsTypes.Facturação, int.Parse(response.id)))?[0];
         }
 
     }
